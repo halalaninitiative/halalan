@@ -1,0 +1,45 @@
+Halalan
+Version 0.1.0
+http://sourceforge.net/projects/halalan
+Copyright (C) 2006 UP Linux Users' Group
+
+
+VERSION FEATURES:
+
+This is an initial release.  Usable but many bugs may appear.  This is intended for developers interested in helping the project.
+
+
+INSTALLATION:
+
+See INSTALL
+
+
+PURPOSE:
+
+Halalan is an open source web and mobile voting system specifically designed for the University of the Philippines student elections but can be used in other elections with little or no modifications.
+
+
+DOCUMENT FORMAT:
+
+The formating of files under docs/ are copied from the documents of PHP Timeclock http://timeclock.sourceforge.net.
+
+
+LICENSING:
+
+This product is distributed under the GPL. This program is free software; 
+you can redistribute it and/or modify it under the terms of the GNU General 
+Public License version 2, as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT 
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.
+Please read through the LICENSE file for more information about the license.
+
+Parts of this distribution consist of the following:
+ADOdb http://adodb.sourceforge.net - BSD or LGPL
+Smarty http://smarty.php.net - LGPL
+PHPMailer http://phpmailer.sourceforge.net - LGPL
+Text_CAPTCHA package from PEAR http://pear.php.net/package/Text_CAPTCHA - PHP License
+Hypworks http://hypworks.sourceforge.net - LGPL
