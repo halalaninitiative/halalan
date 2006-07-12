@@ -64,7 +64,7 @@ else {
 	$mail->SMTPAuth  = MAIL_SMTPAUTH;
 	$mail->Username  = MAIL_USERNAME;
 	$mail->Password  = MAIL_PASSWORD;
-	$mail->Subject = "Halalan New Password"
+	$mail->Subject = "Halalan New Password";
 
 	// Create Mail Body
 	$body  = "Mabuhay!<br /><br />";
