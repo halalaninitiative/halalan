@@ -2,9 +2,15 @@
 
 /* Restricts access to specified user types */
 $this->restrict(USER_VOTER);
+if(isset($_SESSION['voted'])) {
+	if($_SESSION['voted'] == YES)
+		$this->forward('success');
+}
 
-if(!isset($_SESSION['confirmed']))
-	$this->forward('ballot');
+if(!isset($_SESSION['confirmed'])) {
+	if($_SESSION['confirmed'] == true)
+		$this->forward('ballot');
+}
 
 /* Required Files */
 Hypworks::loadDao('Candidate');
@@ -49,8 +55,11 @@ foreach($positions as $key=>$position) {
 /* Final Assignment of Variables */
 $this->assign(compact('positions'));
 $this->assign('captcha', 'images/captcha/' . md5(session_id()) . '.png');
-if($this->hasUserInput())
-	$this->setFormDefaults($this->userInput());
+if($this->hasUserInput()) {
+	$userinput = $this->userInput();
+	unset($userinput['candidateids']);
+	$this->setFormDefaults($userinput);
+}
 
 /* Output HTML */
 $this->display();

@@ -38,9 +38,8 @@ else {
 	Voter::update(compact('voted'), $voterid);
 	unset($_SESSION['votes']);
 	unset($_SESSION['confirmed']);
-	//$this->forward('success');
-	$this->addMessage('voted', 'Thank you for voting');
-	$this->forward('logout.do');
+	$_SESSION['voted'] = YES;
+	$this->forward('success');
 }
 
 ?>

@@ -2,6 +2,10 @@
 
 /* Restricts access to specified user types */
 $this->restrict(USER_VOTER);
+if(isset($_SESSION['voted'])) {
+	if($_SESSION['voted'] == YES)
+		$this->forward('success');
+}
 
 /* Required Files */
 Hypworks::loadDao('Candidate');
