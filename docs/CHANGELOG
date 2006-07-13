@@ -1,10 +1,20 @@
 Halalan
-Version 0.1.0
+Version 0.1.1
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006 UP Linux Users' Group
 
 
 Halalan Changelog
+
+0.1.1  20060713
+-----------------------
+--- Fixed candidate info and party info link in confirmvote
+--- Updated db
+--- Added success page after voting
+--- Added election result
+--- Added configuration variable for election result
+--- Fixed missing ; in $mail->Subject line in forgotpasswod.do
+
 
 0.1.0  20060709
 -----------------------
