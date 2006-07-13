@@ -28,10 +28,10 @@
 				{/if}
 			</td>
 			<td>
-				<a href="viewcandidate/{$candidate.candidateid}">{$candidate.firstname} {$candidate.lastname}</a>
+				<a href="candidateinfo/{$candidate.candidateid}">{$candidate.firstname} {$candidate.lastname}</a>
 			</td>
 			<td>
-				<a href="viewparty/{$candidate.partyid}">{$candidate.party}</a>
+				<a href="partyinfo/{$candidate.partyid}">{$candidate.party}</a>
 			</td>
 		</tr>
 		{/foreach}
