@@ -15,6 +15,12 @@ class Vote extends HypDao {
 		return $db->getAll("SELECT * FROM votes");
 	}
 
+	function countAllByCandidateID($candidateid) {
+		$db = parent::connect();
+		$rs = $db->execute("SELECT * FROM votes WHERE candidateid = ?", array($candidateid));
+		return $rs->recordCount();
+	}
+
 }
 
 ?>

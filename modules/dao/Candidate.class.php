@@ -35,6 +35,7 @@ class Candidate extends HypDao {
 		$db = parent::connect();
 		return $db->getAll("SELECT candidates.*, parties.party, positions.maximum, positions.ordinality FROM candidates JOIN parties USING(partyid) JOIN positions USING(positionid) WHERE candidates.positionid = ? ORDER BY lastname, firstname", array($positionid));
 	}
+
 }
 
 ?>

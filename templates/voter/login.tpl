@@ -38,5 +38,9 @@
 <div class="content">
 <h2>Error!</h2>
 <p>No election is running at this time.</p>
+{if $smarty.const.ELECTION_RESULT|lower eq "show"}
+<p>&nbsp;</p>
+<p>View result <a href="result">here</a>.</p>
+{/if}
 </div>
 {/if}
