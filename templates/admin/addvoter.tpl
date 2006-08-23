@@ -21,7 +21,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><input type="submit" value="Add Candidate" /></td>
+		<td><input type="submit" value="Add Voter" /></td>
 	</tr>
 	<tr>
 		<td colspan="2"><span style="color:red;">* -required fields</span></td>
