@@ -74,6 +74,14 @@ define('MAIL_SMTPAUTH', true);
 define('MAIL_USERNAME', ''); // fill this is up
 define('MAIL_PASSWORD', ''); // fill this is up
 
+// The following constants define the SMS configuration
+define('SMS_SERVER', '125.5.124.146');
+define('SMS_KEYWORD', 'HALALAN');
+define('SMS_REGISTER', 'REG');
+define('SMS_VOTE', 'BOTO');
+define('SMS_RESULT', 'RESULTA');
+define('SMS_DEFAULT_MESSAGE', 'maling paraan ng paggamit');
+
 /** NOTE: FOR NON-CONFIGURABLE CONSTANTS (I.E. APPLICATION-SPECIFIC CONSTANTS), PLEASE USE "APP_MODULES/constants.php" */
 
 
