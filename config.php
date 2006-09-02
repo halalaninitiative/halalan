@@ -50,8 +50,8 @@ define('URI', APP_PROTOCOL . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
  * See the example below.
  */
 define('ELECTION_NAME', 'Engineering Student Council 2007-2008');
-define('ELECTION_STATUS', 'inactive');
-define('ELECTION_RESULT', 'show');
+define('ELECTION_STATUS', 'inactive'); // active or inactive
+define('ELECTION_RESULT', 'hide'); // show or hide
 
 // The following constant defines the upload path
 define('UPLOAD_PATH', APP_ROOT . '/files');
@@ -75,7 +75,7 @@ define('MAIL_USERNAME', ''); // fill this is up
 define('MAIL_PASSWORD', ''); // fill this is up
 
 // The following constants define the SMS configuration
-define('SMS_SERVER', '125.5.124.146');
+define('SMS_SERVER', ''); // fill this is up
 define('SMS_KEYWORD', 'HALALAN');
 define('SMS_REGISTER', 'REG');
 define('SMS_VOTE', 'BOTO');
