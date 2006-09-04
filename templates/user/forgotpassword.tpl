@@ -27,4 +27,5 @@
 	</tr>
 </table>
 </form>
+<p>back to <a href="javascript:back()">home</a></p>
 </div>
