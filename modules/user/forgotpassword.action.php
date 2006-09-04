@@ -22,16 +22,16 @@ if(!isset($email)) {
 else {
 	if(!isValidEmail($email)) {
 		$this->addError('email', 'You have entered an invalid email address');
-	}	
+	}
+	else if(!$voter = Voter::selectByEmail($email)) {
+		$this->addError('nonexistent', 'There is no voter with that email address');
+	}
+	else if($voter['voted'] == 1) {
+		$this->addError('voted', 'You have already voted');
+	}
 }
 if($_SESSION['phrase'] != $captcha) {
 	$this->addError('captcha', 'Input text does not equal image text');
-}
-
-if(!$this->hasError()) {
-	if(!$voter = Voter::selectByEmail($email)) {
-		$this->addError('nonexistent', 'There is no voter with that email address');
-	}
 }
 
 if($this->hasError()) {
