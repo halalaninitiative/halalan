@@ -30,7 +30,7 @@
 		<td colspan="2"><span style="color:red;">note: password and pin will be automatically</span></td>
 	</tr>
 	<tr>
-		<td colspan="2"><span style="color:red;">generated and emailed to the voter</span></td>
+		<td colspan="2"><span style="color:red;">{if $smarty.const.ELECTION_PIN_PASSWORD_GENERATION|lower eq "email"}generated and emailed to the voter{elseif $smarty.const.ELECTION_PIN_PASSWORD_GENERATION|lower}displayed on the next page{/if}</span></td>
 	</tr>
 </table>
 </form>
