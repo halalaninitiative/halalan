@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-	<div class="header"><!-- put something here is there is no logo--><h1></h1><p></p></div>
+	<div class="header"><!-- put something here if there is no logo--><h1></h1><p></p></div>
 	<div class="left">
 		{if $smarty.session.usertype == $smarty.const.USER_VOTER}
 		<div class="leftcontent">
