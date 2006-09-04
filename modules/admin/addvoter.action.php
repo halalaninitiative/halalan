@@ -27,6 +27,9 @@ if(empty($email)) {
 else {
 	if(!isValidEmail($email)) {
 		$this->addError('email', 'Email is invalid');
+	}
+	else if(Voter::doEmailExists($email)) {
+		$this->addError('email', 'Email already exists');
 	}	
 }
 
@@ -40,7 +43,7 @@ else {
 	srand((double)microtime()*1000000);
 	$i = 0;
 	$password = '' ;
-	while ($i < 8) {
+	while ($i < ELECTION_PASSWORD_LENGTH) {
 		$num = rand() % 58;
 		$tmp = substr($chars, $num, 1);
 		$password = $password . $tmp;
@@ -51,53 +54,59 @@ else {
 	srand((double)microtime()*1000000);
 	$i = 0;
 	$pin = '';
-	while ($i < 8) {
+	while ($i < ELECTION_PIN_LENGTH) {
 		$num = rand() % 58;
 		$tmp = substr($chars, $num, 1);
 		$pin = $pin . $tmp;
 		$i++;
 	}
 
-	// Create PHPMailer object
-	$mail = new PHPMailer();
-	$mail->From     = MAIL_FROM;
-	$mail->FromName = MAIL_FROM_NAME;
-	$mail->Host     = MAIL_HOST;
-	$mail->Port     = MAIL_PORT;
-	$mail->Mailer   = MAIL_MAILER;
-	$mail->SMTPAuth  = MAIL_SMTPAUTH;
-	$mail->Username  = MAIL_USERNAME;
-	$mail->Password  = MAIL_PASSWORD;
-	$mail->Subject = "Halalan Auto-Generated Password and Pin";
-
-	// Create Mail Body
-	$body  = "Mabuhay!<br /><br />";
-	$body .= "Ang password mo ay " . $password;
-	$body .= " at ang pin mo ay " . $pin;
-	$body .= "<br /><br />";
-	$body .= "Halalan";
-
-	// Plain text body (for mail clients that cannot read HTML)
-	$text_body  = "Mabuhay!\n\n";
-	$text_body .= "Ang password mo ay " . $password;
-	$text_body .= " at ang pin mo ay " . $pin;
-	$text_body .= "\n\n";
-	$text_body .= "Halalan";
-
-	$mail->Body    = $body;
-	$mail->AltBody = $text_body;
-	$mail->AddAddress($email);
-
-	if(!$mail->Send()) {
-		echo $mail->ErrorInfo;
-		echo '<br />There has been a mail sending error.<br/>';
-		echo '<a href="addvoter">[Back to Add Voter]</a></p>';
-		exit();
+	if(strtolower(ELECTION_PIN_PASSWORD_GENERATION) == "email") {
+		// Create PHPMailer object
+		$mail = new PHPMailer();
+		$mail->From     = MAIL_FROM;
+		$mail->FromName = MAIL_FROM_NAME;
+		$mail->Host     = MAIL_HOST;
+		$mail->Port     = MAIL_PORT;
+		$mail->Mailer   = MAIL_MAILER;
+		$mail->SMTPAuth  = MAIL_SMTPAUTH;
+		$mail->Username  = MAIL_USERNAME;
+		$mail->Password  = MAIL_PASSWORD;
+		$mail->Subject = "Halalan Auto-Generated Password and Pin";
+	
+		// Create Mail Body
+		$body  = "Mabuhay!<br /><br />";
+		$body .= "Ang password mo ay " . $password;
+		$body .= " at ang pin mo ay " . $pin;
+		$body .= "<br /><br />";
+		$body .= "Halalan";
+	
+		// Plain text body (for mail clients that cannot read HTML)
+		$text_body  = "Mabuhay!\n\n";
+		$text_body .= "Ang password mo ay " . $password;
+		$text_body .= " at ang pin mo ay " . $pin;
+		$text_body .= "\n\n";
+		$text_body .= "Halalan";
+	
+		$mail->Body    = $body;
+		$mail->AltBody = $text_body;
+		$mail->AddAddress($email);
+	
+		if(!$mail->Send()) {
+			echo $mail->ErrorInfo;
+			echo '<br />There has been a mail sending error.<br/>';
+			echo '<a href="addvoter">[Back to Add Voter]</a></p>';
+			exit();
+		}
+			
+		// Clear all addresses and attachments for next loop
+		$mail->ClearAddresses();
+		$mail->ClearAttachments();
 	}
-		
-	// Clear all addresses and attachments for next loop
-	$mail->ClearAddresses();
-	$mail->ClearAttachments();
+	else if(strtolower(ELECTION_PIN_PASSWORD_GENERATION) == "web") {
+		$this->addMessage('pin', "Election pin: $pin");
+		$this->addMessage('password', "Election password: $password");
+	}
 
 	$password = sha1($password);
 	$pin = sha1($pin);
