@@ -50,8 +50,11 @@ define('URI', APP_PROTOCOL . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
  * See the example below.
  */
 define('ELECTION_NAME', 'Engineering Student Council 2007-2008');
-define('ELECTION_STATUS', 'inactive'); // active or inactive
+define('ELECTION_STATUS', 'active'); // active or inactive
 define('ELECTION_RESULT', 'hide'); // show or hide
+define('ELECTION_PIN_PASSWORD_GENERATION', 'web'); // web or email
+define('ELECTION_PIN_LENGTH', 4);
+define('ELECTION_PASSWORD_LENGTH', 4);
 
 // The following constant defines the upload path
 define('UPLOAD_PATH', APP_ROOT . '/files');
