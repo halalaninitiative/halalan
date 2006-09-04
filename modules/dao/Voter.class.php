@@ -46,6 +46,11 @@ class Voter extends HypDao {
 		return $db->getRow("SELECT * FROM voters WHERE voterid = ? AND pin = ? LIMIT 1", array($voterid, sha1($pin)));
 	}
 
+	function doEmailExists($email) {
+		$db = parent::connect();
+		return $db->getRow("SELECT * FROM voters WHERE email = ?", array($email));
+	}
+
 }
 
 ?>
