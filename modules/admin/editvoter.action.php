@@ -112,7 +112,7 @@ else {
 				$mail->ClearAttachments();
 			}
 			else if(strtolower(ELECTION_PIN_PASSWORD_GENERATION) == "web") {
-				$this->addMessage('password', "Election password: $password");
+				$this->addMessage('password', "Election password: <strong>$password</strong>");
 			}
 			$password = sha1($password);
 			Voter::update(compact('firstname', 'lastname', 'email', 'password'), $voterid);
@@ -149,7 +149,7 @@ else {
 				$mail->ClearAttachments();
 			}
 			else if(strtolower(ELECTION_PIN_PASSWORD_GENERATION) == "web") {
-				$this->addMessage('pin', "Election pin: $pin");
+				$this->addMessage('pin', "Election pin: <strong>$pin</strong>");
 			}
 			$pin = sha1($pin);
 			Voter::update(compact('firstname', 'lastname', 'email', 'pin'), $voterid);

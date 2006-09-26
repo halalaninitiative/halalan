@@ -40,16 +40,18 @@
 	{/foreach}
 	<div class="content">
 		<h2>Confirm Vote</h2>
-		<p>You may still change your choices by going <a href="ballot">here</a>.</p>
+		<br />
+		<p><span class="highlight">You may still change your choices</span> by going <a href="ballot">here</a>.</p>
 		<p>&nbsp;</p>
 		<p>
 			Enter your election pin: <input type="text" name="pin" />
 		</p>
+		<br />
 		<p>
-			Copy the text from the image to the text field below<br />
+			<strong>Copy the text from the image to the text field below</strong><br />
 			<img src="`$captcha`" alt="captcha" /><br />
 			<input type="text" name="captcha" />
 		</p>
-		<p><input name="submit" value="Confirm Vote" type="submit" /></p>
+		<p><input name="submit" value="Confirm Vote" type="submit" onclick="this.disabled=true;return true;" ></p>
 	</div>
 </form>

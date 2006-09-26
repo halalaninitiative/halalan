@@ -104,8 +104,8 @@ else {
 		$mail->ClearAttachments();
 	}
 	else if(strtolower(ELECTION_PIN_PASSWORD_GENERATION) == "web") {
-		$this->addMessage('pin', "Election pin: $pin");
-		$this->addMessage('password', "Election password: $password");
+		$this->addMessage('pin', "Election pin: <strong>$pin</strong>");
+		$this->addMessage('password', "Election password: <strong>$password</strong>");
 	}
 
 	$password = sha1($password);

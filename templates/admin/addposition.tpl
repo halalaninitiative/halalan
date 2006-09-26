@@ -12,11 +12,23 @@
 		<td><input type="text" name="position" /></td>
 	</tr>
 	<tr>
-		<td>Maximum: <span style="color:red;">*</span></td>
+		<td>
+			Maximum: <span style="color:red;">*</span>
+			<br />
+			<span class="grayed">
+			(maximum no. of candidates that can be accepted for this position, e.g. you can accept only 3 possible councilors out of 12 candidates)
+			</span>
+		</td>
 		<td><input type="text" name="maximum" /></td>
 	</tr>
 	<tr>
-		<td>Ordinality: <span style="color:red;">*</span></td>
+		<td>
+			Order<span style="color:red;">*</span>
+			<br />
+			<span class="grayed">
+			(refers to the how the positions will be displayed, e.g. President can have an order of 1, Vice-President has an order of 2, etc)
+			</span>
+		</td>
 		<td><input type="text" name="ordinality" /></td>
 	</tr>
 	<tr>

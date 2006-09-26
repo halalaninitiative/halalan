@@ -1,5 +1,5 @@
 <div class="content">
-<h2>Login</h2>
+<h2>Admin Login</h2>
 <div class="error">
 {errors all='error'}
 	{$error}

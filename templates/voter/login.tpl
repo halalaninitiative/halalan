@@ -36,11 +36,27 @@
 </div>
 {else}
 <div class="content">
-<h2>&nbsp;</h2>
-<p>No election is running at this time.</p>
-{if $smarty.const.ELECTION_RESULT|lower eq "show"}
-<p>&nbsp;</p>
-<p>View result <a href="result">here</a>.</p>
-{/if}
+
+<span class="banner">{$smarty.const.ELECTION_NAME}</span>
+	<table border="0" cellspacing="5" cellpadding="5" align="left">
+		<tr>
+			<td>
+				<img src="images/geticon.gif" border="0">
+			</td>
+			<td>
+				The election is not running. Please wait for the election administrator to activate the election.
+			</td>
+		</tr>
+		{if $smarty.const.ELECTION_RESULT|lower eq "show"}
+		<tr>
+			<td>
+				<img src="images/viewicon.gif" border="0">
+			</td>
+			<td>
+				Results are now available! View result <a href="result">here</a>.
+			</td>
+		</tr>
+		{/if}
+	</table>
 </div>
 {/if}

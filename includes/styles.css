@@ -6,6 +6,7 @@ body {
 	color: #545454;
 	background-color: #C4C4C4;
 	text-align: center;
+	background: url('images/bg.jpg');
 }
 
 p {
@@ -23,10 +24,10 @@ h1 {
 h2 {
 	margin: 0.1em;
 	padding: 0;
-	background-color: #A7BAEF;
+	background-color: maroon;
 	color: White;
 	font-size: 100%;
-	font-weight: normal;
+	font-weight: bold;
 }
 
 div {
@@ -36,31 +37,36 @@ div {
 }
 
 a:link {
-	color: #4169E1; 
+	color: green; 
 	text-decoration: underline;
+	font-weight: bold;
 }
 
 a:hover {
-	color: #E16840; 
+	color: green; 
 	text-decoration: none;
 }
 
 a:active {
-	color: #4169E1; 
+	color: green; 
 	text-decoration: underline;
+	font-weight: bold;
 }
 
 a:visited {
-	color: #B840E1; 
+	color: green; 
 	text-decoration: underline;
+	font-weight: bold;
 }
 
 .container {
 	background-color: #FFFFFF; 
-	margin: 0 auto 0 auto; 
+	margin: 25px auto 0 auto; 
 	padding:0; 
 	width: 740px;
+	border: 1px solid black;
 }
+
 
 .header {
 	padding: 2em; 
@@ -109,17 +115,25 @@ ul.navigation {
 	padding-left: 1em;
 }
 
-.leftcontent p a:link, a:visited{
+.leftcontent a:link {
 	color: #545454;
-	text-decoration: none
-	
+	text-decoration:none;
+	border-bottom:1px dashed;
+	font-weight: normal;
 }
 
-.leftcontent p a:hover{
+.leftcontent a:visited {
+	color: #545454;
+	text-decoration:none;
+	border-bottom:1px dashed;
+	font-weight: normal;
+}
+
+.leftcontent a:hover{
 	color: #72C32B;
 }
 
-.leftcontent p a:active {
+.leftcontent a:active {
 	color: #545454;
 	text-decoration: none
 }
@@ -157,4 +171,28 @@ ul.navigation {
 	border: 1px solid #C4C4C4;
 	padding: 0.5em;
 	margin: 0.3em;
+}
+
+.banner {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	color: maroon;
+}
+
+.grayed {
+	color: gray;
+	font-size: 8pt;
+	font-style: italic;
+}
+
+.highlight {
+	
+	padding: 3px;
+	text-align: left;
+	text-decoration: none;
+	font-size:12px;
+	color: #000000;
+	background-color: #FFFB94;
+
 }

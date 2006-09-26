@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-	<div class="header"><!-- put something here if there is no logo--><h1></h1><p></p></div>
+	<a href="login"><div class="header"><!-- put something here if there is no logo--><h1></h1><p></p></div></a>
 	<div class="left">
 		{if $smarty.session.usertype == $smarty.const.USER_VOTER}
 		<div class="leftcontent">
@@ -29,21 +29,32 @@
 		</div>
 		{/if}
 		<div class="leftcontent">
-			<h2>About Halalan</h2>
-			<p>Halalan is an open-source web and mobile voting system.</p>
+			<h2>Instructions</h2>
+			<ul>
+				<li>In order to vote, you have to login with your <span class="highlight">email and password</span>. </li>
+				<li>The password will be given to you in the <span class="highlight">pre-registration</span> booth.</li>
+				<li><span class="highlight">Don't forget your election pin</span> which will be used to validate your ballot. </li>
+				<li><span class="highlight">In case you lost your pin</span>, please ask the election administrator for a new one.</li>
+			</ul>
 		</div>
-		<div class="leftcontent leftlinks">
+		<div class="leftcontent">
 			<h2>Links</h2>
-			<p><a href="http://freew.bhxhost.com/">FreeW</a></p>
-			<p><a href="http://www.sxc.hu/">stock.xchng</a></p>
-			<p><a href="http://www.google.com/">Google</a></p>
+			{if $smarty.session.usertype != $smarty.const.USER_ADMIN}
+			<a href="adminlogin">Admin Login</a><br />
+			<br />
+			{/if}
+			
+			<a href="http://halalan.sourceforge.net/">Halalan Home Page</a><br />
+			<a href="http://uplug.org/">UP Linux Users' Group</a><br />
+			
 		</div>
 	</div>
 	{include file=$PARAMS.body}
 	<div class="footer">
-		<p><!--<a href="#">Home</a> | <a href="#">Sitemap</a><br />-->
-		Halalan &copy; 2006 UP Linux Users' Group<br />
-		Design by <a href="http://freew.bhxhost.com/">Cesar</a> | <a href="http://validator.w3.org/check/referer">XHTML 1.0 Strict</a></p>
+		<p>
+		<a href="http://halalan.sourceforge.net/">Halalan</a> &copy; 2006 <br />		
+		<a href="http://www.uplug.org/">University of the Philippines Linux Users' Group</a><br />
+		</p>
 	</div>
 </div>
 </body>
