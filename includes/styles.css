@@ -196,3 +196,11 @@ ul.navigation {
 	background-color: #FFFB94;
 
 }
+
+.error {
+	color: red;
+}
+
+.message {
+	color: green;
+}
