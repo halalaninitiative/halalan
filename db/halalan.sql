@@ -10,7 +10,7 @@ SET SESSION AUTHORIZATION 'postgres';
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 18 (OID 20628)
+-- TOC entry 19 (OID 20628)
 -- Name: plpgsql_call_handler(); Type: FUNC PROCEDURAL LANGUAGE; Schema: public; Owner: postgres
 --
 
@@ -22,7 +22,7 @@ CREATE FUNCTION plpgsql_call_handler() RETURNS language_handler
 SET SESSION AUTHORIZATION DEFAULT;
 
 --
--- TOC entry 17 (OID 20629)
+-- TOC entry 18 (OID 20629)
 -- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: public; Owner: 
 --
 
@@ -155,7 +155,7 @@ ALTER TABLE ONLY positions
 
 
 --
--- TOC entry 14 (OID 300871)
+-- TOC entry 15 (OID 300871)
 -- Name: voters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -164,7 +164,7 @@ ALTER TABLE ONLY voters
 
 
 --
--- TOC entry 15 (OID 300873)
+-- TOC entry 16 (OID 300873)
 -- Name: votes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -173,7 +173,7 @@ ALTER TABLE ONLY votes
 
 
 --
--- TOC entry 16 (OID 301182)
+-- TOC entry 17 (OID 301182)
 -- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -182,7 +182,16 @@ ALTER TABLE ONLY admins
 
 
 --
--- TOC entry 19 (OID 317171)
+-- TOC entry 14 (OID 500131)
+-- Name: voters_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY voters
+    ADD CONSTRAINT voters_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 20 (OID 317171)
 -- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -191,7 +200,7 @@ ALTER TABLE ONLY candidates
 
 
 --
--- TOC entry 20 (OID 317175)
+-- TOC entry 21 (OID 317175)
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -200,7 +209,7 @@ ALTER TABLE ONLY candidates
 
 
 --
--- TOC entry 21 (OID 317179)
+-- TOC entry 22 (OID 317179)
 -- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -209,7 +218,7 @@ ALTER TABLE ONLY votes
 
 
 --
--- TOC entry 22 (OID 317183)
+-- TOC entry 23 (OID 317183)
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
