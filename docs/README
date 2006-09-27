@@ -1,12 +1,12 @@
 Halalan
-Version 0.1.1
+Version 0.1.2
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006 UP Linux Users' Group
 
 
 VERSION FEATURES:
 
-This is a bug-fix release with additions of minor features just to make it complete.  Usable but many bugs may appear.  This is intended for developers interested in helping the project.
+This is the version used in the University of the Philippines Diliman Department of Computer Science Batch Representatives Election.  Initial SMS implementation is included.  This is intended for developers interested in helping the project.
 
 
 INSTALLATION:

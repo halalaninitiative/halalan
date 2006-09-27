@@ -1,12 +1,9 @@
 Halalan
-Version 0.1.1
+Version 0.1.2
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006 UP Linux Users' Group
 
 
 TODO:
 
---- Add restrictions to file uploading
---- Add file naming scheme to uploaded files to avoid conflict
---- Add error catching when uploading fails
---- Rewrite some PHP 5 functions to be PHP 4-compliant
+--- See http://bugs.uplug.org/index.php?tasks=all&project=1

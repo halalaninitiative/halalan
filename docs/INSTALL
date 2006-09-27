@@ -1,5 +1,5 @@
 Halalan
-Version 0.1.1
+Version 0.1.2
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006 UP Linux Users' Group
 
@@ -19,13 +19,14 @@ TESTED:
 --- PHP 2.0.33
 --- PostgreSQL 7.4.12
 --- Apache 2.2.2
---- Firefox 1.5.0.4
+--- Firefox 1.5.0.x
 
 
 INSTALLATION:
 
 --- Unpack the distribution
 --- Create the database from db/halalan.sql
+--- Add an admin account; use sha1 for its password
 --- Change configuration in config.php and conf/db.php if necessary
 --- Run ./hypworks.sh initialize
 --- That's all

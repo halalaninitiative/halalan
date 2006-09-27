@@ -1,10 +1,19 @@
 Halalan
-Version 0.1.1
+Version 0.1.2
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006 UP Linux Users' Group
 
 
 Halalan Changelog
+
+0.1.2  20060927
+-----------------------
+--- New interface
+--- Added disabling of submit button after clicking in confirmvote
+--- Added check for voters who have already voted
+--- Added configuration for pin and password generation and length
+--- Fixed submit label in addvoter
+
 
 0.1.1  20060713
 -----------------------
@@ -13,7 +22,7 @@ Halalan Changelog
 --- Added success page after voting
 --- Added election result
 --- Added configuration variable for election result
---- Fixed missing ; in $mail->Subject line in forgotpasswod.do
+--- Fixed missing ; in $mail->Subject line in forgotpassword.do
 
 
 0.1.0  20060709
