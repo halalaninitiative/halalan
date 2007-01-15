@@ -16,8 +16,10 @@ Hypworks::loadDao('Voter');
 extract($_POST, EXTR_REFS|EXTR_SKIP);
 $voterid = $PARAMS[0];
 
-Voter::delete($voterid);
-$this->addMessage('deletevoter', 'The voter has been successfully deleted');
+if(!@Voter::delete($voterid))
+	$this->addError('deletevoter', 'Cannot delete voter.  It has already voted');//is still in used');
+else
+	$this->addMessage('deletevoter', 'The voter has been successfully deleted');
 $this->forward('voters');
 
 ?>

@@ -8,6 +8,13 @@
         }
 	</script>
 {/literal}
+{errors}
+<div class="content error">
+	{errors all='error'}
+		{$error}<br />
+	{/errors}
+</div>
+{/errors}
 {messages}
 <div class="content message">
 	{messages all='message'}
