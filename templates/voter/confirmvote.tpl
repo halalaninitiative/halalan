@@ -1,5 +1,5 @@
 <div class="content">
-<h2>{$smarty.const.ELECTION_NAME}</h2>
+<h1>{$smarty.const.ELECTION_NAME}</h1>
 </div>
 {errors}
 <div class="content error">

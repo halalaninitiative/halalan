@@ -1,7 +1,7 @@
-{if $smarty.const.ELECTION_RESULT|lower eq "show" && $smarty.const.ELECTION_STATUS|lower neq "active"}
 <div class="content">
-<h2>{$smarty.const.ELECTION_NAME}</h2>
+<h1>{$smarty.const.ELECTION_NAME}</h1>
 </div>
+{if $smarty.const.ELECTION_RESULT|lower eq "show" && $smarty.const.ELECTION_STATUS|lower neq "active"}
 {foreach from=$positions item=position}
 <div class="content">
 <h2>{$position.position} ({$position.maximum})</h2>
@@ -34,8 +34,7 @@
 </div>
 {else}
 <div class="content">
-<h2>Error!</h2>
-<p>No result yet.</p>
+<p>No results yet.</p>
 <p>&nbsp;</p>
 <p>go <a href="login">back</a></p>
 </div>

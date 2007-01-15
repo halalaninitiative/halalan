@@ -1,4 +1,7 @@
 <div class="content">
+<h1>{$smarty.const.ELECTION_NAME}</h1>
+</div>
+<div class="content">
 <h2>{$candidate.firstname} {$candidate.lastname}</h2>
 {if $candidate.picture}
 <p><img width="100px" height="100px" alt="pic" src="`$smarty.const.APP_URI`/files/`$candidate.picture`" absolute=true /></p>

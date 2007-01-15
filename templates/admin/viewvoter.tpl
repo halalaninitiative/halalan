@@ -1,4 +1,7 @@
 <div class="content">
+<h1>{$smarty.const.ELECTION_NAME}</h1>
+</div>
+<div class="content">
 <h2>{$voter.firstname} {$voter.lastname}</h2>
 <p>Name: {$voter.firstname} {$voter.lastname}</p>
 <p>Email: {$voter.email}</p>

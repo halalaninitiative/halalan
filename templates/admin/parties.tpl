@@ -8,6 +8,9 @@
         }
 	</script>
 {/literal}
+<div class="content">
+<h1>{$smarty.const.ELECTION_NAME}</h1>
+</div>
 {errors}
 <div class="content error">
 	{errors all='error'}

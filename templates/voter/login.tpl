@@ -1,3 +1,6 @@
+<div class="content">
+<h1>{$smarty.const.ELECTION_NAME}</h1>
+</div>
 {if $smarty.const.ELECTION_STATUS|lower eq "active"}
 <div class="content">
 <h2>Login</h2>
@@ -37,11 +40,11 @@
 {else}
 <div class="content">
 
-<span class="banner">{$smarty.const.ELECTION_NAME}</span>
-	<table border="0" cellspacing="5" cellpadding="5" align="left">
+	<h1>{$smarty.const.ELECTION_NAME}</h1>
+	<table border="0" cellspacing="5" cellpadding="5">
 		<tr>
 			<td>
-				<img src="images/geticon.gif" border="0">
+				<img src="images/geticon.gif" border="0" />
 			</td>
 			<td>
 				The election is not running. Please wait for the election administrator to activate the election.
@@ -50,7 +53,7 @@
 		{if $smarty.const.ELECTION_RESULT|lower eq "show"}
 		<tr>
 			<td>
-				<img src="images/viewicon.gif" border="0">
+				<img src="images/viewicon.gif" border="0" />
 			</td>
 			<td>
 				Results are now available! View result <a href="result">here</a>.

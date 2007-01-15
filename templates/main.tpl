@@ -3,17 +3,19 @@
 <html>
 <!--<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">-->
 <head>
-	<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
-	<meta content="free template, css, xhtml, web, design, cesardesign01" name="keywords" />
-	<meta name="description" content="A free template. Valid XHTML and CSS. Design by Cesar." />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<base href="{$smarty.const.APP_URI}/" />
 	<link rel="stylesheet" type="text/css" href="includes/styles.css" />
-	<link rel="stylesheet" type="text/css" href="includes/local.css" />
 	<title>{$PARAMS.title} - Halalan</title>
 </head>
 <body>
 <div class="container">
-	<a href="login"><div class="header"><!-- put something here if there is no logo--><h1></h1><p></p></div></a>
+	<a href="login">
+	<div class="header">
+		<!-- put something here if there is no logo
+		<h1></h1><p></p> -->
+	</div>
+	</a>
 	<div class="left">
 		{if $smarty.session.usertype == $smarty.const.USER_VOTER}
 		<div class="leftcontent">
@@ -43,17 +45,15 @@
 			<a href="adminlogin">Admin Login</a><br />
 			<br />
 			{/if}
-			
 			<a href="http://halalan.sourceforge.net/">Halalan Home Page</a><br />
 			<a href="http://uplug.org/">UP Linux Users' Group</a><br />
-			
 		</div>
 	</div>
 	{include file=$PARAMS.body}
 	<div class="footer">
 		<p>
-		<a href="http://halalan.sourceforge.net/">Halalan</a> &copy; 2006 <br />		
-		<a href="http://www.uplug.org/">University of the Philippines Linux Users' Group</a><br />
+		<a href="http://halalan.sourceforge.net/">Halalan</a> &copy; 2006 <br />
+		<a href="http://uplug.org/">University of the Philippines Linux Users' Group</a><br />
 		</p>
 	</div>
 </div>

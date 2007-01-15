@@ -1,4 +1,7 @@
 <div class="content">
+<h1>{$smarty.const.ELECTION_NAME}</h1>
+</div>
+<div class="content">
 <h2>{$position.position}</h2>
 <p>Position: {$position.position}</p>
 <p>Maximum: {$position.maximum}</p>

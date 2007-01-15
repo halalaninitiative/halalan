@@ -1,4 +1,7 @@
 <div class="content">
+<h1>{$smarty.const.ELECTION_NAME}</h1>
+</div>
+<div class="content">
 <h2>Edit Party</h2>
 <div class="error">
 {errors all='error'}
