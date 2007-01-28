@@ -39,8 +39,6 @@
 </div>
 {else}
 <div class="content">
-
-	<h1>{$smarty.const.ELECTION_NAME}</h1>
 	<table border="0" cellspacing="5" cellpadding="5">
 		<tr>
 			<td>
