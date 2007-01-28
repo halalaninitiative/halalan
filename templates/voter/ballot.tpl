@@ -23,7 +23,7 @@
 			</td>
 			{else}
 			<td>
-				<input name="votes[`$candidate.positionid`][]" value="`$candidate.candidateid`" type="radio" />
+				<input name="votes[`$candidate.positionid`]" value="`$candidate.candidateid`" type="radio" />
 			</td>
 			{/if}
 			<td>

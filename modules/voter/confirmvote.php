@@ -2,14 +2,12 @@
 
 /* Restricts access to specified user types */
 $this->restrict(USER_VOTER);
-if(isset($_SESSION['voted'])) {
-	if($_SESSION['voted'] == YES)
-		$this->forward('success');
+if(isset($_SESSION['voted']) && $_SESSION['voted'] == YES) {
+	$this->forward('success');
 }
 
 if(!isset($_SESSION['confirmed'])) {
-	if($_SESSION['confirmed'] == true)
-		$this->forward('ballot');
+	$this->forward('ballot');
 }
 
 /* Required Files */
@@ -47,8 +45,13 @@ file_put_contents(APP_ROOT . '/includes/images/captcha/' . md5(session_id()) . '
 $votes = $_SESSION['votes'];
 $positions = Position::selectAll();
 foreach($positions as $key=>$position) {
-	foreach($votes[$positions[$key]['positionid']] as $candidateid) {
-		$positions[$key]['candidates'][] = Candidate::select($candidateid);
+	if(is_array($votes[$positions[$key]['positionid']])) {
+		foreach($votes[$positions[$key]['positionid']] as $candidateid) {
+			$positions[$key]['candidates'][] = Candidate::select($candidateid);
+		}
+	}
+	else {
+		$positions[$key]['candidates'][] = Candidate::select($votes[$positions[$key]['positionid']]);
 	}
 }
 
