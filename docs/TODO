@@ -1,9 +1,17 @@
 Halalan
-Version 0.1.2
+Version 0.1.3
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006 UP Linux Users' Group
 
 
 TODO:
 
---- See http://bugs.uplug.org/index.php?tasks=all&project=1
+--- Refactor picture uploading
+--- Add reports and graphs to the results page
+--- Create an interface for administration of different elections
+--- Add sorting by votes, by names, and by parties in result
+--- Resolve abstained issue
+
+ADDED FROM TODO IN 0.1.3  20070210
+--- Fix candidates and parties viewing in result
+--- Fix radio button in ballot to reflect user choice when going back to it or if there is an error
