@@ -12,6 +12,7 @@ if(!isset($_SESSION['confirmed'])) {
 
 /* Required Files */
 Hypworks::loadDao('Candidate');
+Hypworks::loadDao('Party');
 Hypworks::loadDao('Position');
 require_once('Image/Text.php');
 require_once('Text/CAPTCHA.php');
@@ -47,11 +48,17 @@ $positions = Position::selectAll();
 foreach($positions as $key=>$position) {
 	if(is_array($votes[$positions[$key]['positionid']])) {
 		foreach($votes[$positions[$key]['positionid']] as $candidateid) {
-			$positions[$key]['candidates'][] = Candidate::select($candidateid);
+			$candidate = Candidate::select($candidateid);
+			$party = Party::select($candidate['partyid']);
+			$candidate['partydesc'] = $party['description'];
+			$positions[$key]['candidates'][] = $candidate;
 		}
 	}
 	else {
-		$positions[$key]['candidates'][] = Candidate::select($votes[$positions[$key]['positionid']]);
+		$candidate = Candidate::select($votes[$positions[$key]['positionid']]);
+		$party = Party::select($candidate['partyid']);
+		$candidate['partydesc'] = $party['description'];
+		$positions[$key]['candidates'][] = $candidate;
 	}
 }
 

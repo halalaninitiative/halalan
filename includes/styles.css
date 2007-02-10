@@ -205,3 +205,19 @@ ul.navigation {
 .message {
 	color: green;
 }
+
+/* Default DOM Tooltip Style */
+div.domTT {
+	border: 1px solid maroon;
+	background-color: maroon;
+}
+div.domTT .caption {
+	text-align: left;
+	padding: 1px 2px;
+	color: #FFFFFF;
+}
+div.domTT .contents {
+	text-align: left;
+	padding: 3px 2px;
+	background-color: #F0F0F0;
+}

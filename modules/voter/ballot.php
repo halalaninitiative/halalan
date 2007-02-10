@@ -7,6 +7,7 @@ if(isset($_SESSION['voted']) && $_SESSION['voted'] == YES) {
 }
 
 /* Required Files */
+Hypworks::loadDao('Party');
 Hypworks::loadDao('Position');
 Hypworks::loadDao('Candidate');
 
@@ -24,7 +25,12 @@ if(isset($_SESSION['votes'])) {
 /* Data Gathering */
 $positions = Position::selectAll();
 foreach($positions as $key => $position) {
-	$positions[$key]['candidates'] = Candidate::selectAllByPositionID($position['positionid']);
+	$candidates = Candidate::selectAllByPositionID($position['positionid']);
+	foreach($candidates as $candidateid=>$candidate) {
+		$party = Party::select($candidate['partyid']);
+		$candidates[$candidateid]['partydesc'] = $party['description'];
+	}
+	$positions[$key]['candidates'] = $candidates;
 }
 
 /* Final Assignment of Variables */

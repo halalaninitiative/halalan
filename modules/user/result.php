@@ -4,6 +4,7 @@
 
 /* Required Files */
 Hypworks::loadDao('Candidate');
+Hypworks::loadDao('Party');
 Hypworks::loadDao('Position');
 Hypworks::loadDao('Vote');
 
@@ -15,6 +16,8 @@ foreach($positions as $key => $position) {
 	$candidates = Candidate::selectAllByPositionID($position['positionid']);
 	foreach($candidates as $candidateid=>$candidate) {
 		$candidates[$candidateid]['votes'] = Vote::countAllByCandidateID($candidate['candidateid']);
+		$party = Party::select($candidate['partyid']);
+		$candidates[$candidateid]['partydesc'] = $party['description'];
 	}
 	$positions[$key]['candidates'] = $candidates;
 }

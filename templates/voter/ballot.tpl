@@ -1,3 +1,7 @@
+{include_js src="domTT/domLib.js"}
+{include_js src="domTT/domTT.js"}
+{include_js src="domTT/domTT_drag.js"}
+
 <div class="content">
 <h1>{$smarty.const.ELECTION_NAME}</h1>
 </div>
@@ -34,10 +38,10 @@
 				{/if}
 			</td>
 			<td>
-				<a href="candidateinfo/{$candidate.candidateid}">{$candidate.firstname} {$candidate.lastname}</a>
+				<a href="ballot" onclick="return makeFalse(domTT_activate(this, event, 'caption', '{$candidate.firstname|escape:javascript} {$candidate.lastname|escape:javascript}', 'content', '{$candidate.description|nl2br|escape:javascript}', 'type', 'sticky', 'closeLink', '[close]', 'draggable', true));">{$candidate.firstname} {$candidate.lastname}</a>
 			</td>
 			<td>
-				<a href="partyinfo/{$candidate.partyid}">{$candidate.party}</a>
+				<a href="ballot" onclick="return makeFalse(domTT_activate(this, event, 'caption', '{$candidate.party|escape:javascript}', 'content', '{$candidate.partydesc|nl2br|escape:javascript}', 'type', 'sticky', 'closeLink', '[close]', 'draggable', true));">{$candidate.party}</a>
 			</td>
 		</tr>
 		{/foreach}
