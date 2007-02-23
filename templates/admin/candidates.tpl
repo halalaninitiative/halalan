@@ -36,7 +36,8 @@
 </div>
 {foreachelse}
 <div class="content">
-No records found
+<h2>Candidates</h2>
+<table width="100%"><tr><td>No records found</td></tr></table>
 </div>
 {/foreach}
 <div class="content"><a href="addcandidate">Add Candidate</a></div>
