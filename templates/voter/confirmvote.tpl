@@ -44,9 +44,7 @@
 	{/foreach}
 	<div class="content">
 		<h2>Confirm Vote</h2>
-		<br />
-		<p><span class="highlight">You may still change your choices</span> by going <a href="ballot">here</a>.</p>
-		<p>&nbsp;</p>
+		{if $smarty.const.ELECTION_CAPTCHA|lower eq "enable"}
 		<p>
 			Enter your election pin: <input type="text" name="pin" />
 		</p>
@@ -54,8 +52,9 @@
 		<p>
 			<strong>Copy the text from the image to the text field below</strong><br />
 			<img src="`$captcha`" alt="captcha" /><br />
-			<input type="text" name="captcha" />
+			Enter the image text: <input type="text" name="captcha" />
 		</p>
-		<p><input name="submit" value="Confirm Vote" type="submit" onclick="this.disabled=true;return true;" ></p>
+		{/if}
+		<p><input name="submit" value="Confirm Vote" type="submit" onclick="this.disabled=true;return true;" > <span class="highlight">You may still change your choices by going <a href="ballot">here</a></span>.</p>
 	</div>
 </form>

@@ -16,13 +16,18 @@ Hypworks::loadDao('Voter');
  */
 extract($_POST, EXTR_REFS|EXTR_SKIP);
 
-// check pin
-$voter = Voter::authenticatePin($_SESSION[INDEX_USERID], $pin);
-if(!$voter) {
-	$this->addError('pin', 'You have entered an invalid pin');
+if(strtolower(ELECTION_CAPTCHA) == "enable") {
+	// check pin
+	$voter = Voter::authenticatePin($_SESSION[INDEX_USERID], $pin);
+	if(!$voter) {
+		$this->addError('pin', 'You have entered an invalid pin');
+	}
+	if($_SESSION['phrase'] != $captcha) {
+		$this->addError('captcha', 'Input text does not equal image text');
+	}
 }
-if($_SESSION['phrase'] != $captcha) {
-	$this->addError('captcha', 'Input text does not equal image text');
+else {
+	$voter = Voter::select($_SESSION[INDEX_USERID]);
 }
 
 if($this->hasError()) {

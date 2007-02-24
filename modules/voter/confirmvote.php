@@ -14,6 +14,7 @@ if(!isset($_SESSION['confirmed'])) {
 Hypworks::loadDao('Candidate');
 Hypworks::loadDao('Party');
 Hypworks::loadDao('Position');
+if(strtolower(ELECTION_CAPTCHA) == "enable") {
 require_once('Image/Text.php');
 require_once('Text/CAPTCHA.php');
 
@@ -42,6 +43,7 @@ if (PEAR::isError($png)) {
 }
 // Save the CAPTCHA image file
 file_put_contents(APP_ROOT . '/includes/images/captcha/' . md5(session_id()) . '.png', $png);
+}
 
 $votes = $_SESSION['votes'];
 $positions = Position::selectAll();
@@ -64,7 +66,8 @@ foreach($positions as $key=>$position) {
 
 /* Final Assignment of Variables */
 $this->assign(compact('positions'));
-$this->assign('captcha', 'images/captcha/' . md5(session_id()) . '.png');
+if(strtolower(ELECTION_CAPTCHA) == "enable")
+	$this->assign('captcha', 'images/captcha/' . md5(session_id()) . '.png');
 if($this->hasUserInput()) {
 	$userinput = $this->userInput();
 	unset($userinput['candidateids']);
