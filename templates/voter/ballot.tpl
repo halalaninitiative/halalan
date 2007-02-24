@@ -30,6 +30,7 @@
 				<input name="votes[`$candidate.positionid`]" value="`$candidate.candidateid`" type="radio" />
 			</td>
 			{/if}
+			{if $smarty.const.ELECTION_PICTURE|lower eq "enable"}
 			<td>
 				{if $candidate.picture}
 				<img width="100px" height="100px" alt="pic" src="`$smarty.const.APP_URI`/files/`$candidate.picture`" absolute=true />
@@ -37,6 +38,7 @@
 				<img width="100px" height="100px" alt="pic" src="images/nophoto.jpg" />
 				{/if}
 			</td>
+			{/if}
 			<td>
 				<a href="ballot" onclick="return makeFalse(domTT_activate(this, event, 'caption', '{$candidate.firstname|escape:javascript} {$candidate.lastname|escape:javascript}', 'content', '{$candidate.description|nl2br|escape:javascript}', 'type', 'sticky', 'closeLink', '[close]', 'draggable', true));">{$candidate.firstname} {$candidate.lastname}</a>
 			</td>

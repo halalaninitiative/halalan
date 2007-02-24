@@ -30,10 +30,15 @@ if($this->hasError()) {
 	$this->forward("editcandidate/$candidateid");
 }
 else {
-	if($_FILES['picture']['error'] == 0) {
-		$picture = $_FILES['picture']['name'];
-		move_uploaded_file($_FILES['picture']['tmp_name'], UPLOAD_PATH . '/' . $picture);
-		Candidate::update(compact('firstname', 'lastname', 'partyid', 'positionid', 'description', 'picture'), $candidateid);
+	if(strtolower(ELECTION_PICTURE) == "enable") {
+		if($_FILES['picture']['error'] == 0) {
+			$picture = $_FILES['picture']['name'];
+			move_uploaded_file($_FILES['picture']['tmp_name'], UPLOAD_PATH . '/' . $picture);
+			Candidate::update(compact('firstname', 'lastname', 'partyid', 'positionid', 'description', 'picture'), $candidateid);
+		}
+		else {
+			Candidate::update(compact('firstname', 'lastname', 'partyid', 'positionid', 'description'), $candidateid);
+		}
 	}
 	else {
 		Candidate::update(compact('firstname', 'lastname', 'partyid', 'positionid', 'description'), $candidateid);

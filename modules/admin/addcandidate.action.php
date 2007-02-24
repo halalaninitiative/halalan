@@ -29,11 +29,16 @@ if($this->hasError()) {
 	$this->forward('addcandidate');
 }
 else {
-	if($_FILES['picture']['error'] == 0) {
-		$picture = $_FILES['picture']['name'];
-		move_uploaded_file($_FILES['picture']['tmp_name'], UPLOAD_PATH . '/' . $picture);
+	if(strtolower(ELECTION_PICTURE) == "enable") {
+		if($_FILES['picture']['error'] == 0) {
+			$picture = $_FILES['picture']['name'];
+			move_uploaded_file($_FILES['picture']['tmp_name'], UPLOAD_PATH . '/' . $picture);
+		}
+		Candidate::insert(compact('firstname', 'lastname', 'partyid', 'positionid', 'description', 'picture'));
 	}
-	Candidate::insert(compact('firstname', 'lastname', 'partyid', 'positionid', 'description', 'picture'));
+	else {
+		Candidate::insert(compact('firstname', 'lastname', 'partyid', 'positionid', 'description'));
+	}
 	$this->addMessage('addcandidate', 'A new candidate has been successfully added');
 	$this->forward('candidates');
 }

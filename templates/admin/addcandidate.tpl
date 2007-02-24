@@ -31,10 +31,12 @@
 		<td>Description:</td>
 		<td><textarea name="description"></textarea></td>
 	</tr>
+	{if $smarty.const.ELECTION_PICTURE|lower eq "enable"}
 	<tr>
 		<td>Picture:</td>
 		<td><input type="file" name="picture" /></td>
 	</tr>
+	{/if}
 	<tr>
 		<td></td>
 		<td><input type="submit" value="Add Candidate" /></td>

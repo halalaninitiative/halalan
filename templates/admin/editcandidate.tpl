@@ -31,10 +31,12 @@
 		<td>Description:</td>
 		<td><textarea name="description"></textarea></td>
 	</tr>
+	{if $smarty.const.ELECTION_PICTURE|lower eq "enable"}
 	<tr>
 		<td>Picture:</td>
 		<td><input type="file" name="picture" /></td>
 	</tr>
+	{/if}
 	<tr>
 		<td></td>
 		<td><input type="submit" value="Edit Candidate" /></td>
@@ -42,9 +44,11 @@
 	<tr>
 		<td colspan="2"><span style="color:red;">* -required fields</span></td>
 	</tr>
+	{if $smarty.const.ELECTION_PICTURE|lower eq "enable"}
 	<tr>
 		<td colspan="2"><span style="color:red;">note: uploading a picture will overwrite existing one</span></td>
 	</tr>
+	{/if}
 </table>
 </form>
 <p>back to <a href="candidates">candidates</a></p>
