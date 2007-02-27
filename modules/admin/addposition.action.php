@@ -31,13 +31,15 @@ else {
 	if(!ctype_digit($ordinality))
 		$this->addError('ordinality', 'Ordinality is not a digit');
 }
+if(!isset($abstain))
+	$this->addError('abstain', 'Abstain is required');
 
 if($this->hasError()) {
 	$this->addUserInput($_POST);
 	$this->forward('addposition');
 }
 else {
-	Position::insert(compact('position', 'maximum', 'ordinality', 'description'));
+	Position::insert(compact('position', 'maximum', 'ordinality', 'description', 'abstain'));
 	$this->addMessage('addposition', 'A new position has been successfully added');
 	$this->forward('positions');
 }

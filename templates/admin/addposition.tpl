@@ -41,6 +41,10 @@
 		<td><textarea name="description"></textarea></td>
 	</tr>
 	<tr>
+		<td>Abstain: <span style="color:red;">*</span></td>
+		<td><input type="radio" name="abstain" value="`$smarty.const.YES`" /> enable <input type="radio" name="abstain" value="`$smarty.const.NO`" /> disable</td>
+	</tr>
+	<tr>
 		<td></td>
 		<td><input type="submit" value="Add Position" /></td>
 	</tr>
