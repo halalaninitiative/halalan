@@ -1,13 +1,15 @@
 <div class="content">
 <h1>{$smarty.const.ELECTION_NAME}</h1>
 </div>
-<div class="content">
-<h2>Add Position</h2>
-<div class="error">
+{errors}
+<div class="content error">
 {errors all='error'}
 	{$error}<br />
 {/errors}
 </div>
+{/errors}
+<div class="content">
+<h2>Add Position</h2>
 <form action="addposition.do">
 <table>
 	<tr>
