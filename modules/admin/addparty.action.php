@@ -23,11 +23,16 @@ if($this->hasError()) {
 	$this->forward('addparty');
 }
 else {
-	if($_FILES['logo']['error'] == 0) {
-		$logo = $_FILES['logo']['name'];
-		move_uploaded_file($_FILES['logo']['tmp_name'], UPLOAD_PATH . '/' . $logo);
+	if(strtolower(ELECTION_PICTURE) == "enable") {
+		if($_FILES['logo']['error'] == 0) {
+			$logo = $_FILES['logo']['name'];
+			move_uploaded_file($_FILES['logo']['tmp_name'], UPLOAD_PATH . '/' . $logo);
+		}
+		Party::insert(compact('party', 'description', 'logo'));
 	}
-	Party::insert(compact('party', 'description', 'logo'));
+	else {
+		Party::insert(compact('party', 'description'));
+	}
 	$this->addMessage('addparty', 'A new party has been successfully added');
 	$this->forward('parties');
 }

@@ -24,10 +24,15 @@ if($this->hasError()) {
 	$this->forward("editparty/$partyid");
 }
 else {
-	if($_FILES['logo']['error'] == 0) {
-		$logo = $_FILES['logo']['name'];
-		move_uploaded_file($_FILES['logo']['tmp_name'], UPLOAD_PATH . '/' . $logo);
-		Party::update(compact('party', 'description', 'picture'), $partyid);
+	if(strtolower(ELECTION_PICTURE) == "enable") {
+		if($_FILES['logo']['error'] == 0) {
+			$logo = $_FILES['logo']['name'];
+			move_uploaded_file($_FILES['logo']['tmp_name'], UPLOAD_PATH . '/' . $logo);
+			Party::update(compact('party', 'description', 'picture'), $partyid);
+		}
+		else {
+			Party::update(compact('party', 'description'), $partyid);
+		}
 	}
 	else {
 		Party::update(compact('party', 'description'), $partyid);
