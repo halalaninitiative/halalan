@@ -22,8 +22,8 @@ if(!isset($votes)) {
 else {
 	// check if all positions have selected candidates
 	$positions = Position::selectAll();
-	if(count($positions) != count($votes)) {
-		$this->addError('inc', 'You must select candidates for all positions.  Otherwise, select "abstained"');
+	if(count($positions) != (count($votes) + @count($abstain))) {
+		$this->addError('inc', 'You must select candidates for all positions.  Otherwise, select "abstain"');
 	}
 	else {
 		foreach($votes as $positionid=>$candidateids) {

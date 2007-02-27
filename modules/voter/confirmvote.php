@@ -48,19 +48,16 @@ file_put_contents(APP_ROOT . '/includes/images/captcha/' . md5(session_id()) . '
 $votes = $_SESSION['votes'];
 $positions = Position::selectAll();
 foreach($positions as $key=>$position) {
-	if(is_array($votes[$positions[$key]['positionid']])) {
-		foreach($votes[$positions[$key]['positionid']] as $candidateid) {
+	foreach($votes[$positions[$key]['positionid']] as $candidateid) {
+		if(!empty($candidateid)) {
 			$candidate = Candidate::select($candidateid);
 			$party = Party::select($candidate['partyid']);
 			$candidate['partydesc'] = $party['description'];
 			$positions[$key]['candidates'][] = $candidate;
 		}
-	}
-	else {
-		$candidate = Candidate::select($votes[$positions[$key]['positionid']]);
-		$party = Party::select($candidate['partyid']);
-		$candidate['partydesc'] = $party['description'];
-		$positions[$key]['candidates'][] = $candidate;
+		else {
+			$positions[$key]['candidates'][] = "";
+		}
 	}
 }
 

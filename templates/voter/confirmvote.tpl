@@ -20,26 +20,39 @@
 	<h2>{$position.position} ({$position.maximum})</h2>
 	<table cellpadding="2" cellspacing="2" align="center" width="100%">
 		{foreach from=$position.candidates item=candidate}
+		{if $candidate}
 		<tr>
-			<td>
+			<td width="5%">
 				<input name="candidateids[]" value="`$candidate.candidateid`" type="hidden" />
 			</td>
 			{if $smarty.const.ELECTION_PICTURE|lower eq "enable"}
-			<td>
+			<td width="20%">
 				{if $candidate.picture}
 				<img width="100px" height="100px" alt="pic" src="`$smarty.const.APP_URI`/files/`$candidate.picture`" absolute=true />
 				{else}
 				<img width="100px" height="100px" alt="pic" src="images/nophoto.jpg" />
 				{/if}
 			</td>
+			<td width="45%">
+			{else}
+			<td width="65%">
 			{/if}
-			<td>
 				<a href="confirmvote" onclick="return makeFalse(domTT_activate(this, event, 'caption', '{$candidate.firstname|escape:javascript} {$candidate.lastname|escape:javascript}', 'content', '{$candidate.description|nl2br|escape:javascript}', 'type', 'sticky', 'closeLink', '[close]', 'draggable', true));">{$candidate.firstname} {$candidate.lastname}</a>
 			</td>
-			<td>
+			<td width="30%">
 				<a href="confirmvote" onclick="return makeFalse(domTT_activate(this, event, 'caption', '{$candidate.party|escape:javascript}', 'content', '{$candidate.partydesc|nl2br|escape:javascript}', 'type', 'sticky', 'closeLink', '[close]', 'draggable', true));">{$candidate.party}</a>
 			</td>
 		</tr>
+		{else}
+		<tr>
+			{if $smarty.const.ELECTION_PICTURE|lower eq "enable"}
+				<td colspan="4" align="center">
+			{else}
+				<td colspan="3" align="center">
+			{/if}
+			ABSTAIN</td>
+		</tr>
+		{/if}
 		{/foreach}
 	</table>
 	</div>
