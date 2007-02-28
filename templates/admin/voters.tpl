@@ -26,6 +26,20 @@
 </div>
 {/messages}
 <div class="content">
+<div style="text-align:left;">
+{if $page > 1}
+	<a href="{$url.first}"><<- First</a>
+	<a href="{$url.prev}"><- Prev</a>
+{/if}
+Page {$page} of {$last}
+{if $page < $last}
+	<a href="{$url.next}">Next -></a>
+	<a href="{$url.last}">Last ->></a>
+{/if}
+</div>
+<div style="text-align:right;">Display per Page: <form style="display:inline;"><select name="display" selected=$selecteddisplay onchange="window.location=this.value;">{options options=$url.displays}</select></form></div>
+</div>
+<div class="content">
 <h2>Voters</h2>
 <table width="100%">
 {foreach item=voter from=$voters}

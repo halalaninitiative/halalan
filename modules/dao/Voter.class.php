@@ -33,7 +33,19 @@ class Voter extends HypDao {
 
 	function selectAll() {
 		$db = parent::connect();
-		return $db->getAll("SELECT * FROM voters ORDER BY lastname DESC, firstname DESC");
+		return $db->getAll("SELECT * FROM voters ORDER BY lastname ASC, firstname ASC");
+	}
+
+	function selectAllForPagination($count, $limit="ALL", $offset="0") {
+		$db = parent::connect();
+		if($count) {
+			$rs = $db->execute("SELECT * FROM voters ORDER BY lastname ASC, firstname ASC LIMIT $limit OFFSET $offset");
+			return $rs->RecordCount();
+		}
+		else {
+			return $db->getAll("SELECT * FROM voters ORDER BY lastname ASC, firstname ASC LIMIT $limit OFFSET $offset");
+			
+		}
 	}
 
 	function authenticate($email, $password) {
