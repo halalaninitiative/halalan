@@ -22,6 +22,9 @@ require_once APP_CONF . "/db.php";
 
 /* Session Management */
 //require_once('lib/adodb/session/adodb-session.php');
+ini_set('session.gc_probability', '1');
+ini_set('session.gc_divisor', '1');
+ini_set('session.gc_maxlifetime', 5*60);
 session_start();
 
 /* Debugging Configuration */
