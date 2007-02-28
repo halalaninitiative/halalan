@@ -52,7 +52,7 @@
 	{include file=$PARAMS.body}
 	<div class="footer">
 		<p>
-		<a href="http://halalan.sourceforge.net/">Halalan</a> &copy; 2006 <br />
+		&copy;2006-2007 <a href="http://halalan.sourceforge.net/">Halalan</a><br />
 		<a href="http://uplug.org/">University of the Philippines Linux Users' Group</a><br />
 		</p>
 	</div>
