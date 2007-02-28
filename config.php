@@ -64,6 +64,10 @@ define('ELECTION_UNIT', 'enable'); // enable or disable
 // The following constant defines the upload path
 define('UPLOAD_PATH', APP_ROOT . '/files');
 
+// The following constants define the pagination parameter (in voters only for now)
+define('PAGE_LIMIT', 10); // number of displays per page
+$DISPLAYS = array(1, 10, 20, 50, 100); // different displays
+
 // The following constants define the CAPTCHA generated
 define('FONT_SIZE', 24);
 define('FONT_PATH', APP_ROOT . '/includes/fonts/');
