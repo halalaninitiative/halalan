@@ -36,6 +36,11 @@ class Voter extends HypDao {
 		return $db->getAll("SELECT * FROM voters ORDER BY lastname ASC, firstname ASC");
 	}
 
+	function selectAllByUnitID() {
+		$db = parent::connect();
+		return $db->getAll("SELECT *, position AS unit FROM voters LEFT JOIN positions ON (unitid = positionid) ORDER BY position, lastname ASC, firstname ASC");
+	}
+
 	function selectAllForPagination($count, $limit="ALL", $offset="0") {
 		$db = parent::connect();
 		if($count) {

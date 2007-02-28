@@ -54,4 +54,9 @@ Page {$page} of {$last}
 {/foreach}
 </table>
 </div>
-<div class="content"><a href="addvoter">Add Voter</a></div>
+<div class="content">
+<a href="addvoter">Add Voter</a>
+<form action="downloadvoter.do" style="display:inline;">
+<input type="submit" value="Download List" />
+</form>
+</div>
