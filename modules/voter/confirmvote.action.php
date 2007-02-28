@@ -36,8 +36,9 @@ if($this->hasError()) {
 }
 else {
 	$voterid = $voter['voterid'];
+	$timestamp = date("Y-m-d H:i:s");
 	foreach($candidateids as $candidateid) {
-		Vote::insert(compact('voterid', 'candidateid'));
+		Vote::insert(compact('voterid', 'candidateid', 'timestamp'));
 	}
 	$voted = YES;
 	Voter::update(compact('voted'), $voterid);
