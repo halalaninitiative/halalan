@@ -21,8 +21,13 @@ if(!isset($votes)) {
 }
 else {
 	// check if all positions have selected candidates
-	$positions = Position::selectAll();
-	if(count($positions) != (count($votes) + @count($abstain))) {
+	if(strtolower(ELECTION_UNIT) == "enable") {
+		$positions = Position::selectAllWithUnit($_SESSION['user']['unitid']);
+	}
+	else {
+		$positions = Position::selectAllWithoutUnit();
+	}
+	if(count($positions) != count($votes)) {
 		$this->addError('inc', 'You must select candidates for all positions.  Otherwise, select "abstain"');
 	}
 	else {

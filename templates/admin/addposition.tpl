@@ -44,6 +44,18 @@
 		<td>Abstain: <span style="color:red;">*</span></td>
 		<td><input type="radio" name="abstain" value="`$smarty.const.YES`" /> enable <input type="radio" name="abstain" value="`$smarty.const.NO`" /> disable</td>
 	</tr>
+	{if $smarty.const.ELECTION_UNIT|lower eq "enable"}
+	<tr>
+		<td>
+			Unit: <span style="color:red;">*</span>
+			<br />
+			<span class="grayed">
+			(voter-dependent position, e.g. a voter from Computer Science can only see and vote a Computer Science Representative)
+			</span>
+		</td>
+		<td><input type="radio" name="unit" value="`$smarty.const.YES`" /> yes <input type="radio" name="unit" value="`$smarty.const.NO`" /> no</td>
+	</tr>
+	{/if}
 	<tr>
 		<td></td>
 		<td><input type="submit" value="Add Position" /></td>

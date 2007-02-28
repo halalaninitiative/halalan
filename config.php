@@ -58,6 +58,8 @@ define('ELECTION_PASSWORD_LENGTH', 4);
 // if this is disabled, election pin will not be used
 define('ELECTION_CAPTCHA', 'disable'); // enable or disable
 define('ELECTION_PICTURE', 'disable'); // enable or disable
+// this is voter-dependent position
+define('ELECTION_UNIT', 'enable'); // enable or disable
 
 // The following constant defines the upload path
 define('UPLOAD_PATH', APP_ROOT . '/files');

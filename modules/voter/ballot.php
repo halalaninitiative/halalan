@@ -23,7 +23,12 @@ if(isset($_SESSION['votes'])) {
 }
 
 /* Data Gathering */
-$positions = Position::selectAll();
+if(strtolower(ELECTION_UNIT) == "enable") {
+	$positions = Position::selectAllWithUnit($_SESSION['user']['unitid']);
+}
+else {
+	$positions = Position::selectAllWithoutUnit();
+}
 foreach($positions as $key => $position) {
 	$candidates = Candidate::selectAllByPositionID($position['positionid']);
 	foreach($candidates as $candidateid=>$candidate) {

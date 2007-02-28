@@ -32,6 +32,10 @@ else {
 		$this->addError('email', 'Email already exists');
 	}	
 }
+if(strtolower(ELECTION_UNIT) == "enable") {
+	if(empty($unitid))
+		$this->addError('unit', 'Specific unit is required');
+}
 
 if($this->hasError()) {
 	$this->addUserInput($_POST);
@@ -110,7 +114,12 @@ else {
 
 	$password = sha1($password);
 	$pin = sha1($pin);
-	Voter::insert(compact('firstname', 'lastname', 'email', 'password', 'pin'));
+	if(strtolower(ELECTION_UNIT) == "enable") {
+		Voter::insert(compact('firstname', 'lastname', 'email', 'password', 'pin', 'unitid'));
+	}
+	else {
+		Voter::insert(compact('firstname', 'lastname', 'email', 'password', 'pin'));
+	}
 	$this->addMessage('addvoter', 'A new voter has been successfully added');
 	$this->forward('voters');
 }

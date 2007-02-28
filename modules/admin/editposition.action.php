@@ -34,13 +34,22 @@ else {
 }
 if(!isset($abstain))
 	$this->addError('abstain', 'Abstain is required');
+if(strtolower(ELECTION_UNIT) == "enable") {
+	if(!isset($unit))
+		$this->addError('unit', 'Unit is required');
+}
 
 if($this->hasError()) {
 	$this->addUserInput($_POST);
 	$this->forward("editposition/$positionid");
 }
 else {
-	Position::update(compact('position', 'maximum', 'ordinality', 'description', 'abstain'), $positionid);
+	if(strtolower(ELECTION_UNIT) == "enable") {
+		Position::update(compact('position', 'maximum', 'ordinality', 'description', 'abstain', 'unit'), $positionid);
+	}
+	else {
+		Position::update(compact('position', 'maximum', 'ordinality', 'description', 'abstain'), $positionid);
+	}
 	$this->addMessage('editposition', 'The position has been successfully edited');
 	$this->forward('positions');
 }

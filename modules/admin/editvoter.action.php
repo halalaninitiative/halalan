@@ -34,6 +34,10 @@ else {
 		$this->addError('email', 'Email already exists');
 	}
 }
+if(strtolower(ELECTION_UNIT) == "enable") {
+	if(empty($unitid))
+		$this->addError('unit', 'Specific unit is required');
+}
 
 if($this->hasError()) {
 	$this->addUserInput($_POST);
@@ -157,6 +161,9 @@ else {
 	}
 	else {
 		Voter::update(compact('firstname', 'lastname', 'email'), $voterid);
+	}
+	if(strtolower(ELECTION_UNIT) == "enable") {
+		Voter::update(compact('unitid'), $voterid);
 	}
 	$this->addMessage('editvoter', 'The voter has been successfully edited');
 	$this->forward('voters');

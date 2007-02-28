@@ -46,7 +46,12 @@ file_put_contents(APP_ROOT . '/includes/images/captcha/' . md5(session_id()) . '
 }
 
 $votes = $_SESSION['votes'];
-$positions = Position::selectAll();
+if(strtolower(ELECTION_UNIT) == "enable") {
+	$positions = Position::selectAllWithUnit($_SESSION['user']['unitid']);
+}
+else {
+	$positions = Position::selectAllWithoutUnit();
+}
 foreach($positions as $key=>$position) {
 	foreach($votes[$positions[$key]['positionid']] as $candidateid) {
 		if(!empty($candidateid)) {

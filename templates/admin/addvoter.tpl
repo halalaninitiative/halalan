@@ -24,6 +24,12 @@
 		<td>Email: <span style="color:red;">*</span></td>
 		<td><input type="text" name="email" /></td>
 	</tr>
+	{if $smarty.const.ELECTION_UNIT|lower eq "enable"}
+	<tr>
+		<td>Specific Unit: <span style="color:red;">*</span></td>
+		<td><select name="unitid">{options options=$units}</select></td>
+	</tr>
+	{/if}
 	<tr>
 		<td></td>
 		<td><input type="submit" value="Add Voter" /></td>

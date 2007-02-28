@@ -11,7 +11,12 @@ Hypworks::loadDao('Vote');
 /* Assign/Initialize common variables */
 
 /* Data Gathering */
-$positions = Position::selectAll();
+if(strtolower(ELECTION_UNIT) == "enable") {
+	$positions = Position::selectAll();
+}
+else {
+	$positions = Position::selectAllWithoutUnit();
+}
 foreach($positions as $key => $position) {
 	$candidates = Candidate::selectAllByPositionID($position['positionid']);
 	foreach($candidates as $candidateid=>$candidate) {
