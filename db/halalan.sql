@@ -2,49 +2,40 @@
 -- PostgreSQL database dump
 --
 
-SET client_encoding = 'UNICODE';
+SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
-SET SESSION AUTHORIZATION 'postgres';
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'Standard public schema';
+
 
 SET search_path = public, pg_catalog;
 
---
--- TOC entry 19 (OID 20628)
--- Name: plpgsql_call_handler(); Type: FUNC PROCEDURAL LANGUAGE; Schema: public; Owner: postgres
---
+SET default_tablespace = '';
 
-CREATE FUNCTION plpgsql_call_handler() RETURNS language_handler
-    AS '$libdir/plpgsql', 'plpgsql_call_handler'
-    LANGUAGE c;
-
-
-SET SESSION AUTHORIZATION DEFAULT;
+SET default_with_oids = false;
 
 --
--- TOC entry 18 (OID 20629)
--- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: public; Owner: 
+-- Name: admins; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
-CREATE TRUSTED PROCEDURAL LANGUAGE plpgsql HANDLER plpgsql_call_handler;
+CREATE TABLE admins (
+    adminid serial NOT NULL,
+    email character varying(63) NOT NULL,
+    "password" character(40) NOT NULL,
+    firstname character varying(63) NOT NULL,
+    lastname character varying(31) NOT NULL
+);
 
 
-SET SESSION AUTHORIZATION 'postgres';
-
---
--- TOC entry 4 (OID 2200)
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
-SET SESSION AUTHORIZATION 'postgres';
+ALTER TABLE public.admins OWNER TO postgres;
 
 --
--- TOC entry 5 (OID 300836)
--- Name: candidates; Type: TABLE; Schema: public; Owner: postgres
+-- Name: candidates; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE candidates (
@@ -55,12 +46,13 @@ CREATE TABLE candidates (
     positionid integer NOT NULL,
     description text,
     picture character varying(255)
-) WITHOUT OIDS;
+);
 
+
+ALTER TABLE public.candidates OWNER TO postgres;
 
 --
--- TOC entry 6 (OID 300844)
--- Name: parties; Type: TABLE; Schema: public; Owner: postgres
+-- Name: parties; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE parties (
@@ -68,12 +60,13 @@ CREATE TABLE parties (
     party character varying(63) NOT NULL,
     description text,
     logo character varying(255)
-) WITHOUT OIDS;
+);
 
+
+ALTER TABLE public.parties OWNER TO postgres;
 
 --
--- TOC entry 7 (OID 300852)
--- Name: positions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: positions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE positions (
@@ -81,13 +74,16 @@ CREATE TABLE positions (
     "position" character varying(63) NOT NULL,
     description text,
     maximum smallint NOT NULL,
-    ordinality smallint NOT NULL
-) WITHOUT OIDS;
+    ordinality smallint NOT NULL,
+    abstain smallint NOT NULL,
+    unit smallint
+);
 
+
+ALTER TABLE public.positions OWNER TO postgres;
 
 --
--- TOC entry 8 (OID 300860)
--- Name: voters; Type: TABLE; Schema: public; Owner: postgres
+-- Name: voters; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE voters (
@@ -97,84 +93,28 @@ CREATE TABLE voters (
     pin character varying(40) NOT NULL,
     firstname character varying(63) NOT NULL,
     lastname character varying(31) NOT NULL,
-    voted smallint DEFAULT 0 NOT NULL
-) WITHOUT OIDS;
+    voted smallint DEFAULT 0 NOT NULL,
+    unitid integer
+);
 
+
+ALTER TABLE public.voters OWNER TO postgres;
 
 --
--- TOC entry 9 (OID 300863)
--- Name: votes; Type: TABLE; Schema: public; Owner: postgres
+-- Name: votes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE votes (
     voterid integer NOT NULL,
     candidateid integer NOT NULL,
-    timeadded timestamp without time zone DEFAULT now() NOT NULL
-) WITHOUT OIDS;
+    "timestamp" timestamp without time zone NOT NULL
+);
 
 
---
--- TOC entry 10 (OID 301179)
--- Name: admins; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE admins (
-    adminid serial NOT NULL,
-    email character varying(63) NOT NULL,
-    "password" character(40) NOT NULL,
-    firstname character varying(63) NOT NULL,
-    lastname character varying(31) NOT NULL
-) WITHOUT OIDS;
-
+ALTER TABLE public.votes OWNER TO postgres;
 
 --
--- TOC entry 11 (OID 300865)
--- Name: candidates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY candidates
-    ADD CONSTRAINT candidates_pkey PRIMARY KEY (candidateid);
-
-
---
--- TOC entry 12 (OID 300867)
--- Name: parties_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY parties
-    ADD CONSTRAINT parties_pkey PRIMARY KEY (partyid);
-
-
---
--- TOC entry 13 (OID 300869)
--- Name: positions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY positions
-    ADD CONSTRAINT positions_pkey PRIMARY KEY (positionid);
-
-
---
--- TOC entry 15 (OID 300871)
--- Name: voters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY voters
-    ADD CONSTRAINT voters_pkey PRIMARY KEY (voterid);
-
-
---
--- TOC entry 16 (OID 300873)
--- Name: votes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY votes
-    ADD CONSTRAINT votes_pkey PRIMARY KEY (voterid, candidateid);
-
-
---
--- TOC entry 17 (OID 301182)
--- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: admins_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY admins
@@ -182,8 +122,31 @@ ALTER TABLE ONLY admins
 
 
 --
--- TOC entry 14 (OID 500131)
--- Name: voters_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: candidates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY candidates
+    ADD CONSTRAINT candidates_pkey PRIMARY KEY (candidateid);
+
+
+--
+-- Name: parties_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY parties
+    ADD CONSTRAINT parties_pkey PRIMARY KEY (partyid);
+
+
+--
+-- Name: positions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY positions
+    ADD CONSTRAINT positions_pkey PRIMARY KEY (positionid);
+
+
+--
+-- Name: voters_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY voters
@@ -191,7 +154,22 @@ ALTER TABLE ONLY voters
 
 
 --
--- TOC entry 20 (OID 317171)
+-- Name: voters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY voters
+    ADD CONSTRAINT voters_pkey PRIMARY KEY (voterid);
+
+
+--
+-- Name: votes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_pkey PRIMARY KEY (voterid, candidateid);
+
+
+--
 -- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -200,16 +178,6 @@ ALTER TABLE ONLY candidates
 
 
 --
--- TOC entry 21 (OID 317175)
--- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY candidates
-    ADD CONSTRAINT "$2" FOREIGN KEY (positionid) REFERENCES positions(positionid) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-
---
--- TOC entry 22 (OID 317179)
 -- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -218,7 +186,14 @@ ALTER TABLE ONLY votes
 
 
 --
--- TOC entry 23 (OID 317183)
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY candidates
+    ADD CONSTRAINT "$2" FOREIGN KEY (positionid) REFERENCES positions(positionid) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -227,10 +202,24 @@ ALTER TABLE ONLY votes
 
 
 --
--- TOC entry 3 (OID 2200)
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+-- Name: voters_unitid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COMMENT ON SCHEMA public IS 'Standard public schema';
+ALTER TABLE ONLY voters
+    ADD CONSTRAINT voters_unitid_fkey FOREIGN KEY (unitid) REFERENCES positions(positionid) ON UPDATE CASCADE ON DELETE RESTRICT;
 
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
 
