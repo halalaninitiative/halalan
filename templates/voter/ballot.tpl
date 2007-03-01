@@ -25,6 +25,58 @@
 		}
 		field.disabled = false;
 	}
+	function saveState() {
+		var inputs = document.getElementsByTagName("input");
+		var checkboxes = new Array();
+		for(var i = 0; i < inputs.length; i++) {
+			if(inputs[i].type == "checkbox") {
+				if(inputs[i].disabled == true)
+					checkboxes.push(i);
+			}
+		}
+		setCookie('halalancookie', checkboxes.toString(), 1);
+	}
+	function restoreState(checkboxes) {
+		checkboxes = checkboxes.split(",");
+		var inputs = document.getElementsByTagName("input");
+		for(var i = 0; i < inputs.length; i++) {
+			if(in_array(i, checkboxes))
+				inputs[i].disabled = true;
+		}
+	}
+	function in_array(needle, haystack) {
+		for(var i = 0; i < haystack.length; i++) {
+			if(haystack[i] == needle)
+				return true;
+		}
+		return false;
+	}
+	function checkCookie() {
+		var checkboxes = getCookie('halalancookie');
+		if(checkboxes != null && checkboxes != "")
+			restoreState(checkboxes);
+	}
+
+	function setCookie(c_name,value,expiredays) {
+		var exdate=new Date();
+		exdate.setDate(exdate.getDate()+expiredays);
+		document.cookie = c_name + "=" + escape(value) + ((expiredays==null) ? "" : ";expires=" + exdate.toGMTString());
+	}
+
+	function getCookie(c_name) {
+		if(document.cookie.length > 0) {
+			var c_start = document.cookie.indexOf(c_name + "=");
+			if(c_start != -1) {
+				c_start = c_start + c_name.length + 1;
+				c_end = document.cookie.indexOf(";", c_start);
+				if(c_end == -1)
+					c_end = document.cookie.length;
+				return unescape(document.cookie.substring(c_start,c_end));
+			}
+		}
+		return "";
+	}
+	window.onload = checkCookie;
 	</script>
 {/literal}
 
@@ -40,7 +92,7 @@
 </p>
 </div>
 {/errors}
-<form action="ballot.do">
+<form action="ballot.do" onsubmit="saveState();">
 	{foreach from=$positions item=position}
 	<div class="content">
 	<h2>{$position.position} ({$position.maximum})</h2>

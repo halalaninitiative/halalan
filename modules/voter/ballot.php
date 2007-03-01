@@ -16,10 +16,11 @@ Hypworks::loadDao('Candidate');
 // this is set in ballot.do and unset in ballot and confirm.do
 unset($_SESSION['confirmed']);
 // this is used for storing votes for confirmation
-// this is set in ballot.do and unset in ballot and confirm.do
+// this is set in ballot.do and unset in ballot.do and confirm.do
 if(isset($_SESSION['votes'])) {
 	$votes['votes'] = $_SESSION['votes'];
-	unset($_SESSION['votes']);
+	// unset in ballot.do instead so that refreshing the page will work
+	//unset($_SESSION['votes']);
 }
 
 /* Data Gathering */

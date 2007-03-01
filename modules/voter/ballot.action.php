@@ -46,6 +46,7 @@ if($this->hasError()) {
 	$this->forward('ballot');
 }
 else {
+	unset($_SESSION['votes']);
 	$_SESSION['votes'] = $votes;
 	$_SESSION['confirmed'] = true;
 	$this->forward('confirmvote');

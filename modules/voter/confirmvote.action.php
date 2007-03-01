@@ -35,6 +35,7 @@ if($this->hasError()) {
 	$this->forward('confirmvote');
 }
 else {
+	setcookie('halalancookie'); // destroy cookie
 	$voterid = $voter['voterid'];
 	$timestamp = date("Y-m-d H:i:s");
 	foreach($candidateids as $candidateid) {
