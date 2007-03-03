@@ -9,9 +9,10 @@
 {foreach from=$positions item=position}
 <div class="content">
 <h2>{$position.position} ({$position.maximum})</h2>
+{assign var=count value=0}
 <table cellpadding="2" cellspacing="2" align="center" width="100%">
 	{foreach from=$position.candidates item=candidate}
-	<tr>
+	<tr {if $count < $position.maximum} class="winner" {/if} >
 		<td width="5%">
 			{$candidate.votes}
 		</td>
@@ -33,6 +34,7 @@
 			<a href="result" onclick="return makeFalse(domTT_activate(this, event, 'caption', '{$candidate.party|escape:javascript}', 'content', '{$candidate.partydesc|nl2br|escape:htmlall|escape:javascript}', 'type', 'sticky', 'closeLink', '[close]', 'draggable', true));">{$candidate.party}</a>
 		</td>
 	</tr>
+	{assign var=count value=$count+1}
 	{/foreach}
 </table>
 </div>

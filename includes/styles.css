@@ -221,3 +221,7 @@ div.domTT .contents {
 	padding: 3px 2px;
 	background-color: #F0F0F0;
 }
+
+.winner {
+	background-color: #FFCC66;
+}
