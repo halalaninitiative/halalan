@@ -18,9 +18,13 @@ else {
 	$positions = Position::selectAllWithoutUnit();
 }
 foreach($positions as $key => $position) {
-	$candidates = Candidate::selectAllByPositionID($position['positionid']);
-	foreach($candidates as $candidateid=>$candidate) {
-		$candidates[$candidateid]['votes'] = Vote::countAllByCandidateID($candidate['candidateid']);
+	$votes = Vote::countAllByPositionID($position['positionid']);
+	$candidates = array();
+	foreach($votes as $vote) {
+		$candidateid = $vote['candidateid'];
+		$candidate = Candidate::select($candidateid);
+		$candidates[$candidateid] = $candidate;
+		$candidates[$candidateid]['votes'] = $vote['votes'];
 		$party = Party::select($candidate['partyid']);
 		$candidates[$candidateid]['partydesc'] = $party['description'];
 	}
