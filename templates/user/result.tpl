@@ -10,7 +10,7 @@
 <div class="content">
 <h2>{$position.position} ({$position.maximum})</h2>
 {assign var=count value=0}
-<table cellpadding="2" cellspacing="2" align="center" width="100%">
+<table cellpadding="2" cellspacing="0" align="center" width="100%">
 	{foreach from=$position.candidates item=candidate}
 	<tr {if $count < $position.maximum} class="winner" {/if} >
 		<td width="5%">
