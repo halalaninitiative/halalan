@@ -9,7 +9,7 @@
 <p>Description: {$position.description|nl2br}</p>
 <p>Abstain: {if $position.abstain == $smarty.const.YES}enable{else}disable{/if}</p>
 {if $smarty.const.ELECTION_UNIT|lower eq "enable"}
-<p>Unit: {if $position.abstain == $smarty.const.YES}yes{else}no{/if}</p>
+<p>Unit: {if $position.unit == $smarty.const.YES}yes{else}no{/if}</p>
 {/if}
 <p>&nbsp;</p>
 <p>back to <a href="positions">positions</a></p>
