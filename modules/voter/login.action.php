@@ -16,6 +16,8 @@ if($voter) {
 		$_SESSION[INDEX_USERTYPE] = USER_VOTER;
 		$_SESSION[INDEX_USERID] = $voter['voterid'];
 		$_SESSION['user'] = $voter;
+		$login = date("Y-m-d H:i:s");
+		Voter::update(compact('login'), $_SESSION[INDEX_USERID]);
 		$this->forward('ballot');
 	}
 }
