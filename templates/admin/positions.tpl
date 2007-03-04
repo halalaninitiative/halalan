@@ -30,7 +30,7 @@
 <table width="100%">
 {foreach item=position from=$positions}
 	<tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}">
-		<td width="75%"><a href="viewposition/{$position.positionid}">{$position.position|escape:"htmlall"}</a></td>
+		<td width="75%"><a href="viewposition/{$position.positionid}">{$position.position|escape:"html"}</a></td>
 		<td width="25%"><a href="editposition/{$position.positionid}">edit</a> | <a href="javascript:void(0);" onclick="confirmDelete('{$position.position|escape:javascript}', {$position.positionid})">delete</a></td>
 	</tr>
 {foreachelse}

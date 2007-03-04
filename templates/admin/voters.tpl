@@ -44,7 +44,7 @@ Page {$page} of {$last}
 <table width="100%">
 {foreach item=voter from=$voters}
 	<tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}">
-		<td width="75%"><a href="viewvoter/{$voter.voterid}">{$voter.lastname|escape:"htmlall"}, {$voter.firstname|escape:"htmlall"}</a></td>
+		<td width="75%"><a href="viewvoter/{$voter.voterid}">{$voter.lastname|escape:"html"}, {$voter.firstname|escape:"html"}</a></td>
 		<td width="25%"><a href="editvoter/{$voter.voterid}">edit</a> | <a href="javascript:void(0);" onclick="confirmDelete('{$voter.lastname|escape:javascript}, {$voter.firstname|escape:javascript}', {$voter.voterid})">delete</a></td>
 	</tr>
 {foreachelse}

@@ -24,7 +24,7 @@
 	<table width="100%">
 		{foreach item=candidate from=$position.candidates}
 		<tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}">
-			<td width="75%"><a href="viewcandidate/{$candidate.candidateid}">{$candidate.lastname|escape:"htmlall"}, {$candidate.firstname|escape:"htmlall"}</a></td>
+			<td width="75%"><a href="viewcandidate/{$candidate.candidateid}">{$candidate.lastname|escape:"html"}, {$candidate.firstname|escape:"html"}</a></td>
 			<td width="25%"><a href="editcandidate/{$candidate.candidateid}">edit</a> | <a href="javascript:void(0);" onclick="confirmDelete('{$candidate.lastname|escape:javascript}, {$candidate.firstname|escape:javascript}', {$candidate.candidateid})">delete</a></td>
 		</tr>
 		{foreachelse}
