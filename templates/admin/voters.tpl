@@ -56,7 +56,10 @@ Page {$page} of {$last}
 </div>
 <div class="content">
 <a href="addvoter">Add Voter</a>
-<form action="downloadvoter.do" style="display:inline;">
-<input type="submit" value="Download List" />
-</form>
+{if $voters}
+	<form action="downloadvoter.do" style="display:inline;">
+	<input type="submit" value="Download List" />
+	<input type="checkbox" name="votes" /> Include votes?
+	</form>
+{/if}
 </div>
