@@ -22,9 +22,9 @@ require_once APP_CONF . "/db.php";
 
 /* Session Management */
 //require_once('lib/adodb/session/adodb-session.php');
-ini_set('session.gc_probability', '1');
-ini_set('session.gc_divisor', '1');
-ini_set('session.gc_maxlifetime', 5*60);
+//ini_set('session.gc_probability', '1');
+//ini_set('session.gc_divisor', '1');
+//ini_set('session.gc_maxlifetime', 5*60);
 session_start();
 
 /* Debugging Configuration */
@@ -56,8 +56,9 @@ define('ELECTION_NAME', 'Engineering Student Council 2007-2008');
 define('ELECTION_STATUS', 'inactive'); // active or inactive
 define('ELECTION_RESULT', 'show'); // show or hide
 define('ELECTION_PIN_PASSWORD_GENERATION', 'web'); // web or email
-define('ELECTION_PIN_LENGTH', 4);
-define('ELECTION_PASSWORD_LENGTH', 4);
+define('ELECTION_PIN_PASSWORD_CHARS', 'abcdefghijklmnopqrstuvwxyz0123456789');
+define('ELECTION_PIN_LENGTH', 6);
+define('ELECTION_PASSWORD_LENGTH', 6);
 // if this is disabled, election pin will not be used
 define('ELECTION_CAPTCHA', 'disable'); // enable or disable
 define('ELECTION_PICTURE', 'disable'); // enable or disable

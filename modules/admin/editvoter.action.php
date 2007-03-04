@@ -7,6 +7,7 @@ $this->restrict(USER_ADMIN);
 Hypworks::loadDao('Voter');
 Hypworks::loadAddin('rfc822');
 require_once APP_LIB . '/phpmailer/class.phpmailer.php';
+require_once 'common/PinPasswordGenerator.class.php';
 
 /*
  * Places the POST variables in local context.
@@ -46,29 +47,11 @@ if($this->hasError()) {
 else {
 	if(isset($password) && $password == 1) {
 		// regenerate password
-		$chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz023456789";
-		srand((double)microtime()*1000000);
-		$i = 0;
-		$password = '' ;
-		while ($i < ELECTION_PASSWORD_LENGTH) {
-			$num = rand() % 58;
-			$tmp = substr($chars, $num, 1);
-			$password = $password . $tmp;
-			$i++;
-		}
+		$password = PinPasswordGenerator::generatePassword();
 	}
 	if(isset($pin) && $pin == 1) {
 		// generate pin
-		$chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz023456789";
-		srand((double)microtime()*1000000);
-		$i = 0;
-		$pin = '';
-		while ($i < ELECTION_PIN_LENGTH) {
-			$num = rand() % 58;
-			$tmp = substr($chars, $num, 1);
-			$pin = $pin . $tmp;
-			$i++;
-		}
+		$pin = PinPasswordGenerator::generatePin();
 	}
 
 	if(!empty($password) || !empty($pin)) {

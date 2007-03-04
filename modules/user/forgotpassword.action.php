@@ -6,6 +6,7 @@
 Hypworks::loadDao('Voter');
 Hypworks::loadAddin('rfc822');
 require_once APP_LIB . '/phpmailer/class.phpmailer.php';
+require_once 'common/PinPasswordGenerator.class.php';
 
 /*
  * Places the POST variables in local context.
@@ -39,18 +40,7 @@ if($this->hasError()) {
 	$this->forward('forgotpassword');
 }
 else {
-	$chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz023456789";
-	srand((double)microtime()*1000000);
-	$i = 0;
-	$code = '' ;
-	
-	while ($i < 8) {
-		$num = rand() % 58;
-		$tmp = substr($chars, $num, 1);
-		$code = $code . $tmp;
-		$i++;
-	}
-
+	$code = PinPasswordGenerator::generatePassword();
 	$voter['password'] = sha1($code);
 	Voter::update($voter, $voter['voterid']);
 
