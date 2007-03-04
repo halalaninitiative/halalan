@@ -94,7 +94,9 @@ CREATE TABLE voters (
     firstname character varying(63) NOT NULL,
     lastname character varying(31) NOT NULL,
     voted smallint DEFAULT 0 NOT NULL,
-    unitid integer
+    unitid integer,
+    "login" timestamp without time zone,
+    logout timestamp without time zone
 );
 
 
