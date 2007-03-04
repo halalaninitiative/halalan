@@ -1,7 +1,7 @@
 Halalan
-Version 0.1.3
+Version 0.1.4
 http://sourceforge.net/projects/halalan
-Copyright (C) 2006 UP Linux Users' Group
+Copyright (C) 2006-2007 UP Linux Users' Group
 
 
 TODO:
@@ -10,6 +10,12 @@ TODO:
 --- Add reports and graphs to the results page
 --- Create an interface for administration of different elections
 --- Add sorting by votes, by names, and by parties in result
+
+ADDED FROM TODO IN 0.1.4  20070304
+--- Add login and logout timestamp for voters
+--- Add an option for configuring session timeout
+--- Add an option for enabling or disabling of pictures
+--- Add an option for enabling or disabling of CAPTCHA
 --- Resolve abstained issue
 
 ADDED FROM TODO IN 0.1.3  20070210

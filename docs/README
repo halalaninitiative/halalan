@@ -1,12 +1,12 @@
 Halalan
-Version 0.1.3
+Version 0.1.4
 http://sourceforge.net/projects/halalan
-Copyright (C) 2006 UP Linux Users' Group
+Copyright (C) 2006-2007 UP Linux Users' Group
 
 
 VERSION FEATURES:
 
-This release contains minor interface enhancements and some bug-fixing.  This is intended for developers and testers interested in helping the project.
+This release is the basis of the customized version to be used during the University of the Philippines College of Engineering Student Council election which contains new features, minor interface enhancements and some bug-fixes.  This is intended for developers and testers interested in helping the project.
 
 
 INSTALLATION:
