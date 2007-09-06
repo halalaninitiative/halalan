@@ -1,3 +1,0 @@
-This is where db dumps, visuals, etc. are placed.
-As opposed to the usual, don't name your SQL dump by date, since this will already be simulated by Subversion.
-Instead, use sensible filenames like latest.sql, or table names if you like (if you only dump a specific table).
