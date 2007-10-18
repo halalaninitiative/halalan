@@ -15,7 +15,7 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
         $protocol = 'https';
 else
         $protocol = 'http';
-$base_url = trim($protocol . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER['PHP_SELF']), '/') . '/';
+$base_url = trim($protocol . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
 $config['base_url']	= $base_url;
 
 /*
