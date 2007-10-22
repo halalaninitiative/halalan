@@ -50,7 +50,7 @@ $autoload['libraries'] = array('database', 'session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('form', 'url');
+$autoload['helper'] = array('form', 'halalan', 'url');
 
 
 /*
@@ -94,7 +94,7 @@ $autoload['config'] = array('config', 'halalan');
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('halalan');
 
 /*
 | -------------------------------------------------------------------

@@ -4,7 +4,7 @@ class Gate extends Controller {
 
 	function Gate()
 	{
-		parent::Controller();	
+		parent::Controller();
 	}
 	
 	function index()
@@ -26,7 +26,7 @@ class Gate extends Controller {
 		{
 			if ($voter['voted'] == TRUE)
 			{
-				$this->session->set_flashdata('login', 'you have already voted');
+				$this->session->set_flashdata('login', e('already_voted'));
 				redirect('gate');
 			}
 			else
@@ -36,7 +36,7 @@ class Gate extends Controller {
 		}
 		else
 		{
-			$this->session->set_flashdata('login', 'login failed');
+			$this->session->set_flashdata('login', e('login_failure'));
 			redirect('gate');
 		}
 	}
