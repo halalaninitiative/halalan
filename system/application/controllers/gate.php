@@ -9,12 +9,13 @@ class Gate extends Controller {
 	
 	function index()
 	{
-		$data = '';
+		$gate = '';
 		if ($login = $this->session->flashdata('login'))
 		{
-			$data['message'] = $login;
+			$gate['message'] = $login;
 		}
-		$this->load->view('gate', $data);
+		$main['body'] = $this->load->view('gate', $gate, TRUE);
+		$this->load->view('main', $main);
 	}
 
 	function login()
@@ -31,7 +32,7 @@ class Gate extends Controller {
 			}
 			else
 			{
-				echo "login";
+				redirect('voter');
 			}
 		}
 		else
