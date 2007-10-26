@@ -32,6 +32,10 @@ class Gate extends Controller {
 			}
 			else
 			{
+				// don't save password and pin to session
+				unset($voter['password']);
+				unset($voter['pin']);
+				$this->session->set_userdata('voter', $voter);
 				redirect('voter');
 			}
 		}
