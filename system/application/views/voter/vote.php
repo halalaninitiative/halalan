@@ -7,7 +7,7 @@
 		</ul>
 	</div>
 	<div id="right_menu">
-		<p>LOGGED IN AS 2002-26352 | <?= anchor('gate/logout', 'LOGOUT'); ?></p>
+		<p>LOGGED IN AS <?= $username; ?> | <?= anchor('gate/logout', 'LOGOUT'); ?></p>
 	</div>
 	<div class="clear"></div>
 </div>

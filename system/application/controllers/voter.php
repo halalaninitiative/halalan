@@ -2,10 +2,13 @@
 
 class Voter extends Controller {
 
+	var $voter;
+
 	function Voter()
 	{
 		parent::Controller();
-		if (!$this->session->userdata('voter'))
+		$this->voter = $this->session->userdata('voter');
+		if (!$this->voter)
 		{
 			$this->session->set_flashdata('login', e('unauthorized'));
 			redirect('gate');
@@ -19,7 +22,8 @@ class Voter extends Controller {
 
 	function vote()
 	{
-		$main['body'] = $this->load->view('voter/vote', '', TRUE);
+		$vote['username'] = $this->voter['username'];
+		$main['body'] = $this->load->view('voter/vote', $vote, TRUE);
 		$this->load->view('main', $main);
 	}
 
