@@ -11,116 +11,39 @@
 	</div>
 	<div class="clear"></div>
 </div>
-<form action="confirmvote.html" method="post">
+<form action="" method="post">
+<?php for ($i = 0; $i < count($positions); $i++): ?>
+<?php if ($i % 2 == 0): ?>
 <div class="body">
 	<div class="left_body">
+<?php else: ?>
+	<div class="right_body">
+<?php endif; ?>
 		<fieldset>
-			<legend><span class="position">Chairperson</span> (1)</legend>
+			<legend><span class="position"><?= $positions[$i]['position']; ?></span> (<?= $positions[$i]['maximum']; ?>)</legend>
 			<table cellspacing="2" cellpadding="2">
+				<?php foreach ($positions[$i]['candidates'] as $candidate): ?>
 				<tr>
 					<td><input type="checkbox" /></td>
-					<td>Chairperson Number1</td>
-					<td>Party1</td>
+					<td><?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?></td>
+					<td><?= $candidate['party']['party']; ?></td>
 				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number2</td>
-					<td>Party2</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number3</td>
-					<td>Party3</td>
-				</tr>
+				<?php endforeach; ?>
 			</table>
 		</fieldset>
 	</div>
+<?php if ($i % 2 == 1): ?>
+	<div class="clear"></div>
+</div>
+<?php endif; ?>
+<?php endfor; ?>
+<?php // in case the number of positions is odd ?>
+<?php if (count($positions) % 2 == 1): ?>
 	<div class="right_body">
-		<fieldset>
-			<legend><span class="position">Vice Chairperson</span> (1)</legend>
-			<table cellspacing="2" cellpadding="2">
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number1</td>
-					<td>Party1</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number2</td>
-					<td>Party2</td>
-				</tr>
-			</table>
-		</fieldset>
 	</div>
 	<div class="clear"></div>
 </div>
-<div class="body">
-	<div class="left_body">
-		<fieldset>
-			<legend><span class="position">Councilors</span> (6)</legend>
-			<table cellspacing="2" cellpadding="2">
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number1</td>
-					<td>Party1</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number2</td>
-					<td>Party2</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number3</td>
-					<td>Party3</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number1</td>
-					<td>Party1</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number2</td>
-					<td>Party2</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number3</td>
-					<td>Party3</td>
-				</tr>
-			</table>
-		</fieldset>
-	</div>
-	<div class="right_body">
-		<fieldset>
-			<legend><span class="position">Department Representatives</span> (4)</legend>
-			<table cellspacing="2" cellpadding="2">
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number1</td>
-					<td>Party1</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number2</td>
-					<td>Party2</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number3</td>
-					<td>Party3</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" /></td>
-					<td>Chairperson Number3</td>
-					<td>Party3</td>
-				</tr>
-			</table>
-		</fieldset>
-	</div>
-	<div class="clear"></div>
-</div>
+<?php endif; ?>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
 		<input type="reset" value="CLEAR" />
