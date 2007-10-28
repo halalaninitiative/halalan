@@ -14,7 +14,8 @@ class Gate extends Controller {
 		{
 			$gate['message'] = $login;
 		}
-		$main['body'] = $this->load->view('gate', $gate, TRUE);
+		$main['title'] = e('gate_title');
+		$main['body'] = $this->load->view('gate/index', $gate, TRUE);
 		$this->load->view('main', $main);
 	}
 

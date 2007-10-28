@@ -41,6 +41,7 @@ class Voter extends Controller {
 			$vote['votes'] = $votes;
 		$vote['positions'] = $positions;
 		$vote['username'] = $this->voter['username'];
+		$main['title'] = e('vote_title');
 		$main['body'] = $this->load->view('voter/vote', $vote, TRUE);
 		$this->load->view('main', $main);
 	}
@@ -77,6 +78,7 @@ class Voter extends Controller {
 				}
 			}
 		}
+		// save the votes in session temporarily
 		$this->session->set_flashdata('votes', $votes);
 		if (empty($error))
 		{

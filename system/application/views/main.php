@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Halalan - Vote</title>
+  <title>Halalan - <?= $title; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>public/stylesheets/main.css" />
 </head>
