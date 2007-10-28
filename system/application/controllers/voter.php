@@ -35,10 +35,68 @@ class Voter extends Controller {
 			}
 			$positions[$key]['candidates'] = $candidates;
 		}
+		if ($error = $this->session->flashdata('error'))
+			$vote['message'] = $error;
+		if ($votes = $this->session->flashdata('votes'))
+			$vote['votes'] = $votes;
 		$vote['positions'] = $positions;
 		$vote['username'] = $this->voter['username'];
 		$main['body'] = $this->load->view('voter/vote', $vote, TRUE);
 		$this->load->view('main', $main);
+	}
+
+	function do_vote()
+	{
+		$error = '';
+		$votes = $this->input->post('votes');
+		// check if there are selected candidates
+		if (empty($votes))
+		{
+			$error = e('vote_no_selected');
+		}
+		else
+		{
+			// check if all positions have selected candidates
+			$this->load->model('Position');
+			// TODO: add here if units are enabled
+			$positions = $this->Position->select_all();
+			if (count($positions) != count($votes))
+			{
+				$error = e('vote_not_all_selected');
+			}
+			else
+			{
+				foreach ($votes as $position_id => $candidate_ids)
+				{
+					// check if the number of selected candidates does not exceed the maximum allowed for each position
+					$position = $this->Position->select($position_id);
+					if ($position['maximum'] < count($candidate_ids))
+					{
+						$error = e('vote_maximum');
+					}
+				}
+			}
+		}
+		$this->session->set_flashdata('votes', $votes);
+		if (empty($error))
+		{
+			redirect('voter/confirm_vote');
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+			redirect('voter/vote');
+		}
+	}
+
+	function confirm_vote()
+	{
+
+	}
+
+	function do_confirm_vote()
+	{
+
 	}
 
 }

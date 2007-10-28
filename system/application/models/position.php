@@ -7,6 +7,14 @@ class Position extends Model {
 		parent::Model();
 	}
 
+	function select($position_id)
+	{
+		$this->db->from('positions');
+		$this->db->where(array('id'=>$position_id));
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+
 	function select_all()
 	{
 		$this->db->from('positions');
