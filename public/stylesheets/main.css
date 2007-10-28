@@ -137,3 +137,13 @@ fieldset {
     background-color : #E5E5E5;
     text-align : left;
   }
+
+.message {
+    width : 350px;
+    margin : 0 auto 20px auto;
+    font-family : Verdana, Helvetica, Arial, sans-serif;
+    border : 1px solid #FFAAAA;
+    background-color : #FFE5E5;
+    text-align : center;
+    padding : 10px;
+  }
