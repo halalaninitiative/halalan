@@ -76,5 +76,6 @@
 		|
 		<input type="submit" value="SUBMIT" />
 	</div>
+	<div class="clear"></div>
 </div>
 </form>
