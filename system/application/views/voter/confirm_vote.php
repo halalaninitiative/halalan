@@ -3,7 +3,7 @@
 		<ul>
 			<li><img src="<?= base_url(); ?>public/images/apply.png" alt="voter" /> VOTE</li>
 			<li class="active"><img src="<?= base_url(); ?>public/images/user.png" alt="next" /> CONFIRM VOTE</li>
-			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> REVIEW VOTE</li>
+			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> LOG OUT</li>
 		</ul>
 	</div>
 	<div id="right_menu">
@@ -40,7 +40,7 @@
 				<?php else: ?>
 				<tr class="not_selected">
 				<?php endif; ?>
-					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>TRUE)); ?></td>
+					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
 					<td><?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?></td>
 					<td><?= $candidate['party']['party']; ?></td>
 				</tr>
@@ -58,7 +58,7 @@
 				<?php else: ?>
 				<tr class="not_selected">
 				<?php endif; ?>
-					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>TRUE)); ?></td>
+					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>'disabled')); ?></td>
 					<td>ABSTAIN</td>
 					<td></td>
 				</tr>

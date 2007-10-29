@@ -3,7 +3,7 @@
 		<ul>
 			<li class="active"><img src="<?= base_url(); ?>public/images/user.png" alt="voter" /> VOTE</li>
 			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> CONFIRM VOTE</li>
-			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> REVIEW VOTE</li>
+			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> LOG OUT</li>
 		</ul>
 	</div>
 	<div id="right_menu">
