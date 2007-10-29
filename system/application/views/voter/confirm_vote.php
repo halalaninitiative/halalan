@@ -78,11 +78,28 @@
 	<div class="clear"></div>
 </div>
 <?php endif; ?>
+<div class="body">
+	<div class="center_body">
+		<fieldset>
+			<legend><span class="position">Validation</span></legend>
+			<table cellpadding="2" cellspacing="2">
+				<tr>
+					<td><?= $captcha['image']; ?></td>
+					<td>Enter the word here:<br /><?= form_input(array('name'=>'captcha', 'size'=>20, 'maxlength'=>8)); ?></td>
+					<td>&nbsp;</td>
+					<td>Enter your pin here:<br /><?= form_input(array('name'=>'pin', 'size'=>20)); ?></td>
+				</tr>
+			</table>
+		</fieldset>
+	</div>
+	<div class="clear"></div>
+</div>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
 		<?= anchor('voter/vote', 'GO BACK'); ?>
 		|
 		<input type="submit" value="SUBMIT" />
 	</div>
+	<div class="clear"></div>
 </div>
 </form>

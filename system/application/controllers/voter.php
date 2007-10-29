@@ -108,8 +108,12 @@ class Voter extends Controller {
 		}
 		if ($error = $this->session->flashdata('error'))
 			$data['message'] = $error;
-		if ($votes = $this->session->userdata('votes'))
-			$data['votes'] = $votes;
+		$votes = $this->session->userdata('votes');
+		$data['votes'] = $votes;
+		$this->load->plugin('captcha');
+		$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60);
+		$captcha = create_captcha($vals);
+		$data['captcha'] = $captcha;
 		$data['positions'] = $positions;
 		$data['username'] = $this->voter['username'];
 		$main['title'] = e('confirm_vote_title');
@@ -119,7 +123,6 @@ class Voter extends Controller {
 
 	function do_confirm_vote()
 	{
-
 	}
 
 }
