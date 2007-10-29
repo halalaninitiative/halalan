@@ -20,4 +20,6 @@ $lang['halalan_vote_no_selected'] = 'walang piniling kandidato';
 $lang['halalan_vote_not_all_selected'] = 'hindi lahat ng posisyon ay may napiling kandidato';
 $lang['halalan_vote_maximum'] = 'lumampas ang boto mo sa dapat';
 
+$lang['halalan_confirm_vote_title'] = 'Confirm Vote';
+
 ?>

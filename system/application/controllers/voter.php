@@ -36,13 +36,13 @@ class Voter extends Controller {
 			$positions[$key]['candidates'] = $candidates;
 		}
 		if ($error = $this->session->flashdata('error'))
-			$vote['message'] = $error;
-		if ($votes = $this->session->flashdata('votes'))
-			$vote['votes'] = $votes;
-		$vote['positions'] = $positions;
-		$vote['username'] = $this->voter['username'];
+			$data['message'] = $error;
+		if ($votes = $this->session->userdata('votes'))
+			$data['votes'] = $votes;
+		$data['positions'] = $positions;
+		$data['username'] = $this->voter['username'];
 		$main['title'] = e('vote_title');
-		$main['body'] = $this->load->view('voter/vote', $vote, TRUE);
+		$main['body'] = $this->load->view('voter/vote', $data, TRUE);
 		$this->load->view('main', $main);
 	}
 
@@ -78,8 +78,8 @@ class Voter extends Controller {
 				}
 			}
 		}
-		// save the votes in session temporarily
-		$this->session->set_flashdata('votes', $votes);
+		// save the votes in session
+		$this->session->set_userdata('votes', $votes);
 		if (empty($error))
 		{
 			redirect('voter/confirm_vote');
@@ -93,7 +93,28 @@ class Voter extends Controller {
 
 	function confirm_vote()
 	{
-
+		$this->load->model('Candidate');
+		$this->load->model('Party');
+		$this->load->model('Position');
+		$positions = $this->Position->select_all();
+		foreach ($positions as $key=>$position)
+		{
+			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
+			foreach ($candidates as $candidate_id=>$candidate)
+			{
+				$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+			}
+			$positions[$key]['candidates'] = $candidates;
+		}
+		if ($error = $this->session->flashdata('error'))
+			$data['message'] = $error;
+		if ($votes = $this->session->userdata('votes'))
+			$data['votes'] = $votes;
+		$data['positions'] = $positions;
+		$data['username'] = $this->voter['username'];
+		$main['title'] = e('confirm_vote_title');
+		$main['body'] = $this->load->view('voter/confirm_vote', $data, TRUE);
+		$this->load->view('main', $main);
 	}
 
 	function do_confirm_vote()
