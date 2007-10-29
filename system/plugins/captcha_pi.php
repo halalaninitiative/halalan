@@ -221,9 +221,10 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
    if ($word == '')
    {
 		$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$pool = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 		$str = '';
-		for ($i = 0; $i < 8; $i++)
+		for ($i = 0; $i < 6; $i++)
 		{
 			$str .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
 		}
