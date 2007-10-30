@@ -17,6 +17,11 @@
 </div>
 <?php endif; ?>
 <?= form_open('voter/do_vote'); ?>
+<?php if (count($positions) == 0): ?>
+<div class="message">
+	<?= $none; ?>
+</div>
+<?php endif; ?>
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>
 <div class="body">
@@ -72,9 +77,15 @@
 <?php endif; ?>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
-		<input type="reset" value="RESET" />
+		<?php if (count($positions) == 0): ?>
+		<input type="reset" value="RESET" disabled="disabled" />
+		|
+		<input type="submit" value="SUBMIT" disabled="disabled" />
+		<?php else: ?>
+		<input type="reset" value="RESET" disabled="disabled" />
 		|
 		<input type="submit" value="SUBMIT" />
+		<?php endif; ?>
 	</div>
 	<div class="clear"></div>
 </div>

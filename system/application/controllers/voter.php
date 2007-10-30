@@ -37,6 +37,8 @@ class Voter extends Controller {
 		}
 		if ($error = $this->session->flashdata('error'))
 			$data['message'] = $error;
+		if (count($positions) == 0)
+			$data['none'] = e('vote_no_candidates');
 		if ($votes = $this->session->userdata('votes'))
 			$data['votes'] = $votes;
 		$data['positions'] = $positions;

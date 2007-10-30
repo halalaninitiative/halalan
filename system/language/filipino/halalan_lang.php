@@ -16,6 +16,7 @@ $lang['halalan_login_button'] = 'Login';
 
 // controllers/voter.php
 $lang['halalan_vote_title'] = 'Vote';
+$lang['halalan_vote_no_candidates'] = 'walang kandidato';
 $lang['halalan_vote_no_selected'] = 'walang piniling kandidato';
 $lang['halalan_vote_not_all_selected'] = 'hindi lahat ng posisyon ay may napiling kandidato';
 $lang['halalan_vote_maximum'] = 'lumampas ang boto mo sa dapat';
