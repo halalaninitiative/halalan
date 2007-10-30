@@ -82,7 +82,7 @@
 		|
 		<input type="submit" value="SUBMIT" disabled="disabled" />
 		<?php else: ?>
-		<input type="reset" value="RESET" disabled="disabled" />
+		<input type="reset" value="RESET" />
 		|
 		<input type="submit" value="SUBMIT" />
 		<?php endif; ?>
