@@ -22,5 +22,6 @@ $lang['halalan_vote_not_all_selected'] = 'hindi lahat ng posisyon ay may napilin
 $lang['halalan_vote_maximum'] = 'lumampas ang boto mo sa dapat';
 
 $lang['halalan_confirm_vote_title'] = 'Confirm Vote';
+$lang['halalan_confirm_vote_from_vote'] = 'kailangang bumoto ka muna';
 
 ?>

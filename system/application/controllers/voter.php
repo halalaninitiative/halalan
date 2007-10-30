@@ -84,6 +84,7 @@ class Voter extends Controller {
 		$this->session->set_userdata('votes', $votes);
 		if (empty($error))
 		{
+			$this->session->set_userdata('from', 'vote');
 			redirect('voter/confirm_vote');
 		}
 		else
@@ -95,6 +96,17 @@ class Voter extends Controller {
 
 	function confirm_vote()
 	{
+		$from = $this->session->userdata('from');
+		if (!$from || $from != 'vote')
+		{
+			$this->session->set_flashdata('error', e('confirm_vote_from_vote'));
+			redirect('voter/vote');
+		}
+		else
+		{
+			// clear from session
+			$this->session->userdata('from', '');
+		}
 		$this->load->model('Candidate');
 		$this->load->model('Party');
 		$this->load->model('Position');
