@@ -102,11 +102,6 @@ class Voter extends Controller {
 			$this->session->set_flashdata('error', e('confirm_vote_from_vote'));
 			redirect('voter/vote');
 		}
-		else
-		{
-			// clear from session
-			$this->session->userdata('from', '');
-		}
 		$this->load->model('Candidate');
 		$this->load->model('Party');
 		$this->load->model('Position');
@@ -124,10 +119,14 @@ class Voter extends Controller {
 			$data['message'] = $error;
 		$votes = $this->session->userdata('votes');
 		$data['votes'] = $votes;
+
+		// if captcha is enable
 		$this->load->plugin('captcha');
 		$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60);
 		$captcha = create_captcha($vals);
 		$data['captcha'] = $captcha;
+		$this->session->set_userdata('word', $captcha['word']);
+
 		$data['positions'] = $positions;
 		$data['username'] = $this->voter['username'];
 		$main['title'] = e('confirm_vote_title');
@@ -137,6 +136,7 @@ class Voter extends Controller {
 
 	function do_confirm_vote()
 	{
+
 	}
 
 }
