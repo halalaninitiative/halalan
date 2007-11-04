@@ -23,5 +23,14 @@ $lang['halalan_vote_maximum'] = 'lumampas ang boto mo sa dapat';
 
 $lang['halalan_confirm_vote_title'] = 'Confirm Vote';
 $lang['halalan_confirm_vote_from_vote'] = 'kailangang bumoto ka muna';
+$lang['halalan_confirm_vote_no_captcha'] = 'walang nilagay na captcha';
+$lang['halalan_confirm_vote_not_captcha'] = 'maling nilagay na captcha';
+$lang['halalan_confirm_vote_no_pin'] = 'walang nilagay na pin';
+$lang['halalan_confirm_vote_not_pin'] = 'maling nilagay na pin';
+
+$lang['halalan_logout_title'] = 'Logout';
+
+// views/logout.php
+$lang['halalan_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
 
 ?>

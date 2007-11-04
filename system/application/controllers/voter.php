@@ -84,7 +84,6 @@ class Voter extends Controller {
 		$this->session->set_userdata('votes', $votes);
 		if (empty($error))
 		{
-			$this->session->set_userdata('from', 'vote');
 			redirect('voter/confirm_vote');
 		}
 		else
@@ -96,12 +95,10 @@ class Voter extends Controller {
 
 	function confirm_vote()
 	{
-		$from = $this->session->userdata('from');
-		if (!$from || $from != 'vote')
-		{
-			$this->session->set_flashdata('error', e('confirm_vote_from_vote'));
+		$votes = $this->session->userdata('votes');
+		if (empty($votes))
 			redirect('voter/vote');
-		}
+		$data['votes'] = $votes;
 		$this->load->model('Candidate');
 		$this->load->model('Party');
 		$this->load->model('Position');
@@ -117,8 +114,6 @@ class Voter extends Controller {
 		}
 		if ($error = $this->session->flashdata('error'))
 			$data['message'] = $error;
-		$votes = $this->session->userdata('votes');
-		$data['votes'] = $votes;
 
 		// if captcha is enable
 		$this->load->plugin('captcha');
@@ -136,7 +131,45 @@ class Voter extends Controller {
 
 	function do_confirm_vote()
 	{
+		$captcha = $this->input->post('captcha');
+		if (empty($captcha))
+		{
+			$error = e('confirm_vote_no_captcha');
+		}
+		else
+		{
+			$word = $this->session->userdata('word');
+			if ($captcha != $word)
+				$error = e('confirm_vote_not_captcha');
+		}
+		$pin = $this->input->post('pin');
+		if (empty($pin))
+		{
+			$error = e('confirm_vote_no_pin');
+		}
+		else
+		{
+			if (sha1($pin) != $this->voter['pin'])
+				$error = e('confirm_vote_not_pin');
+		}
+		if (empty($error))
+		{
+			redirect('voter/logout');
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+			redirect('voter/confirm_vote');
+		}
+	}
 
+	function logout()
+	{
+		$this->session->sess_destroy();
+		$main['title'] = e('logout_title');
+		$main['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';
+		$main['body'] = $this->load->view('voter/logout', '', TRUE);
+		$this->load->view('main', $main);
 	}
 
 }

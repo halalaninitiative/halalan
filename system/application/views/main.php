@@ -4,6 +4,9 @@
 <head>
   <title>Halalan - <?= $title; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <?php if (isset($meta) && !empty($meta)): ?>
+  <?= $meta; ?>
+  <?php endif; ?>
   <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>public/stylesheets/main.css" />
 </head>
 <body>
