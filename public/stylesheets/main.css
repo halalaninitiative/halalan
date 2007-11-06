@@ -144,6 +144,14 @@ fieldset {
     font-family : Verdana, Helvetica, Arial, sans-serif;
     border : 1px solid #FFAAAA;
     background-color : #FFE5E5;
+  }
+
+.message_header {
     text-align : center;
-    padding : 10px;
+    border : 1px solid #FFAAAA;
+    background-color : #FFAAAA;
+  }
+
+.message_body {
+    text-align : left;
   }

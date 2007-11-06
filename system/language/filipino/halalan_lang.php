@@ -3,6 +3,9 @@
 // common to controllers
 $lang['halalan_unauthorized'] = 'Kailangang nakapasok ka para makita ang pahina na ito.';
 
+// common to views
+$lang['halalan_message_box'] = 'Halalan Message Box';
+
 // controllers/gate.php
 $lang['halalan_gate_title'] = 'Login';
 $lang['halalan_login_failure'] = 'Hindi matagumpay na pagpasok.  Boo!';

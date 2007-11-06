@@ -12,7 +12,7 @@ class Gate extends Controller {
 		$gate = '';
 		if ($login = $this->session->flashdata('login'))
 		{
-			$gate['message'] = $login;
+			$gate['messages'] = array($login);
 		}
 		$main['title'] = e('gate_title');
 		$main['body'] = $this->load->view('gate/index', $gate, TRUE);

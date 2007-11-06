@@ -1,6 +1,13 @@
-<?php if (isset($message) && !empty($message)): ?>
+<?php if (isset($messages) && !empty($messages)): ?>
 <div class="message">
-	<?= $message; ?>
+	<div class="message_header"><?= e('message_box'); ?></div>
+	<div class="message_body">
+		<ul>
+			<?php foreach ($messages as $message): ?>
+			<li><?= $message; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
 </div>
 <?php endif; ?>
 <?= form_open('gate/login'); ?>
