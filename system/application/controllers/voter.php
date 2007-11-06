@@ -77,6 +77,14 @@ class Voter extends Controller {
 					{
 						$error[] = e('vote_maximum');
 					}
+					else
+					{
+						// check if abstain is selected with other candidates
+						if (in_array('', $candidate_ids) && count($candidate_ids) > 1)
+						{
+							$error[] = e('vote_abstain_and_others');
+						}
+					}
 				}
 			}
 		}
