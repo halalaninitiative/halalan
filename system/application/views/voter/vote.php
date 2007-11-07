@@ -1,3 +1,27 @@
+<script>
+function checkNumber(field, name, form, limit) {
+	var cntr = 0;
+	var group = form.elements[name];
+	for(var i = 0; i < group.length; i++)
+		if(group[i].checked)
+			cntr++;
+	if(cntr > limit) {
+		field.checked = false;
+		alert("You are over the allowed limit");
+	}
+}
+function manipulateCheckBoxes(field, name, form) {
+	var group = form.elements[name];
+	for(var i = 0; i < group.length; i++) {
+		if(field.checked)
+			group[i].disabled = true;
+		else
+			group[i].disabled = false;
+	}
+	field.disabled = false;
+}
+</script>
+
 <div class="menu">
 	<div id="left_menu">
 		<ul>
@@ -55,7 +79,7 @@
 						$checked = FALSE;
 				?>
 				<tr>
-					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'])); ?></td>
+					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'onclick'=>'checkNumber(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form, '. $positions[$i]['maximum'] . ');')); ?></td>
 					<td><?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?></td>
 					<td><?= $candidate['party']['party']; ?></td>
 				</tr>
@@ -69,7 +93,7 @@
 				?>
 				<?php if ($positions[$i]['abstain'] == TRUE): ?>
 				<tr>
-					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'')); ?></td>
+					<td><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'onclick'=>'manipulateCheckBoxes(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form);')); ?></td>
 					<td>ABSTAIN</td>
 					<td></td>
 				</tr>
@@ -92,12 +116,8 @@
 <div class="menu" id="menu_center">
 	<div id="center_menu">
 		<?php if (count($positions) == 0): ?>
-		<input type="reset" value="RESET" disabled="disabled" />
-		|
 		<input type="submit" value="SUBMIT" disabled="disabled" />
 		<?php else: ?>
-		<input type="reset" value="RESET" />
-		|
 		<input type="submit" value="SUBMIT" />
 		<?php endif; ?>
 	</div>
