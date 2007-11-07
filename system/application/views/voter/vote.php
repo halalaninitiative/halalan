@@ -29,7 +29,7 @@ function saveState() {
 				checkboxes.push(i);
 		}
 	}
-	setCookie('halalancookie', checkboxes.toString(), 1);
+	setCookie('halalan_cookie', checkboxes.toString(), 1);
 }
 function restoreState(checkboxes) {
 	checkboxes = checkboxes.split(",");
@@ -47,7 +47,7 @@ function in_array(needle, haystack) {
 	return false;
 }
 function checkCookie() {
-	var checkboxes = getCookie('halalancookie');
+	var checkboxes = getCookie('halalan_cookie');
 	if(checkboxes != null && checkboxes != "")
 		restoreState(checkboxes);
 }
@@ -55,7 +55,7 @@ function checkCookie() {
 function setCookie(c_name,value,expiredays) {
 	var exdate=new Date();
 	exdate.setDate(exdate.getDate()+expiredays);
-	document.cookie = c_name + "=" + escape(value) + ((expiredays==null) ? "" : ";expires=" + exdate.toGMTString());
+	document.cookie = c_name + "=" + escape(value) + ((expiredays==null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=/";
 }
 
 function getCookie(c_name) {

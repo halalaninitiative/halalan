@@ -46,6 +46,7 @@ class Gate extends Controller {
 
 	function logout()
 	{
+		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
 		$this->session->sess_destroy();
 		redirect('gate');
 	}
