@@ -21,10 +21,10 @@ class Gate extends Controller {
 
 	function login()
 	{
-		$this->load->model('Voter');
+		$this->load->model('Boter');
 		$username = $this->input->post('username');
 		$password = sha1($this->input->post('password'));
-		if ($voter = $this->Voter->authenticate($username, $password))
+		if ($voter = $this->Boter->authenticate($username, $password))
 		{
 			if ($voter['voted'] == TRUE)
 			{

@@ -1,8 +1,8 @@
 <?php
 
-class Voter extends Model {
+class Boter extends Model {
 
-	function Voter()
+	function Boter()
 	{
 		parent::Model();
 	}
