@@ -155,3 +155,19 @@ fieldset {
 .message_body {
     text-align : left;
   }
+
+/* DOM Tooltip Style */
+div.domTT {
+    border: 1px solid #BBBBBB;
+    background-color: #E5E5E5;
+    font-family : Verdana, Helvetica, Arial, sans-serif;
+  }
+div.domTT .caption {
+    text-align: left;
+    background-color: #BBBBBB;
+    padding : 2px;
+}
+div.domTT .contents {
+    text-align: left;
+    padding : 2px;
+}
