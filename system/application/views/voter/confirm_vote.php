@@ -85,22 +85,28 @@
 	<div class="clear"></div>
 </div>
 <?php endif; ?>
+<?php if ($settings['captcha'] || $settings['pin']): ?>
 <div class="body">
 	<div class="center_body">
 		<fieldset>
 			<legend><span class="position">Validation</span></legend>
 			<table cellpadding="2" cellspacing="2">
 				<tr>
+					<?php if ($settings['captcha']): ?>
 					<td><?= $captcha['image']; ?></td>
 					<td>Enter the word here:<br /><?= form_input(array('name'=>'captcha', 'size'=>20, 'maxlength'=>8)); ?></td>
+					<?php endif ;?>
+					<?php if ($settings['pin']): ?>
 					<td>&nbsp;</td>
 					<td>Enter your pin here:<br /><?= form_input(array('name'=>'pin', 'size'=>20)); ?></td>
+					<?php endif; ?>
 				</tr>
 			</table>
 		</fieldset>
 	</div>
 	<div class="clear"></div>
 </div>
+<?php endif; ?>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
 		<?= anchor('voter/vote', 'GO BACK'); ?>

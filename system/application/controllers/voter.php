@@ -144,14 +144,15 @@ class Voter extends Controller {
 		}
 		if ($error = $this->session->flashdata('error'))
 			$data['messages'] = $error;
-
-		// if captcha is enable
-		$this->load->plugin('captcha');
-		$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60);
-		$captcha = create_captcha($vals);
-		$data['captcha'] = $captcha;
-		$this->session->set_userdata('word', $captcha['word']);
-
+		if ($this->settings['captcha'])
+		{
+			$this->load->plugin('captcha');
+			$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60);
+			$captcha = create_captcha($vals);
+			$data['captcha'] = $captcha;
+			$this->session->set_userdata('word', $captcha['word']);
+		}
+		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
 		$data['username'] = $this->voter['username'];
 		$main['title'] = e('confirm_vote_title');
@@ -162,26 +163,32 @@ class Voter extends Controller {
 	function do_confirm_vote()
 	{
 		$error = array();
-		$captcha = $this->input->post('captcha');
-		if (empty($captcha))
+		if ($this->settings['captcha'])
 		{
-			$error[] = e('confirm_vote_no_captcha');
+			$captcha = $this->input->post('captcha');
+			if (empty($captcha))
+			{
+				$error[] = e('confirm_vote_no_captcha');
+			}
+			else
+			{
+				$word = $this->session->userdata('word');
+				if ($captcha != $word)
+					$error[] = e('confirm_vote_not_captcha');
+			}
 		}
-		else
+		if ($this->settings['pin'])
 		{
-			$word = $this->session->userdata('word');
-			if ($captcha != $word)
-				$error[] = e('confirm_vote_not_captcha');
-		}
-		$pin = $this->input->post('pin');
-		if (empty($pin))
-		{
-			$error[] = e('confirm_vote_no_pin');
-		}
-		else
-		{
-			if (sha1($pin) != $this->voter['pin'])
-				$error[] = e('confirm_vote_not_pin');
+			$pin = $this->input->post('pin');
+			if (empty($pin))
+			{
+				$error[] = e('confirm_vote_no_pin');
+			}
+			else
+			{
+				if (sha1($pin) != $this->voter['pin'])
+					$error[] = e('confirm_vote_not_pin');
+			}
 		}
 		if (empty($error))
 		{
