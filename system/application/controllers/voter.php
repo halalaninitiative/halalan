@@ -185,6 +185,21 @@ class Voter extends Controller {
 		}
 		if (empty($error))
 		{
+			$this->load->model('Boter');
+			$this->load->model('Vote');
+			$voter_id = $this->voter['id'];
+			$timestamp = date("Y-m-d H:i:s");
+			$votes = $this->session->userdata('votes');
+			foreach ($votes as $candidate_ids)
+			{
+				foreach ($candidate_ids as $candidate_id)
+				{
+					if (!empty($candidate_id))
+						$this->Vote->insert(compact('candidate_id', 'voter_id', 'timestamp'));
+				}
+			}
+			$this->Boter->update(array('voted'=>TRUE), $voter_id);
+			$this->session->userdata('votes', '');
 			redirect('voter/logout');
 		}
 		else

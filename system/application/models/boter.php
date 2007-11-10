@@ -15,6 +15,11 @@ class Boter extends Model {
 		return $query->row_array();
 	}
 
+	function update($voter, $voter_id)
+	{
+		return $this->db->update('voters', $voter, array('id'=>$voter_id));
+	}
+
 }
 
 ?>
