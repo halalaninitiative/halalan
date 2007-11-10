@@ -211,6 +211,9 @@ class Voter extends Controller {
 
 	function logout()
 	{
+		$this->load->model('Boter');
+		$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $this->voter['id']);
+		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
 		$this->session->sess_destroy();
 		$main['title'] = e('logout_title');
 		$main['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';

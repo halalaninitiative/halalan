@@ -33,6 +33,7 @@ class Gate extends Controller {
 			}
 			else
 			{
+				$this->Boter->update(array('login'=>date("Y-m-d H:i:s")), $voter['id']);
 				$this->session->set_userdata('voter', $voter);
 				redirect('voter');
 			}
