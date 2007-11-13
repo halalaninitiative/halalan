@@ -32,9 +32,20 @@ $lang['halalan_confirm_vote_not_captcha'] = 'maling nilagay na captcha';
 $lang['halalan_confirm_vote_no_pin'] = 'walang nilagay na pin';
 $lang['halalan_confirm_vote_not_pin'] = 'maling nilagay na pin';
 
+// views/gate/admin
+$lang['halalan_admin_login_label'] = 'Login to Halalan as Admin';
+
+// Admin Main Page
+$lang['halalan_admin_title'] = 'Administration';
+$lang['halalan_admin_home'] = 'Home';
+$lang['halalan_admin_home_label'] = 'Ano ang gusto mong gawin?';
+$lang['halalan_admin_add_voter'] = 'Magdagdag ng botante';
+$lang['halalan_admin_add_candidate'] = 'Magdagdag ng kandidato';
+
 $lang['halalan_logout_title'] = 'Logout';
 
 // views/logout.php
 $lang['halalan_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
+
 
 ?>

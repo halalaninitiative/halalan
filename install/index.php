@@ -20,6 +20,8 @@ else
 	if ($dbdriver == 'mysql')
 	{
 		$link = mysql_connect($hostname, $username, $password);
+		//alert($link);
+		//echo($link);
 		if (!$link)
 		{
 			$some_random_variable = false;
