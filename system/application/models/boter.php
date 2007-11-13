@@ -20,7 +20,7 @@ class Boter extends Model {
 		return $this->db->update('voters', $voter, array('id'=>$voter_id));
 	}
 	
-	function getVotersList() {
+	function get_voters_ist() {
 	
 		$this->db->from('voters');
 		$results = $this->db->get();
@@ -39,7 +39,7 @@ class Boter extends Model {
 		
 	}
 	
-	function selectByUsername($username) {
+	function select_by_username($username) {
 		
 		$this->db->from('voters');
 		$this->db->where('name', $username);
@@ -49,7 +49,7 @@ class Boter extends Model {
 		
 	}
 	
-	function selectByMatch($username) {
+	function select_by_match($username) {
 	
 		$match = '%'.$username.'%';
 		
@@ -64,20 +64,13 @@ class Boter extends Model {
 	function add($entity) {
 	
 		$this->db->set('username', $entity['username']);
-		$this->db->set('password', sha1($entity['password']);
+ 		$this->db->set('password', sha1($entity['password']));
 		$this->db->set('pin', $entity['pin']);
 		$this->db->set('first_name', $entity['first_name']);		
 		$this->db->set('last_name', $entity['last_name']);
 		$this->db->set('voted', 0);
 		$this->db->insert('voters');
 	
-	}
-	
-	function update($id, $entity) {
-	
-		$this->db->where('id', $id);
-		$this->db->update('voters', $entity);		
-		
 	}
 	
 	function delete($id) {

@@ -27,7 +27,7 @@ class Admin extends Model {
 		
 	}
 	
-	function selectByUsername($username) {
+	function select_by_username($username) {
 	
 		$this->db->from('admins');
 		$this->db->where('username', $username);
@@ -37,7 +37,7 @@ class Admin extends Model {
 	
 	}
 	
-	function selectByMatch($username) {
+	function select_by_match($username) {
 	
 		$match = '%'.$username.'%';
 		
