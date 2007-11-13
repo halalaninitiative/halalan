@@ -125,10 +125,8 @@ window.onload = checkCookie;
 <div class="message">
 	<div class="message_header"><?= e('message_box'); ?></div>
 	<div class="message_body">
-		<ul>
-			<?php foreach ($messages as $message): ?>
-			<li><?= $none; ?></li>
-			<?php endforeach; ?>
+		<ul>			
+			<li><?= $none; ?></li>			
 		</ul>
 	</div>
 </div>
