@@ -1,8 +1,8 @@
 <?php
 
-class Admin extends Model {
+class Abmin extends Model {
 	
-	function Admin() 
+	function Abmin() 
 	{
 		parent::Model();
 	}
@@ -45,7 +45,7 @@ class Admin extends Model {
 		$this->db->where('username', $match);
 		$results = $this->db->get();
 		
-		return $results->row_array();		
+		return $results->result_array();		
 	
 	}
 

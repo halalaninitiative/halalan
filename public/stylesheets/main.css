@@ -156,6 +156,54 @@ fieldset {
     text-align : left;
   }
 
+
+/* Admin Styles */
+
+.admin_menu {
+    width : 720px;
+    margin : 0 auto 20px auto;
+    font-family : Verdana, Helvetica, Arial, sans-serif;
+    border-top : 1px solid #BBBBBB;
+    border-bottom : 1px solid #BBBBBB;
+    background-color : #AAFFAA;
+  }
+
+.header {
+    font-family : Verdana, Helvetica, Arial, sans-serif;
+    font-weight : bold;
+  }
+
+.admin_inner_center_body {
+    margin : 0 auto;
+    width : 680px;
+    padding : 0 0 0 0;
+}
+
+/*a:link {
+	color: black; 
+	text-decoration: none;
+}
+
+a:hover {
+	color: green; 
+	text-decoration: none;
+	font-weight : bold;
+}
+
+a:active {
+	color: green; 
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:visited {
+	color: black; 
+	text-decoration: none;
+	font-weight: none;
+}*/
+
+/* End Admin Styles */
+
 /* DOM Tooltip Style */
 div.domTT {
     border: 1px solid #BBBBBB;

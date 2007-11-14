@@ -70,11 +70,11 @@ class Gate extends Controller {
 
 	function admin_login()
 	{
-		$this->load->model('Admin');
+		$this->load->model('Abmin');
 		$username = $this->input->post('username');
 		$password = sha1($this->input->post('password'));
 		
-		if ($admin = $this->Admin->authenticate($username, $password))
+		if ($admin = $this->Abmin->authenticate($username, $password))
 		{		
 			// don't save password and pin to session
 			unset($admin['password']);			

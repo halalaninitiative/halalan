@@ -20,12 +20,12 @@ class Boter extends Model {
 		return $this->db->update('voters', $voter, array('id'=>$voter_id));
 	}
 	
-	function get_voters_ist() {
+	function get_voters_list() {
 	
 		$this->db->from('voters');
 		$results = $this->db->get();
 		
-		return $results->row_array();
+		return $results->result_array();
 		
 	}
 		
@@ -57,7 +57,7 @@ class Boter extends Model {
 		$this->db->where('name', $match);
 		$results = $this->db->get();
 			
-		return $results->row_array();
+		return $results->result_array();
 	
 	}
 	
