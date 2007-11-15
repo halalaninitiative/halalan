@@ -5,6 +5,12 @@ $lang['halalan_unauthorized'] = 'Kailangang nakapasok ka para makita ang pahina 
 
 // common to views
 $lang['halalan_message_box'] = 'Halalan Message Box';
+$lang['halalan_edit'] = 'Baguhin';
+$lang['halalan_delete'] = 'Tanggalin';
+$lang['halalan_voted'] = 'Voted';
+$lang['halalan_name'] = 'Pangalan';
+$lang['halalan_unit'] = 'Unit';
+$lang['halalan_action'] = 'Aksyon';
 
 // controllers/gate.php
 $lang['halalan_gate_title'] = 'Login';
@@ -41,6 +47,16 @@ $lang['halalan_admin_home'] = 'Home';
 $lang['halalan_admin_home_label'] = 'Ano ang gusto mong gawin?';
 $lang['halalan_admin_add_voter'] = 'Magdagdag ng botante';
 $lang['halalan_admin_add_candidate'] = 'Magdagdag ng kandidato';
+
+// Other admin views
+$lang['halalan_add_voter'] = 'Magdagdag ng botante';
+$lang['halalan_add_voter_submit'] = 'Idagdag';
+$lang['halalan_add_voter_details'] = 'Mga detalye ng botante na idadagdag';
+$lang['halalan_add_voter_exists'] = 'Meron nang ganitong boter.';
+$lang['halalan_add_voter_no_username'] = 'Kailangan ang username.';
+$lang['halalan_add_voter_no_firstname'] = 'Kailangan ang first name.';
+$lang['halalan_add_voter_no_lastname'] = 'Kailangan ang last name.';
+$lang['halalan_add_voter_success'] = 'Matagumpay ang pagdagdag ng botante!';
 
 $lang['halalan_logout_title'] = 'Logout';
 

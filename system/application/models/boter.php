@@ -42,7 +42,7 @@ class Boter extends Model {
 	function select_by_username($username) {
 		
 		$this->db->from('voters');
-		$this->db->where('name', $username);
+		$this->db->where('username', $username);
 		$results = $this->db->get();
 		
 		return $results->row_array();
@@ -69,14 +69,14 @@ class Boter extends Model {
 		$this->db->set('first_name', $entity['first_name']);		
 		$this->db->set('last_name', $entity['last_name']);
 		$this->db->set('voted', 0);
-		$this->db->insert('voters');
+		return $this->db->insert('voters');
 	
 	}
 	
 	function delete($id) {
 		
 		$this->db->where('id', $id);
-		$this->db->delete('voters');
+		return $this->db->delete('voters');
 		
 	}
 

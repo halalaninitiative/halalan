@@ -30,8 +30,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="left"><a href="">Add Voter</a></td>
-				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; First | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
+				<td align="left"><?= anchor('admin/add/voter', e('add_voter')); ?></td>
+				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; Next | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
 			</tr>
 		</table>
 		<fieldset>
@@ -39,12 +39,12 @@
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="FFFFFF">
 				<thead>
 					<tr bgcolor="#FFAAAA">
-						<th align="center">Voted</th>
-						<th align="center">Name</th>
+						<th align="center"><?= e('voted'); ?></th>
+						<th align="center"><?= e('name'); ?></th>
 						<?php if($unit) { ?>
-							<th align="center">Unit</th>
+							<th align="center"><?= e('unit'); ?></th>
 						<?php } ?>						
-						<th align="center">Action</th>
+						<th align="center"><?= e('action'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,17 +56,17 @@
 					<tr <?= ($i % 2 == 0) ? 'bgcolor="#FFE5E5"' : ''  ?>
 					>
 						<td width="5%" align="center">
-							<?php if($voter['voted'] == TRUE) { ?>
+							<?php if($voter['voted'] == TRUE): ?>
 								<img src="<?= base_url(); ?>/public/images/apply.png" />
-							<?php } ?>
+							<?php endif; ?>
 						</td>
 						<?php if($unit) { ?>
-						<td width="50%" ><a href=""><?= $voter['last_name'] ?>, <?= $voter['first_name'] ?></td>
+						<td width="50%" ><?= anchor('admin/edit/voter/'.$voter['id'], $voter['last_name'].', '.$voter['first_name']); ?></td>
 						<td width="30%" align="center">DCS</td>
 						<?php } else { ?>
-						<td width="80%" ><a href=""><?= $voter['last_name'] ?>, <?= $voter['first_name'] ?></td>
+						<td width="80%" ><?= anchor('admin/edit/voter/'.$voter['id'], $voter['last_name'].', '.$voter['first_name']); ?></td>
 						<?php } ?>
-						<td wodth="15%" align="center">Edit</a> | <a href="">Delete</a></td>
+						<td width="15%" align="center"><?= anchor('admin/edit/voter/'.$voter['id'], e('edit')); ?> | <?= anchor('admin/delete/voter/'.$voter['id'], e('delete')); ?></a></td>
 					</tr>
 					
 					<?php
@@ -81,7 +81,7 @@
 		</fieldset>
 		<table width="100%">
 	<tr>
-		<td align="left"><a href="">Add Voter</a></td>
+		<td align="left"><?= anchor('admin/add/voter', e('add_voter')); ?></td>
 		<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; First | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
 	</tr>
 </table>
