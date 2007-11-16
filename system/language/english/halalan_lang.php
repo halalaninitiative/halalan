@@ -20,9 +20,9 @@ $lang['halalan_login_button'] = 'Login';
 // controllers/voter.php
 $lang['halalan_vote_title'] = 'Vote';
 $lang['halalan_vote_no_candidates'] = 'No candidates';
-$lang['halalan_vote_no_selected'] = 'No chosen candidates';
-$lang['halalan_vote_not_all_selected'] = 'You have not voted for all positions.';
-$lang['halalan_vote_maximum'] = 'You have exceeded the number of votes per position.';
+$lang['halalan_vote_no_selected'] = 'No candidates selected';
+$lang['halalan_vote_not_all_selected'] = 'You have not voted in all positions.';
+$lang['halalan_vote_maximum'] = 'You have exceeded the number of votes in a certain position.';
 $lang['halalan_vote_abstain_and_others'] = 'You can not vote for a candidate if you chose to abstain.';
 
 $lang['halalan_confirm_vote_title'] = 'Confirm Vote';
@@ -48,4 +48,4 @@ $lang['halalan_logout_title'] = 'Logout';
 $lang['halalan_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
 
 
-?> 
+?>
