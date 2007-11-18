@@ -13,15 +13,22 @@ $lang['halalan_unit'] = 'Unit';
 $lang['halalan_action'] = 'Aksyon';
 
 // controllers/gate.php
-$lang['halalan_gate_title'] = 'Login';
-$lang['halalan_login_failure'] = 'Hindi matagumpay na pagpasok.  Boo!';
-$lang['halalan_already_voted'] = 'ikaw ay nakaboto na';
+$lang['halalan_gate_login_failure'] = 'Hindi matagumpay na pagpasok.  Boo!'; // common
+$lang['halalan_gate_voter_title'] = 'Voter Login';
+$lang['halalan_gate_voter_already_voted'] = 'ikaw ay nakaboto na';
+$lang['halalan_gate_admin_title'] = 'Admin Login';
 
-// views/gate.php
-$lang['halalan_login_label'] = 'Login to Halalan';
-$lang['halalan_username'] = 'Username';
-$lang['halalan_password'] = 'Password';
-$lang['halalan_login_button'] = 'Login';
+// views/gate/voter.php
+$lang['halalan_gate_voter_login_label'] = 'Login to Halalan';
+$lang['halalan_gate_voter_username'] = 'Username';
+$lang['halalan_gate_voter_password'] = 'Password';
+$lang['halalan_gate_voter_login_button'] = 'Login';
+
+// views/gate/admin.php
+$lang['halalan_gate_admin_login_label'] = 'Login to Halalan as Admin';
+$lang['halalan_gate_admin_username'] = 'Username';
+$lang['halalan_gate_admin_password'] = 'Password';
+$lang['halalan_gate_admin_login_button'] = 'Login';
 
 // controllers/voter.php
 $lang['halalan_vote_title'] = 'Vote';
@@ -37,9 +44,6 @@ $lang['halalan_confirm_vote_no_captcha'] = 'walang nilagay na captcha';
 $lang['halalan_confirm_vote_not_captcha'] = 'maling nilagay na captcha';
 $lang['halalan_confirm_vote_no_pin'] = 'walang nilagay na pin';
 $lang['halalan_confirm_vote_not_pin'] = 'maling nilagay na pin';
-
-// views/gate/admin
-$lang['halalan_admin_login_label'] = 'Login to Halalan as Admin';
 
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';

@@ -10,22 +10,22 @@
 	</div>
 </div>
 <?php endif; ?>
-<?= form_open('gate/login'); ?>
+<?= form_open('gate/voter_login'); ?>
 <div class="body">
 	<div class="center_body" style="text-align : center;">
 		<fieldset style="width : 350px; margin : 0 auto;">
-			<legend class="position"><?= e('login_label'); ?></legend>
+			<legend class="position"><?= e('gate_voter_login_label'); ?></legend>
 			<table cellspacing="2" cellpadding="2" align="center">
 				<tr>
-					<td><?= e('username'); ?></td>
+					<td><?= e('gate_voter_username'); ?></td>
 					<td><?= form_input(array('name'=>'username', 'maxlength'=>'63')); ?></td>
 				</tr>
 				<tr>
-					<td><?= e('password'); ?></td>
+					<td><?= e('gate_voter_password'); ?></td>
 					<td><?= form_password(array('name'=>'password')); ?></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><?= form_submit(array('value'=>e('login_button'))); ?></td>
+					<td colspan="2" align="center"><?= form_submit(array('value'=>e('gate_voter_login_button'))); ?></td>
 				</tr>
 			</table>
 		</fieldset>

@@ -6,53 +6,51 @@ class Gate extends Controller {
 	{
 		parent::Controller();
 	}
-	
+
 	function index()
+	{
+		redirect('gate/voter');
+	}
+
+	function voter()
 	{
 		$gate = '';
 		if ($login = $this->session->flashdata('login'))
 		{
 			$gate['messages'] = array($login);
 		}
-		$main['title'] = e('gate_title');
-		$main['body'] = $this->load->view('gate/index', $gate, TRUE);
-		$this->load->view('main', $main);			
+		$main['title'] = e('gate_voter_title');
+		$main['body'] = $this->load->view('gate/voter', $gate, TRUE);
+		$this->load->view('main', $main);
 	}
 
-	function login()
+	function voter_login()
 	{
 		$this->load->model('Boter');
 		$username = $this->input->post('username');
 		$password = sha1($this->input->post('password'));
-
 		if ($voter = $this->Boter->authenticate($username, $password))
-
-		{			
+		{
 			if ($voter['voted'] == TRUE)
 			{
-				$this->session->set_flashdata('login', e('already_voted'));
-				redirect('gate');
+				$this->session->set_flashdata('login', e('gate_voter_already_voted'));
+				redirect('gate/voter');
 			}
 			else
 			{
 				$this->Boter->update(array('login'=>date("Y-m-d H:i:s")), $voter['id']);
+				// don't save password to session
+				unset($voter['password']);
 				$this->session->set_userdata('voter', $voter);
-				redirect('voter');
+				redirect('voter/vote');
 			}
 			
 		}
 		else
 		{
-			$this->session->set_flashdata('login', e('login_failure'));
-			redirect('gate');
+			$this->session->set_flashdata('login', e('gate_login_failure'));
+			redirect('gate/voter');
 		}
-	}
-
-	function logout()
-	{		
-		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
-		$this->session->sess_destroy();
-		redirect('gate');
 	}
 	
 	function admin()
@@ -60,12 +58,11 @@ class Gate extends Controller {
 		$gate = '';
 		if ($login = $this->session->flashdata('login'))
 		{
-			$gate['message'] = $login;
+			$gate['messages'] = array($login);
 		}
-		$main['title'] = e('gate_title');
+		$main['title'] = e('gate_admin_title');
 		$main['body'] = $this->load->view('gate/admin', $gate, TRUE);
 		$this->load->view('main', $main);
-		//echo(sha1('password'));
 	}
 
 	function admin_login()
@@ -73,20 +70,27 @@ class Gate extends Controller {
 		$this->load->model('Abmin');
 		$username = $this->input->post('username');
 		$password = sha1($this->input->post('password'));
-		
 		if ($admin = $this->Abmin->authenticate($username, $password))
-		{		
-			// don't save password and pin to session
-			unset($admin['password']);			
+		{
+			// don't save password to session
+			unset($admin['password']);
 			$this->session->set_userdata('admin', $admin);
-			redirect('admin');		
+			redirect('admin/index');
 		}
 		else
 		{
-			$this->session->set_flashdata('login', e('login_failure'));
+			$this->session->set_flashdata('login', e('gate_login_failure'));
 			redirect('gate/admin');
 		}
 	}
 
+	function logout()
+	{
+		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
+		$this->session->sess_destroy();
+		redirect('gate');
+	}
+
 }
+
 ?>
