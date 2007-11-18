@@ -40,12 +40,12 @@ class Voter extends Controller {
 		if ($error = $this->session->flashdata('error'))
 			$data['messages'] = $error;
 		if (count($positions) == 0)
-			$data['none'] = e('vote_no_candidates');
+			$data['none'] = e('voter_vote_no_candidates');
 		if ($votes = $this->session->userdata('votes'))
 			$data['votes'] = $votes;
 		$data['positions'] = $positions;
 		$data['username'] = $this->voter['username'];
-		$main['title'] = e('vote_title');
+		$main['title'] = e('voter_vote_title');
 		$main['body'] = $this->load->view('voter/vote', $data, TRUE);
 		$this->load->view('main', $main);
 	}
@@ -57,7 +57,7 @@ class Voter extends Controller {
 		// check if there are selected candidates
 		if (empty($votes))
 		{
-			$error[] = e('vote_no_selected');
+			$error[] = e('voter_vote_no_selected');
 		}
 		else
 		{
@@ -66,7 +66,7 @@ class Voter extends Controller {
 			$positions = $this->Position->select_all_without_units();
 			if (count($positions) != count($votes))
 			{
-				$error[] = e('vote_not_all_selected');
+				$error[] = e('voter_vote_not_all_selected');
 			}
 			else
 			{
@@ -76,14 +76,14 @@ class Voter extends Controller {
 					$position = $this->Position->select($position_id);
 					if ($position['maximum'] < count($candidate_ids))
 					{
-						$error[] = e('vote_maximum');
+						$error[] = e('voter_vote_maximum');
 					}
 					else
 					{
 						// check if abstain is selected with other candidates
 						if (in_array('', $candidate_ids) && count($candidate_ids) > 1)
 						{
-							$error[] = e('vote_abstain_and_others');
+							$error[] = e('voter_vote_abstain_and_others');
 						}
 					}
 				}
@@ -134,7 +134,7 @@ class Voter extends Controller {
 		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
 		$data['username'] = $this->voter['username'];
-		$main['title'] = e('confirm_vote_title');
+		$main['title'] = e('voter_confirm_vote_title');
 		$main['body'] = $this->load->view('voter/confirm_vote', $data, TRUE);
 		$this->load->view('main', $main);
 	}
@@ -147,13 +147,13 @@ class Voter extends Controller {
 			$captcha = $this->input->post('captcha');
 			if (empty($captcha))
 			{
-				$error[] = e('confirm_vote_no_captcha');
+				$error[] = e('voter_confirm_vote_no_captcha');
 			}
 			else
 			{
 				$word = $this->session->userdata('word');
 				if ($captcha != $word)
-					$error[] = e('confirm_vote_not_captcha');
+					$error[] = e('voter_confirm_vote_not_captcha');
 			}
 		}
 		if ($this->settings['pin'])
@@ -161,12 +161,12 @@ class Voter extends Controller {
 			$pin = $this->input->post('pin');
 			if (empty($pin))
 			{
-				$error[] = e('confirm_vote_no_pin');
+				$error[] = e('voter_confirm_vote_no_pin');
 			}
 			else
 			{
 				if (sha1($pin) != $this->voter['pin'])
-					$error[] = e('confirm_vote_not_pin');
+					$error[] = e('voter_confirm_vote_not_pin');
 			}
 		}
 		if (empty($error))
@@ -208,4 +208,5 @@ class Voter extends Controller {
 	}
 
 }
+
 ?>
