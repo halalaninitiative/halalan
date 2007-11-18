@@ -31,19 +31,19 @@ $lang['halalan_gate_admin_password'] = 'Password';
 $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // controllers/voter.php
-$lang['halalan_vote_title'] = 'Vote';
-$lang['halalan_vote_no_candidates'] = 'walang kandidato';
-$lang['halalan_vote_no_selected'] = 'walang piniling kandidato';
-$lang['halalan_vote_not_all_selected'] = 'hindi lahat ng posisyon ay may napiling kandidato';
-$lang['halalan_vote_maximum'] = 'lumampas ang boto mo sa dapat';
-$lang['halalan_vote_abstain_and_others'] = 'hindi pwedeng pumili ng ibang kandidato kapag napili ang abstain';
+$lang['halalan_voter_vote_title'] = 'Vote';
+$lang['halalan_voter_vote_no_candidates'] = 'walang kandidato';
+$lang['halalan_voter_vote_no_selected'] = 'walang piniling kandidato';
+$lang['halalan_voter_vote_not_all_selected'] = 'hindi lahat ng posisyon ay may napiling kandidato';
+$lang['halalan_voter_vote_maximum'] = 'lumampas ang boto mo sa dapat';
+$lang['halalan_voter_vote_abstain_and_others'] = 'hindi pwedeng pumili ng ibang kandidato kapag napili ang abstain';
 
-$lang['halalan_confirm_vote_title'] = 'Confirm Vote';
-$lang['halalan_confirm_vote_from_vote'] = 'kailangang bumoto ka muna';
-$lang['halalan_confirm_vote_no_captcha'] = 'walang nilagay na captcha';
-$lang['halalan_confirm_vote_not_captcha'] = 'maling nilagay na captcha';
-$lang['halalan_confirm_vote_no_pin'] = 'walang nilagay na pin';
-$lang['halalan_confirm_vote_not_pin'] = 'maling nilagay na pin';
+$lang['halalan_voter_confirm_vote_title'] = 'Confirm Vote';
+$lang['halalan_voter_confirm_vote_from_vote'] = 'kailangang bumoto ka muna';
+$lang['halalan_voter_confirm_vote_no_captcha'] = 'walang nilagay na captcha';
+$lang['halalan_voter_confirm_vote_not_captcha'] = 'maling nilagay na captcha';
+$lang['halalan_voter_confirm_vote_no_pin'] = 'walang nilagay na PIN';
+$lang['halalan_voter_confirm_vote_not_pin'] = 'maling nilagay na PIN';
 
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';
