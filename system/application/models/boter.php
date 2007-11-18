@@ -10,14 +10,14 @@ class Boter extends Model {
 	function authenticate($username, $password)
 	{
 		$this->db->from('voters');
-		$this->db->where(array('username'=>$username, 'password'=>$password));
+		$this->db->where(compact('username', 'password'));
 		$query = $this->db->get();
 		return $query->row_array();
 	}
 
-	function update($voter, $voter_id)
+	function update($voter, $id)
 	{
-		return $this->db->update('voters', $voter, array('id'=>$voter_id));
+		return $this->db->update('voters', $voter, compact('id'));
 	}
 	
 	function get_voters_list() {
