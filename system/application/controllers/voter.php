@@ -27,14 +27,7 @@ class Voter extends Controller {
 		$this->load->model('Candidate');
 		$this->load->model('Party');
 		$this->load->model('Position');
-		if ($this->settings['unit'])
-		{
-			$positions = $this->Position->select_all_with_units($this->voter['id']);
-		}
-		else
-		{
-			$positions = $this->Position->select_all_without_units();
-		}
+		$positions = $this->Position->select_all_with_units($this->voter['id']);
 		foreach ($positions as $key=>$position)
 		{
 			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
@@ -70,14 +63,7 @@ class Voter extends Controller {
 		{
 			// check if all positions have selected candidates
 			$this->load->model('Position');
-			if ($this->settings['unit'])
-			{
-				$positions = $this->Position->select_all_with_units($this->voter['id']);
-			}
-			else
-			{
-				$positions = $this->Position->select_all_without_units();
-			}
+			$positions = $this->Position->select_all_without_units();
 			if (count($positions) != count($votes))
 			{
 				$error[] = e('vote_not_all_selected');
@@ -125,14 +111,7 @@ class Voter extends Controller {
 		$this->load->model('Candidate');
 		$this->load->model('Party');
 		$this->load->model('Position');
-		if ($this->settings['unit'])
-		{
-			$positions = $this->Position->select_all_with_units($this->voter['id']);
-		}
-		else
-		{
-			$positions = $this->Position->select_all_without_units();
-		}
+		$positions = $this->Position->select_all_with_units($this->voter['id']);
 		foreach ($positions as $key=>$position)
 		{
 			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
