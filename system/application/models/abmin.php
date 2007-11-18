@@ -2,51 +2,25 @@
 
 class Abmin extends Model {
 	
-	function Abmin() 
+	function Abmin()
 	{
 		parent::Model();
 	}
-	
+
 	function authenticate($username, $password)
 	{
 		$this->db->from('admins');
-		$this->db->where('username', $username);
-		$this->db->where('password', $password);
-		$results = $this->db->get();
-		
-		return $results->row_array();
+		$this->db->where(compact('username', 'password'));
+		$query = $this->db->get();
+		return $query->row_array();
 	}
-		
-	function select($id) {
-	
+
+	function select($id)
+	{
 		$this->db->from('admins');
-		$this->db->where('id', $id);
-		$results = $this->db->get();
-		
-		return $results->row_array();
-		
-	}
-	
-	function select_by_username($username) {
-	
-		$this->db->from('admins');
-		$this->db->where('username', $username);
-		$results = $this->db->get();
-		
-		return $results->row_array();
-	
-	}
-	
-	function select_by_match($username) {
-	
-		$match = '%'.$username.'%';
-		
-		$this->db->from('admins');
-		$this->db->where('username', $match);
-		$results = $this->db->get();
-		
-		return $results->result_array();		
-	
+		$this->db->where(compact('id'));
+		$query = $this->db->get();
+		return $query->row_array();
 	}
 
 }
