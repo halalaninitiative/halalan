@@ -92,18 +92,18 @@ else if ($dbdriver == 'postgre')
 <textarea cols="75" rows="25" readonly="true">
 <?php echo "<?php"; ?> if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['election']['status'] = "inactive"; // active or inactive
-$config['election']['result'] = "hide"; // show or hide
-$config['election']['name'] = "<?php echo $_POST['name']; ?>";
-$config['election']['party'] = "<?php echo $_POST['party']; ?>";
-$config['election']['unit'] = "<?php echo $_POST['unit']; ?>";
-$config['election']['pin'] = "<?php echo $_POST['pin']; ?>";
-$config['election']['password_pin_generation'] = "<?php echo $_POST['password_pin_generation']; ?>";
-$config['election']['password_pin_characters'] = "<?php echo $_POST['password_pin_characters']; ?>";
-$config['election']['password_length'] = "<?php echo $_POST['password_length']; ?>";
-$config['election']['pin_length'] = "<?php echo $_POST['pin_length']; ?>";
-$config['election']['captcha'] = "<?php echo $_POST['captcha']; ?>";
-$config['election']['picture'] = "<?php echo $_POST['picture']; ?>";
+// run time configuration
+$config['halalan']['status'] = "inactive"; // active or inactive
+$config['halalan']['result'] = "hide"; // show or hide
+
+// build time configuration
+$config['halalan']['name'] = "<?php echo $_POST['name']; ?>";
+$config['halalan']['pin'] = <?php echo $_POST['pin']; ?>;
+$config['halalan']['password_pin_generation'] = "<?php echo $_POST['password_pin_generation']; ?>";
+$config['halalan']['password_pin_characters'] = "<?php echo $_POST['password_pin_characters']; ?>";
+$config['halalan']['password_length'] = <?php echo $_POST['password_length']; ?>;
+$config['halalan']['pin_length'] = <?php echo $_POST['pin_length']; ?>;
+$config['halalan']['captcha'] = <?php echo $_POST['captcha']; ?>;
 
 <?php echo "?>"; ?>
 </textarea>

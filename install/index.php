@@ -116,16 +116,8 @@ else
 						<td width="65%"><input type="text" name="name" value="Election Name" /></td>
 					</tr>
 					<tr>
-						<td width="35%">Party</td>
-						<td width="65%"><input type="radio" name="party" value="enable" checked="true" /> enable <input type="radio" name="party" value="disable" /> disable</td>
-					</tr>
-					<tr>
-						<td width="35%">Unit</td>
-						<td width="65%"><input type="radio" name="unit" value="enable" checked="true" /> enable <input type="radio" name="unit" value="disable" /> disable</td>
-					</tr>
-					<tr>
 						<td width="35%">Pin</td>
-						<td width="65%"><input type="radio" name="pin" value="enable" checked="true" /> enable <input type="radio" name="pin" value="disable" /> disable</td>
+						<td width="65%"><input type="radio" name="pin" value="TRUE" checked="true" /> enable <input type="radio" name="pin" value="FALSE" /> disable</td>
 					</tr>
 					<tr>
 						<td width="35%">Password and Pin Generation</td>
@@ -145,11 +137,7 @@ else
 					</tr>
 					<tr>
 						<td width="35%">CAPTCHA</td>
-						<td width="65%"><input type="radio" name="captcha" value="enable" checked="true" /> enable <input type="radio" name="captcha" value="disable" /> disable</td>
-					</tr>
-					<tr>
-						<td width="35%">Picture</td>
-						<td width="65%"><input type="radio" name="picture" value="enable" checked="true" /> enable <input type="radio" name="picture" value="disable" /> disable</td>
+						<td width="65%"><input type="radio" name="captcha" value="TRUE" checked="true" /> enable <input type="radio" name="captcha" value="FALSE" /> disable</td>
 					</tr>
 				</table>
 			</fieldset>
