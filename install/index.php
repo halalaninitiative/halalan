@@ -84,7 +84,7 @@ else
 				<legend class="position">Welcome to the Halalan Installer!</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
-						<td align="center">some nifty description here</td>
+						<td><p>Halalan is an open-source voting system designed for student elections. It aims to automate the manual processes of elections such as counting, archiving, and voting. It is designed to be easy-to-use and secure.</p><p>Please fill up the form below.  All fields are required.  Take note that <span style="color : red; ">changing the election settings after you have entered some data will break the system</span> so please review them carefully.</p></td>
 					</tr>
 				</table>
 			</fieldset>
@@ -109,7 +109,7 @@ else
 			</fieldset>
 			<br />
 			<fieldset>
-				<legend class="position">Election Configuration</legend>
+				<legend class="position">Election Settings</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
 						<td width="35%">Name</td>

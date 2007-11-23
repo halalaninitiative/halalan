@@ -8,6 +8,7 @@
 define('BASEPATH', '');
 
 require_once('../system/application/config/database.php');
+require_once('../system/application/config/config.php');
 extract($db['default']);
 if ($dbdriver == 'mysql')
 {
@@ -65,7 +66,7 @@ else if ($dbdriver == 'postgre')
 				<legend class="position">Welcome to the Halalan Installer!</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
-						<td align="center">some nifty description here</td>
+						<td><p>Halalan is an open-source voting system designed for student elections. It aims to automate the manual processes of elections such as counting, archiving, and voting. It is designed to be easy-to-use and secure.</p><p>Halalan is now installed!  Copy the election settings below and save to system/application/config as halalan.php.</p></td>
 					</tr>
 				</table>
 			</fieldset>
@@ -81,22 +82,21 @@ else if ($dbdriver == 'postgre')
 						<td width="35%">Password</td>
 						<td width="65%"><?php echo $password; ?></td>
 					</tr>
+					<tr>
+						<td colspan="2">The administrator login is found at <a href="<?php echo dirname($config['base_url']); ?>/<?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin"><?php echo dirname($config['base_url']); ?>/<?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin</a></td>
+					</tr>
 				</table>
 			</fieldset>
 			<br />
 			<fieldset>
-				<legend class="position">Election Configuration</legend>
+				<legend class="position">Election Settings</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
 						<td align="center">
 <textarea cols="75" rows="25" readonly="true">
 <?php echo "<?php"; ?> if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// run time configuration
-$config['halalan']['status'] = "inactive"; // active or inactive
-$config['halalan']['result'] = "hide"; // show or hide
-
-// build time configuration
+// don't change if you already entered some data
 $config['halalan']['name'] = "<?php echo $_POST['name']; ?>";
 $config['halalan']['pin'] = <?php echo $_POST['pin']; ?>;
 $config['halalan']['password_pin_generation'] = "<?php echo $_POST['password_pin_generation']; ?>";
@@ -116,7 +116,7 @@ $config['halalan']['captcha'] = <?php echo $_POST['captcha']; ?>;
 				<legend class="position"></legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
-						<td align="center">Copy the configuration above and save to system/application/config as halalan.php</td>
+						<td align="center">Copy the settings above and save to system/application/config as halalan.php</td>
 					</tr>
 				</table>
 			</fieldset>
