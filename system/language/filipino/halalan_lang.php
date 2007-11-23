@@ -45,6 +45,26 @@ $lang['halalan_voter_confirm_vote_not_captcha'] = 'maling nilagay na captcha';
 $lang['halalan_voter_confirm_vote_no_pin'] = 'walang nilagay na PIN';
 $lang['halalan_voter_confirm_vote_not_pin'] = 'maling nilagay na PIN';
 
+$lang['halalan_voter_logout_title'] = 'Logout';
+
+// views/voter/logout.php
+$lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
+
+// controllers/admin.php
+$lang['halalan_admin_manage_title'] = 'Administration';
+$lang['halalan_admin_voters_title'] = 'Manage Voters';
+$lang['halalan_admin_add_voter'] = 'Magdagdag ng botante';
+
+$lang['halalan_admin_add_voter_no_username'] = 'Kailangan ang username.';
+$lang['halalan_admin_add_voter_exists'] = 'Meron nang ganitong boter.';
+$lang['halalan_admin_add_voter_no_first_name'] = 'Kailangan ang first name.';
+$lang['halalan_admin_add_voter_no_last_name'] = 'Kailangan ang last name.';
+
+// views/admin/voters.php
+$lang['halalan_admin_voters_voted'] = 'Voted';
+$lang['halalan_admin_voters_name'] = 'Pangalan';
+$lang['halalan_admin_voters_action'] = 'Aksyon';
+
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';
 $lang['halalan_admin_home'] = 'Home';
@@ -53,19 +73,8 @@ $lang['halalan_admin_add_voter'] = 'Magdagdag ng botante';
 $lang['halalan_admin_add_candidate'] = 'Magdagdag ng kandidato';
 
 // Other admin views
-$lang['halalan_add_voter'] = 'Magdagdag ng botante';
 $lang['halalan_add_voter_submit'] = 'Idagdag';
 $lang['halalan_add_voter_details'] = 'Mga detalye ng botante na idadagdag';
-$lang['halalan_add_voter_exists'] = 'Meron nang ganitong boter.';
-$lang['halalan_add_voter_no_username'] = 'Kailangan ang username.';
-$lang['halalan_add_voter_no_firstname'] = 'Kailangan ang first name.';
-$lang['halalan_add_voter_no_lastname'] = 'Kailangan ang last name.';
 $lang['halalan_add_voter_success'] = 'Matagumpay ang pagdagdag ng botante!';
-
-$lang['halalan_logout_title'] = 'Logout';
-
-// views/logout.php
-$lang['halalan_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
-
 
 ?>

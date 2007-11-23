@@ -14,7 +14,7 @@ class Voter extends Controller {
 			$this->session->set_flashdata('login', e('unauthorized'));
 			redirect('gate');
 		}
-		$this->settings = $this->config->item('election');
+		$this->settings = $this->config->item('halalan');
 	}
 
 	function index()

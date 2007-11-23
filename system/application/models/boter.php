@@ -15,6 +15,10 @@ class Boter extends Model {
 		return $query->row_array();
 	}
 
+	function insert($voter) {
+		return $this->db->insert('voters', $voter);
+	}
+
 	function update($voter, $id)
 	{
 		return $this->db->update('voters', $voter, compact('id'));
@@ -40,13 +44,10 @@ class Boter extends Model {
 	}
 	
 	function select_by_username($username) {
-		
 		$this->db->from('voters');
-		$this->db->where('username', $username);
-		$results = $this->db->get();
-		
-		return $results->row_array();
-		
+		$this->db->where(compact('username'));
+		$query = $this->db->get();
+		return $query->row_array();
 	}
 	
 	function select_by_match($username) {
@@ -58,18 +59,6 @@ class Boter extends Model {
 		$results = $this->db->get();
 			
 		return $results->result_array();
-	
-	}
-	
-	function add($entity) {
-	
-		$this->db->set('username', $entity['username']);
- 		$this->db->set('password', sha1($entity['password']));
-		$this->db->set('pin', $entity['pin']);
-		$this->db->set('first_name', $entity['first_name']);		
-		$this->db->set('last_name', $entity['last_name']);
-		$this->db->set('voted', 0);
-		return $this->db->insert('voters');
 	
 	}
 	
