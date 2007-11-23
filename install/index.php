@@ -129,11 +129,19 @@ else
 					</tr>
 					<tr>
 						<td width="35%">Password Length</td>
-						<td width="65%"><input type="text" name="password_length" value="6" /></td>
+						<td width="65%"><select name="password_length">
+						<?php for ($i = 4; $i < 11; $i++) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php } ?>
+						</select></td>
 					</tr>
 					<tr>
 						<td width="35%">Pin Length</td>
-						<td width="65%"><input type="text" name="pin_length" value="6" /></td>
+						<td width="65%"><select name="pin_length">
+						<?php for ($i = 4; $i < 11; $i++) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php } ?>
+						</select></td>
 					</tr>
 					<tr>
 						<td width="35%">CAPTCHA</td>
