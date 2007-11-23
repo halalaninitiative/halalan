@@ -1,8 +1,19 @@
 <?php
 
-// error checking first
-// let us assume that everything is ok
-// so that we can move on
+// error checking
+if (empty($_POST['first_name']))
+	$error = TRUE;
+if (empty($_POST['last_name']))
+	$error = TRUE;
+if (empty($_POST['email']))
+	$error = TRUE;
+if (empty($_POST['name']))
+	$error = TRUE;
+if ($error)
+{
+	echo "There installer encountered some errors.  Please use your browser back button to go back and correct them.";
+	exit;
+}
 
 // DB creation
 define('BASEPATH', '');
