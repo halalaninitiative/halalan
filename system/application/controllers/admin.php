@@ -253,7 +253,6 @@ class Admin extends Controller {
 			$voter['username'] = $this->input->post('username');
 			$voter['last_name'] = $this->input->post('last_name');
 			$voter['first_name'] = $this->input->post('first_name');
-			$voter['voted'] = FALSE;
 			$voter['chosen'] = $this->input->post('chosen');
 			$this->Boter->update($voter, $id);
 			$success = array();
