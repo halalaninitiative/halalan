@@ -16,57 +16,70 @@ class Boter extends Model {
 	}
 
 	function insert($voter) {
-		return $this->db->insert('voters', $voter);
+		$chosen = $voter['chosen'];
+		unset($voter['chosen']);
+		$this->db->insert('voters', $voter);
+		$voter_id = $this->db->insert_id();
+		foreach ($chosen as $position_id)
+		{
+			$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+		}
+		return true;
 	}
 
 	function update($voter, $id)
 	{
-		return $this->db->update('voters', $voter, compact('id'));
+		$chosen = $voter['chosen'];
+		unset($voter['chosen']);
+		$this->db->update('voters', $voter, compact('id'));
+		$voter_id = $id;
+		$this->db->where(compact('voter_id'));
+		$this->db->delete('positions_voters');
+		foreach ($chosen as $position_id)
+		{
+			$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+		}
+		return true;
 	}
-	
-	function get_voters_list() {
-	
+
+	function delete($id)
+	{
+		$this->db->where(array('voter_id'=>$id));
+		$this->db->delete('positions_voters');
+		$this->db->where(compact('id'));
+		return $this->db->delete('voters');
+	}
+
+	function select($id)
+	{
 		$this->db->from('voters');
-		$results = $this->db->get();
-		
-		return $results->result_array();
-		
+		$this->db->where(compact('id'));
+		$query = $this->db->get();
+		return $query->row_array();
 	}
-		
-	function select($id) {
-	
+
+	function select_all()
+	{
 		$this->db->from('voters');
-		$this->db->where('id', $id);
-		$results = $this->db->get();
-		
-		return $results->row_array();
-		
+		$query = $this->db->get();
+		return $query->result_array();
 	}
-	
-	function select_by_username($username) {
+
+	function select_by_username($username)
+	{
 		$this->db->from('voters');
 		$this->db->where(compact('username'));
 		$query = $this->db->get();
 		return $query->row_array();
 	}
-	
-	function select_by_match($username) {
-	
+
+	function select_by_match($username)
+	{
 		$match = '%'.$username.'%';
-		
 		$this->db->from('voters');
 		$this->db->where('name', $match);
 		$results = $this->db->get();
-			
 		return $results->result_array();
-	
-	}
-	
-	function delete($id) {
-		
-		$this->db->where('id', $id);
-		return $this->db->delete('voters');
-		
 	}
 
 }

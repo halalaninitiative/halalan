@@ -53,17 +53,26 @@ $lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>Y
 // controllers/admin.php
 $lang['halalan_admin_manage_title'] = 'Administration';
 $lang['halalan_admin_voters_title'] = 'Manage Voters';
-$lang['halalan_admin_add_voter'] = 'Magdagdag ng botante';
-
-$lang['halalan_admin_add_voter_no_username'] = 'Kailangan ang username.';
-$lang['halalan_admin_add_voter_exists'] = 'Meron nang ganitong boter.';
-$lang['halalan_admin_add_voter_no_first_name'] = 'Kailangan ang first name.';
-$lang['halalan_admin_add_voter_no_last_name'] = 'Kailangan ang last name.';
+$lang['halalan_admin_add_voter_title'] = 'Magdagdag ng botante';
+$lang['halalan_admin_edit_voter_title'] = 'Baguhin ang botante';
+$lang['halalan_admin_delete_voter_already_voted'] = 'Cannot delete a voter who has already voted';
+$lang['halalan_admin_delete_voter_success'] = 'The voter has been successfully deleted';
+// common to add and edit voter
+$lang['halalan_admin_voter_no_username'] = 'Kailangan ang username.';
+$lang['halalan_admin_voter_exists'] = 'Meron nang ganitong boter.';
+$lang['halalan_admin_voter_no_first_name'] = 'Kailangan ang first name.';
+$lang['halalan_admin_voter_no_last_name'] = 'Kailangan ang last name.';
+$lang['halalan_admin_add_voter_success'] = 'Matagumpay ang pagdagdag ng botante!';
+$lang['halalan_admin_edit_voter_success'] = 'Matagumpay ang pagbabago ng botante!';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_voted'] = 'Voted';
 $lang['halalan_admin_voters_name'] = 'Pangalan';
 $lang['halalan_admin_voters_action'] = 'Aksyon';
+
+// views/admin/edit_voter.php
+$lang['halalan_admin_edit_voter_legend'] = 'Mga detalye ng botante na babaguhin';
+$lang['halalan_admin_edit_voter_submit'] = 'Baguhin';
 
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';
@@ -75,6 +84,5 @@ $lang['halalan_admin_add_candidate'] = 'Magdagdag ng kandidato';
 // Other admin views
 $lang['halalan_add_voter_submit'] = 'Idagdag';
 $lang['halalan_add_voter_details'] = 'Mga detalye ng botante na idadagdag';
-$lang['halalan_add_voter_success'] = 'Matagumpay ang pagdagdag ng botante!';
 
 ?>

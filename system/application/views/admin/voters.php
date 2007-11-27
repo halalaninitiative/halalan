@@ -1,4 +1,11 @@
-
+<script>
+function confirmDelete(name, id)
+{
+	var answer = confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
+	if (answer)
+		document.location.href = '<?= site_url('admin/delete/voter'); ?>/' + id;
+}
+</script>
 <div class="admin_menu">
 	<div id="left_menu">
 		<ul>
@@ -15,7 +22,18 @@
 	</div>
 	<div class="clear"></div>
 </div>
-	
+<?php if (isset($messages) && !empty($messages)): ?>
+<div class="message">
+	<div class="message_header"><?= e('message_box'); ?></div>
+	<div class="message_body">
+		<ul>
+			<?php foreach ($messages as $message): ?>
+			<li><?= $message; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>
 <div class="body">
 	<div class="center_body">
 		<table width="100%">
@@ -44,7 +62,7 @@
 				</tr>
 				<?php $i = 0; ?>
 				<?php foreach ($voters as $voter): ?>
-				<tr <?= ($i % 2 == 0) ? 'bgcolor="#FFE5E5"' : ''  ?>>
+				<tr <?= ($i % 2 == 0) ? '' : 'bgcolor="#FFE5E5"'  ?>>
 					<td width="5%" align="center">
 						<?php if ($voter['voted'] == TRUE): ?>
 						<img src="<?= base_url(); ?>public/images/ok.png" />
@@ -53,7 +71,7 @@
 						<?php endif; ?>
 					</td>
 					<td width="80%"><?= anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?></td>
-					<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('edit') . '" />', 'title="' . e('edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('delete') . '" />', 'title="' . e('delete') . '"'); ?></a></td>
+					<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('edit') . '" />', 'title="' . e('edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('delete') . '" />', 'title="' . e('delete') . '" onclick="confirmDelete(\'' . $voter['last_name'] . ', ' . $voter['first_name'] . '\', ' . $voter['id'] . ');return false;"'); ?></a></td>
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>

@@ -58,23 +58,23 @@ function allSelect()
 	</div>
 </div>
 <?php endif; ?>
-<?= form_open('admin/do_add_voter', array('onsubmit'=>'allSelect();')); ?>
+<?= form_open('admin/do_edit_voter/' . $voter['id'], array('onsubmit'=>'allSelect();')); ?>
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header"> <?= e('add_voter_details'); ?> </span></legend>
+			<legend><span class="header"> <?= e('admin_edit_voter_legend'); ?> </span></legend>
 			<table>
 				<tr>
 					<td width="30%">Username</td>
-					<td width="70%"><?= form_input(array('name'=>'username')); ?></td>
+					<td width="70%"><?= form_input(array('name'=>'username', 'value'=>$voter['username'])); ?></td>
 				</tr>
 				<tr>
 					<td width="30%">First Name</td>
-					<td width="70%"><?= form_input(array('name'=>'first_name')); ?></td>
+					<td width="70%"><?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'])); ?></td>
 				</tr>
 				<tr>
 					<td width="30%">Last Name</td>
-					<td width="70%"><?= form_input(array('name'=>'last_name')); ?></td>
+					<td width="70%"><?= form_input(array('name'=>'last_name', 'value'=>$voter['last_name'])); ?></td>
 				</tr>
 				<tr>
 					<td width="30%">General Positions</td>
@@ -94,11 +94,15 @@ function allSelect()
 							<tr>
 								<td><?= form_dropdown('possible[]', $positions, '', 'id="possible" multiple="true" size="5" style="width : 150px;"'); ?><br />Possible Positions</td>
 								<td><input type="button" onclick="copyToList('possible','chosen');" value="  &gt;&gt;  " /><br /><input type="button" onclick="copyToList('chosen','possible');" value="  &lt;&lt;  " /></td>
-								<td><?= form_dropdown('chosen[]', array(), '', 'id="chosen" multiple="true" size="5" style="width : 150px;"'); ?><br />Chosen Positions</td>
+								<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="true" size="5" style="width : 150px;"'); ?><br />Chosen Positions</td>
 							</tr>
 						</table>
 					<?php endif; ?>
 					</td>
+				</tr>
+				<tr>
+					<td width="30%">Regenerate</td>
+					<td width="70%"><?= form_checkbox(array('name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> Password <?= form_checkbox(array('name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> Pin</td>
 				</tr>
 			</table>
 		</fieldset>
@@ -107,7 +111,7 @@ function allSelect()
 </div>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
-		<?= form_submit('add_submit', e('add_voter_submit')) ?>
+		<?= form_submit('edit_submit', e('admin_edit_voter_submit')) ?>
 	</div>
 	<div class="clear"></div>
 </div>

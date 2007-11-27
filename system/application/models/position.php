@@ -33,6 +33,24 @@ class Position extends Model {
 		return $query->result_array();
 	}
 
+	function select_all_non_units()
+	{
+		$this->db->from('positions');
+		$this->db->where('unit = FALSE OR unit IS NULL');
+		$this->db->orderby('ordinality ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function select_all_units()
+	{
+		$this->db->from('positions');
+		$this->db->where('unit = TRUE');
+		$this->db->orderby('ordinality ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 }
 
 ?>
