@@ -48,12 +48,32 @@ class Admin extends Controller {
 		$this->load->view('main', $main);
 	}
 
+	function parties()
+	{
+		if($error = $this->session->flashdata('error'))
+		{
+			$data['messages'] = $error;
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$data['messages'] = $success;
+		}
+		$this->load->model('Party');
+		$data['parties'] = $this->Party->select_all();
+		$data['username'] = $this->admin['username'];
+		$main['title'] = e('admin_parties_title');
+		$main['body'] = $this->load->view('admin/parties', $data, TRUE);
+		$this->load->view('main', $main);
+	}
+
 	function delete($type, $id) 
 	{
 		$data['username'] = $this->admin['username'];
 		switch ($type)
 		{
 			case 'voter':
+				if (!$id)
+					redirect('admin/voters');
 				$this->load->model('Boter');
 				$voter = $this->Boter->select($id);
 				if (!$voter)
@@ -68,6 +88,14 @@ class Admin extends Controller {
 					$this->session->set_flashdata('success', array(e('admin_delete_voter_success')));
 				}
 				redirect('admin/voters');
+				break;
+			case 'party':
+				if (!$id)
+					redirect('admin/parties');
+				$this->load->model('Party');
+				$this->Party->delete($id);
+				$this->session->set_flashdata('success', array(e('admin_delete_party_success')));
+				redirect('admin/parties');
 				break;
 			default:
 				redirect('admin/manage');
@@ -119,6 +147,16 @@ class Admin extends Controller {
 				$main['title'] = e('admin_edit_voter_title');
 				$main['body'] = $this->load->view('admin/edit_voter', $data, TRUE);
 				break;
+			case 'party':
+				if (!$id)
+					redirect('admin/parties');
+				$this->load->model('Party');
+				$data['party'] = $this->Party->select($id);
+				if (!$data['party'])
+					redirect('admin/parties');
+				$main['title'] = e('admin_edit_party_title');
+				$main['body'] = $this->load->view('admin/edit_party', $data, TRUE);
+				break;
 			default:
 				redirect('admin/manage');
 		}
@@ -151,6 +189,10 @@ class Admin extends Controller {
 				$main['title'] = e('admin_add_voter_title');
 				$main['body'] = $this->load->view('admin/add_voter', $data, TRUE);
 				break;
+			case 'party':
+				$main['title'] = e('admin_add_party_title');
+				$main['body'] = $this->load->view('admin/add_party', $data, TRUE);
+				break;
 			default:
 				redirect('admin/manage');
 		}
@@ -161,7 +203,7 @@ class Admin extends Controller {
 	{
 		$this->load->model('Boter');
 		$error = array();
-		if(!$this->input->post('username'))
+		if (!$this->input->post('username'))
 		{
 			$error[] = e('admin_voter_no_username');
 		}
@@ -172,15 +214,15 @@ class Admin extends Controller {
 				$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
 			}
 		}
-		if(!$this->input->post('last_name'))
+		if (!$this->input->post('last_name'))
 		{
 			$error[] = e('admin_voter_no_last_name');
 		}
-		if(!$this->input->post('first_name'))
+		if (!$this->input->post('first_name'))
 		{
 			$error[] = e('admin_voter_no_first_name');
 		}
-		if(empty($error))
+		if (empty($error))
 		{
 			$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
 			$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
@@ -194,7 +236,7 @@ class Admin extends Controller {
 			$this->Boter->insert($voter);
 			$success = array();
 			$success[] = e('admin_add_voter_success');
-			if($this->settings['password_pin_generation'] == 'web')
+			if ($this->settings['password_pin_generation'] == 'web')
 			{
 				$success[] = 'Username: '. $voter['username'];
 				$success[] = 'Password: '. $password;
@@ -218,7 +260,7 @@ class Admin extends Controller {
 		if (!$voter)
 			redirect('admin/voters');
 		$error = array();
-		if(!$this->input->post('username'))
+		if (!$this->input->post('username'))
 		{
 			$error[] = e('admin_voter_no_username');
 		}
@@ -230,15 +272,15 @@ class Admin extends Controller {
 					$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
 			}
 		}
-		if(!$this->input->post('last_name'))
+		if (!$this->input->post('last_name'))
 		{
 			$error[] = e('admin_voter_no_last_name');
 		}
-		if(!$this->input->post('first_name'))
+		if (!$this->input->post('first_name'))
 		{
 			$error[] = e('admin_voter_no_first_name');
 		}
-		if(empty($error))
+		if (empty($error))
 		{
 			if ($this->input->post('password'))
 			{
@@ -257,7 +299,7 @@ class Admin extends Controller {
 			$this->Boter->update($voter, $id);
 			$success = array();
 			$success[] = e('admin_edit_voter_success');
-			if($this->settings['password_pin_generation'] == 'web')
+			if ($this->settings['password_pin_generation'] == 'web')
 			{
 				$success[] = 'Username: '. $voter['username'];
 				if ($this->input->post('password'))
@@ -272,6 +314,61 @@ class Admin extends Controller {
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/voter/' . $id);
+	}
+
+	function do_add_party()
+	{
+		$error = array();
+		if (!$this->input->post('party'))
+		{
+			$error[] = e('admin_party_no_party');
+		}
+		if (empty($error))
+		{
+			$party['party'] = $this->input->post('party');
+			$party['description'] = $this->input->post('description');
+			$party['logo'] = $this->input->post('logo');
+			$this->load->model('Party');
+			$this->Party->insert($party);
+			$success[] = e('admin_add_party_success');
+			$this->session->set_flashdata('success', $success);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/add/party');
+	}
+
+	function do_edit_party($id)
+	{
+		if (!$id)
+			redirect('admin/parties');
+		$this->load->model('Party');
+		$party = $this->Party->select($id);
+		if (!$party)
+			redirect('admin/parties');
+		$error = array();
+		if (!$this->input->post('party'))
+		{
+			$error[] = e('admin_party_no_party');
+		}
+		if (empty($error))
+		{
+			$party['party'] = $this->input->post('party');
+			$party['description'] = $this->input->post('description');
+			unset($party['logo']);
+			if ($this->input->post('logo'))
+				$party['logo'] = $this->input->post('logo');
+			$this->Party->update($party, $id);
+			$success[] = e('admin_edit_party_success');
+			$this->session->set_flashdata('success', $success);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/edit/party/' . $id);
 	}
 
 }

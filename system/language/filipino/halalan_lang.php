@@ -62,8 +62,19 @@ $lang['halalan_admin_voter_no_username'] = 'Kailangan ang username.';
 $lang['halalan_admin_voter_exists'] = 'Meron nang ganitong boter.';
 $lang['halalan_admin_voter_no_first_name'] = 'Kailangan ang first name.';
 $lang['halalan_admin_voter_no_last_name'] = 'Kailangan ang last name.';
+//
 $lang['halalan_admin_add_voter_success'] = 'Matagumpay ang pagdagdag ng botante!';
 $lang['halalan_admin_edit_voter_success'] = 'Matagumpay ang pagbabago ng botante!';
+// parties
+$lang['halalan_admin_parties_title'] = 'Manage Parties';
+$lang['halalan_admin_add_party_title'] = 'Add Party';
+$lang['halalan_admin_edit_party_title'] = 'Edit Party';
+// common to add and edit party
+$lang['halalan_admin_party_no_party'] = 'Party is required';
+//
+$lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
+$lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
+$lang['halalan_admin_delete_party_success'] = 'The party has been successfully deleted';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_voted'] = 'Voted';
@@ -73,6 +84,26 @@ $lang['halalan_admin_voters_action'] = 'Aksyon';
 // views/admin/edit_voter.php
 $lang['halalan_admin_edit_voter_legend'] = 'Mga detalye ng botante na babaguhin';
 $lang['halalan_admin_edit_voter_submit'] = 'Baguhin';
+
+// views/admin/parties.php
+$lang['halalan_admin_parties_party'] = 'Party';
+$lang['halalan_admin_parties_description'] = 'Description';
+$lang['halalan_admin_parties_action'] = 'Action';
+$lang['halalan_admin_parties_add'] = 'Add Party';
+
+// views/admin/add_party.php
+$lang['halalan_admin_add_party_legend'] = 'Add Party Details';
+$lang['halalan_admin_add_party_party'] = 'Party';
+$lang['halalan_admin_add_party_description'] = 'Description';
+$lang['halalan_admin_add_party_logo'] = 'Logo';
+$lang['halalan_admin_add_party_submit'] = 'Add';
+
+// views/admin/edit_party.php
+$lang['halalan_admin_edit_party_legend'] = 'Edit Party Details';
+$lang['halalan_admin_edit_party_party'] = 'Party';
+$lang['halalan_admin_edit_party_description'] = 'Description';
+$lang['halalan_admin_edit_party_logo'] = 'Logo';
+$lang['halalan_admin_edit_party_submit'] = 'Edit';
 
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';
