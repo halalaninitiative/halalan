@@ -34,7 +34,6 @@ function allSelect()
 		<ul>
 			<li><?= anchor('admin', 'Home'); ?> | </li>
 			<li><?= anchor('admin/voters', 'Voters'); ?> |  </li>
-			<li><?= anchor('admin/units', 'Units'); ?> | </li>
 			<li><?= anchor('admin/parties', 'Parties'); ?> | </li>
 			<li><?= anchor('admin/positions', 'Positions'); ?> | </li>
 			<li><?= anchor('admin/candidates', 'Candidates'); ?></li>
