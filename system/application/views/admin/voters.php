@@ -55,9 +55,9 @@ function confirmDelete(name, id)
 			<legend><span class="header">Voters</span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
 				<tr bgcolor="#FFAAAA">
-					<th align="center"><?= e('admin_voters_voted'); ?></th>
-					<th align="center"><?= e('admin_voters_name'); ?></th>
-					<th align="center"><?= e('admin_voters_action'); ?></th>
+					<th width="5%" align="center"><?= e('admin_voters_voted'); ?></th>
+					<th width="80%" align="center"><?= e('admin_voters_name'); ?></th>
+					<th width="15%" align="center"><?= e('admin_voters_action'); ?></th>
 				</tr>
 				<?php if (empty($voters)): ?>
 				<tr>
