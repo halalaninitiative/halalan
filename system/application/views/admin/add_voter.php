@@ -79,9 +79,13 @@ function allSelect()
 				<tr>
 					<td width="30%">General Positions</td>
 					<td width="70%">
+					<?php if (empty($general)): ?>
+					<em>No general positions found.</em>
+					<?php else: ?>
 					<?php foreach ($general as $g): ?>
 					<?= $g['position']; ?><br />
 					<?php endforeach; ?>
+					<?php endif; ?>
 					</td>
 				</tr>
 				<tr>
