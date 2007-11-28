@@ -59,6 +59,11 @@ function confirmDelete(name, id)
 					<th align="center"><?= e('admin_voters_name'); ?></th>
 					<th align="center"><?= e('admin_voters_action'); ?></th>
 				</tr>
+				<?php if (empty($voters)): ?>
+				<tr>
+					<td colspan="3" align="center"><em>No voters found.</em></td>
+				</tr>
+				<?php else: ?>
 				<?php $i = 0; ?>
 				<?php foreach ($voters as $voter): ?>
 				<tr <?= ($i % 2 == 0) ? '' : 'bgcolor="#FFE5E5"'  ?>>
@@ -74,6 +79,7 @@ function confirmDelete(name, id)
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>
+				<?php endif; ?>
 			</table>
 		</fieldset>
 		<table width="100%">
