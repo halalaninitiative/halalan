@@ -11,7 +11,7 @@ if (empty($_POST['name']))
 	$error = TRUE;
 if ($error)
 {
-	echo "There installer encountered some errors.  Please use your browser back button to go back and correct them.";
+	echo "The installer encountered some errors.  Please use your browser back button to go back and correct them.";
 	exit;
 }
 
