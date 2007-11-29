@@ -51,7 +51,7 @@ function confirmDelete(name, id)
 				<?php $i = 0; ?>
 				<?php foreach ($parties as $party): ?>
 				<tr <?= ($i % 2 == 0) ? '' : 'bgcolor="#FFE5E5"'  ?>>
-					<td width="30%" align="center">
+					<td width="30%">
 						<?= anchor('admin/edit/party/' . $party['id'], $party['party']); ?>
 					</td>
 					<td width="55%">
