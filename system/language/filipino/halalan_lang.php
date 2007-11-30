@@ -75,6 +75,20 @@ $lang['halalan_admin_party_no_party'] = 'Party is required';
 $lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
 $lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
 $lang['halalan_admin_delete_party_success'] = 'The party has been successfully deleted';
+// positions
+$lang['halalan_admin_positions_title'] = 'Manage Positions';
+$lang['halalan_admin_add_position_title'] = 'Add Position';
+$lang['halalan_admin_edit_position_title'] = 'Edit Position';
+// common to add and edit position
+$lang['halalan_admin_position_no_position'] = 'Position is required';
+$lang['halalan_admin_position_no_maximum'] = 'Maximum is required';
+$lang['halalan_admin_position_maximum_not_digit'] = 'Maximum should be a digit';
+$lang['halalan_admin_position_no_ordinality'] = 'Ordinality is required';
+$lang['halalan_admin_position_ordinality_not_digit'] = 'Ordinality should be a digit';
+//
+$lang['halalan_admin_add_position_success'] = 'The position has been successfully added.';
+$lang['halalan_admin_edit_position_success'] = 'The position has been successfully edited.';
+$lang['halalan_admin_delete_position_success'] = 'The position has been successfully deleted';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_voted'] = 'Voted';
@@ -104,6 +118,32 @@ $lang['halalan_admin_edit_party_party'] = 'Party';
 $lang['halalan_admin_edit_party_description'] = 'Description';
 $lang['halalan_admin_edit_party_logo'] = 'Logo';
 $lang['halalan_admin_edit_party_submit'] = 'Edit';
+
+// views/admin/positions.php
+$lang['halalan_admin_positions_position'] = 'Position';
+$lang['halalan_admin_positions_description'] = 'Description';
+$lang['halalan_admin_positions_action'] = 'Action';
+$lang['halalan_admin_positions_add'] = 'Add Position';
+
+// views/admin/add_position.php
+$lang['halalan_admin_add_position_legend'] = 'Add Position Details';
+$lang['halalan_admin_add_position_position'] = 'Position';
+$lang['halalan_admin_add_position_description'] = 'Description';
+$lang['halalan_admin_add_position_maximum'] = 'Maximum';
+$lang['halalan_admin_add_position_ordinality'] = 'Ordinality';
+$lang['halalan_admin_add_position_abstain'] = 'Abstain';
+$lang['halalan_admin_add_position_unit'] = 'Type';
+$lang['halalan_admin_add_position_submit'] = 'Add';
+
+// views/admin/edit_position.php
+$lang['halalan_admin_edit_position_legend'] = 'Edit Position Details';
+$lang['halalan_admin_edit_position_position'] = 'Position';
+$lang['halalan_admin_edit_position_description'] = 'Description';
+$lang['halalan_admin_edit_position_maximum'] = 'Maximum';
+$lang['halalan_admin_edit_position_ordinality'] = 'Ordinality';
+$lang['halalan_admin_edit_position_abstain'] = 'Abstain';
+$lang['halalan_admin_edit_position_unit'] = 'Type';
+$lang['halalan_admin_edit_position_submit'] = 'Edit';
 
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';
