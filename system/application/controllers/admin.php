@@ -66,6 +66,24 @@ class Admin extends Controller {
 		$this->load->view('main', $main);
 	}
 
+	function positions()
+	{
+		if($error = $this->session->flashdata('error'))
+		{
+			$data['messages'] = $error;
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$data['messages'] = $success;
+		}
+		$this->load->model('Position');
+		$data['positions'] = $this->Position->select_all();
+		$data['username'] = $this->admin['username'];
+		$main['title'] = e('admin_positions_title');
+		$main['body'] = $this->load->view('admin/positions', $data, TRUE);
+		$this->load->view('main', $main);
+	}
+
 	function delete($type, $id) 
 	{
 		$data['username'] = $this->admin['username'];
@@ -96,6 +114,14 @@ class Admin extends Controller {
 				$this->Party->delete($id);
 				$this->session->set_flashdata('success', array(e('admin_delete_party_success')));
 				redirect('admin/parties');
+				break;
+			case 'position':
+				if (!$id)
+					redirect('admin/position');
+				$this->load->model('Position');
+				$this->Position->delete($id);
+				$this->session->set_flashdata('success', array(e('admin_delete_position_success')));
+				redirect('admin/positions');
 				break;
 			default:
 				redirect('admin/manage');
@@ -157,6 +183,16 @@ class Admin extends Controller {
 				$main['title'] = e('admin_edit_party_title');
 				$main['body'] = $this->load->view('admin/edit_party', $data, TRUE);
 				break;
+			case 'position':
+				if (!$id)
+					redirect('admin/positions');
+				$this->load->model('Position');
+				$data['position'] = $this->Position->select($id);
+				if (!$data['position'])
+					redirect('admin/positions');
+				$main['title'] = e('admin_edit_position_title');
+				$main['body'] = $this->load->view('admin/edit_position', $data, TRUE);
+				break;
 			default:
 				redirect('admin/manage');
 		}
@@ -192,6 +228,10 @@ class Admin extends Controller {
 			case 'party':
 				$main['title'] = e('admin_add_party_title');
 				$main['body'] = $this->load->view('admin/add_party', $data, TRUE);
+				break;
+			case 'position':
+				$main['title'] = e('admin_add_position_title');
+				$main['body'] = $this->load->view('admin/add_position', $data, TRUE);
 				break;
 			default:
 				redirect('admin/manage');
@@ -369,6 +409,101 @@ class Admin extends Controller {
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/party/' . $id);
+	}
+
+	function do_add_position()
+	{
+		$error = array();
+		if (!$this->input->post('position'))
+		{
+			$error[] = e('admin_position_no_position');
+		}
+		if (!$this->input->post('maximum'))
+		{
+			$error[] = e('admin_position_no_maximum');
+		}
+		else
+		{
+			if (!ctype_digit($this->input->post('maximum')))
+				$error[] = e('admin_position_maximum_not_digit');
+		}
+		if (!$this->input->post('ordinality'))
+		{
+			$error[] = e('admin_position_no_ordinality');
+		}
+		else
+		{
+			if (!ctype_digit($this->input->post('ordinality')))
+				$error[] = e('admin_position_ordinality_not_digit');
+		}
+		if (empty($error))
+		{
+			$position['position'] = $this->input->post('position');
+			$position['description'] = $this->input->post('description');
+			$position['maximum'] = $this->input->post('maximum');
+			$position['ordinality'] = $this->input->post('ordinality');
+			$position['abstain'] = $this->input->post('abstain');
+			$position['unit'] = $this->input->post('unit');
+			$this->load->model('Position');
+			$this->Position->insert($position);
+			$success[] = e('admin_add_position_success');
+			$this->session->set_flashdata('success', $success);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/add/position');
+	}
+
+	function do_edit_position($id)
+	{
+		if (!$id)
+			redirect('admin/positions');
+		$this->load->model('Position');
+		$position = $this->Position->select($id);
+		if (!$position)
+			redirect('admin/positions');
+		$error = array();
+		if (!$this->input->post('position'))
+		{
+			$error[] = e('admin_position_no_position');
+		}
+		if (!$this->input->post('maximum'))
+		{
+			$error[] = e('admin_position_no_maximum');
+		}
+		else
+		{
+			if (!ctype_digit($this->input->post('maximum')))
+				$error[] = e('admin_position_maximum_not_digit');
+		}
+		if (!$this->input->post('ordinality'))
+		{
+			$error[] = e('admin_position_no_ordinality');
+		}
+		else
+		{
+			if (!ctype_digit($this->input->post('ordinality')))
+				$error[] = e('admin_position_ordinality_not_digit');
+		}
+		if (empty($error))
+		{
+			$position['position'] = $this->input->post('position');
+			$position['description'] = $this->input->post('description');
+			$position['maximum'] = $this->input->post('maximum');
+			$position['ordinality'] = $this->input->post('ordinality');
+			$position['abstain'] = $this->input->post('abstain');
+			$position['unit'] = $this->input->post('unit');
+			$this->Position->update($position, $id);
+			$success[] = e('admin_edit_position_success');
+			$this->session->set_flashdata('success', $success);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/edit/position/' . $id);
 	}
 
 }

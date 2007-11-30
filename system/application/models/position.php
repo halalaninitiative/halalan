@@ -7,6 +7,24 @@ class Position extends Model {
 		parent::Model();
 	}
 
+	function insert($position)
+	{
+		return $this->db->insert('positions', $position);
+	}
+
+	function update($position, $id)
+	{
+		return $this->db->update('positions', $position, compact('id'));
+	}
+
+	function delete($id)
+	{
+		$this->db->where(array('position_id'=>$id));
+		$this->db->delete('positions_voters');
+		$this->db->where(compact('id'));
+		return $this->db->delete('positions');
+	}
+
 	function select($id)
 	{
 		$this->db->from('positions');
