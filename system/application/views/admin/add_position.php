@@ -63,6 +63,8 @@
 </div>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
+		<?= anchor('admin/positions', 'GO BACK'); ?>
+		|
 		<?= form_submit('submit', e('admin_add_position_submit')) ?>
 	</div>
 	<div class="clear"></div>

@@ -110,6 +110,8 @@ function allSelect()
 </div>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
+		<?= anchor('admin/voters', 'GO BACK'); ?>
+		|
 		<?= form_submit('add_submit', e('add_voter_submit')) ?>
 	</div>
 	<div class="clear"></div>
