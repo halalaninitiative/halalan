@@ -12,7 +12,7 @@ class Voter extends Controller {
 		if (!$this->voter)
 		{
 			$this->session->set_flashdata('login', e('unauthorized'));
-			redirect('gate');
+			redirect('gate/voter');
 		}
 		$this->settings = $this->config->item('halalan');
 	}
