@@ -84,6 +84,30 @@ class Admin extends Controller {
 		$this->load->view('main', $main);
 	}
 
+	function candidates()
+	{
+		if($error = $this->session->flashdata('error'))
+		{
+			$data['messages'] = $error;
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$data['messages'] = $success;
+		}
+		$this->load->model('Candidate');
+		$this->load->model('Position');
+		$positions = $this->Position->select_all();
+		foreach ($positions as $key=>$value)
+		{
+			$positions[$key]['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
+		}
+		$data['positions'] = $positions;
+		$data['username'] = $this->admin['username'];
+		$main['title'] = e('admin_candidates_title');
+		$main['body'] = $this->load->view('admin/candidates', $data, TRUE);
+		$this->load->view('main', $main);
+	}
+
 	function delete($type, $id) 
 	{
 		$data['username'] = $this->admin['username'];
@@ -117,11 +141,19 @@ class Admin extends Controller {
 				break;
 			case 'position':
 				if (!$id)
-					redirect('admin/position');
+					redirect('admin/positions');
 				$this->load->model('Position');
 				$this->Position->delete($id);
 				$this->session->set_flashdata('success', array(e('admin_delete_position_success')));
 				redirect('admin/positions');
+				break;
+			case 'candidate':
+				if (!$id)
+					redirect('admin/candidates');
+				$this->load->model('Candidate');
+				$this->Candidate->delete($id);
+				$this->session->set_flashdata('success', array(e('admin_delete_candidate_success')));
+				redirect('admin/candidates');
 				break;
 			default:
 				redirect('admin/manage');
@@ -193,6 +225,32 @@ class Admin extends Controller {
 				$main['title'] = e('admin_edit_position_title');
 				$main['body'] = $this->load->view('admin/edit_position', $data, TRUE);
 				break;
+			case 'candidate':
+				if (!$id)
+					redirect('admin/candidates');
+				$this->load->model('Candidate');
+				$data['candidate'] = $this->Candidate->select($id);
+				if (!$data['candidate'])
+					redirect('admin/candidates');
+				$this->load->model('Party');
+				$parties = $this->Party->select_all();
+				$tmp = array(''=>'Select Party');
+				foreach ($parties as $party)
+				{
+					$tmp[$party['id']] = $party['party'];
+				}
+				$data['parties'] = $tmp;
+				$this->load->model('Position');
+				$positions = $this->Position->select_all();
+				$tmp = array(''=>'Select Position');
+				foreach ($positions as $position)
+				{
+					$tmp[$position['id']] = $position['position'];
+				}
+				$data['positions'] = $tmp;
+				$main['title'] = e('admin_edit_candidate_title');
+				$main['body'] = $this->load->view('admin/edit_candidate', $data, TRUE);
+				break;
 			default:
 				redirect('admin/manage');
 		}
@@ -232,6 +290,26 @@ class Admin extends Controller {
 			case 'position':
 				$main['title'] = e('admin_add_position_title');
 				$main['body'] = $this->load->view('admin/add_position', $data, TRUE);
+				break;
+			case 'candidate':
+				$this->load->model('Party');
+				$parties = $this->Party->select_all();
+				$tmp = array(''=>'Select Party');
+				foreach ($parties as $party)
+				{
+					$tmp[$party['id']] = $party['party'];
+				}
+				$data['parties'] = $tmp;
+				$this->load->model('Position');
+				$positions = $this->Position->select_all();
+				$tmp = array(''=>'Select Position');
+				foreach ($positions as $position)
+				{
+					$tmp[$position['id']] = $position['position'];
+				}
+				$data['positions'] = $tmp;
+				$main['title'] = e('admin_add_candidate_title');
+				$main['body'] = $this->load->view('admin/add_candidate', $data, TRUE);
 				break;
 			default:
 				redirect('admin/manage');
@@ -504,6 +582,81 @@ class Admin extends Controller {
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/position/' . $id);
+	}
+
+	function do_add_candidate()
+	{
+		$error = array();
+		if (!$this->input->post('first_name'))
+		{
+			$error[] = e('admin_candidate_no_first_name');
+		}
+		if (!$this->input->post('last_name'))
+		{
+			$error[] = e('admin_candidate_no_last_name');
+		}
+		if (!$this->input->post('position_id'))
+		{
+			$error[] = e('admin_candidate_no_position');
+		}
+		if (empty($error))
+		{
+			$candidate['first_name'] = $this->input->post('first_name');
+			$candidate['last_name'] = $this->input->post('last_name');
+			$candidate['description'] = $this->input->post('description');
+			$candidate['party_id'] = $this->input->post('party_id');
+			$candidate['position_id'] = $this->input->post('position_id');
+			$candidate['picture'] = $this->input->post('picture');
+			$this->load->model('Candidate');
+			$this->Candidate->insert($candidate);
+			$success[] = e('admin_add_candidate_success');
+			$this->session->set_flashdata('success', $success);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/add/candidate');
+	}
+
+	function do_edit_candidate($id)
+	{
+		if (!$id)
+			redirect('admin/candidates');
+		$this->load->model('Candidate');
+		$candidate = $this->Candidate->select($id);
+		if (!$candidate)
+			redirect('admin/candidates');
+		$error = array();
+		if (!$this->input->post('first_name'))
+		{
+			$error[] = e('admin_candidate_no_first_name');
+		}
+		if (!$this->input->post('last_name'))
+		{
+			$error[] = e('admin_candidate_no_last_name');
+		}
+		if (!$this->input->post('position_id'))
+		{
+			$error[] = e('admin_candidate_no_position');
+		}
+		if (empty($error))
+		{
+			$candidate['first_name'] = $this->input->post('first_name');
+			$candidate['last_name'] = $this->input->post('last_name');
+			$candidate['description'] = $this->input->post('description');
+			$candidate['party_id'] = $this->input->post('party_id');
+			$candidate['position_id'] = $this->input->post('position_id');
+			$candidate['picture'] = $this->input->post('picture');
+			$this->Candidate->update($candidate, $id);
+			$success[] = e('admin_edit_candidate_success');
+			$this->session->set_flashdata('success', $success);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/edit/candidate/' . $id);
 	}
 
 }

@@ -89,6 +89,18 @@ $lang['halalan_admin_position_ordinality_not_digit'] = 'Ordinality should be a d
 $lang['halalan_admin_add_position_success'] = 'The position has been successfully added.';
 $lang['halalan_admin_edit_position_success'] = 'The position has been successfully edited.';
 $lang['halalan_admin_delete_position_success'] = 'The position has been successfully deleted';
+// candidates
+$lang['halalan_admin_candidates_title'] = 'Manage Candidates';
+$lang['halalan_admin_add_candidate_title'] = 'Add Candidate';
+$lang['halalan_admin_edit_candidate_title'] = 'Edit Candidate';
+// common to add and edit candidate
+$lang['halalan_admin_candidate_no_first_name'] = 'First name is required';
+$lang['halalan_admin_candidate_no_last_name'] = 'Last name is required';
+$lang['halalan_admin_candidate_no_position'] = 'Position is required';
+//
+$lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
+$lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
+$lang['halalan_admin_delete_candidate_success'] = 'The candidate has been successfully deleted';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_voted'] = 'Voted';
@@ -144,6 +156,32 @@ $lang['halalan_admin_edit_position_ordinality'] = 'Ordinality';
 $lang['halalan_admin_edit_position_abstain'] = 'Abstain';
 $lang['halalan_admin_edit_position_unit'] = 'Type';
 $lang['halalan_admin_edit_position_submit'] = 'Edit';
+
+// views/admin/candidates.php
+$lang['halalan_admin_candidates_candidate'] = 'Candidate';
+$lang['halalan_admin_candidates_description'] = 'Description';
+$lang['halalan_admin_candidates_action'] = 'Action';
+$lang['halalan_admin_candidates_add'] = 'Add Candidate';
+
+// views/admin/add_candidate.php
+$lang['halalan_admin_add_candidate_legend'] = 'Add Candidate Details';
+$lang['halalan_admin_add_candidate_first_name'] = 'First Name';
+$lang['halalan_admin_add_candidate_last_name'] = 'Last Name';
+$lang['halalan_admin_add_candidate_description'] = 'Description';
+$lang['halalan_admin_add_candidate_party'] = 'Party';
+$lang['halalan_admin_add_candidate_position'] = 'Position';
+$lang['halalan_admin_add_candidate_picture'] = 'Picture';
+$lang['halalan_admin_add_candidate_submit'] = 'Add';
+
+// views/admin/edit_candidate.php
+$lang['halalan_admin_edit_candidate_legend'] = 'Edit Candidate Details';
+$lang['halalan_admin_edit_candidate_first_name'] = 'First Name';
+$lang['halalan_admin_edit_candidate_last_name'] = 'Last Name';
+$lang['halalan_admin_edit_candidate_description'] = 'Description';
+$lang['halalan_admin_edit_candidate_party'] = 'Party';
+$lang['halalan_admin_edit_candidate_position'] = 'Position';
+$lang['halalan_admin_edit_candidate_picture'] = 'Picture';
+$lang['halalan_admin_edit_candidate_submit'] = 'Edit';
 
 // Admin Main Page
 $lang['halalan_admin_title'] = 'Administration';
