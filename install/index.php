@@ -147,6 +147,10 @@ else
 						<td width="35%">CAPTCHA</td>
 						<td width="65%"><input type="radio" name="captcha" value="TRUE" checked="true" /> enable <input type="radio" name="captcha" value="FALSE" /> disable</td>
 					</tr>
+					<tr>
+						<td width="35%">Language</td>
+						<td width="65%"><select name="language"><option value="english">English</option><option value="filipino">Filipino</option></select></td>
+					</tr>
 				</table>
 			</fieldset>
 			<br />
