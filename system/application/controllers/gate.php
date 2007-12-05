@@ -14,13 +14,13 @@ class Gate extends Controller {
 
 	function voter()
 	{
-		$gate = '';
-		if ($login = $this->session->flashdata('login'))
+		$data = '';
+		if ($error = $this->session->flashdata('error'))
 		{
-			$gate['messages'] = array($login);
+			$data['messages'] = $error;
 		}
 		$main['title'] = e('gate_voter_title');
-		$main['body'] = $this->load->view('gate/voter', $gate, TRUE);
+		$main['body'] = $this->load->view('gate/voter', $data, TRUE);
 		$this->load->view('main', $main);
 	}
 
@@ -33,7 +33,8 @@ class Gate extends Controller {
 		{
 			if ($voter['voted'] == TRUE)
 			{
-				$this->session->set_flashdata('login', e('gate_voter_already_voted'));
+				$error[] = e('gate_voter_already_voted');
+				$this->session->set_flashdata('error', $error);
 				redirect('gate/voter');
 			}
 			else
@@ -48,20 +49,21 @@ class Gate extends Controller {
 		}
 		else
 		{
-			$this->session->set_flashdata('login', e('gate_login_failure'));
+			$error[] = e('gate_login_failure');
+			$this->session->set_flashdata('error', $error);
 			redirect('gate/voter');
 		}
 	}
 	
 	function admin()
 	{
-		$gate = '';
-		if ($login = $this->session->flashdata('login'))
+		$data = '';
+		if ($error = $this->session->flashdata('error'))
 		{
-			$gate['messages'] = array($login);
+			$data['messages'] = $error;
 		}
 		$main['title'] = e('gate_admin_title');
-		$main['body'] = $this->load->view('gate/admin', $gate, TRUE);
+		$main['body'] = $this->load->view('gate/admin', $data, TRUE);
 		$this->load->view('main', $main);
 	}
 
@@ -79,7 +81,8 @@ class Gate extends Controller {
 		}
 		else
 		{
-			$this->session->set_flashdata('login', e('gate_login_failure'));
+			$error[] = e('gate_login_failure');
+			$this->session->set_flashdata('error', $error);
 			redirect('gate/admin');
 		}
 	}
