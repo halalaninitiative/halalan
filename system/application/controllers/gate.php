@@ -19,6 +19,8 @@ class Gate extends Controller {
 		{
 			$data['messages'] = $error;
 		}
+		$this->load->model('Option');
+		$data['option'] = $this->Option->select(1);
 		$main['title'] = e('gate_voter_title');
 		$main['body'] = $this->load->view('gate/voter', $data, TRUE);
 		$this->load->view('main', $main);

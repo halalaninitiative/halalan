@@ -15,6 +15,15 @@ class Voter extends Controller {
 			redirect('gate/voter');
 		}
 		$this->settings = $this->config->item('halalan');
+		$this->load->model('Option');
+		$option = $this->Option->select(1);
+		if (!$option['status'])
+		{
+			$error[] = 'The election is not running.';
+			$error[] = 'You cannot login at this time.';
+			$this->session->set_flashdata('error', $error);
+			redirect('gate/voter');
+		}
 	}
 
 	function index()
