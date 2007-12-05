@@ -14,20 +14,58 @@
 	</div>
 	<div class="clear"></div>
 </div>
-
+<?php if (isset($messages) && !empty($messages)): ?>
+<div class="message">
+	<div class="message_header"><?= e('message_box'); ?></div>
+	<div class="message_body">
+		<ul>
+			<?php foreach ($messages as $message): ?>
+			<li><?= $message; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>
 <div class="body">
-	<div class="center_body">
+	<div class="left_body">
 		<fieldset>
-			<legend><span class="header">Home</span></legend>
+			<legend><span class="header">Manage</span></legend>
 			<p>What do you want to do?</p>
 			<ul>
 				<li><?= anchor('admin/voters', 'Manage Voters'); ?></li>
-				<li><?= anchor('admin/candidates', 'Manage Candidates'); ?></li>
 				<li><?= anchor('admin/parties', 'Manage Parties'); ?></li>
+				<li><?= anchor('admin/positions', 'Manage Positions'); ?></li>
+				<li><?= anchor('admin/candidates', 'Manage Candidates'); ?></li>
 			</ul>
-		
+		</fieldset>
+	</div>
+	<div class="right_body">
+		<fieldset>
+			<legend><span class="header">Options</span></legend>
+			<?= form_open('admin/do_edit_option/1'); ?>
+			<table cellpadding="2" cellspacing="2" width="100%">
+				<tr>
+					<td>Status</td>
+					<td><?= form_radio(array('name'=>'status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running</td>
+					<td><?= form_radio(array('name'=>'status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running</td>
+				</tr>
+				<tr>
+					<td>Result</td>
+					<td><?= form_radio(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> Show</td>
+					<td><?= form_radio(array('name'=>'result', 'value'=>FALSE, 'checked'=>(($option['result']) ? FALSE : TRUE))); ?> Hide</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><?= form_submit(array('name'=>'submit', 'value'=>'Save')); ?></td>
+				</tr>
+			</table>
+			<?= form_close(); ?>
 		</fieldset>
 	</div>
 	<div class="clear"></div>
 </div>
-
+<div class="menu" id="menu_center">
+	<div id="center_menu">
+		ADMINISTRATION PAGE
+	</div>
+	<div class="clear"></div>
+</div>

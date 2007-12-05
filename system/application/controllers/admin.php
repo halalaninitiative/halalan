@@ -24,10 +24,33 @@ class Admin extends Controller {
 
 	function manage()
 	{
+		if($success = $this->session->flashdata('success'))
+		{
+			$data['messages'] = $success;
+		}
+		$this->load->model('Option');
+		$data['option'] = $this->Option->select(1);
 		$data['username'] = $this->admin['username'];
 		$main['title'] = e('admin_manage_title');
 		$main['body'] = $this->load->view('admin/manage', $data, TRUE);
 		$this->load->view('main', $main);
+	}
+
+	function do_edit_option($id)
+	{
+		if (!$id)
+			redirect('admin/manage');
+		$this->load->model('Option');
+		$option = $this->Option->select($id);
+		if (!$option)
+			redirect('admin/manage');
+		$option['status'] = $this->input->post('status');
+		$option['result'] = $this->input->post('result');
+		$this->load->model('Option');
+		$this->Option->update($option, $id);
+		$success[] = e('admin_edit_option_success');
+		$this->session->set_flashdata('success', $success);
+		redirect('admin/manage');
 	}
 
 	function voters()
