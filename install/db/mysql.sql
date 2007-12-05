@@ -70,3 +70,13 @@ CREATE TABLE IF NOT EXISTS `votes` (
   `timestamp` datetime NOT NULL,
   PRIMARY KEY  (`candidate_id`,`voter_id`)
 ) TYPE=MyISAM;
+
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE IF NOT EXISTS `options` (
+  `id` smallint(6) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `result` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM;
+
+INSERT INTO `options` (`id`, `status`, `result`) VALUES (1, 0, 0);
