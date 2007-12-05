@@ -248,8 +248,11 @@ class Admin extends Controller {
 				$data['party'] = $this->Party->select($id);
 				if (!$data['party'])
 					redirect('admin/parties');
+				if($party = $this->session->flashdata('party'))
+					$data['party'] = $party;
+				$data['action'] = 'edit';
 				$main['title'] = e('admin_edit_party_title');
-				$main['body'] = $this->load->view('admin/edit_party', $data, TRUE);
+				$main['body'] = $this->load->view('admin/party', $data, TRUE);
 				break;
 			case 'position':
 				if (!$id)
@@ -320,8 +323,13 @@ class Admin extends Controller {
 				$main['body'] = $this->load->view('admin/add_voter', $data, TRUE);
 				break;
 			case 'party':
+				if($party = $this->session->flashdata('party'))
+					$data['party'] = $party;
+				else
+					$data['party'] = array('party'=>'', 'description'=>'');
+				$data['action'] = 'add';
 				$main['title'] = e('admin_add_party_title');
-				$main['body'] = $this->load->view('admin/add_party', $data, TRUE);
+				$main['body'] = $this->load->view('admin/party', $data, TRUE);
 				break;
 			case 'position':
 				$main['title'] = e('admin_add_position_title');
@@ -477,11 +485,11 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_party_no_party');
 		}
+		$party['party'] = $this->input->post('party');
+		$party['description'] = $this->input->post('description');
+		$party['logo'] = $this->input->post('logo');
 		if (empty($error))
 		{
-			$party['party'] = $this->input->post('party');
-			$party['description'] = $this->input->post('description');
-			$party['logo'] = $this->input->post('logo');
 			$this->load->model('Party');
 			$this->Party->insert($party);
 			$success[] = e('admin_add_party_success');
@@ -489,6 +497,7 @@ class Admin extends Controller {
 		}
 		else
 		{
+			$this->session->set_flashdata('party', $party);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/add/party');
@@ -507,19 +516,20 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_party_no_party');
 		}
+		$party['party'] = $this->input->post('party');
+		$party['description'] = $this->input->post('description');
+		unset($party['logo']);
+		if ($this->input->post('logo'))
+			$party['logo'] = $this->input->post('logo');
 		if (empty($error))
 		{
-			$party['party'] = $this->input->post('party');
-			$party['description'] = $this->input->post('description');
-			unset($party['logo']);
-			if ($this->input->post('logo'))
-				$party['logo'] = $this->input->post('logo');
 			$this->Party->update($party, $id);
 			$success[] = e('admin_edit_party_success');
 			$this->session->set_flashdata('success', $success);
 		}
 		else
 		{
+			$this->session->set_flashdata('party', $party);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/party/' . $id);

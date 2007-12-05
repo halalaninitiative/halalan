@@ -26,22 +26,26 @@
 	</div>
 </div>
 <?php endif; ?>
+<?php if ($action == 'add'): ?>
+<?= form_open_multipart('admin/do_add_party'); ?>
+<?php elseif ($action == 'edit'): ?>
 <?= form_open_multipart('admin/do_edit_party/' . $party['id']); ?>
+<?php endif; ?>
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header"> <?= e('admin_edit_party_legend'); ?> </span></legend>
+			<legend><span class="header"> <?= e('admin_' . $action . '_party_legend'); ?> </span></legend>
 			<table>
 				<tr>
-					<td width="30%"><?= e('admin_edit_party_party'); ?></td>
-					<td width="70%"><?= form_input(array('name'=>'party', 'size'=>30, 'value'=>$party['party'])); ?></td>
+					<td width="30%"><?= e('admin_' . $action . '_party_party'); ?></td>
+					<td width="70%"><?= form_input(array('name'=>'party', 'value'=>$party['party'], 'size'=>30)); ?></td>
 				</tr>
 				<tr>
-					<td width="30%"><?= e('admin_edit_party_description'); ?></td>
-					<td width="70%"><?= form_textarea(array('name'=>'description', 'rows'=>7, 'cols'=>35, 'value'=>$party['description'])); ?></td>
+					<td width="30%"><?= e('admin_' . $action . '_party_description'); ?></td>
+					<td width="70%"><?= form_textarea(array('name'=>'description', 'value'=>$party['description'], 'rows'=>7, 'cols'=>35)); ?></td>
 				</tr>
 				<tr>
-					<td width="30%"><?= e('admin_edit_party_logo'); ?></td>
+					<td width="30%"><?= e('admin_' . $action . '_party_logo'); ?></td>
 					<td width="70%"><?= form_upload(array('name'=>'logo', 'size'=>30)); ?></td>
 				</tr>
 			</table>
@@ -53,7 +57,7 @@
 	<div id="center_menu">
 		<?= anchor('admin/parties', 'GO BACK'); ?>
 		|
-		<?= form_submit('submit', e('admin_edit_party_submit')) ?>
+		<?= form_submit('submit', e('admin_' . $action . '_party_submit')) ?>
 	</div>
 	<div class="clear"></div>
 </div>
