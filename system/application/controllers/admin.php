@@ -248,7 +248,7 @@ class Admin extends Controller {
 				$data['party'] = $this->Party->select($id);
 				if (!$data['party'])
 					redirect('admin/parties');
-				if($party = $this->session->flashdata('party'))
+				if ($party = $this->session->flashdata('party'))
 					$data['party'] = $party;
 				$data['action'] = 'edit';
 				$main['title'] = e('admin_edit_party_title');
@@ -261,8 +261,11 @@ class Admin extends Controller {
 				$data['position'] = $this->Position->select($id);
 				if (!$data['position'])
 					redirect('admin/positions');
+				if ($position = $this->session->flashdata('position'))
+					$data['position'] = $position;
+				$data['action'] = 'edit';
 				$main['title'] = e('admin_edit_position_title');
-				$main['body'] = $this->load->view('admin/edit_position', $data, TRUE);
+				$main['body'] = $this->load->view('admin/position', $data, TRUE);
 				break;
 			case 'candidate':
 				if (!$id)
@@ -323,7 +326,7 @@ class Admin extends Controller {
 				$main['body'] = $this->load->view('admin/add_voter', $data, TRUE);
 				break;
 			case 'party':
-				if($party = $this->session->flashdata('party'))
+				if ($party = $this->session->flashdata('party'))
 					$data['party'] = $party;
 				else
 					$data['party'] = array('party'=>'', 'description'=>'');
@@ -332,8 +335,13 @@ class Admin extends Controller {
 				$main['body'] = $this->load->view('admin/party', $data, TRUE);
 				break;
 			case 'position':
+				if ($position = $this->session->flashdata('position'))
+					$data['position'] = $position;
+				else
+					$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>TRUE, 'unit'=>FALSE);
+				$data['action'] = 'add';
 				$main['title'] = e('admin_add_position_title');
-				$main['body'] = $this->load->view('admin/add_position', $data, TRUE);
+				$main['body'] = $this->load->view('admin/position', $data, TRUE);
 				break;
 			case 'candidate':
 				$this->load->model('Party');
@@ -560,14 +568,14 @@ class Admin extends Controller {
 			if (!ctype_digit($this->input->post('ordinality')))
 				$error[] = e('admin_position_ordinality_not_digit');
 		}
+		$position['position'] = $this->input->post('position');
+		$position['description'] = $this->input->post('description');
+		$position['maximum'] = $this->input->post('maximum');
+		$position['ordinality'] = $this->input->post('ordinality');
+		$position['abstain'] = $this->input->post('abstain');
+		$position['unit'] = $this->input->post('unit');
 		if (empty($error))
 		{
-			$position['position'] = $this->input->post('position');
-			$position['description'] = $this->input->post('description');
-			$position['maximum'] = $this->input->post('maximum');
-			$position['ordinality'] = $this->input->post('ordinality');
-			$position['abstain'] = $this->input->post('abstain');
-			$position['unit'] = $this->input->post('unit');
 			$this->load->model('Position');
 			$this->Position->insert($position);
 			$success[] = e('admin_add_position_success');
@@ -575,6 +583,7 @@ class Admin extends Controller {
 		}
 		else
 		{
+			$this->session->set_flashdata('position', $position);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/add/position');
@@ -611,20 +620,21 @@ class Admin extends Controller {
 			if (!ctype_digit($this->input->post('ordinality')))
 				$error[] = e('admin_position_ordinality_not_digit');
 		}
+		$position['position'] = $this->input->post('position');
+		$position['description'] = $this->input->post('description');
+		$position['maximum'] = $this->input->post('maximum');
+		$position['ordinality'] = $this->input->post('ordinality');
+		$position['abstain'] = $this->input->post('abstain');
+		$position['unit'] = $this->input->post('unit');
 		if (empty($error))
 		{
-			$position['position'] = $this->input->post('position');
-			$position['description'] = $this->input->post('description');
-			$position['maximum'] = $this->input->post('maximum');
-			$position['ordinality'] = $this->input->post('ordinality');
-			$position['abstain'] = $this->input->post('abstain');
-			$position['unit'] = $this->input->post('unit');
 			$this->Position->update($position, $id);
 			$success[] = e('admin_edit_position_success');
 			$this->session->set_flashdata('success', $success);
 		}
 		else
 		{
+			$this->session->set_flashdata('position', $position);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/position/' . $id);
