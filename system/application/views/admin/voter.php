@@ -57,11 +57,15 @@ function allSelect()
 	</div>
 </div>
 <?php endif; ?>
+<?php if ($action == 'add'): ?>
+<?= form_open('admin/do_add_voter', array('onsubmit'=>'allSelect();')); ?>
+<?php elseif ($action == 'edit'): ?>
 <?= form_open('admin/do_edit_voter/' . $voter['id'], array('onsubmit'=>'allSelect();')); ?>
+<?php endif; ?>
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header"> <?= e('admin_edit_voter_legend'); ?> </span></legend>
+			<legend><span class="header"> <?= e('admin_' . $action . '_voter_legend'); ?> </span></legend>
 			<table>
 				<tr>
 					<td width="30%">Username</td>
@@ -95,7 +99,7 @@ function allSelect()
 					<?php else: ?>
 						<table>
 							<tr>
-								<td><?= form_dropdown('possible[]', $positions, '', 'id="possible" multiple="true" size="5" style="width : 150px;"'); ?><br />Possible Positions</td>
+								<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="true" size="5" style="width : 150px;"'); ?><br />Possible Positions</td>
 								<td><input type="button" onclick="copyToList('possible','chosen');" value="  &gt;&gt;  " /><br /><input type="button" onclick="copyToList('chosen','possible');" value="  &lt;&lt;  " /></td>
 								<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="true" size="5" style="width : 150px;"'); ?><br />Chosen Positions</td>
 							</tr>
@@ -103,10 +107,12 @@ function allSelect()
 					<?php endif; ?>
 					</td>
 				</tr>
+				<?php if ($action == 'edit'): ?>
 				<tr>
 					<td width="30%">Regenerate</td>
 					<td width="70%"><?= form_checkbox(array('name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> Password <?= form_checkbox(array('name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> Pin</td>
 				</tr>
+				<?php endif; ?>
 			</table>
 		</fieldset>
 	</div>
@@ -116,7 +122,7 @@ function allSelect()
 	<div id="center_menu">
 		<?= anchor('admin/voters', 'GO BACK'); ?>
 		|
-		<?= form_submit('edit_submit', e('admin_edit_voter_submit')) ?>
+		<?= form_submit('submit', e('admin_' . $action . '_voter_submit')) ?>
 	</div>
 	<div class="clear"></div>
 </div>

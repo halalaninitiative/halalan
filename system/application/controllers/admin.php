@@ -221,11 +221,23 @@ class Admin extends Controller {
 				$this->load->model('Position_Voter');
 				$data['general'] = $this->Position->select_all_non_units();
 				$data['specific'] = $this->Position->select_all_units();
-				$tmp = $this->Position_Voter->select_all_by_voter_id($id);
-				$chosen = array();
-				foreach ($tmp as $t)
+				if ($voter = $this->session->flashdata('voter'))
 				{
-					$chosen[] = $t['position_id'];
+					$data['voter'] = $voter;
+					if (empty($voter['chosen']))
+						$chosen = array();
+					else
+						$chosen = $voter['chosen'];
+					unset($voter['chosen']);
+				}
+				else
+				{
+					$tmp = $this->Position_Voter->select_all_by_voter_id($id);
+					$chosen = array();
+					foreach ($tmp as $t)
+					{
+						$chosen[] = $t['position_id'];
+					}
 				}
 				$tmp[0] = array();
 				$tmp[1] = array();
@@ -236,10 +248,11 @@ class Admin extends Controller {
 					else
 						$tmp[1][$s['id']] = $s['position'];
 				}
-				$data['positions'] = $tmp[1];
+				$data['possible'] = $tmp[1];
 				$data['chosen'] = $tmp[0];
+				$data['action'] = 'edit';
 				$main['title'] = e('admin_edit_voter_title');
-				$main['body'] = $this->load->view('admin/edit_voter', $data, TRUE);
+				$main['body'] = $this->load->view('admin/voter', $data, TRUE);
 				break;
 			case 'party':
 				if (!$id)
@@ -324,9 +337,38 @@ class Admin extends Controller {
 				{
 					$tmp[$s['id']] = $s['position'];
 				}
-				$data['positions'] = $tmp;
+				$data['possible'] = $tmp;
+				if ($voter = $this->session->flashdata('voter'))
+				{
+					if (empty($voter['chosen']))
+					{
+						$data['chosen'] = array();
+					}
+					else
+					{
+						$chosen = $voter['chosen'];
+						unset($voter['chosen']);
+						$tmp = array();
+						foreach ($data['possible'] as $key=>$value)
+						{
+							if (in_array($key, $chosen))
+							{
+								unset($data['possible'][$key]);
+								$tmp[$key] = $value;
+							}
+						}
+					}
+					$data['voter'] = $voter;
+					$data['chosen'] = $tmp;
+				}
+				else
+				{
+					$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
+					$data['chosen'] = array();
+				}
+				$data['action'] = 'add';
 				$main['title'] = e('admin_add_voter_title');
-				$main['body'] = $this->load->view('admin/add_voter', $data, TRUE);
+				$main['body'] = $this->load->view('admin/voter', $data, TRUE);
 				break;
 			case 'party':
 				if ($party = $this->session->flashdata('party'))
@@ -400,17 +442,17 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_voter_no_first_name');
 		}
+		$voter['username'] = $this->input->post('username');
+		$voter['last_name'] = $this->input->post('last_name');
+		$voter['first_name'] = $this->input->post('first_name');
+		$voter['chosen'] = $this->input->post('chosen');
 		if (empty($error))
 		{
 			$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
 			$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
-			$voter['username'] = $this->input->post('username');
 			$voter['password'] = sha1($password);
 			$voter['pin'] = sha1($pin);
-			$voter['last_name'] = $this->input->post('last_name');
-			$voter['first_name'] = $this->input->post('first_name');
 			$voter['voted'] = FALSE;
-			$voter['chosen'] = $this->input->post('chosen');
 			$this->Boter->insert($voter);
 			$success = array();
 			$success[] = e('admin_add_voter_success');
@@ -424,6 +466,7 @@ class Admin extends Controller {
 		}
 		else
 		{
+			$this->session->set_flashdata('voter', $voter);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/add/voter');
@@ -458,6 +501,10 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_voter_no_first_name');
 		}
+		$voter['username'] = $this->input->post('username');
+		$voter['last_name'] = $this->input->post('last_name');
+		$voter['first_name'] = $this->input->post('first_name');
+		$voter['chosen'] = $this->input->post('chosen');
 		if (empty($error))
 		{
 			if ($this->input->post('password'))
@@ -470,10 +517,6 @@ class Admin extends Controller {
 				$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
 				$voter['pin'] = sha1($pin);
 			}
-			$voter['username'] = $this->input->post('username');
-			$voter['last_name'] = $this->input->post('last_name');
-			$voter['first_name'] = $this->input->post('first_name');
-			$voter['chosen'] = $this->input->post('chosen');
 			$this->Boter->update($voter, $id);
 			$success = array();
 			$success[] = e('admin_edit_voter_success');
@@ -489,6 +532,7 @@ class Admin extends Controller {
 		}
 		else
 		{
+			$this->session->set_flashdata('voter', $voter);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/voter/' . $id);
