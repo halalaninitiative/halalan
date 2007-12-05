@@ -290,8 +290,11 @@ class Admin extends Controller {
 					$tmp[$position['id']] = $position['position'];
 				}
 				$data['positions'] = $tmp;
+				if ($candidate = $this->session->flashdata('candidate'))
+					$data['candidate'] = $candidate;
+				$data['action'] = 'edit';
 				$main['title'] = e('admin_edit_candidate_title');
-				$main['body'] = $this->load->view('admin/edit_candidate', $data, TRUE);
+				$main['body'] = $this->load->view('admin/candidate', $data, TRUE);
 				break;
 			default:
 				redirect('admin/manage');
@@ -360,8 +363,13 @@ class Admin extends Controller {
 					$tmp[$position['id']] = $position['position'];
 				}
 				$data['positions'] = $tmp;
+				if ($candidate = $this->session->flashdata('candidate'))
+					$data['candidate'] = $candidate;
+				else
+					$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'description'=>'', 'party_id'=>'', 'position_id'=>'');
+				$data['action'] = 'add';
 				$main['title'] = e('admin_add_candidate_title');
-				$main['body'] = $this->load->view('admin/add_candidate', $data, TRUE);
+				$main['body'] = $this->load->view('admin/candidate', $data, TRUE);
 				break;
 			default:
 				redirect('admin/manage');
@@ -655,14 +663,14 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_candidate_no_position');
 		}
+		$candidate['first_name'] = $this->input->post('first_name');
+		$candidate['last_name'] = $this->input->post('last_name');
+		$candidate['description'] = $this->input->post('description');
+		$candidate['party_id'] = $this->input->post('party_id');
+		$candidate['position_id'] = $this->input->post('position_id');
+		$candidate['picture'] = $this->input->post('picture');
 		if (empty($error))
 		{
-			$candidate['first_name'] = $this->input->post('first_name');
-			$candidate['last_name'] = $this->input->post('last_name');
-			$candidate['description'] = $this->input->post('description');
-			$candidate['party_id'] = $this->input->post('party_id');
-			$candidate['position_id'] = $this->input->post('position_id');
-			$candidate['picture'] = $this->input->post('picture');
 			$this->load->model('Candidate');
 			$this->Candidate->insert($candidate);
 			$success[] = e('admin_add_candidate_success');
@@ -670,6 +678,7 @@ class Admin extends Controller {
 		}
 		else
 		{
+			$this->session->set_flashdata('candidate', $candidate);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/add/candidate');
@@ -696,20 +705,23 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_candidate_no_position');
 		}
+		$candidate['first_name'] = $this->input->post('first_name');
+		$candidate['last_name'] = $this->input->post('last_name');
+		$candidate['description'] = $this->input->post('description');
+		$candidate['party_id'] = $this->input->post('party_id');
+		$candidate['position_id'] = $this->input->post('position_id');
+		unset($candidate['picture']);
+		if ($this->input->post('picture'))
+			$candidate['picture'] = $this->input->post('picture');
 		if (empty($error))
 		{
-			$candidate['first_name'] = $this->input->post('first_name');
-			$candidate['last_name'] = $this->input->post('last_name');
-			$candidate['description'] = $this->input->post('description');
-			$candidate['party_id'] = $this->input->post('party_id');
-			$candidate['position_id'] = $this->input->post('position_id');
-			$candidate['picture'] = $this->input->post('picture');
 			$this->Candidate->update($candidate, $id);
 			$success[] = e('admin_edit_candidate_success');
 			$this->session->set_flashdata('success', $success);
 		}
 		else
 		{
+			$this->session->set_flashdata('candidate', $candidate);
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/candidate/' . $id);
