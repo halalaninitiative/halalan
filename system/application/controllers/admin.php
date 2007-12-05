@@ -15,6 +15,15 @@ class Admin extends Controller {
 			redirect('gate/admin');
 		}
 		$this->settings = $this->config->item('halalan');
+		$this->load->model('Option');
+		$option = $this->Option->select(1);
+		if ($option['status'] && $this->uri->segment(2) != 'manage' && $this->uri->segment(2) != 'do_edit_option' && $this->uri->segment(2) != 'index')
+		{
+			$error[] = 'The election is already running.';
+			$error[] = 'You cannot manage the election at this time.';
+			$this->session->set_flashdata('error', $error);
+			redirect('admin/manage');
+		}
 	}
 
 	function index()
@@ -24,7 +33,11 @@ class Admin extends Controller {
 
 	function manage()
 	{
-		if($success = $this->session->flashdata('success'))
+		if($error = $this->session->flashdata('error'))
+		{
+			$data['messages'] = $error;
+		}
+		else if($success = $this->session->flashdata('success'))
 		{
 			$data['messages'] = $success;
 		}
