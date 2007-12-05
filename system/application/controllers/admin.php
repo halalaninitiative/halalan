@@ -251,6 +251,7 @@ class Admin extends Controller {
 				$data['possible'] = $tmp[1];
 				$data['chosen'] = $tmp[0];
 				$data['action'] = 'edit';
+				$data['settings'] = $this->settings;
 				$main['title'] = e('admin_edit_voter_title');
 				$main['body'] = $this->load->view('admin/voter', $data, TRUE);
 				break;
@@ -367,6 +368,7 @@ class Admin extends Controller {
 					$data['chosen'] = array();
 				}
 				$data['action'] = 'add';
+				$data['settings'] = $this->settings;
 				$main['title'] = e('admin_add_voter_title');
 				$main['body'] = $this->load->view('admin/voter', $data, TRUE);
 				break;
@@ -449,9 +451,12 @@ class Admin extends Controller {
 		if (empty($error))
 		{
 			$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
-			$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
 			$voter['password'] = sha1($password);
-			$voter['pin'] = sha1($pin);
+			if ($this->settings['pin'])
+			{
+				$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
+				$voter['pin'] = sha1($pin);
+			}
 			$voter['voted'] = FALSE;
 			$this->Boter->insert($voter);
 			$success = array();
@@ -460,7 +465,8 @@ class Admin extends Controller {
 			{
 				$success[] = 'Username: '. $voter['username'];
 				$success[] = 'Password: '. $password;
-				$success[] = 'PIN: '. $pin;
+				if ($this->settings['pin'])
+					$success[] = 'PIN: '. $pin;
 			}
 			$this->session->set_flashdata('success', $success);
 		}
@@ -512,10 +518,13 @@ class Admin extends Controller {
 				$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
 				$voter['password'] = sha1($password);
 			}
-			if ($this->input->post('pin'))
+			if ($this->settings['pin'])
 			{
-				$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
-				$voter['pin'] = sha1($pin);
+				if ($this->input->post('pin'))
+				{
+					$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
+					$voter['pin'] = sha1($pin);
+				}
 			}
 			$this->Boter->update($voter, $id);
 			$success = array();
@@ -525,8 +534,11 @@ class Admin extends Controller {
 				$success[] = 'Username: '. $voter['username'];
 				if ($this->input->post('password'))
 					$success[] = 'Password: '. $password;
-				if ($this->input->post('pin'))
-					$success[] = 'PIN: '. $pin;
+				if ($this->settings['pin'])
+				{
+					if ($this->input->post('pin'))
+						$success[] = 'PIN: '. $pin;
+				}
 			}
 			$this->session->set_flashdata('success', $success);
 		}

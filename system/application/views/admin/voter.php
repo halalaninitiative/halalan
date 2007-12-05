@@ -110,7 +110,12 @@ function allSelect()
 				<?php if ($action == 'edit'): ?>
 				<tr>
 					<td width="30%">Regenerate</td>
-					<td width="70%"><?= form_checkbox(array('name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> Password <?= form_checkbox(array('name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> Pin</td>
+					<td width="70%">
+					<?= form_checkbox(array('name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> Password
+					<?php if ($settings['pin']): ?>
+					<?= form_checkbox(array('name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> Pin
+					<?php endif; ?>
+					</td>
 				</tr>
 				<?php endif; ?>
 			</table>
