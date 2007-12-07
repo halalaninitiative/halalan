@@ -752,7 +752,21 @@ class Admin extends Controller {
 		$candidate['description'] = $this->input->post('description');
 		$candidate['party_id'] = $this->input->post('party_id');
 		$candidate['position_id'] = $this->input->post('position_id');
-		$candidate['picture'] = $this->input->post('picture');
+		if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
+		{
+			$config['upload_path'] = $this->config->item('upload_path') . 'pictures/';
+			$config['allowed_types'] = $this->config->item('allowed_types');
+			$this->upload->initialize($config);
+			if (!$this->upload->do_upload('picture'))
+			{
+				$error[] = $this->upload->display_errors();
+			}
+			else
+			{
+				$upload_data = $this->upload->data();
+				$candidate['picture'] = $upload_data['file_name'];
+			}
+		}
 		if (empty($error))
 		{
 			$this->load->model('Candidate');
@@ -794,9 +808,23 @@ class Admin extends Controller {
 		$candidate['description'] = $this->input->post('description');
 		$candidate['party_id'] = $this->input->post('party_id');
 		$candidate['position_id'] = $this->input->post('position_id');
-		unset($candidate['picture']);
-		if ($this->input->post('picture'))
-			$candidate['picture'] = $this->input->post('picture');
+		if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
+		{
+			$config['upload_path'] = $this->config->item('upload_path') . 'pictures/';
+			$config['allowed_types'] = $this->config->item('allowed_types');
+			$this->upload->initialize($config);
+			// delete old picture first
+			unlink($config['upload_path'] . $candidate['picture']);
+			if (!$this->upload->do_upload('picture'))
+			{
+				$error[] = $this->upload->display_errors();
+			}
+			else
+			{
+				$upload_data = $this->upload->data();
+				$candidate['picture'] = $upload_data['file_name'];
+			}
+		}
 		if (empty($error))
 		{
 			$this->Candidate->update($candidate, $id);
