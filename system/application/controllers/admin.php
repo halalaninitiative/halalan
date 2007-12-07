@@ -764,7 +764,26 @@ class Admin extends Controller {
 			else
 			{
 				$upload_data = $this->upload->data();
-				$candidate['picture'] = $upload_data['file_name'];
+				if ($upload_data['image_width'] > 96 && $upload_data['image_width'] > 96)
+				{
+					$config['source_image'] = $upload_data['full_path'];
+					$config['quality'] = '100%';
+					$config['width'] = 96;
+					$config['height'] = 96;
+					$this->image_lib->initialize($config);
+					if (!$this->image_lib->resize())
+					{
+						$error[] = $this->image_lib->display_errors();
+					}
+					else
+					{
+						$candidate['picture'] = $upload_data['file_name'];
+					}
+				}
+				else
+				{
+					$candidate['picture'] = $upload_data['file_name'];
+				}
 			}
 		}
 		if (empty($error))
@@ -822,7 +841,26 @@ class Admin extends Controller {
 			else
 			{
 				$upload_data = $this->upload->data();
-				$candidate['picture'] = $upload_data['file_name'];
+				if ($upload_data['image_width'] > 96 && $upload_data['image_width'] > 96)
+				{
+					$config['source_image'] = $upload_data['full_path'];
+					$config['quality'] = '100%';
+					$config['width'] = 96;
+					$config['height'] = 96;
+					$this->image_lib->initialize($config);
+					if (!$this->image_lib->resize())
+					{
+						$error[] = $this->image_lib->display_errors();
+					}
+					else
+					{
+						$candidate['picture'] = $upload_data['file_name'];
+					}
+				}
+				else
+				{
+					$candidate['picture'] = $upload_data['file_name'];
+				}
 			}
 		}
 		if (empty($error))
