@@ -20,9 +20,12 @@ class Boter extends Model {
 		unset($voter['chosen']);
 		$this->db->insert('voters', $voter);
 		$voter_id = $this->db->insert_id();
-		foreach ($chosen as $position_id)
+		if (!empty($chosen))
 		{
-			$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+			foreach ($chosen as $position_id)
+			{
+				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+			}
 		}
 		return true;
 	}
@@ -35,9 +38,12 @@ class Boter extends Model {
 		$voter_id = $id;
 		$this->db->where(compact('voter_id'));
 		$this->db->delete('positions_voters');
-		foreach ($chosen as $position_id)
+		if (!empty($chosen))
 		{
-			$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+			foreach ($chosen as $position_id)
+			{
+				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+			}
 		}
 		return true;
 	}
