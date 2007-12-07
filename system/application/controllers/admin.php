@@ -571,7 +571,11 @@ class Admin extends Controller {
 			else
 			{
 				$upload_data = $this->upload->data();
-				$party['logo'] = $upload_data['file_name'];
+				$return = $this->_resize($upload_data, 250);
+				if (is_array($return))
+					$error = array_merge($error, $return);
+				else
+					$party['logo'] = $return;
 			}
 		}
 		if (empty($error))
@@ -618,7 +622,11 @@ class Admin extends Controller {
 			else
 			{
 				$upload_data = $this->upload->data();
-				$party['logo'] = $upload_data['file_name'];
+				$return = $this->_resize($upload_data, 250);
+				if (is_array($return))
+					$error = array_merge($error, $return);
+				else
+					$party['logo'] = $return;
 			}
 		}
 		if (empty($error))
@@ -764,26 +772,11 @@ class Admin extends Controller {
 			else
 			{
 				$upload_data = $this->upload->data();
-				if ($upload_data['image_width'] > 96 && $upload_data['image_width'] > 96)
-				{
-					$config['source_image'] = $upload_data['full_path'];
-					$config['quality'] = '100%';
-					$config['width'] = 96;
-					$config['height'] = 96;
-					$this->image_lib->initialize($config);
-					if (!$this->image_lib->resize())
-					{
-						$error[] = $this->image_lib->display_errors();
-					}
-					else
-					{
-						$candidate['picture'] = $upload_data['file_name'];
-					}
-				}
+				$return = $this->_resize($upload_data, 96);
+				if (is_array($return))
+					$error = array_merge($error, $return);
 				else
-				{
-					$candidate['picture'] = $upload_data['file_name'];
-				}
+					$candidate['picture'] = $return;
 			}
 		}
 		if (empty($error))
@@ -841,26 +834,11 @@ class Admin extends Controller {
 			else
 			{
 				$upload_data = $this->upload->data();
-				if ($upload_data['image_width'] > 96 && $upload_data['image_width'] > 96)
-				{
-					$config['source_image'] = $upload_data['full_path'];
-					$config['quality'] = '100%';
-					$config['width'] = 96;
-					$config['height'] = 96;
-					$this->image_lib->initialize($config);
-					if (!$this->image_lib->resize())
-					{
-						$error[] = $this->image_lib->display_errors();
-					}
-					else
-					{
-						$candidate['picture'] = $upload_data['file_name'];
-					}
-				}
+				$return = $this->_resize($upload_data, 96);
+				if (is_array($return))
+					$error = array_merge($error, $return);
 				else
-				{
-					$candidate['picture'] = $upload_data['file_name'];
-				}
+					$candidate['picture'] = $return;
 			}
 		}
 		if (empty($error))
@@ -875,6 +853,36 @@ class Admin extends Controller {
 			$this->session->set_flashdata('error', $error);
 		}
 		redirect('admin/edit/candidate/' . $id);
+	}
+
+	function _resize($upload_data, $n)
+	{
+		$width = $upload_data['image_width'];
+		$height = $upload_data['image_height'];
+		if ($width > $n || $height > $n)
+		{
+			$config['source_image'] = $upload_data['full_path'];
+			$config['quality'] = '100%';
+			$config['width'] = $n;
+			$config['height'] = (($n*$height)/$width);
+			$this->image_lib->initialize($config);
+			if (!$this->image_lib->resize())
+			{
+				$error[] = $this->image_lib->display_errors();
+			}
+			else
+			{
+				$name = $upload_data['file_name'];
+			}
+		}
+		else
+		{
+			$name = $upload_data['file_name'];
+		}
+		if (empty($error))
+			return $name;
+		else
+			return $error;
 	}
 
 }
