@@ -32,8 +32,11 @@ class Boter extends Model {
 
 	function update($voter, $id)
 	{
-		$chosen = $voter['chosen'];
-		unset($voter['chosen']);
+		if (isset($voter['chosen']))
+		{
+			$chosen = $voter['chosen'];
+			unset($voter['chosen']);
+		}
 		$this->db->update('voters', $voter, compact('id'));
 		$voter_id = $id;
 		$this->db->where(compact('voter_id'));
