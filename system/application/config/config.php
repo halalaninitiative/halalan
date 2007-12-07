@@ -331,5 +331,16 @@ $config['time_reference'] = 'local';
 */
 $config['rewrite_short_tags'] = TRUE;
 
+/*
+|--------------------------------------------------------------------------
+| Halalan
+|--------------------------------------------------------------------------
+|
+| Text here. :D
+|
+*/
+$config['upload_path'] = './public/uploads/';
+$config['allowed_types'] = 'gif|jpg|png';
+
 
 ?>

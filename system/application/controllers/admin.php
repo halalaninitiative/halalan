@@ -559,7 +559,21 @@ class Admin extends Controller {
 		}
 		$party['party'] = $this->input->post('party');
 		$party['description'] = $this->input->post('description');
-		$party['logo'] = $this->input->post('logo');
+		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
+		{
+			$config['upload_path'] = $this->config->item('upload_path') . 'logos/';
+			$config['allowed_types'] = $this->config->item('allowed_types');
+			$this->upload->initialize($config);
+			if (!$this->upload->do_upload('logo'))
+			{
+				$error[] = $this->upload->display_errors();
+			}
+			else
+			{
+				$upload_data = $this->upload->data();
+				$party['logo'] = $upload_data['file_name'];
+			}
+		}
 		if (empty($error))
 		{
 			$this->load->model('Party');
@@ -590,9 +604,23 @@ class Admin extends Controller {
 		}
 		$party['party'] = $this->input->post('party');
 		$party['description'] = $this->input->post('description');
-		unset($party['logo']);
-		if ($this->input->post('logo'))
-			$party['logo'] = $this->input->post('logo');
+		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
+		{
+			$config['upload_path'] = $this->config->item('upload_path') . 'logos/';
+			$config['allowed_types'] = $this->config->item('allowed_types');
+			$this->upload->initialize($config);
+			// delete old logo first
+			unlink($config['upload_path'] . $party['logo']);
+			if (!$this->upload->do_upload('logo'))
+			{
+				$error[] = $this->upload->display_errors();
+			}
+			else
+			{
+				$upload_data = $this->upload->data();
+				$party['logo'] = $upload_data['file_name'];
+			}
+		}
 		if (empty($error))
 		{
 			$this->Party->update($party, $id);
