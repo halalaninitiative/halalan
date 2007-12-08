@@ -435,6 +435,13 @@ class Admin extends Controller {
 			{
 				$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
 			}
+			else
+			{
+				if (!$this->_valid_email($this->input->post('username')))
+				{
+					$error[] = 'Email is not valid';
+				}
+			}
 		}
 		if (!$this->input->post('last_name'))
 		{
@@ -468,6 +475,26 @@ class Admin extends Controller {
 				if ($this->settings['pin'])
 					$success[] = 'PIN: '. $pin;
 			}
+			else if ($this->settings['password_pin_generation'] == 'email')
+			{
+				$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
+				$this->email->to($voter['username']);
+				$this->email->subject($this->settings['name'] . ' Login Credentials');
+				$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
+				$message .= "Password: $password\n";
+				if ($this->settings['pin'])
+				{
+					$message .= "PIN: $pin\n";
+				}
+				$message .= "\n";
+				$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
+				$message .= "\n";
+				$message .= $this->settings['name'] . ' Administrator';
+				$this->email->message($message);
+				$this->email->send();
+				//echo $this->email->print_debugger();
+				$success[] = 'The login credentials was successfully emailed.';
+			}
 			$this->session->set_flashdata('success', $success);
 		}
 		else
@@ -489,7 +516,10 @@ class Admin extends Controller {
 		$error = array();
 		if (!$this->input->post('username'))
 		{
-			$error[] = e('admin_voter_no_username');
+			if ($this->settings['password_pin_generation'] == 'web')
+				$error[] = e('admin_voter_no_username');
+			else if ($this->settings['password_pin_generation'] == 'email')
+				$error[] = 'Email is required.';
 		}
 		else
 		{
@@ -497,6 +527,13 @@ class Admin extends Controller {
 			{
 				if ($test['id'] != $id)
 					$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
+			}
+			else
+			{
+				if (!$this->_valid_email($this->input->post('username')))
+				{
+					$error[] = 'Email is not valid';
+				}
 			}
 		}
 		if (!$this->input->post('last_name'))
@@ -539,6 +576,28 @@ class Admin extends Controller {
 					if ($this->input->post('pin'))
 						$success[] = 'PIN: '. $pin;
 				}
+			}
+			else if ($this->settings['password_pin_generation'] == 'email')
+			{
+				$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
+				$this->email->to($voter['username']);
+				$this->email->subject($this->settings['name'] . ' Login Credentials');
+				$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
+				if ($this->input->post('password'))
+					$message .= "Password: $password\n";
+				if ($this->settings['pin'])
+				{
+					if ($this->input->post('pin'))
+						$message .= "PIN: $pin\n";
+				}
+				$message .= "\n";
+				$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
+				$message .= "\n";
+				$message .= $this->settings['name'] . ' Administrator';
+				$this->email->message($message);
+				$this->email->send();
+				//echo $this->email->print_debugger();
+				$success[] = 'The login credentials was successfully emailed.';
 			}
 			$this->session->set_flashdata('success', $success);
 		}
@@ -883,6 +942,12 @@ class Admin extends Controller {
 			return $name;
 		else
 			return $error;
+	}
+
+	// taken from CodeIgniter Validation Library
+	function _valid_email($str)
+	{
+		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
 	}
 
 }

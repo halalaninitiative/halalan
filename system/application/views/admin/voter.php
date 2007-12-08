@@ -68,7 +68,7 @@ function allSelect()
 			<legend><span class="header"> <?= e('admin_' . $action . '_voter_legend'); ?> </span></legend>
 			<table>
 				<tr>
-					<td width="30%">Username</td>
+					<td width="30%"><?= ($settings['password_pin_generation'] == 'email') ? 'Email' : 'Username'; ?></td>
 					<td width="70%"><?= form_input(array('name'=>'username', 'value'=>$voter['username'])); ?></td>
 				</tr>
 				<tr>
