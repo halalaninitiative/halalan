@@ -435,12 +435,12 @@ class Admin extends Controller {
 			{
 				$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
 			}
-			else
+		}
+		if ($this->settings['password_pin_generation'] == 'email')
+		{
+			if (!$this->_valid_email($this->input->post('username')))
 			{
-				if (!$this->_valid_email($this->input->post('username')))
-				{
-					$error[] = 'Email is not valid';
-				}
+				$error[] = 'Email is not valid';
 			}
 		}
 		if (!$this->input->post('last_name'))
@@ -528,12 +528,12 @@ class Admin extends Controller {
 				if ($test['id'] != $id)
 					$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
 			}
-			else
+		}
+		if ($this->settings['password_pin_generation'] == 'email')
+		{
+			if (!$this->_valid_email($this->input->post('username')))
 			{
-				if (!$this->_valid_email($this->input->post('username')))
-				{
-					$error[] = 'Email is not valid';
-				}
+				$error[] = 'Email is not valid';
 			}
 		}
 		if (!$this->input->post('last_name'))
