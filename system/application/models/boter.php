@@ -15,13 +15,14 @@ class Boter extends Model {
 		return $query->row_array();
 	}
 
-	function insert($voter) {
+	function insert($voter)
+	{
 		$chosen = $voter['chosen'];
 		unset($voter['chosen']);
 		$this->db->insert('voters', $voter);
-		$voter_id = $this->db->insert_id();
 		if (!empty($chosen))
 		{
+			$voter_id = $this->db->insert_id();
 			foreach ($chosen as $position_id)
 			{
 				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
@@ -38,11 +39,11 @@ class Boter extends Model {
 			unset($voter['chosen']);
 		}
 		$this->db->update('voters', $voter, compact('id'));
-		$voter_id = $id;
-		$this->db->where(compact('voter_id'));
-		$this->db->delete('positions_voters');
 		if (!empty($chosen))
 		{
+			$voter_id = $id;
+			$this->db->where(compact('voter_id'));
+			$this->db->delete('positions_voters');
 			foreach ($chosen as $position_id)
 			{
 				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
