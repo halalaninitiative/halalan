@@ -63,7 +63,7 @@ $lang['halalan_voter_confirm_vote_not_captcha'] = 'Incorrect captcha';
 $lang['halalan_voter_confirm_vote_no_pin'] = 'No PIN entered';
 $lang['halalan_voter_confirm_vote_not_pin'] = 'Incorrect PIN';
 // logout
-$lang['halalan_logout_title'] = 'Logout';
+$lang['halalan_voter_logout_title'] = 'Logout';
 
 // views/voter/vote.php
 $lang['halalan_voter_vote_submit_button'] = 'Vote';
