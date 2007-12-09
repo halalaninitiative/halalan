@@ -37,7 +37,16 @@ else
 			{
 				$query = "SELECT * FROM admins";
 				$result = mysql_query($query);
-				if (count(mysql_fetch_array($result)))
+				$test = FALSE;
+				while ($row = mysql_fetch_array($result))
+				{
+					if (!empty($row))
+					{
+						$test = TRUE;
+						break;
+					}
+				}
+				if ($test)
 				{
 					echo "Halalan is already installed.";
 					exit;
