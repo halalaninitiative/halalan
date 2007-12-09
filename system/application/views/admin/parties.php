@@ -1,11 +1,3 @@
-<script>
-function confirmDelete(name, id)
-{
-	var answer = confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
-	if (answer)
-		document.location.href = '<?= site_url('admin/delete/party'); ?>/' + id;
-}
-</script>
 <div class="admin_menu">
 	<div id="left_menu">
 		<ul>
@@ -57,7 +49,7 @@ function confirmDelete(name, id)
 					<td width="55%">
 						<?= nl2br($party['description']); ?>
 					</td>
-					<td width="15%" align="center"><?= anchor('admin/edit/party/' . $party['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/party/' . $party['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $party['party'] . '\', ' . $party['id'] . ');return false;"'); ?></a></td>
+					<td width="15%" align="center"><?= anchor('admin/edit/party/' . $party['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/party/' . $party['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $party['party'] . '\', \'' . site_url('admin/delete/party/' . $party['id']) . '\');return false;"'); ?></a></td>
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>

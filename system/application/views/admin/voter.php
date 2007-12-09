@@ -1,34 +1,3 @@
-<script>
-function copyToList(from,to)
-{
-  fromList = document.getElementById(from);
-  toList = document.getElementById(to);
-  var sel = false;
-  for (i=0;i<fromList.options.length;i++)
-  {
-    var current = fromList.options[i];
-    if (current.selected)
-    {
-      sel = true;
-      txt = current.text;
-      val = current.value;
-      toList.options[toList.length] = new Option(txt,val);
-      fromList.options[i] = null;
-      i--;
-    }
-  }
-  if (!sel) alert ('You haven\'t selected any options!');
-}
-
-function allSelect()
-{
-  List = document.getElementById('chosen');
-  for (i=0;i<List.length;i++)
-  {
-     List.options[i].selected = true;
-  }
-}
-</script>
 <div class="admin_menu">
 	<div id="left_menu">
 		<ul>

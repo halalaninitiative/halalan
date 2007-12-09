@@ -1,97 +1,4 @@
-<script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domLib.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT_drag.js"></script>
 <script>
-function setContent(id, name, picture, description, party, logo) {
-	var ret = "";
-	ret += "<div style=\"width: 300px;\">";
-	ret += "<div style=\"float: left;\">";
-	if (picture == '')
-	ret += "<img src=\"<?= base_url() . 'public/images/default.png'; ?>\" alt=\"picture\" />";
-	else
-	ret += "<img src=\"<?= base_url(); ?>public/uploads/" + id + "/" + picture + "\" alt=\"picture\" />";
-	ret += "</div>";
-	ret += "<div style=\"float: left;\">";
-	ret += "Name: " + name;
-	ret += "<br />Party: " + party;
-	ret += "</div>";
-	ret += "</div>";
-	ret += "<div style=\"clear: both;\"></div>";
-	ret += "<div style=\"width: 300px;\">" + description + "</div>";
-	return ret;
-}
-function checkNumber(field, name, form, limit) {
-	var cntr = 0;
-	var group = form.elements[name];
-	for(var i = 0; i < group.length; i++)
-		if(group[i].checked)
-			cntr++;
-	if(cntr > limit) {
-		field.checked = false;
-		alert("You are over the allowed limit");
-	}
-}
-function manipulateCheckBoxes(field, name, form) {
-	var group = form.elements[name];
-	for(var i = 0; i < group.length; i++) {
-		if(field.checked)
-			group[i].disabled = true;
-		else
-			group[i].disabled = false;
-	}
-	field.disabled = false;
-}
-function saveState() {
-	var inputs = document.getElementsByTagName("input");
-	var checkboxes = new Array();
-	for(var i = 0; i < inputs.length; i++) {
-		if(inputs[i].type == "checkbox") {
-			if(inputs[i].disabled == true)
-				checkboxes.push(i);
-		}
-	}
-	setCookie('halalan_cookie', checkboxes.toString(), 1);
-}
-function restoreState(checkboxes) {
-	checkboxes = checkboxes.split(",");
-	var inputs = document.getElementsByTagName("input");
-	for(var i = 0; i < inputs.length; i++) {
-		if(in_array(i, checkboxes))
-			inputs[i].disabled = true;
-	}
-}
-function in_array(needle, haystack) {
-	for(var i = 0; i < haystack.length; i++) {
-		if(haystack[i] == needle)
-			return true;
-	}
-	return false;
-}
-function checkCookie() {
-	var checkboxes = getCookie('halalan_cookie');
-	if(checkboxes != null && checkboxes != "")
-		restoreState(checkboxes);
-}
-
-function setCookie(c_name,value,expiredays) {
-	var exdate=new Date();
-	exdate.setDate(exdate.getDate()+expiredays);
-	document.cookie = c_name + "=" + escape(value) + ((expiredays==null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=/";
-}
-
-function getCookie(c_name) {
-	if(document.cookie.length > 0) {
-		var c_start = document.cookie.indexOf(c_name + "=");
-		if(c_start != -1) {
-			c_start = c_start + c_name.length + 1;
-			c_end = document.cookie.indexOf(";", c_start);
-			if(c_end == -1)
-				c_end = document.cookie.length;
-			return unescape(document.cookie.substring(c_start,c_end));
-		}
-	}
-	return "";
-}
 window.onload = checkCookie;
 </script>
 
@@ -152,7 +59,7 @@ window.onload = checkCookie;
 				<tr>
 					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'onclick'=>'checkNumber(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form, '. $positions[$i]['maximum'] . ');')); ?></td>
 					<td width="90%"><?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?></td>
-					<td width="5%"><a href="#" title="Info on <?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
+					<td width="5%"><a href="#" title="Info on <?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
 				</tr>
 				<?php endforeach; ?>
 				<?php

@@ -1,26 +1,3 @@
-<script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domLib.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT.js"></script>
-<script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT_drag.js"></script>
-<script>
-function setContent(id, name, picture, description, party, logo) {
-	var ret = "";
-	ret += "<div style=\"width: 300px;\">";
-	ret += "<div style=\"float: left;\">";
-	if (picture == '')
-	ret += "<img src=\"<?= base_url() . 'public/images/default.png'; ?>\" alt=\"picture\" />";
-	else
-	ret += "<img src=\"<?= base_url(); ?>public/uploads/" + id + "/" + picture + "\" alt=\"picture\" />";
-	ret += "</div>";
-	ret += "<div style=\"float: left;\">";
-	ret += "Name: " + name;
-	ret += "<br />Party: " + party;
-	ret += "</div>";
-	ret += "</div>";
-	ret += "<div style=\"clear: both;\"></div>";
-	ret += "<div style=\"width: 300px;\">" + description + "</div>";
-	return ret;
-}
-</script>
 <div class="menu">
 	<div id="left_menu">
 		<ul>
@@ -72,7 +49,7 @@ function setContent(id, name, picture, description, party, logo) {
 				<?php endif; ?>
 					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
 					<td width="90%"><?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?></td>
-					<td width="5%"><a href="#" title="Info on <?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= $candidate['party']['party']; ?>', '<?= $candidate['party']['logo']; ?>'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
+					<td width="5%"><a href="#" title="Info on <?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
 				</tr>
 				<?php endforeach; ?>
 				<?php
