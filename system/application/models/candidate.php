@@ -39,6 +39,17 @@ class Candidate extends Model {
 		return $query->result_array();
 	}
 
+	function has_votes($candidate_id)
+	{
+		$this->db->from('votes');
+		$this->db->where(compact('candidate_id'));
+		$query = $this->db->get();
+		if (count($query->result_array()) > 0)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
 }
 
 ?>

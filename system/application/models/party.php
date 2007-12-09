@@ -38,6 +38,17 @@ class Party extends Model {
 		return $query->result_array();
 	}
 
+	function in_used($party_id)
+	{
+		$this->db->from('candidates');
+		$this->db->where(compact('party_id'));
+		$query = $this->db->get();
+		if (count($query->result_array()) > 0)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
 }
 
 ?>

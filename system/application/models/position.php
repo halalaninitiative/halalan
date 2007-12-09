@@ -69,6 +69,17 @@ class Position extends Model {
 		return $query->result_array();
 	}
 
+	function in_used($position_id)
+	{
+		$this->db->from('candidates');
+		$this->db->where(compact('position_id'));
+		$query = $this->db->get();
+		if (count($query->result_array()) > 0)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
 }
 
 ?>

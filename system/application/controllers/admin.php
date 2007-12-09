@@ -171,24 +171,45 @@ class Admin extends Controller {
 				if (!$id)
 					redirect('admin/parties');
 				$this->load->model('Party');
-				$this->Party->delete($id);
-				$this->session->set_flashdata('success', array(e('admin_delete_party_success')));
+				if ($this->Party->in_used($id))
+				{
+					$this->session->set_flashdata('error', array(e('admin_delete_party_in_used')));
+				}
+				else
+				{
+					$this->Party->delete($id);
+					$this->session->set_flashdata('success', array(e('admin_delete_party_success')));
+				}
 				redirect('admin/parties');
 				break;
 			case 'position':
 				if (!$id)
 					redirect('admin/positions');
 				$this->load->model('Position');
-				$this->Position->delete($id);
-				$this->session->set_flashdata('success', array(e('admin_delete_position_success')));
+				if ($this->Position->in_used($id))
+				{
+					$this->session->set_flashdata('error', array(e('admin_delete_position_in_used')));
+				}
+				else
+				{
+					$this->Position->delete($id);
+					$this->session->set_flashdata('success', array(e('admin_delete_position_success')));
+				}
 				redirect('admin/positions');
 				break;
 			case 'candidate':
 				if (!$id)
 					redirect('admin/candidates');
 				$this->load->model('Candidate');
-				$this->Candidate->delete($id);
-				$this->session->set_flashdata('success', array(e('admin_delete_candidate_success')));
+				if ($this->Candidate->has_votes($id))
+				{
+					$this->session->set_flashdata('error', array(e('admin_delete_candidate_already_has_votes')));
+				}
+				else
+				{
+					$this->Candidate->delete($id);
+					$this->session->set_flashdata('success', array(e('admin_delete_candidate_success')));
+				}
 				redirect('admin/candidates');
 				break;
 			default:
