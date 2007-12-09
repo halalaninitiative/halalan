@@ -30,7 +30,7 @@ window.onload = checkCookie;
 <?= form_open('voter/do_vote', array('onsubmit'=>'saveState();')); ?>
 <?php if (count($positions) == 0): ?>
 <div class="message">
-	<div class="message_header"><?= e('message_box'); ?></div>
+	<div class="message_header"><?= e('common_message_box'); ?></div>
 	<div class="message_body">
 		<ul>
 			<li><?= $none; ?></li>
