@@ -98,29 +98,39 @@ class Gate extends Controller {
 
 	function result()
 	{
-		$this->load->model('Candidate');
-		$this->load->model('Party');
-		$this->load->model('Position');
-		$this->load->model('Vote');
-		$positions = $this->Position->select_all();
-		foreach ($positions as $key=>$position)
+		$this->load->model('Option');
+		$option = $this->Option->select(1);
+		if ($option['result'])
 		{
-			$candidates = array();
-			$votes = $this->Vote->count_all_by_position_id($position['id']);
-			foreach ($votes as $vote)
+			$this->load->model('Candidate');
+			$this->load->model('Party');
+			$this->load->model('Position');
+			$this->load->model('Vote');
+			$positions = $this->Position->select_all();
+			foreach ($positions as $key=>$position)
 			{
-				$candidate_id = $vote['candidate_id'];
-				$candidate = $this->Candidate->select($candidate_id);
-				$candidates[$candidate_id] = $candidate;
-				$candidates[$candidate_id]['votes'] = $vote['votes'];
-				$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+				$candidates = array();
+				$votes = $this->Vote->count_all_by_position_id($position['id']);
+				foreach ($votes as $vote)
+				{
+					$candidate_id = $vote['candidate_id'];
+					$candidate = $this->Candidate->select($candidate_id);
+					$candidates[$candidate_id] = $candidate;
+					$candidates[$candidate_id]['votes'] = $vote['votes'];
+					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+				}
+				$positions[$key]['candidates'] = $candidates;
 			}
-			$positions[$key]['candidates'] = $candidates;
+			$data['positions'] = $positions;
+			$main['title'] = e('gate_result_title');
+			$main['body'] = $this->load->view('gate/result', $data, TRUE);
+			$this->load->view('main', $main);
 		}
-		$data['positions'] = $positions;
-		$main['title'] = e('gate_result_title');
-		$main['body'] = $this->load->view('gate/result', $data, TRUE);
-		$this->load->view('main', $main);
+		else
+		{
+			$this->session->set_flashdata('error', array(e('gate_result_unavailable')));
+			redirect('gate/voter');
+		}
 	}
 
 }
