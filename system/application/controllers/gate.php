@@ -121,6 +121,7 @@ class Gate extends Controller {
 				}
 				$positions[$key]['candidates'] = $candidates;
 			}
+			$data['settings'] = $this->config->item('halalan');
 			$data['positions'] = $positions;
 			$main['title'] = e('gate_result_title');
 			$main['body'] = $this->load->view('gate/result', $data, TRUE);

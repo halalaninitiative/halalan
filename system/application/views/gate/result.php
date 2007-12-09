@@ -1,6 +1,6 @@
 <div class="menu">
 	<div id="center_menu">
-		RESULT
+		<?= strtoupper($settings['name']); ?> RESULT
 	</div>
 	<div class="clear"></div>
 </div>
@@ -45,7 +45,7 @@
 <?php endif; ?>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
-		&nbsp;
+		<?= anchor('gate/voter', 'GO BACK'); ?>
 	</div>
 	<div class="clear"></div>
 </div>
