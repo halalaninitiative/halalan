@@ -52,15 +52,15 @@ CREATE TABLE voters (
   first_name varchar(63) NOT NULL,
   last_name varchar(31) NOT NULL,
   voted tinyint(1) NOT NULL,
-  login timestamp NOT NULL,
-  logout timestamp NOT NULL,
+  login timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  logout timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY  (id)
 );
 
 CREATE TABLE votes (
   candidate_id integer NOT NULL,
   voter_id integer NOT NULL,
-  timestamp timestamp NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY  (candidate_id,voter_id)
 );
 
