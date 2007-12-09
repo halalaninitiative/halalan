@@ -11,7 +11,8 @@ class Admin extends Controller {
 		$this->admin = $this->session->userdata('admin');
 		if (!$this->admin)
 		{
-			$this->session->set_flashdata('login', e('common_unauthorized'));
+			$error[] = e('common_unauthorized');
+			$this->session->set_flashdata('error', $error);
 			redirect('gate/admin');
 		}
 		$this->settings = $this->config->item('halalan');

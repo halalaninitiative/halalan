@@ -11,7 +11,8 @@ class Voter extends Controller {
 		$this->voter = $this->session->userdata('voter');
 		if (!$this->voter)
 		{
-			$this->session->set_flashdata('login', e('common_unauthorized'));
+			$error[] = e('common_unauthorized');
+			$this->session->set_flashdata('error', $error);
 			redirect('gate/voter');
 		}
 		$this->settings = $this->config->item('halalan');
