@@ -36,16 +36,16 @@ function confirmDelete(name, id)
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header">Parties</span></legend>
+			<legend><span class="header"><?= e('admin_parties_label'); ?></span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
 				<tr bgcolor="#FFAAAA">
 					<th width="30%" align="center"><?= e('admin_parties_party'); ?></th>
 					<th width="55%" align="center"><?= e('admin_parties_description'); ?></th>
-					<th width="15%" align="center"><?= e('admin_parties_action'); ?></th>
+					<th width="15%" align="center"><?= e('common_action'); ?></th>
 				</tr>
 				<?php if (empty($parties)): ?>
 				<tr>
-					<td colspan="3" align="center"><em>No parties found.</em></td>
+					<td colspan="3" align="center"><em><?= e('admin_parties_no_parties'); ?></em></td>
 				</tr>
 				<?php else: ?>
 				<?php $i = 0; ?>
@@ -57,7 +57,7 @@ function confirmDelete(name, id)
 					<td width="55%">
 						<?= nl2br($party['description']); ?>
 					</td>
-					<td width="15%" align="center"><?= anchor('admin/edit/party/' . $party['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('edit') . '" />', 'title="' . e('edit') . '"'); ?> | <?= anchor('admin/delete/party/' . $party['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('delete') . '" />', 'title="' . e('delete') . '" onclick="confirmDelete(\'' . $party['party'] . '\', ' . $party['id'] . ');return false;"'); ?></a></td>
+					<td width="15%" align="center"><?= anchor('admin/edit/party/' . $party['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/party/' . $party['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $party['party'] . '\', ' . $party['id'] . ');return false;"'); ?></a></td>
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>

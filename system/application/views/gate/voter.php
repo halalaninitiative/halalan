@@ -33,12 +33,12 @@
 			<table cellspacing="2" cellpadding="2" align="center">
 				<tr>
 					<td><img src="<?= base_url(); ?>public/images/no.png" alt="Not Running" /></td>
-					<td>The election is not running. Please wait for the election administrator to activate the election.</td>
+					<td><?= e('gate_voter_not_running'); ?></td>
 				</tr>
 				<?php if ($option['result']): ?>
 				<tr>
 					<td><img src="<?= base_url(); ?>public/images/show.png" alt="Show" /></td>
-					<td>The result is now available! View it <?= anchor('', 'here'); ?>.</td>
+					<td><?= e('gate_voter_result'); ?>.</td>
 				</tr>
 				<?php endif; ?>
 			</table>

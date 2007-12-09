@@ -29,7 +29,7 @@
 <div class="body">
 	<div class="left_body">
 		<fieldset>
-			<legend><span class="header">Manage</span></legend>
+			<legend><span class="header"><?= e('admin_home_left_label'); ?></span></legend>
 			<p>What do you want to do?</p>
 			<ul>
 				<li><?= anchor('admin/voters', 'Manage Voters'); ?></li>
@@ -41,7 +41,7 @@
 	</div>
 	<div class="right_body">
 		<fieldset>
-			<legend><span class="header">Options</span></legend>
+			<legend><span class="header"><?= e('admin_home_right_label'); ?></span></legend>
 			<?= form_open('admin/do_edit_option/1'); ?>
 			<table cellpadding="2" cellspacing="2" width="100%">
 				<tr>

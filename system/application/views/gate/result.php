@@ -40,7 +40,7 @@ function setContent(id, name, picture, description, party, logo) {
 			<table cellspacing="2" cellpadding="2">
 				<?php if (empty($positions[$i]['candidates'])): ?>
 				<tr>
-					<td><em>No candidates found.</em></td>
+					<td><em><?= e('gate_result_no_candidates'); ?></em></td>
 				</tr>
 				<?php else: ?>
 				<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>

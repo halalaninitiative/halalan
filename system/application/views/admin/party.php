@@ -34,18 +34,18 @@
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header"> <?= e('admin_' . $action . '_party_legend'); ?> </span></legend>
+			<legend><span class="header"> <?= e('admin_' . $action . '_party_label'); ?> </span></legend>
 			<table>
 				<tr>
-					<td width="30%"><?= e('admin_' . $action . '_party_party'); ?></td>
+					<td width="30%"><?= e('admin_party_party'); ?></td>
 					<td width="70%"><?= form_input(array('name'=>'party', 'value'=>$party['party'], 'size'=>30)); ?></td>
 				</tr>
 				<tr>
-					<td width="30%"><?= e('admin_' . $action . '_party_description'); ?></td>
+					<td width="30%"><?= e('admin_party_description'); ?></td>
 					<td width="70%"><?= form_textarea(array('name'=>'description', 'value'=>$party['description'], 'rows'=>7, 'cols'=>35)); ?></td>
 				</tr>
 				<tr>
-					<td width="30%"><?= e('admin_' . $action . '_party_logo'); ?></td>
+					<td width="30%"><?= e('admin_party_logo'); ?></td>
 					<td width="70%"><?= form_upload(array('name'=>'logo', 'size'=>30)); ?></td>
 				</tr>
 			</table>

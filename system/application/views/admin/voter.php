@@ -65,25 +65,25 @@ function allSelect()
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header"> <?= e('admin_' . $action . '_voter_legend'); ?> </span></legend>
+			<legend><span class="header"> <?= e('admin_' . $action . '_voter_label'); ?> </span></legend>
 			<table>
 				<tr>
-					<td width="30%"><?= ($settings['password_pin_generation'] == 'email') ? 'Email' : 'Username'; ?></td>
+					<td width="30%"><?= ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?></td>
 					<td width="70%"><?= form_input(array('name'=>'username', 'value'=>$voter['username'])); ?></td>
 				</tr>
 				<tr>
-					<td width="30%">First Name</td>
+					<td width="30%"><?= e('admin_voter_first_name'); ?></td>
 					<td width="70%"><?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'])); ?></td>
 				</tr>
 				<tr>
-					<td width="30%">Last Name</td>
+					<td width="30%"><?= e('admin_voter_last_name'); ?></td>
 					<td width="70%"><?= form_input(array('name'=>'last_name', 'value'=>$voter['last_name'])); ?></td>
 				</tr>
 				<tr>
-					<td width="30%">General Positions</td>
+					<td width="30%"><?= e('admin_voter_general_positions'); ?></td>
 					<td width="70%">
 					<?php if (empty($general)): ?>
-					<em>No general positions found.</em>
+					<em><?= e('admin_voter_no_general_positions'); ?></em>
 					<?php else: ?>
 					<?php foreach ($general as $g): ?>
 					<?= $g['position']; ?><br />
@@ -92,16 +92,16 @@ function allSelect()
 					</td>
 				</tr>
 				<tr>
-					<td width="30%">Specific Positions</td>
+					<td width="30%"><?= e('admin_voter_specific_positions'); ?></td>
 					<td width="70%">
 					<?php if (empty($specific)): ?>
-					<em>No specific positions found.</em>
+					<em><?= e('admin_voter_no_specific_positions'); ?></em>
 					<?php else: ?>
 						<table>
 							<tr>
-								<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="true" size="5" style="width : 150px;"'); ?><br />Possible Positions</td>
+								<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="true" size="5" style="width : 150px;"'); ?><br /><?= e('admin_voter_possible_positions'); ?></td>
 								<td><input type="button" onclick="copyToList('possible','chosen');" value="  &gt;&gt;  " /><br /><input type="button" onclick="copyToList('chosen','possible');" value="  &lt;&lt;  " /></td>
-								<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="true" size="5" style="width : 150px;"'); ?><br />Chosen Positions</td>
+								<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="true" size="5" style="width : 150px;"'); ?><br /><?= e('admin_voter_chosen_positions'); ?></td>
 							</tr>
 						</table>
 					<?php endif; ?>
@@ -109,11 +109,11 @@ function allSelect()
 				</tr>
 				<?php if ($action == 'edit'): ?>
 				<tr>
-					<td width="30%">Regenerate</td>
+					<td width="30%"><?= e('admin_voter_regenerate'); ?></td>
 					<td width="70%">
-					<?= form_checkbox(array('name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> Password
+					<?= form_checkbox(array('name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_voter_password'); ?>
 					<?php if ($settings['pin']): ?>
-					<?= form_checkbox(array('name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> Pin
+					<?= form_checkbox(array('name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_voter_pin'); ?>
 					<?php endif; ?>
 					</td>
 				</tr>

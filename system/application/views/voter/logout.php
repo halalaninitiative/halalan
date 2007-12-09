@@ -13,7 +13,7 @@
 </div>
 <div class="body">
 	<div class="center_body">
-		<?= e('logout_message'); ?>
+		<?= e('voter_logout_message'); ?>
 	</div>
 	<div class="clear"></div>
 </div>

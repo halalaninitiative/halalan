@@ -51,7 +51,7 @@ class Gate extends Controller {
 		}
 		else
 		{
-			$error[] = e('gate_login_failure');
+			$error[] = e('gate_common_login_failure');
 			$this->session->set_flashdata('error', $error);
 			redirect('gate/voter');
 		}
@@ -83,7 +83,7 @@ class Gate extends Controller {
 		}
 		else
 		{
-			$error[] = e('gate_login_failure');
+			$error[] = e('gate_common_login_failure');
 			$this->session->set_flashdata('error', $error);
 			redirect('gate/admin');
 		}

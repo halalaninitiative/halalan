@@ -47,21 +47,21 @@ function confirmDelete(name, id)
 				</td>
 			</tr>
 			<tr>
-				<td align="left"><?= anchor('admin/add/voter', e('admin_add_voter')); ?></td>
+				<td align="left"><?= anchor('admin/add/voter', e('admin_voters_add')); ?></td>
 				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; Next | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
 			</tr>
 		</table>
 		<fieldset>
-			<legend><span class="header">Voters</span></legend>
+			<legend><span class="header"><?= e('admin_voters_label'); ?></span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
 				<tr bgcolor="#FFAAAA">
 					<th width="5%" align="center"><?= e('admin_voters_voted'); ?></th>
 					<th width="80%" align="center"><?= e('admin_voters_name'); ?></th>
-					<th width="15%" align="center"><?= e('admin_voters_action'); ?></th>
+					<th width="15%" align="center"><?= e('common_action'); ?></th>
 				</tr>
 				<?php if (empty($voters)): ?>
 				<tr>
-					<td colspan="3" align="center"><em>No voters found.</em></td>
+					<td colspan="3" align="center"><em><?= e('admin_voters_no_voters'); ?></em></td>
 				</tr>
 				<?php else: ?>
 				<?php $i = 0; ?>
@@ -75,7 +75,7 @@ function confirmDelete(name, id)
 						<?php endif; ?>
 					</td>
 					<td width="80%"><?= anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?></td>
-					<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('edit') . '" />', 'title="' . e('edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('delete') . '" />', 'title="' . e('delete') . '" onclick="confirmDelete(\'' . $voter['last_name'] . ', ' . $voter['first_name'] . '\', ' . $voter['id'] . ');return false;"'); ?></a></td>
+					<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $voter['last_name'] . ', ' . $voter['first_name'] . '\', ' . $voter['id'] . ');return false;"'); ?></a></td>
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>
@@ -84,7 +84,7 @@ function confirmDelete(name, id)
 		</fieldset>
 		<table width="100%">
 			<tr>
-				<td align="left"><?= anchor('admin/add/voter', e('admin_add_voter')); ?></td>
+				<td align="left"><?= anchor('admin/add/voter', e('admin_voters_add')); ?></td>
 				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; First | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
 			</tr>
 		</table>

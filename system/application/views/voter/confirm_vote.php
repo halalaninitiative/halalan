@@ -112,16 +112,16 @@ function setContent(id, name, picture, description, party, logo) {
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="position">Validation</span></legend>
+			<legend><span class="position"><?= e('voter_confirm_vote_validation_label'); ?></span></legend>
 			<table cellpadding="2" cellspacing="2">
 				<tr>
 					<?php if ($settings['captcha']): ?>
 					<td><?= $captcha['image']; ?></td>
-					<td>Enter the word here:<br /><?= form_input(array('name'=>'captcha', 'size'=>20, 'maxlength'=>8)); ?></td>
+					<td><?= e('voter_confirm_vote_captcha_label'); ?><br /><?= form_input(array('name'=>'captcha', 'size'=>20, 'maxlength'=>8)); ?></td>
 					<?php endif ;?>
 					<?php if ($settings['pin']): ?>
 					<td>&nbsp;</td>
-					<td>Enter your pin here:<br /><?= form_input(array('name'=>'pin', 'size'=>20)); ?></td>
+					<td><?= e('voter_confirm_vote_pin_label'); ?><br /><?= form_input(array('name'=>'pin', 'size'=>20)); ?></td>
 					<?php endif; ?>
 				</tr>
 			</table>
@@ -134,7 +134,7 @@ function setContent(id, name, picture, description, party, logo) {
 	<div id="center_menu">
 		<?= anchor('voter/vote', 'GO BACK'); ?>
 		|
-		<input type="submit" value="SUBMIT" />
+		<input type="submit" value="<?= e('voter_confirm_vote_submit_button'); ?>" />
 	</div>
 	<div class="clear"></div>
 </div>

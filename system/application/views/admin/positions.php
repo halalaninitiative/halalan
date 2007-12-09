@@ -36,16 +36,16 @@ function confirmDelete(name, id)
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header">Positions</span></legend>
+			<legend><span class="header"><?= e('admin_positions_label'); ?></span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
 				<tr bgcolor="#FFAAAA">
 					<th width="30%" align="center"><?= e('admin_positions_position'); ?></th>
 					<th width="55%" align="center"><?= e('admin_positions_description'); ?></th>
-					<th width="15%" align="center"><?= e('admin_positions_action'); ?></th>
+					<th width="15%" align="center"><?= e('common_action'); ?></th>
 				</tr>
 				<?php if (empty($positions)): ?>
 				<tr>
-					<td colspan="3" align="center"><em>No positions found.</em></td>
+					<td colspan="3" align="center"><em><?= e('admin_positions_no_positions'); ?></em></td>
 				</tr>
 				<?php else: ?>
 				<?php $i = 0; ?>
@@ -57,7 +57,7 @@ function confirmDelete(name, id)
 					<td width="55%">
 						<?= nl2br($position['description']); ?>
 					</td>
-					<td width="15%" align="center"><?= anchor('admin/edit/position/' . $position['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('edit') . '" />', 'title="' . e('edit') . '"'); ?> | <?= anchor('admin/delete/position/' . $position['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('delete') . '" />', 'title="' . e('delete') . '" onclick="confirmDelete(\'' . $position['position'] . '\', ' . $position['id'] . ');return false;"'); ?></a></td>
+					<td width="15%" align="center"><?= anchor('admin/edit/position/' . $position['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/position/' . $position['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $position['position'] . '\', ' . $position['id'] . ');return false;"'); ?></a></td>
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>

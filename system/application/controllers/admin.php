@@ -11,27 +11,27 @@ class Admin extends Controller {
 		$this->admin = $this->session->userdata('admin');
 		if (!$this->admin)
 		{
-			$this->session->set_flashdata('login', e('unauthorized'));
+			$this->session->set_flashdata('login', e('common_unauthorized'));
 			redirect('gate/admin');
 		}
 		$this->settings = $this->config->item('halalan');
 		$this->load->model('Option');
 		$option = $this->Option->select(1);
-		if ($option['status'] && $this->uri->segment(2) != 'manage' && $this->uri->segment(2) != 'do_edit_option' && $this->uri->segment(2) != 'index')
+		if ($option['status'] && $this->uri->segment(2) != 'home' && $this->uri->segment(2) != 'do_edit_option' && $this->uri->segment(2) != 'index')
 		{
-			$error[] = 'The election is already running.';
-			$error[] = 'You cannot manage the election at this time.';
+			$error[] = e('admin_common_running_one');
+			$error[] = e('admin_common_running_two');
 			$this->session->set_flashdata('error', $error);
-			redirect('admin/manage');
+			redirect('admin/home');
 		}
 	}
 
 	function index()
 	{
-		redirect('admin/manage');
+		redirect('admin/home');
 	}
 
-	function manage()
+	function home()
 	{
 		if($error = $this->session->flashdata('error'))
 		{
@@ -44,26 +44,26 @@ class Admin extends Controller {
 		$this->load->model('Option');
 		$data['option'] = $this->Option->select(1);
 		$data['username'] = $this->admin['username'];
-		$main['title'] = e('admin_manage_title');
-		$main['body'] = $this->load->view('admin/manage', $data, TRUE);
+		$main['title'] = e('admin_home_title');
+		$main['body'] = $this->load->view('admin/home', $data, TRUE);
 		$this->load->view('main', $main);
 	}
 
 	function do_edit_option($id)
 	{
 		if (!$id)
-			redirect('admin/manage');
+			redirect('admin/home');
 		$this->load->model('Option');
 		$option = $this->Option->select($id);
 		if (!$option)
-			redirect('admin/manage');
+			redirect('admin/home');
 		$option['status'] = $this->input->post('status');
 		$option['result'] = $this->input->post('result');
 		$this->load->model('Option');
 		$this->Option->update($option, $id);
 		$success[] = e('admin_edit_option_success');
 		$this->session->set_flashdata('success', $success);
-		redirect('admin/manage');
+		redirect('admin/home');
 	}
 
 	function voters()
@@ -192,7 +192,7 @@ class Admin extends Controller {
 				redirect('admin/candidates');
 				break;
 			default:
-				redirect('admin/manage');
+				redirect('admin/home');
 		}
 		$this->load->view('main', $main);
 	}
@@ -311,7 +311,7 @@ class Admin extends Controller {
 				$main['body'] = $this->load->view('admin/candidate', $data, TRUE);
 				break;
 			default:
-				redirect('admin/manage');
+				redirect('admin/home');
 		}
 		$this->load->view('main', $main);
 	}
@@ -416,7 +416,7 @@ class Admin extends Controller {
 				$main['body'] = $this->load->view('admin/candidate', $data, TRUE);
 				break;
 			default:
-				redirect('admin/manage');
+				redirect('admin/home');
 		}
 		$this->load->view('main', $main);
 	}
@@ -427,7 +427,10 @@ class Admin extends Controller {
 		$error = array();
 		if (!$this->input->post('username'))
 		{
-			$error[] = e('admin_voter_no_username');
+			if ($this->settings['password_pin_generation'] == 'web')
+				$error[] = e('admin_voter_no_username');
+			else if ($this->settings['password_pin_generation'] == 'email')
+				$error[] = e('admin_voter_no_email');
 		}
 		else
 		{
@@ -440,7 +443,7 @@ class Admin extends Controller {
 		{
 			if (!$this->_valid_email($this->input->post('username')))
 			{
-				$error[] = 'Email is not valid';
+				$error[] = e('admin_voter_invalid_email');
 			}
 		}
 		if (!$this->input->post('last_name'))
@@ -493,7 +496,7 @@ class Admin extends Controller {
 				$this->email->message($message);
 				$this->email->send();
 				//echo $this->email->print_debugger();
-				$success[] = 'The login credentials was successfully emailed.';
+				$success[] = e('admin_voter_email_success');
 			}
 			$this->session->set_flashdata('success', $success);
 		}
@@ -519,7 +522,7 @@ class Admin extends Controller {
 			if ($this->settings['password_pin_generation'] == 'web')
 				$error[] = e('admin_voter_no_username');
 			else if ($this->settings['password_pin_generation'] == 'email')
-				$error[] = 'Email is required.';
+				$error[] = e('admin_voter_no_email');
 		}
 		else
 		{
@@ -533,7 +536,7 @@ class Admin extends Controller {
 		{
 			if (!$this->_valid_email($this->input->post('username')))
 			{
-				$error[] = 'Email is not valid';
+				$error[] = e('admin_voter_invalid_email');
 			}
 		}
 		if (!$this->input->post('last_name'))
@@ -597,7 +600,7 @@ class Admin extends Controller {
 				$this->email->message($message);
 				$this->email->send();
 				//echo $this->email->print_debugger();
-				$success[] = 'The login credentials was successfully emailed.';
+				$success[] = e('admin_voter_email_success');
 			}
 			$this->session->set_flashdata('success', $success);
 		}

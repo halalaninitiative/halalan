@@ -125,8 +125,8 @@ window.onload = checkCookie;
 <div class="message">
 	<div class="message_header"><?= e('message_box'); ?></div>
 	<div class="message_body">
-		<ul>			
-			<li><?= $none; ?></li>			
+		<ul>
+			<li><?= $none; ?></li>
 		</ul>
 	</div>
 </div>
@@ -187,9 +187,9 @@ window.onload = checkCookie;
 <div class="menu" id="menu_center">
 	<div id="center_menu">
 		<?php if (count($positions) == 0): ?>
-		<input type="submit" value="SUBMIT" disabled="disabled" />
+		<input type="submit" value="<?= e('voter_vote_submit_button'); ?>" disabled="disabled" />
 		<?php else: ?>
-		<input type="submit" value="SUBMIT" />
+		<input type="submit" value="<?= e('voter_vote_submit_button'); ?>" />
 		<?php endif; ?>
 	</div>
 	<div class="clear"></div>

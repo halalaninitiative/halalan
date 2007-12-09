@@ -37,15 +37,15 @@ function confirmDelete(name, id)
 <div class="body">
 	<div class="center_body">
 		<fieldset>
-			<legend><span class="header">Candidates</span></legend>
+			<legend><span class="header"><?= e('admin_candidates_label'); ?></span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
 				<tr bgcolor="#FFAAAA">
 					<th width="30%" align="center"><?= e('admin_candidates_candidate'); ?></th>
 					<th width="55%" align="center"><?= e('admin_candidates_description'); ?></th>
-					<th width="15%" align="center"><?= e('admin_candidates_action'); ?></th>
+					<th width="15%" align="center"><?= e('common_action'); ?></th>
 				</tr>
 				<tr>
-					<td colspan="3" align="center"><em>No candidates found.</em></td>
+					<td colspan="3" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
 				</tr>
 			</table>
 		</fieldset>
@@ -61,11 +61,11 @@ function confirmDelete(name, id)
 				<tr bgcolor="#FFAAAA">
 					<th width="30%" align="center"><?= e('admin_candidates_candidate'); ?></th>
 					<th width="55%" align="center"><?= e('admin_candidates_description'); ?></th>
-					<th width="15%" align="center"><?= e('admin_candidates_action'); ?></th>
+					<th width="15%" align="center"><?= e('common_action'); ?></th>
 				</tr>
 				<?php if (empty($position['candidates'])): ?>
 				<tr>
-					<td colspan="3" align="center"><em>No candidates found.</em></td>
+					<td colspan="3" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
 				</tr>
 				<?php else: ?>
 				<?php $i = 0; ?>
@@ -77,7 +77,7 @@ function confirmDelete(name, id)
 					<td width="55%">
 						<?= nl2br($candidate['description']); ?>
 					</td>
-					<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('edit') . '" />', 'title="' . e('edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('delete') . '" />', 'title="' . e('delete') . '" onclick="confirmDelete(\'' . $candidate['last_name'] . ', ' . $candidate['first_name'] . '\', ' . $candidate['id'] . ');return false;"'); ?></a></td>
+					<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $candidate['last_name'] . ', ' . $candidate['first_name'] . '\', ' . $candidate['id'] . ');return false;"'); ?></a></td>
 				</tr>
 				<?php $i = $i + 1; ?>
 				<?php endforeach; ?>

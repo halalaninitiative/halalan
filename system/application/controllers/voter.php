@@ -11,7 +11,7 @@ class Voter extends Controller {
 		$this->voter = $this->session->userdata('voter');
 		if (!$this->voter)
 		{
-			$this->session->set_flashdata('login', e('unauthorized'));
+			$this->session->set_flashdata('login', e('common_unauthorized'));
 			redirect('gate/voter');
 		}
 		$this->settings = $this->config->item('halalan');
@@ -19,8 +19,8 @@ class Voter extends Controller {
 		$option = $this->Option->select(1);
 		if (!$option['status'])
 		{
-			$error[] = 'The election is not running.';
-			$error[] = 'You cannot login at this time.';
+			$error[] = e('voter_common_not_running_one');
+			$error[] = e('voter_common_not_running_two');
 			$this->session->set_flashdata('error', $error);
 			redirect('gate/voter');
 		}
