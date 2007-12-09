@@ -27,6 +27,7 @@
 <?php endif; ?>
 <div class="body">
 	<div class="center_body">
+<!--
 		<table width="100%">
 			<tr>
 				<td colspan="2" align="right">Display per Page
@@ -43,6 +44,7 @@
 				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; Next | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
 			</tr>
 		</table>
+-->
 		<fieldset>
 			<legend><span class="header"><?= e('admin_voters_label'); ?></span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
@@ -74,21 +76,26 @@
 				<?php endif; ?>
 			</table>
 		</fieldset>
+<!--
 		<table width="100%">
 			<tr>
 				<td align="left"><?= anchor('admin/add/voter', e('admin_voters_add')); ?></td>
 				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; First | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
 			</tr>
 		</table>
+-->
 	</div>
 	<div class="clear"></div>
 </div>
 <div class="menu" id="menu_center">
 	<div id="center_menu">
+<!--
 		<form>
 			<input name="votes" value="1" type="checkbox" /> Include votes?<br/>
 			<input value="Download List" type="submit" />
 		</form>
+-->
+		<?= anchor('admin/add/voter', e('admin_voters_add')); ?>
 	</div>
 	<div class="clear"></div>
 </div>
