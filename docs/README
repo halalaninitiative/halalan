@@ -1,0 +1,48 @@
+Halalan
+Version 1.0.0
+http://halalan.sourceforge.net
+http://sourceforge.net/projects/halalan
+Copyright (C) 2006-2007 UP Linux Users' Group
+
+
+VERSION FEATURES:
+
+This release is a complete port to a new framework.  An installer and MySQL support are also added.
+
+
+INSTALLATION:
+
+See INSTALL
+
+
+ABOUT:
+
+Halalan is an open-source voting system designed for student elections. It aims to automate the manual processes of elections such as counting, archiving, and voting. It is designed to be easy-to-use and secure.
+
+It is currently being developed and maintained by the UP Linux Users’ Group (UnPLUG), a student organization from the University of the Philippines Diliman.
+
+
+DOCUMENT FORMAT:
+
+The formating of files under docs/ are copied from the documents of PHP Timeclock http://timeclock.sourceforge.net.
+
+
+LICENSING:
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Parts of this distribution consist of the following:
+CodeIgniter http://www.codeigniter.com - CodeIgniter License Agreement
+DOM Tooltip http://www.mojavelinux.com/projects/domtooltip - Apache License
+Oxygen Icons http://www.oxygen-icons.org - GNU Library General Public License

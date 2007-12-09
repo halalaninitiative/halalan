@@ -1,0 +1,23 @@
+Halalan
+Version 1.0.0
+http://halalan.sourceforge.net
+http://sourceforge.net/projects/halalan
+Copyright (C) 2006-2007 UP Linux Users' Group
+
+
+REQUIREMENTS:
+
+--- PHP 4.4.x or higher
+--- GD 2.x.x or higher
+--- MySQL 4.1.x or higher
+--- Webserver with the rewrite module turned on
+--- Javascript-enabled web browser
+
+
+INSTALLATION:
+
+--- Unpack the distribution
+--- Go to the Halalan URL + install (Ex. http://localhost/halalan/install)
+--- Copy the generated configuration to system/application/config/halalan.php
+--- Create writable directories: public/captcha, public/uploads/logos, public/uploads/pictures
+--- That's all
