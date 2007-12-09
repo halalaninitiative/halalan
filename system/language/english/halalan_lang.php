@@ -49,7 +49,7 @@ $lang['halalan_voter_common_not_running_two'] = 'You cannot login at this time.'
 // index
 // vote
 $lang['halalan_voter_vote_title'] = 'Vote';
-$lang['halalan_voter_vote_no_candidates'] = 'No candidates';
+$lang['halalan_voter_vote_no_candidates'] = 'No candidates found.';
 // do_vote
 $lang['halalan_voter_vote_no_selected'] = 'No candidates selected';
 $lang['halalan_voter_vote_not_all_selected'] = 'You have not voted in all positions.';

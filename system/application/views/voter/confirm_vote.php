@@ -34,6 +34,11 @@
 		<fieldset>
 			<legend><span class="position"><?= $positions[$i]['position']; ?></span> (<?= $positions[$i]['maximum']; ?>)</legend>
 			<table cellspacing="2" cellpadding="2">
+				<?php if (empty($positions[$i]['candidates'])): ?>
+				<tr>
+					<td><em><?= e('voter_vote_no_candidates'); ?></em></td>
+				</tr>
+				<?php else: ?>
 				<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>
 				<?php
 					// used to populate the form
@@ -69,6 +74,7 @@
 					<td width="90%">ABSTAIN</td>
 					<td width="5%"></td>
 				</tr>
+				<?php endif; ?>
 				<?php endif; ?>
 			</table>
 		</fieldset>
