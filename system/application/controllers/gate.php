@@ -104,9 +104,15 @@ class Gate extends Controller {
 	function logout()
 	{
 		if ($this->session->userdata('admin'))
+		{
 			$gate = 'admin';
-		else if($this->session->userdata('voter'))
+		}
+		else if($voter = $this->session->userdata('voter'))
+		{
+			$this->load->model('Boter');
+			$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $voter['id']);
 			$gate = 'voter';
+		}
 		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
 		$this->session->sess_destroy();
 		redirect('gate/' . $gate);
