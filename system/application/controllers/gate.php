@@ -5,6 +5,18 @@ class Gate extends Controller {
 	function Gate()
 	{
 		parent::Controller();
+		if ($this->uri->segment(2) != 'result' && $this->uri->segment(2) != 'logout')
+		{
+			if ($this->session->userdata('admin'))
+			{
+				redirect('admin/index');
+			}
+			else if ($this->session->userdata('voter'))
+			{
+				redirect('voter/index');
+			}
+		}
+		
 	}
 
 	function index()
