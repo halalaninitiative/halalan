@@ -33,6 +33,16 @@ else
 			{
 				$some_random_variable = false;
 			}
+			else
+			{
+				$query = "SELECT * FROM admins";
+				$result = mysql_query($query);
+				if (count(mysql_fetch_array($result)))
+				{
+					echo "Halalan is already installed.";
+					exit;
+				}
+			}
 		}
 	}
 	else if ($dbdriver == 'postgre')

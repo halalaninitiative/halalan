@@ -30,7 +30,14 @@ margin: 			0 0 4px 0;
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
 		<p>Please make sure that Halalan was installed properly.</p>
-		<p>If you haven't installed Halalan yet, please <a href="install">install</a> it now.</p>
+		<?php
+		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
+			$protocol = 'https';
+		else
+			$protocol = 'http';
+		$base_url = trim($protocol . "://$_SERVER[HTTP_HOST]" . dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+		?>
+		<p>If you haven't installed Halalan yet, please <a href="<?php echo $base_url; ?>install">install</a> it now.</p>
 	</div>
 </body>
 </html>
