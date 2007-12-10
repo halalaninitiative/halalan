@@ -1,7 +1,7 @@
 <?php
 
 // common to controllers
-$lang['halalan_common_unauthorized'] = 'Kailangang nakapasok ka para makita ang pahina na ito..';
+$lang['halalan_common_unauthorized'] = 'Kailangang nakapasok ka para makita ang pahina na ito.';
 
 // common to views
 $lang['halalan_common_message_box'] = 'Halalan Message Box';
@@ -189,7 +189,7 @@ $lang['halalan_admin_parties_add'] = 'Magdagdag ng partido';
 
 // views/admin/party.php
 $lang['halalan_admin_add_party_label'] = 'Magdagdag ng detalye ng partido';
-$lang['halalan_admin_edit_party_label'] = 'Baguhin ang detalye ng botante';
+$lang['halalan_admin_edit_party_label'] = 'Baguhin ang detalye ng partido';
 $lang['halalan_admin_party_party'] = 'Partido';
 $lang['halalan_admin_party_description'] = 'Description';
 $lang['halalan_admin_party_logo'] = 'Logo';
@@ -220,7 +220,7 @@ $lang['halalan_admin_candidates_label'] = 'Mga Kandidato';
 $lang['halalan_admin_candidates_candidate'] = 'Kandidato';
 $lang['halalan_admin_candidates_description'] = 'Description';
 $lang['halalan_admin_candidates_no_candidates'] = 'Walang natagpuang kandidato.';
-$lang['halalan_admin_candidates_add'] = 'Idagdag ang Kandidato';
+$lang['halalan_admin_candidates_add'] = 'Magdagdag ang Kandidato';
 
 // views/admin/candidate.php
 $lang['halalan_admin_add_candidate_label'] = 'Magdagdag ng detalye ng kandidato';
