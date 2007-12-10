@@ -231,7 +231,7 @@ $lang['halalan_admin_candidate_description'] = 'Description';
 $lang['halalan_admin_candidate_party'] = 'Party';
 $lang['halalan_admin_candidate_position'] = 'Position';
 $lang['halalan_admin_candidate_picture'] = 'Picture';
-$lang['halalan_admin_add_candidate_submit'] = 'Add Voter';
-$lang['halalan_admin_edit_candidate_submit'] = 'Edit Voter';
+$lang['halalan_admin_add_candidate_submit'] = 'Add Candidate';
+$lang['halalan_admin_edit_candidate_submit'] = 'Edit Candidate';
 
 ?>
