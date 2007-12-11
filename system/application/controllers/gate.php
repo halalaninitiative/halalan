@@ -122,7 +122,7 @@ class Gate extends Controller {
 	{
 		$this->load->model('Option');
 		$option = $this->Option->select(1);
-		if ($option['result'])
+		if ($option['result'] && !$option['status'])
 		{
 			$this->load->model('Candidate');
 			$this->load->model('Party');
