@@ -220,7 +220,7 @@ $lang['halalan_admin_candidates_label'] = 'Mga Kandidato';
 $lang['halalan_admin_candidates_candidate'] = 'Kandidato';
 $lang['halalan_admin_candidates_description'] = 'Description';
 $lang['halalan_admin_candidates_no_candidates'] = 'Walang natagpuang kandidato.';
-$lang['halalan_admin_candidates_add'] = 'Magdagdag ang Kandidato';
+$lang['halalan_admin_candidates_add'] = 'Magdagdag ng Kandidato';
 
 // views/admin/candidate.php
 $lang['halalan_admin_add_candidate_label'] = 'Magdagdag ng detalye ng kandidato';
