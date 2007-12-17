@@ -1,11 +1,17 @@
 Halalan
-Version 1.0.0
+Version 1.0.1
 http://halalan.sourceforge.net
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006-2007 UP Linux Users' Group
 
 
 Halalan Changelog
+
+1.0.1  20071218
+-----------------------
+--- Added Filipino language file
+--- Added restriction that the result can only be shown when the election is not running
+--- Fixed incorrect label in add and edit candidate submit button
 
 1.0.0  20071209
 -----------------------

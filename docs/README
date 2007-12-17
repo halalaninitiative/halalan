@@ -1,5 +1,5 @@
 Halalan
-Version 1.0.0
+Version 1.0.1
 http://halalan.sourceforge.net
 http://sourceforge.net/projects/halalan
 Copyright (C) 2006-2007 UP Linux Users' Group
@@ -7,7 +7,7 @@ Copyright (C) 2006-2007 UP Linux Users' Group
 
 VERSION FEATURES:
 
-This release is a complete port to a new framework.  An installer and MySQL support are also added.
+Minor fixes and complete Filipino language file.
 
 
 INSTALLATION:
