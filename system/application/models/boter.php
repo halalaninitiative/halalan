@@ -78,6 +78,7 @@ class Boter extends Model {
 	function select_all_for_pagination($limit, $offset)
 	{
 		$this->db->from('voters');
+		$this->db->order_by('last_name', 'asc');
 		$this->db->limit($limit, $offset);
 		$query = $this->db->get();
 		return $query->result_array();

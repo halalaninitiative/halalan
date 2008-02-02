@@ -18,8 +18,8 @@ class Vote extends Model {
 		$this->db->from('votes');
 		$this->db->join('candidates', 'candidates.id = votes.candidate_id', 'right');
 		$this->db->where(compact('position_id'));
-		$this->db->groupby('candidates.id');
-		$this->db->orderby('votes', 'desc');
+		$this->db->group_by('candidates.id');
+		$this->db->order_by('votes', 'desc');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
