@@ -20,9 +20,8 @@
 	</div>
 	<?= $body; ?>
 	<div id="footer">
-		&copy; 2006-2007 Halalan
 		<br />
-		University of the Philippines Linux Users' Group
+		Powered by Halalan.
 	</div>
 </div>
 </body>
