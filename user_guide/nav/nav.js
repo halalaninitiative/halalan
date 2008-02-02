@@ -102,6 +102,7 @@ function create_menu(basepath)
 		'<li><a href="'+base+'helpers/date_helper.html">Date Helper</a></li>' +
 		'<li><a href="'+base+'helpers/directory_helper.html">Directory Helper</a></li>' +
 		'<li><a href="'+base+'helpers/download_helper.html">Download Helper</a></li>' +
+		'<li><a href="'+base+'helpers/email_helper.html">Email Helper</a></li>' +
 		'<li><a href="'+base+'helpers/file_helper.html">File Helper</a></li>' +
 		'<li><a href="'+base+'helpers/form_helper.html">Form Helper</a></li>' +
 		'<li><a href="'+base+'helpers/html_helper.html">HTML Helper</a></li>' +
@@ -119,8 +120,9 @@ function create_menu(basepath)
 		'<h3>Additional Resources</h3>' +
 		'<ul>' +
 		'<li><a href="'+base+'general/quick_reference.html">Quick Reference Chart</a></li>' +
-		'<li><a href="http://www.codeigniter.com/forums/">Community Forums</a></li>' +
-		'<li><a href="http://www.codeigniter.com/wiki/">Community Wiki</a></li>' +
+		'<li><a href="http://codeigniter.com/forums/">Community Forums</a></li>' +
+		'<li><a href="http://codeigniter.com/wiki/">Community Wiki</a></li>' +
+		'<li><a href="'+base+'doc_style/index.html">Writing Documentation</a></li>' +
 		'</ul>' +	
 		
 		'</td></tr></table>');

@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : Change Log</title>
 
 <style type='text/css' media='all'>@import url('userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="./nav/nav.js"></script>
 <script type="text/javascript" src="./nav/prototype.lite.js"></script>
 <script type="text/javascript" src="./nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="./nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="./toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Change Log
 </td>
@@ -62,6 +57,176 @@ Change Log
 
 <h1>Change Log</h1>
 
+
+<h2>Version 1.6.0</h2>
+<p>Release Date: January 30, 2008 </p>
+<ul>
+	<li>DBForge
+		<ul>
+    		<li>Added <a href="./database/forge.html">DBForge</a> to the database tools.</li>
+			<li>Moved <kbd>create_database()</kbd> and <kbd>drop_database()</kbd> into <a href="./database/forge.html">DBForge</a>.</li>
+			<li>Added <kbd>add_field()</kbd>, <kbd>add_key()</kbd>, <kbd>create_table()</kbd>, <kbd>drop_table()</kbd>, <kbd>add_column()</kbd>, <kbd>drop_column()</kbd>, <kbd>modify_column()</kbd> into <a href="./database/forge.html">DBForge</a>.</li>
+		</ul>
+	</li>
+
+	<li>Active Record
+		<ul>
+			<li>Added <kbd>protect_identifiers()</kbd> in <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>All AR queries are backticked if appropriate to the database.</li>
+			<li>Added <kbd>where_in()</kbd>, <kbd>or_where_in()</kbd>, <kbd>where_not_in()</kbd>,  <kbd>or_where_not_in()</kbd>, <kbd>not_like()</kbd> and <kbd>or_not_like()</kbd> to <a href="./database/active_record.html">Active Record</a>.</li>
+			<li>Added support for <kbd>limit()</kbd>  into <kbd>update()</kbd> and <kbd>delete()</kbd> statements in  <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>Added <kbd>empty_table()</kbd> and <kbd>truncate_table()</kbd> to <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>Added the ability to pass an array of tables to the <kbd>delete()</kbd> statement in <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>Added <kbd>count_all_results()</kbd> function to <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>Added <kbd>select_max()</kbd>, <kbd>select_min()</kbd>, <kbd>select_avg()</kbd> and <kbd>select_sum()</kbd> to <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>Added the ability to use aliases with joins in <a href="./database/active_record.html">Active Record</a>.</li>
+		    <li>Added a third parameter to Active Record's <kbd>like()</kbd> clause to control where the wildcard goes. </li>
+		    <li>Added a third parameter to <kbd>set()</kbd> in <a href="./database/active_record.html">Active Record</a> that withholds escaping data.</li>
+			<li>Changed the behaviour of variables submitted to the where() clause with no values to auto set &quot;IS NULL&quot;</li>
+		</ul>
+	</li>
+	
+	<li>Other Database Related
+		<ul>
+			<li>Added $this->DB->save_queries variable to DB driver, enabling queries to get saved or not. Previously they were always saved.</li>
+			<li>Added $this->db->dbprefix() to manually add database prefixes.</li>
+			<li>Added 'random' as an <kbd>order_by()</kbd> option , and removed &quot;rand()&quot; as a listed option as it was MySQL only.</li>
+			<li>Added a check for NULL fields in the MySQL database backup utility.</li>
+		    <li>Added &quot;constrain_by_prefix&quot; parameter to db-&gt;list_table() function.  If set to TRUE it will limit the result to only table names with the current prefix.</li>
+		    <li>Deprecated from Active Record; <kbd>getwhere()</kbd> for <kbd>get_where()</kbd>; <kbd>groupby()</kbd> for <kbd>group_by()</kbd>; <kbd>havingor()</kbd> for <kbd>having_or()</kbd>; <kbd>orderby()</kbd> for <kbd>order_by</kbd>; <kbd>orwhere()</kbd> for <kbd>or_where()</kbd>; and <kbd>orlike()</kbd> for <kbd>or_like()</kbd>.</li>
+			<li>Modified <kbd>csv_from_result()</kbd> to output CSV data more in the spirit of basic rules of RFC 4180.</li>
+			<li>Added 'char_set' and 'dbcollat' database configuration settings, to explicitly set the client communication properly.</li>
+			<li>Removed 'active_r' configuration setting and replaced with a global $active_record setting, which is more
+				in harmony with the global nature of the behavior (#1834).</li>
+		</ul>
+	</li>
+	
+	<li>Core changes
+		<ul>
+			<li>Added ability to load multiple views, whose content will be appended to the output in the order loaded.</li>
+			<li>Added the ability to <a href="./general/autoloader.html">auto-load</a> <a href="./general/models.html">Models</a>.</li>
+			<li>Reorganized the URI and Routes classes for better clarity.</li>
+			<li>Added Compat.php to allow function overrides for older versions of PHP or PHP environments missing certain extensions / libraries</li>   
+			<li>Added memory usage, GET, URI string data, and individual query execution time to Profiler output.</li>
+			<li>Deprecated Scaffolding.</li>
+			<li>Added is_really_writable() to Common.php to provide a cross-platform reliable method of testing file/folder writability.</li>
+		</ul>
+	</li>
+	
+	<li>Libraries
+		<ul>
+			<li>Changed the load protocol of Models to allow for extension.</li>
+			<li>Strengthened the Encryption library to help protect against man in the middle attacks when MCRYPT_MODE_CBC mode is used.</li>
+			<li>Added Flashdata variables, session_id regeneration and configurable session update times to the <a href="./libraries/sessions.html">Session class.</a></li>
+			<li>Removed 'last_visit' from the Session class.</li>
+			<li>Added a language entry for valid_ip validation error.</li>
+		    <li>Modified prep_for_form() in the Validation class to accept arrays, adding support for POST array validation (via callbacks only)</li>
+		    <li>Added an &quot;integer&quot; rule into the <a href="./libraries/validation.html">Validation</a> library.</li>
+			<li>Added valid_base64() to the <a href="./libraries/validation.html">Validation</a> library.</li>
+		    <li>Documented clear() in the <a href="../libraries/image_lib.html">Image Processing</a> library.</li>
+		    <li>Changed the behaviour of custom callbacks so that they no longer trigger the &quot;required&quot; rule. </li>
+			<li>Modified Upload class $_FILES error messages to be more precise.</li>
+			<li>Moved the safe mode and auth checks for the Email library into the constructor. </li>
+			<li>Modified variable names in _ci_load() method of Loader class to avoid conflicts with view variables.</li>
+			<li>Added a few additional mime type variations for CSV.</li>
+			<li>Enabled the 'system' methods for the XML-RPC Server library, except for 'system.multicall' which is still disabled.</li>
+		</ul>
+	</li>
+	
+	<li>Helpers &amp; Plugins
+		<ul>
+			<li>Added link_tag() to the <a href="./helpers/html_helper.html">HTML helper.</a></li>
+			<li>Added img() to the <a href="./helpers/html_helper.html">HTML helper.</a></li>
+			<li>Added ability to <a href="./general/helpers.html">"extend" Helpers</a>.</li>
+			<li>Added an <a href="./helpers/email_helper.html">email helper</a> into core helpers.</li>
+		    <li>Added <kbd>strip_quotes()</kbd> function to <a href="./helpers/string_helper.html">string helper</a>.</li>
+		    <li>Added <kbd>reduce_multiples()</kbd> function to <a href="./helpers/string_helper.html">string helper</a>.</li>
+		    <li>Added <kbd>quotes_to_entities()</kbd> function to <a href="./helpers/string_helper.html">string helper</a>.</li>
+		    <li>Added <kbd>form_fieldset()</kbd>, <kbd>form_fieldset_close()</kbd>, <kbd>form_label()</kbd>, and <kbd>form_reset()</kbd> function to <a href="./helpers/form_helper.html">form helper</a>.</li>
+		    <li>Added support for external urls in <kbd>form_open()</kbd>.</li>
+		    <li>Removed support for db_backup in MySQLi due to incompatible functions.</li>
+		    <li>Javascript Calendar plugin now uses the months and days from the calendar language file, instead of hard-coded values, internationalizing it.</li>
+		</ul>
+	</li>
+	
+      
+    <li>Documentation Changes
+		<ul>
+			<li>Added <a href="./doc_style/index.html">Writing Documentation</a> section for the community to use in writing their own documentation.</li>
+			<li>Added titles to all user manual pages.</li>
+			<li>Added attributes into &lt;html&gt; of userguide for valid html.</li>
+			<li>Added <a href="http://codeigniter.com/user_guide/libraries/zip.html">Zip Encoding Class</a> to the table of contents of the userguide.</li>
+			<li>Moved part of the userguide menu javascript to an external file.</li>
+			<li>Documented <kbd>distinct()</kbd> in <a href="./database/active_record.html">Active Record</a>. </li>
+		    <li>Documented the <kbd>timezones()</kbd> function in the <a href="./helpers/date_helper.html">Date Helper</a>.</li>
+		    <li>Documented unset_userdata in the <a href="./libraries/sessions.html">Session class</a>.</li>
+		    <li>Documented 2 config options to the <a href="./database/configuration.html">Database configuration</a> page.</li>
+		</ul>
+	</li>
+</ul>
+
+<h3>Bug fixes for Version 1.6.0</h3>
+	
+<ul>
+	<li>Fixed a bug (#1813) preventing using $CI->db in the same application with returned database objects.</li>
+	<li>Fixed a bug (#1842) where the $this->uri->rsegments array would not include the 'index' method if routed to the controller without an implicit method.</li>
+	<li>Fixed a bug (#1872) where word_limiter() was not retaining whitespace.</li>
+	<li>Fixed a bug (#1890) in csv_from_result() where content that included the delimiter would break the file.</li>
+	<li>Fixed a bug (#2542)in the clean_email() method of the Email class to allow for non-numeric / non-sequential array keys.</li>
+	<li>Fixed a bug (#2545) in <kbd>_html_entity_decode_callback()</kbd> when 'global_xss_filtering' is enabled.</li>
+	<li>Fixed a bug (#2668) in the <a href="./libraries/parser.html">parser class</a> where numeric data was ignored.</li>
+    <li>Fixed a bug (#2679) where the &quot;previous&quot; pagination link would get drawn on the first page.</li>
+	<li>Fixed a bug (#2702) in _object_to_array that broke some types of inserts and updates.</li>
+    <li>Fixed a bug (#2732) in the SQLite driver for PHP 4.</li>
+    <li>Fixed a bug (#2754) in Pagination to scan for non-positive num_links.</li>
+    <li>Fixed a bug (#2762) in the <a href="./libraries/sessions.html">Session library</a> where user agent matching would fail on user agents ending with a space. </li>
+    <li>Fixed a bug (#2784) $field_names[] vs $Ffield_names[] in postgre and sqlite drivers.</li>
+    <li>Fixed a bug (#2810) in the typography helper causing extraneous paragraph tags when string contains tags.</li>
+	<li>Fixed a bug (#2849) where arguments passed to a subfolder controller method would be incorrectly shifted, dropping the 3rd segment value.</li>
+    <li>Fixed a bug (#2858) which referenced a wrong variable in the Image class.</li>
+    <li>Fixed a bug (#2875)when loading plugin files as _plugin. and not _pi.</li>
+    <li>Fixed a bug (#2912) in <kbd>get_filenames()</kbd> in the <a href="./helpers/file_helper.html">File Helper </a>where the array wasn't cleared after each call.</li>
+    <li>Fixed a bug (#2974) in <kbd>highlight_phrase()</kbd> that caused an error with slashes.</li>
+    <li>Fixed a bug (#3003) in the Encryption Library to support modes other than MCRYPT_MODE_ECB</li>
+    <li>Fixed a bug (#3015) in the <a href="./libraries/user_agent.html">User Agent library</a> where more then 2 languages where not reported with languages().</li>
+    <li>Fixed a bug (#3017) in the <a href="./libraries/email.html">Email</a> library where some timezones were calculated incorrectly. </li>
+    <li>Fixed a bug (#3024) in which master_dim wasn't getting reset by clear() in the Image library.</li>
+    <li>Fixed a bug (#3156) in Text Helper highlight_code() causing PHP tags to be handled incorrectly.</li>
+    <li>Fixed a bug (#3166) that prevented num_rows from working in Oracle.</li>
+    <li>Fixed a bug (#3175) preventing certain libraries from working properly when autoloaded in PHP 4.</li>
+    <li>Fixed a bug (#3267) in the Typography Helper where unordered list was listed &quot;un.</li>
+    <li>Fixed a bug (#3268) where the Router could leave '/' as the path.</li>
+    <li>Fixed a bug (#3279) where the Email class was sending the wrong Content-Transfer-Encoding for some character sets.</li>
+    <li>Fixed a bug (#3284) where the rsegment array would not be set properly if the requested URI contained more segments than the routed URI.</li>
+    <li>Removed extraneous load of $CFG in _display_cache() of the Output class (#3285).</li>
+    <li>Removed an extraneous call to loading models (#3286).</li>
+    <li>Fixed a bug (#3310) with sanitization of globals in the Input class that could unset CI's global variables.</li>
+    <li>Fixed a bug (#3314) which would cause the top level path to be deleted in delete_files() of the File helper.</li>
+    <li>Fixed a bug (#3328) where the smiley helper might return an undefined variable.</li>
+    <li>Fixed a bug (#3330) in the FTP class where a comparison wasn't getting made.</li>
+    <li>Removed an unused parameter from Profiler (#3332).</li>
+    <li>Fixed a bug in database driver where num_rows property wasn't getting updated.</li>
+	<li>Fixed a bug in the <a href="./libraries/file_uploading.html">upload library</a> when allowed_files wasn't defined.</li>
+    <li>Fixed a bug in <kbd>word_wrap()</kbd> of the Text Helper that incorrectly referenced an object. </li>
+    <li>Fixed a bug in <a href="./libraries/validation.html">Validation</a> where <kbd>valid_ip()</kbd> wasn't called properly.</li>
+    <li>Fixed a bug in <a href="./libraries/validation.html">Validation</a> where individual error messages for checkboxes wasn't supported.</li>
+    <li>Fixed a bug in captcha calling an invalid PHP function.</li>
+    <li>Fixed a bug in the cookie helper "set_cookie" function.  It was not honoring the config settings.</li>
+    <li>Fixed a bug that was making validation callbacks required even when not set as such.</li>
+    <li>Fixed a bug in the XML-RPC library so if a type is specified, a more intelligent decision is made as to the default type.</li>
+    <li>Fixed an example of comma-separated emails in the email library documentation.</li>
+    <li>Fixed an example in the Calendar library for Showing Next/Previous Month Links.</li>
+    <li>Fixed a typo in the database language file.</li>
+    <li>Fixed a typo in the image language file &quot;suppor&quot; to &quot;support&quot;.</li>
+    <li>Fixed an example for XML RPC.</li>
+    <li>Fixed an example of <kbd>accept_charset()</kbd> in the <a href="./libraries/user_agent.html">User Agent Library</a>.</li>
+    <li>Fixed a typo in the docblock comments that had CodeIgniter spelled CodeIgnitor.</li>
+    <li>Fixed a typo in the <a href="./helpers/string_helper.html">String Helper</a> (uniquid changed to uniqid).</li>
+    <li>Fixed typos in the email Language class (email_attachment_unredable, email_filed_smtp_login), and FTP Class (ftp_unable_to_remame).</li>
+    <li>Added a stripslashes()  into the Upload Library.</li>
+    <li>Fixed a series of grammatical and spelling errors in the language files.</li>
+    <li>Fixed assorted user guide typos.</li>
+</ul>
 <h2>Version 1.5.4</h2>
 <p>Release Date: July 12, 2007 </p>
 <ul>
@@ -180,7 +345,7 @@ Change Log
 <li>Added new helper:  <a href="./helpers/smiley_helper.html">Smiley Helper</a></li>
 <li>Added support for &lt;ul> and &lt;ol> lists in the  <a href="./helpers/html_helper.html">HTML Helper</a></li>
 <li>Added the ability to rewrite <a href="./general/alternative_php.html">short tags</a> on-the-fly, converting them to standard PHP statements, for those servers that do not support short tags.  This allows the cleaner syntax to be used regardless of whether it's supported by the server.</li>
-<li>Added the ability to <a href="./general/managing_apps.html">rename or relocate the "application" folder</a>.</dfn>
+<li>Added the ability to <a href="./general/managing_apps.html">rename or relocate the "application" folder</a>.</li>
 <li>Added more thorough initialization in the upload class so that all class variables are reset.</li>
 <li>Added "is_numeric" to validation, which uses the native PHP is_numeric function.</li>
 <li>Improved the URI handler to make it more reliable when the $config['uri_protocol'] item is set to AUTO.</li>
@@ -242,7 +407,7 @@ Change Log
 
 <ul>
 <li>Added <a href="hooks.html">Hooks</a> feature, enabling you to tap into and modify the inner workings of the framework without hacking the core files.</li>
-<li>Added the ability to organize controller files <a href="controllers.html">into sub-folders</a>.  Kudos to Marco for <a href="http://www.codeigniter.com/forums/viewthread/627/">suggesting</a> this (and the next two) feature.</li>
+<li>Added the ability to organize controller files <a href="controllers.html">into sub-folders</a>.  Kudos to Marco for <a href="http://codeigniter.com/forums/viewthread/627/">suggesting</a> this (and the next two) feature.</li>
 <li>Added regular expressions support for <a href="routing.html">routing rules</a>.</li>
 <li>Added the ability to <a href="controllers.html">remap function calls</a> within your controllers.</li>
 <li>Added the ability to <a href="core_classes.html">replace core system classes</a> with your own classes.</li>
@@ -364,7 +529,7 @@ This feature enables you to (among other things) use your  <a href="./general/mo
 <li>Added support for running standard <a href="urls.html">query string URLs</a>.  These can be optionally enabled in your config file.</li>
 <li>Added the ability to  <a href="urls.html">specify a "suffix"</a>, which will be appended to your URLs.  For example, you could add .html to your URLs, making them appear static. This feature is enabled in your config file.</li>
 <li>Added a new error template for use with native PHP errors.</li>
-<li>Added "alternator" function in the <a href="./helpers/string_helper.html">string helpers</a>.</p>
+<li>Added "alternator" function in the <a href="./helpers/string_helper.html">string helpers</a>.</li>
 <li>Removed slashing from the input class. After much debate we decided to kill this feature.</li>
 <li>Change the commenting style in the scripts to the PEAR standard so that IDEs and tools like phpDocumenter can harvest the comments.</li>
 <li>Added better class and function name-spacing to avoid collisions with user developed classes. All CodeIgniter classes are now prefixed with <dfn>CI_</dfn> and
@@ -447,7 +612,7 @@ Previous Topic:&nbsp;&nbsp;<a href="license.html">License Agreement</a>
 <a href="index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="./general/credits.html">Credits</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

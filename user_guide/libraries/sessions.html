@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
 <title>CodeIgniter User Guide</title>
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Session Class
 </td>
@@ -93,7 +88,7 @@ will cause it to read, create, and update sessions.</p>
 
 <p>When a page is loaded, the session class will check to see if valid session data exists in the user's session cookie.
 If sessions data does <strong>not</strong> exist (or if it has expired) a new session will be created and saved in the cookie.
-If a session does exist, its information will be updated and the cookie will be updated.</p>
+If a session does exist, its information will be updated and the cookie will be updated. With each update, the session_id will be regenerated.</p>
 
 <p>It's important for you to understand that once initialized, the Session class runs automatically.  There is nothing
 you need to do to cause the above behavior to happen.  You can, as you'll see below, work with session data or
@@ -105,7 +100,7 @@ even add your own data to a user's session, but the process of reading, writing,
 <p>A <em>session</em>, as far as CodeIgniter is concerned, is simply an array containing the following information:</p>
 
 <ul>
-<li>The user's unique Session ID (this is a statistically random string with very strong entropy, hashed with MD5 for portability)</li>
+<li>The user's unique Session ID (this is a statistically random string with very strong entropy, hashed with MD5 for portability, and regenerated (by default) every five minutes)</li>
 <li>The user's IP Address</li>
 <li>The user's User Agent data (the first 50 characters of the browser data string)</li>
 <li>The "last activity" and "last visit" time stamps.</li>
@@ -127,9 +122,9 @@ making the data highly secure and impervious to being read or altered by someone
 can be <a href="encryption.html">found here</a>, although the Session class will take care of initializing
 and encrypting the data automatically.</p>
 
-<p>Note: Session cookies are only updated every five minutes to reduce processor load.  If you repeatedly reload a page
+<p>Note: Session cookies are only updated every five minutes by default to reduce processor load.  If you repeatedly reload a page
 you'll notice that the "last activity" time only updates if five minutes or more has passed since the last time
-the cookie was written.</p>
+the cookie was written. This time is configurable my changing the $config['time_to_update'] line in your system/config/config.php file.</p>
 
 <h2>Retrieving Session Data</h2>
 
@@ -173,8 +168,24 @@ having to run a database query when you need it.</p>
 <p class="important"><strong>Note:</strong> Cookies can only hold 4KB of data, so be careful not to exceed the capacity.  The
 encryption process in particular produces a longer data string than the original so keep careful track of how much data you are storing.</p>
 
+<h2>Removing Session Data</h2>
+<p>Just as set_userdata() can be used to add information into a session, unset_userdata() can be used to remove it, by passing the session key. For example, if you wanted to remove 'some_name' from your session information: </p>
+<p><code>$this-&gt;session-&gt;unset_userdata('some_name');</code></p>
+<p>This function can also be passed an associative array of items to unset.</p>
+<p><code>$array_items = array('username' => '', 'email' => '');<br />
+<br />
+$this-&gt;session-&gt;unset_userdata(<samp>$array_items</samp>);</code></p>
+<h2>Flashdata</h2>
+<p>CodeIgniter supports &quot;flashdata&quot;, or session data that will only be available for the next server request, and are then automatically cleared. These can be very useful, and are typically used for informational or status messages (for example: &quot;record 2 deleted&quot;).</p>
+<p>Note: Flash variables are prefaced with &quot;flash_&quot; so avoid this prefix in your own session names.</p>
+<p>To add flashdata:</p>
+<p><code>$this-&gt;session-&gt;set_flashdata('item', 'value');</code></p>
+<p>You can also pass an array to set_flashdata(), in the same manner as set_userdata(). </p>
+<p>To read a flashdata variable:</p>
+<p><code>$this-&gt;session-&gt;flashdata('item');</code></p>
+<p>If you find that you need to preserve a flashdata variable through an additional request, you can do so using the keep_flashdata() function.</p>
+<p><code>$this-&gt;session-&gt;keep_flashdata('item');</code></p>
 <h2>Saving Session Data to a Database</h2>
-
 <p>While the session data array stored in the user's cookie contains a Session ID,
 unless you store session data in a database there is no way to validate it.  For some applications that require little or no
 security, session ID validation may not be needed, but if your application requires security, validation is mandatory.</p>
@@ -220,57 +231,59 @@ do not need to write your own routine to do it.</p>
 
 <table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
 <tr>
-<th>Preference</th>
-<th>Default</th>
-<th>Options</th>
-<th>Description</th>
-
-</tr><tr>
-<td class="td"><strong>sess_cookie_name</strong></td>
-<td class="td">ci_session</td
-><td class="td">None</td>
-<td class="td">The name you world the session cookie saved as.</td>
-
-</tr><tr>
-<td class="td"><strong>sess_expiration</strong></td>
-<td class="td">7200</td>
-<td class="td">None</td>
-<td class="td">The number of seconds you would like the session to last. The default value is 2 hours (7200 seconds).
-If you would like a non-expiring session set the value to zero: 0</td>
-
-
-</tr><tr>
-<td class="td"><strong>sess_encrypt_cookie</strong></td>
-<td class="td">FALSE</td>
-<td class="td">TRUE/FALSE (boolean)</td>
-<td class="td">Whether to encrypt the session data.</td>
-
-</tr><tr>
-<td class="td"><strong>sess_use_database</strong></td>
-<td class="td">FALSE</td>
-<td class="td">TRUE/FALSE (boolean)</td>
-<td class="td">Whether to save the session data to a database.  You must create the table before enabling this option.</td>
-
-</tr><tr>
-<td class="td"><strong>sess_table_name</strong></td>
-<td class="td">ci_sessions</td
-><td class="td">Any valid SQL table name</td>
-<td class="td">The name of the session database table.</td>
-
-</tr><tr>
-<td class="td"><strong>sess_match_ip</strong></td>
-<td class="td">FALSE</td>
-<td class="td">TRUE/FALSE (boolean)</td>
-<td class="td">Whether to match the user's IP address when reading the session data.  Note that some ISPs dynamically
-changes the IP, so if you want a non-expiring session you will likely set this to FALSE.</td>
-
-</tr><tr>
-<td class="td"><strong>sess_match_useragent</strong></td>
-<td class="td">TRUE</td>
-<td class="td">TRUE/FALSE (boolean)</td>
-<td class="td">Whether to match the User Agent when reading the session data.</td>
-
-
+    <th>Preference</th>
+    <th>Default</th>
+    <th>Options</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td class="td"><strong>sess_cookie_name</strong></td>
+    <td class="td">ci_session</td>
+    <td class="td">None</td>
+    <td class="td">The name you world the session cookie saved as.</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_expiration</strong></td>
+    <td class="td">7200</td>
+    <td class="td">None</td>
+    <td class="td">The number of seconds you would like the session to last. The default value is 2 hours (7200 seconds). If you would like a non-expiring session set the value to zero: 0</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_encrypt_cookie</strong></td>
+    <td class="td">FALSE</td>
+    <td class="td">TRUE/FALSE (boolean)</td>
+    <td class="td">Whether to encrypt the session data.</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_use_database</strong></td>
+    <td class="td">FALSE</td>
+    <td class="td">TRUE/FALSE (boolean)</td>
+    <td class="td">Whether to save the session data to a database.  You must create the table before enabling this option.</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_table_name</strong></td>
+    <td class="td">ci_sessions</td>
+    <td class="td">Any valid SQL table name</td>
+    <td class="td">The name of the session database table.</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_time_to_update</strong></td>
+    <td class="td">300</td>
+    <td class="td">Time in milliseconds</td>
+    <td class="td">This options controls how often the session class will regenerate itself and create a new session id.</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_match_ip</strong></td>
+    <td class="td">FALSE</td>
+    <td class="td">TRUE/FALSE (boolean)</td>
+    <td class="td">Whether to match the user's IP address when reading the session data.  Note that some ISPs dynamically
+    changes the IP, so if you want a non-expiring session you will likely set this to FALSE.</td>
+</tr>
+<tr>
+    <td class="td"><strong>sess_match_useragent</strong></td>
+    <td class="td">TRUE</td>
+    <td class="td">TRUE/FALSE (boolean)</td>
+    <td class="td">Whether to match the User Agent when reading the session data.</td>
 </tr>
 </table>
 
@@ -287,7 +300,7 @@ Previous Topic:&nbsp;&nbsp;<a href="pagination.html">Pagination Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="trackback.html">Trackback Class</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

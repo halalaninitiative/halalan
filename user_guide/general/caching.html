@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : Web Page Caching</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Page Caching
 </td>
@@ -89,8 +84,9 @@ and sent to the requesting user's browser.  If it has expired, it will be delete
 <p>The above tag can go anywhere within a function. It is not affected by the order that it appears, so place it wherever it seems
 most logical to you. Once the tag is in place, your pages will begin being cached.</p>
 
+<p class="important"><strong>Warning:</strong> Because of the way CodeIgniter stores content for output, caching will only work if you are generating display for your controller with a <a href="./views.html">view</a>.</p>
 <p class="important"><strong>Note:</strong> Before the cache files can be written you must set the file permissions on your
-<dfn>system/cache</dfn> folder such that it is writable (666 is usually appropriate).</p>
+<dfn>system/cache</dfn> folder such that it is writable.</p>
 
 <h2>Deleting Caches</h2>
 
@@ -112,7 +108,7 @@ Previous Topic:&nbsp;&nbsp;<a href="errors.html">Error Handling</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="profiling.html">Profiling Your Application</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

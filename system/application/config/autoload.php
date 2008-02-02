@@ -23,6 +23,7 @@
 | 3. Plugins
 | 4. Custom config files
 | 5. Language files
+| 6. Models
 |
 */
 
@@ -38,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'email', 'image_lib', 'session', 'upload');
+$autoload['libraries'] = array();
 
 
 /*
@@ -50,7 +51,7 @@ $autoload['libraries'] = array('database', 'email', 'image_lib', 'session', 'upl
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('form', 'halalan', 'string', 'url');
+$autoload['helper'] = array();
 
 
 /*
@@ -78,7 +79,7 @@ $autoload['plugin'] = array();
 |
 */
 
-$autoload['config'] = array('config', 'halalan');
+$autoload['config'] = array();
 
 
 /*
@@ -94,7 +95,21 @@ $autoload['config'] = array('config', 'halalan');
 |
 */
 
-$autoload['language'] = array('halalan');
+$autoload['language'] = array();
+
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Models
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['model'] = array('model1', 'model2');
+|
+*/
+
+$autoload['model'] = array();
+
 
 /*
 | -------------------------------------------------------------------

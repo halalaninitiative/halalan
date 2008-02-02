@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : Form Helper</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Form Helper
 </td>
@@ -138,16 +133,16 @@ which is necessary if you would like to use the form to upload files with.</p>
 
 <code>$data = array(<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;=> 'John Doe',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email' => 'john@some-site.com',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'url'&nbsp;&nbsp;&nbsp;=> 'http://www.some-site.com'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email' => 'john@example.com',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'url'&nbsp;&nbsp;&nbsp;=> 'http://www.example.com'<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
 <br />
 echo form_hidden($data);<br />
 <br />
 // Would produce:<br /><br />
 &lt;input type="hidden" name="name" value="John Doe" /><br />
-&lt;input type="hidden" name="email" value="john@some-site.com" /><br />
-&lt;input type="hidden" name="url" value="http://www.some-site.com" /></code>
+&lt;input type="hidden" name="email" value="john@example.com" /><br />
+&lt;input type="hidden" name="url" value="http://www.example.com" /></code>
 
 
 
@@ -203,7 +198,7 @@ example, you will instead specify "rows" and "cols".</p>
 
 <p>Lets you create a standard drop-down field.  The first parameter will contain the name of the field,
 the second parameter will contain an associative array of options, and the third parameter will contain the
-value you wish to be selected.  Example:</p>
+value you wish to be selected.  You can also pass an array through the third parameter, and CodeIgniter will create a multiple select for you. Example:</p>
 
 <code>$options = array(<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'small'&nbsp;&nbsp;=> 'Small Shirt',<br />
@@ -212,16 +207,29 @@ value you wish to be selected.  Example:</p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'xlarge' => 'Extra Large Shirt',<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
 <br />
+$shirts_on_sale = array('small', 'large');<br />
+<br />
 echo form_dropdown('shirts', $options, 'large');<br />
 <br />
-// Would produce:<br /><br />
-
-&lt;select name="shirts"><br />
-&lt;option value="small">Small Shirt&lt;/option><br />
-&lt;option value="med">Medium  Shirt&lt;/option><br />
-&lt;option value="large" selected>Large Shirt&lt;/option><br />
-&lt;option value="xlarge">Extra Large Shirt&lt;/option><br />
-&lt;/select></code>
+// Would produce:<br />
+<br />
+&lt;select name=&quot;shirts&quot;&gt;<br />
+&lt;option value=&quot;small&quot;&gt;Small Shirt&lt;/option&gt;<br />
+&lt;option value=&quot;med&quot;&gt;Medium  Shirt&lt;/option&gt;<br />
+&lt;option value=&quot;large&quot; selected=&quot;selected&quot;&gt;Large Shirt&lt;/option&gt;<br />
+&lt;option value=&quot;xlarge&quot;&gt;Extra Large Shirt&lt;/option&gt;<br />
+&lt;/select&gt;<br />
+<br />
+echo form_dropdown('shirts', $options, $shirts_on_sale);<br />
+<br />
+// Would produce:<br />
+<br />
+&lt;select name=&quot;shirts&quot; multiple=&quot;multiple&quot;&gt;<br />
+&lt;option value=&quot;small&quot; selected=&quot;selected&quot;&gt;Small Shirt&lt;/option&gt;<br />
+&lt;option value=&quot;med&quot;&gt;Medium  Shirt&lt;/option&gt;<br />
+&lt;option value=&quot;large&quot; selected=&quot;selected&quot;&gt;Large Shirt&lt;/option&gt;<br />
+&lt;option value=&quot;xlarge&quot;&gt;Extra Large Shirt&lt;/option&gt;<br />
+&lt;/select&gt;</code>
 
 
 <p>If you would like the opening &lt;select> to contain  additional data, like JavaScript, you can pass it as a string in the
@@ -232,19 +240,51 @@ fourth parameter:</p>
 echo form_dropdown('shirts', $options, 'large', $js);</code>
 
 
+<h2>form_fieldset()</h2>
+
+<p>Lets you generate fieldset/legend fields.</p>
+<code>echo form_fieldset('Address Information');<br />
+echo &quot;&lt;p&gt;fieldset content here&lt;/p&gt;\n&quot;;<br />
+echo form_fieldset_close();
+<br />
+<br />
+// Produces<br />
+&lt;fieldset id=&quot;address_info&quot;&gt;  
+<br />
+&lt;legend&gt;Address Information&lt;/legend&gt;  
+<br />
+&lt;p&gt;form content here&lt;/p&gt;  
+<br />
+&lt;/fieldset&gt;</code>
+<p>Similar to other functions, you can submit an associative array in the second parameter if you prefer to set additional attributes. </p>
+<p><code>$attributes = array('id' =&gt; 'address_info', 'class' =&gt; 'address_info');<br />
+    echo form_fieldset('Address Information', $attributes);<br />
+echo &quot;&lt;p&gt;fieldset content here&lt;/p&gt;\n&quot;;<br />
+echo form_fieldset_close(); <br />
+<br />
+// Produces<br />
+&lt;fieldset id=&quot;address_info&quot; class=&quot;address_info&quot;&gt; <br />
+&lt;legend&gt;Address Information&lt;/legend&gt; <br />
+&lt;p&gt;form content here&lt;/p&gt; <br />
+&lt;/fieldset&gt;</code></p>
+<h2>form_fieldset_close()</h2>
+<p>Produces a closing &lt;/fieldset&gt; tag.  The only advantage to using this function is it permits you to pass data to it
+    which will be added below the tag.  For example:</p>
+<code>$string = &quot;&lt;/div&gt;&lt;/div&gt;&quot;;<br />
+<br />
+echo fieldset_close($string);<br />
+<br />
+// Would produce:<br />
+&lt;/fieldset&gt;<br />
+&lt;/div&gt;&lt;/div&gt;</code>
 <h2>form_checkbox()</h2>
-
 <p>Lets you generate a checkbox field. Simple example:</p>
-
-
 <code>echo form_checkbox('newsletter', 'accept', TRUE);<br />
 <br />
 // Would produce:<br />
 <br />
-&lt;input type="checkbox" name="newsletter" value="accept" checked="checked" /></code>
-
+&lt;input type=&quot;checkbox&quot; name=&quot;newsletter&quot; value=&quot;accept&quot; checked=&quot;checked&quot; /&gt;</code>
 <p>The third parameter contains a boolean TRUE/FALSE to determine whether the box should be checked or not.</p>
-
 <p>Similar to the other form functions in this helper, you can also pass an array of attributes to the function:</p>
 
 <code>$data = array(<br />
@@ -275,16 +315,32 @@ fourth parameter:</p>
 <h2>form_submit()</h2>
 
 <p>Lets you generate a standard submit button. Simple example:</p>
-
 <code>echo form_submit('mysubmit', 'Submit Post!');<br />
 <br />
 // Would produce:<br />
 <br />
-&lt;input type="submit" name="mysubmit" value="Submit Post!" /></code>
-
+&lt;input type=&quot;submit&quot; name=&quot;mysubmit&quot; value=&quot;Submit Post!&quot; /&gt;</code>
 <p>Similar to other functions, you can submit an associative array in the first parameter if you prefer to set your own attributes.
-The third parameter lets you add extra data to your form, like JavaScript.</p>
+    The third parameter lets you add extra data to your form, like JavaScript.</p>
+<h2>form_label()</h2>
+<p>Lets you generate a &lt;label&gt;. Simple example:</p>
+<code>echo form_label('What is your Name', 'username');<br />
+<br />
+// Would produce:
+<br />
+&lt;label id=&quot;username&quot;&gt;What is your Name&lt;/label&gt;</code>
+<p>Similar to other functions, you can submit an associative array in the third parameter if you prefer to set additional attributes.    </p>
+<p><code>$attributes = array(<br />
+    	 'class' =&gt; 'mycustomclass',<br />
+    	 'style' =&gt; 'color: #000;',<br />
+);<br />
+    echo form_label('What is your Name', 'username', $attributes);<br />
+        <br />
+// Would produce: <br />
+&lt;label id=&quot;username&quot; class=&quot;mycustomclass&quot; style=&quot;color: #000;&quot;&gt;What is your Name&lt;/label&gt;</code></p>
+<h2>form_reset()</h2>
 
+<p>Lets you generate a standard reset button. Use is identical to <dfn>form_submit()</dfn>.</p>
 
 <h2>form_close()</h2>
 
@@ -336,7 +392,7 @@ Previous Topic:&nbsp;&nbsp;<a href="file_helper.html">File Helper</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="html_helper.html">HTML Helper</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

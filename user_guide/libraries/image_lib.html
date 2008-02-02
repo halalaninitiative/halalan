@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : Image Manipulation Class</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Image Manipulation Class
 </td>
@@ -84,7 +79,7 @@ library you specify.</p>
 <h2>Initializing the Class</h2>
 
 <p>Like most other classes in CodeIgniter, the image class is initialized in your controller
-using the <dfn>$this->load_library</dfn> function:</p>
+using the <dfn>$this->load-&gt;library</dfn> function:</p>
 <code>$this->load->library('image_lib');</code>
 
 <p>Once the library is loaded it will be ready for use.  The image library object you will use to call all functions is: <dfn>$this->image_lib</dfn></p>
@@ -127,6 +122,7 @@ folder containing the image files must have file permissions of 777.</p>
 <li>$this->image_lib->crop()</li>
 <li>$this->image_lib->rotate()</li>
 <li>$this->image_lib->watermark()</li>
+<li>$this-&gt;image_lib-&gt;clear()</li>
 </ul>
 
 <p>These functions return boolean TRUE upon success and FALSE for failure.  If they fail you can retrieve the
@@ -225,7 +221,7 @@ preferences have no effect on cropping.  The "availability" column indicates whi
 <td class="td">None</td>
 <td class="td">None</td>
 <td class="td">Sets the destination image name/path.  You'll use this preference when creating an image copy. The path must be a relative or absolute server path, not a URL.</td>
-<td class="td">R</td>
+<td class="td">R, C, X, W</td>
 </tr>
 
 <tr>
@@ -418,6 +414,9 @@ if ( ! $this->image_lib->rotate())<br />
 
 
 
+<h2>$this-&gt;image_lib-&gt;clear()</h2>
+<p>The clear function resets all of the values used when processing an image. You will want to call this if you are processing images in a loop.</p>
+<p><code>$this-&gt;image_lib-&gt;clear();</code></p>
 <p>&nbsp;</p>
 <h1>Image Watermarking</h1>
 
@@ -570,7 +569,7 @@ will be positioned at the bottom/center of the image, 20 pixels from the bottom 
 <td class="td"><strong>wm_font_path</strong></td>
 <td class="td">None</td>
 <td class="td">None</td>
-<td class="td">The server path to the True Type Font you would like to use  CodeIgniter includes a font in the system/fonts folder.  If you do not use this option, the native GD font will be used.</td>
+<td class="td">The server path to the True Type Font you would like to use.  If you do not use this option, the native GD font will be used.</td>
 </tr>
 
 <tr>
@@ -648,8 +647,6 @@ will be positioned at the bottom/center of the image, 20 pixels from the bottom 
 </tr>
 </table>
 
-
-
 </div>
 <!-- END CONTENT -->
 
@@ -662,7 +659,7 @@ Previous Topic:&nbsp;&nbsp;<a href="table.html">HTML Table Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="input.html">Input Class</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

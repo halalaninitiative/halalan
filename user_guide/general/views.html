@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : Views</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Views
 </td>
@@ -118,8 +113,25 @@ class Blog extends Controller {
 
 <code>www.your-site.com/index.php/<var>blog</var>/</code>
 
-<h2>Storing Views within Sub-folders</h2>
+<h2>Loading multiple views</h2>
+<p>CodeIgniter will intelligently handle  multiple calls to $this-&gt;load-&gt;view from within a controller.  If more then one call happens they will be appended together. For example, you may wish to have a header view, a menu view, a content view, and a footer view. That might look something like this:</p>
+<p><code>&lt;?php<br />
+<br />
+class Page extends Controller {<br /><br />
 
+ &nbsp;&nbsp;&nbsp;function index()<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$data['page_title'] =  'Your title';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('header');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('menu');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('content', $data);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('footer');<br />
+&nbsp;&nbsp;&nbsp;}<br />
+<br />
+}<br />
+    ?&gt;</code></p>
+<p>In the example above, we are using &quot;dynamically added data&quot;, which you will see below.</p>
+<h2>Storing Views within Sub-folders</h2>
 <p>Your view files can also be stored within sub-folders if you prefer that type of organization.  When doing so you will need
 to include the folder name loading the view.  Example:</p>
 
@@ -150,7 +162,7 @@ $this->load->view('blogview', <var>$data</var>);</code>
 <p>Let's try it with your controller file.  Open it add this code:</p>
 
 <textarea class="textarea" style="width:100%" cols="50" rows="14">
-<?php
+&lt;?php
 class Blog extends Controller {
 
 	function index()
@@ -161,7 +173,7 @@ class Blog extends Controller {
 		$this->load->view('blogview', $data);
 	}
 }
-?>
+?&gt;
 </textarea>
 
 
@@ -181,9 +193,6 @@ class Blog extends Controller {
 
 <p>Then load the page at the URL you've been using and you should see the variables replaced.</p>
 
-<p><strong>Note:</strong> You'll notice that in the example above we are using PHP's alternative syntax.  If you
-are not familiar with it you can read about it <a href="alternative_php.html">here</a>.</p>
-
 <h2>Creating Loops</h2>
 
 <p>The data array you pass to your view files is not limited to simple variables.  You can
@@ -193,7 +202,7 @@ pull data from your database it will typically be in the form of a multi-dimensi
 <p>Here's a simple example. Add this to your controller:</p>
 
 <textarea class="textarea" style="width:100%" cols="50" rows="17">
-<?php
+&lt;?php
 class Blog extends Controller {
 
 	function index()
@@ -206,7 +215,7 @@ class Blog extends Controller {
 		$this->load->view('blogview', $data);
 	}
 }
-?>
+?&gt;
 </textarea>
 
 
@@ -216,26 +225,26 @@ class Blog extends Controller {
 <textarea class="textarea" style="width:100%" cols="50" rows="24">
 &lt;html>
 &lt;head>
-&lt;title>&lt;?=$title;?>&lt;/title>
+&lt;title>&lt;?php echo $title;?>&lt;/title>
 &lt;/head>
 &lt;body>
-&lt;h1>&lt;?=$heading;?>&lt;/h1>
+&lt;h1>&lt;?php echo $heading;?>&lt;/h1>
 	
 &lt;h3>My Todo List&lt;/h3>	
 
 &lt;ul>
 &lt;?php foreach($todo_list as $item):?>
 
-&lt;li>&lt;?=$item;?>&lt;/li>
+&lt;li>&lt;?php echo $item;?>&lt;/li>
 
 &lt;?php endforeach;?>
 &lt;/ul>
-
 	
 &lt;/body>
 &lt;/html>
 </textarea>
-
+<p><strong>Note:</strong> You'll notice that in the example above we are using PHP's alternative syntax.  If you
+are not familiar with it you can read about it <a href="alternative_php.html">here</a>.</p>
 
 
 </div>
@@ -250,7 +259,7 @@ Previous Topic:&nbsp;&nbsp;<a href="controllers.html">Controllers</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="models.html">Models</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

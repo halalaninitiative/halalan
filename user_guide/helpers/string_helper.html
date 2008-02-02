@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : String Helper</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 String Helper
 </td>
@@ -84,8 +79,8 @@ String Helper
 <li><strong>alnum</strong>:&nbsp; Alpha-numeric string with lower and uppercase characters.</li>
 <li><strong>numeric</strong>:&nbsp; Numeric string.</li>
 <li><strong>nozero</strong>:&nbsp; Numeric string with no zeros.</li>
-<li><strong>unique</strong>:&nbsp; Encrypted with MD5 and uniquid(). Note: The length parameter is not available for this type.
-Returns a fixed length 33 character string.</li>
+<li><strong>unique</strong>:&nbsp; Encrypted with MD5 and uniqid(). Note: The length parameter is not available for this type.
+Returns a fixed length 32 character string.</li>
 </ul>
 
 <p>Usage example:</p>
@@ -123,13 +118,45 @@ echo repeater($string, 30);</code>
 <p>The above would generate 30 newlines.</p>
 <h2>reduce_double_slashes()</h2>
 <p>Converts double slashes in a string to a single slash, except those found in http://. Example: </p>
-<code>$string = &quot;http://www.some-site.com//index.php&quot;;<br />
-echo reduce_double_slashes($string); // results in &quot;http://www.some-site.com/index.php&quot;</code>
+<code>$string = &quot;http://www.example.com//index.php&quot;;<br />
+echo reduce_double_slashes($string); // results in &quot;http://www.example.com/index.php&quot;</code>
 <h2>trim_slashes()</h2>
 <p>Removes any leading/trailing slashes from a string. Example:<br />
     <br />
     <code>$string = &quot;/this/that/theother/&quot;;<br />
 echo trim_slashes($string); // results in this/that/theother</code></p>
+
+
+<h2>reduce_multiples()</h2>
+<p>Reduces multiple instances of a particular character occuring directly after each other. Example:</p>
+<code>
+$string="Fred, Bill,, Joe, Jimmy";<br />
+$string=reduce_multiples($string,","); //results in "Fred, Bill, Joe, Jimmy"
+</code>
+<p>The function accepts the following parameters:
+<code>reduce_multiples(string: text to search in, string: character to reduce, boolean: whether to remove the character from the front and end of the string)</code>
+
+The first parameter contrains the string in which you want to reduce the multiplies. The second parameter contains the character you want to have reduced.
+The third parameter is False by default. If it it's to true it will remove occurences of the character at the beginning and the end of the string. Example:
+
+<code>
+$string=",Fred, Bill,, Joe, Jimmy,";<br />
+$string=reduce_multiples($string,",",true); //results in "Fred, Bill, Joe, Jimmy"
+</code>
+</p> 
+
+<h2>quotes_to_entities()</h2>
+<p>Converts single and double quotes in a string to the corresponding HTML entities. Example:</p>
+<code>$string="Joe's \"dinner\"";<br />
+$string=quotes_to_entities($string); //results in "Joe&amp;#39;s &amp;quot;dinner&amp;quot;"
+</code>
+
+<h2>strip_quotes()</h2>
+<p>Removes single and double quotes from a string. Example:</p>
+<code>$string="Joe's \"dinner\"";<br />
+$string=strip_quotes($string); //results in "Joes dinner"
+</code>
+
 </div>
 <!-- END CONTENT -->
 
@@ -142,7 +169,7 @@ Previous Topic:&nbsp;&nbsp;<a href="smiley_helper.html">Smiley Helper</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="text_helper.html">Text Helper</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

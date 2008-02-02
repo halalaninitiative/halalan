@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : XML-RPC and XML-RPC Server Classes</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 XML-RPC and XML-RPC Server Classes
 </td>
@@ -127,9 +122,8 @@ $this->xmlrpc->request($request);<br />
 <br />
 if ( ! $this->xmlrpc->send_request())<br />
 {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;echo $xmlrpc->display_error();<br />
-}
-</code>
+&nbsp;&nbsp;&nbsp;&nbsp;echo $this-&gt;xmlrpc->display_error();<br />
+}</code>
 
 <h3>Explanation</h3>
 
@@ -167,7 +161,7 @@ $request = array (<br />
 <br />
 $this->xmlrpc->request($request);</code>
 
-The  <a href="#datatypes">Data Types</a>  section below has a full list of data types.</p>
+The  <a href="#datatypes">Data Types</a>  section below has a full list of data types.
 
 
 
@@ -186,7 +180,7 @@ class and method for processing.</p>
 $this->load->library('xmlrpc');<br />
 $this->load->library('xmlrpcs');<br />
 <br />
-$config['functions']['<var>new_post</var>'];&nbsp;&nbsp;= array('function' => '<dfn>My_blog.new_entry</dfn>');<br />
+$config['functions']['<var>new_post</var>']&nbsp;&nbsp;= array('function' => '<dfn>My_blog.new_entry</dfn>');<br />
 $config['functions']['<var>update_post</var>'] = array('function' => '<dfn>My_blog.update_entry</dfn>');<br />
 <br />
 $this->xmlrpcs->initialize($config);<br />
@@ -257,7 +251,7 @@ function might look:</p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'struct');<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->xmlrpc->send_response($response);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $this->xmlrpc->send_response($response);<br />
 &nbsp;&nbsp;&nbsp;&nbsp;}<br />
 }
 </code>
@@ -277,13 +271,13 @@ In the above example, the output parameters will be the username and password.</
 <strong>that contains a single item</strong>.  This item can be an array with several additional arrays, but there
 can be only one primary array index.  In other words, the basic prototype is this:</p>
 
-<code>$request = array('Response data',  'array');</code>
+<code>$response = array('Response data',  'array');</code>
 
 <p>Responses, however, usually contain multiple pieces of information. In order to accomplish this we must put the response into its own
 array so that the primary array continues to contain a single piece of data.  Here's an example showing how this might be accomplished:</p>
 
 <code>
-$request = array (<br />
+$response = array (<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'first_name' => array('John', 'string'),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'last_name' => array('Doe', 'string'),<br />
@@ -366,7 +360,6 @@ class Xmlrpc_server extends Controller {
 
 	function index()
 	{
-	
 		$this->load->library('xmlrpc');
 		$this->load->library('xmlrpcs');
 		
@@ -487,7 +480,7 @@ Previous Topic:&nbsp;&nbsp;<a href="validation.html">Validation Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="zip.html">Zip Encoding Class</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

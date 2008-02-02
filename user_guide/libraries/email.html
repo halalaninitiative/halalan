@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : Email Class</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -10,18 +10,13 @@
 <script type="text/javascript" src="../nav/nav.js"></script>
 <script type="text/javascript" src="../nav/prototype.lite.js"></script>
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	myHeight = new fx.Height('nav', {duration: 400});
-	myHeight.hide();
-}
-</script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
-<meta name='author' content='Rick Ellis' />
+<meta name='author' content='ExpressionEngine Dev Team' />
 <meta name='description' content='CodeIgniter User Guide' />
 
 </head>
@@ -33,7 +28,7 @@ window.onload = function() {
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.5.4</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +40,7 @@ window.onload = function() {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
 <td id="breadcrumb">
-<a href="http://www.codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Email Class
 </td>
@@ -89,9 +84,9 @@ Email Class
 <code>$this->load->library('email');<br />
 <br />
 $this->email->from('your@your-site.com', 'Your Name');<br />	
-$this->email->to('someone@some-site.com'); <br />
-$this->email->cc('another@another-site.com'); <br />
-$this->email->bcc('them@their-site.com'); <br />
+$this->email->to('someone@example.com'); <br />
+$this->email->cc('another@another-example.com'); <br />
+$this->email->bcc('them@their-example.com'); <br />
 <br />
 $this->email->subject('Email Test');<br />
 $this->email->message('Testing the email class.');	<br />
@@ -122,8 +117,8 @@ $this->email->initialize($config);</code>
 ><h3>Setting Email Preferences in a Config File</h3>
 
 <p>If you prefer not to set preferences using the above method, you can instead put them into a config file.
-Simply create a new file called the <var>Email.php</var>,  add the <var>$config</var>
-array in that file. Then save the file at <var>config/Email.php</var> and it will be used automatically. You
+Simply create a new file called the <var>email.php</var>,  add the <var>$config</var>
+array in that file. Then save the file at <var>config/email.php</var> and it will be used automatically. You
 will NOT need to use the <dfn>$this->email->initialize()</dfn> function if you save your preferences in a config file.</p>
 
 
@@ -192,10 +187,11 @@ will NOT need to use the <dfn>$this->email->initialize()</dfn> function if you s
 <h3>$this->email->to()</h3>
 <p>Sets the email address(s) of the recipient(s).  Can be a single email, a comma-delimited list or an array:</p>
 
-<code>$this->email->to('<var>someone@some-site.com</var>');</code>
-<code>$this->email->to('<var>one@some-site.com</var>', '<var>two@some-site.com</var>', '<var>three@some-site.com</var>');</code>
+<code>$this->email->to('<var>someone@example.com</var>');</code>
+<code>$this->email->to('<var>one@example.com</var>, <var>two@example.com</var>, <var>three@example.com</var>');</code>
 
-<code>$list = array('<var>one@some-site.com</var>', '<var>two@some-site.com</var>', '<var>three@some-site.com</var>');<br /><br />
+<code>$list = array('<var>one@example.com</var>', '<var>two@example.com</var>', '<var>three@example.com</var>');<br />
+<br />
 $this->email->to(<var>$list</var>);</code>
 
 <h3>$this->email->cc()</h3>
@@ -276,7 +272,7 @@ word wrapping within part of your message like this:</p>
 <code>The text of your email that<br />
 gets wrapped normally.<br />
 <br />
-<var>{unwrap}</var>http://www.some-site.com/a_long_link_that_should_not_be_wrapped.html<var>{/unwrap}</var><br />
+<var>{unwrap}</var>http://www.example.com/a_long_link_that_should_not_be_wrapped.html<var>{/unwrap}</var><br />
 <br />
 More text that will be<br />
 wrapped normally.</code>
@@ -296,7 +292,7 @@ Previous Topic:&nbsp;&nbsp;<a href="database/index.html">Database Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="encryption.html">Encryption Class</a>
 </p>
-<p><a href="http://www.codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

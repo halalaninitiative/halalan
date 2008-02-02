@@ -1,5 +1,4 @@
 <?php
-
 /*
 |---------------------------------------------------------------
 | PHP ERROR REPORTING LEVEL
@@ -35,14 +34,13 @@
 | folder then the default one you can set its name here. The folder 
 | can also be renamed or relocated anywhere on your server.
 | For more info please see the user guide:
-| http://www.codeigniter.com/user_guide/general/managing_apps.html
+| http://codeigniter.com/user_guide/general/managing_apps.html
 |
 |
 | NO TRAILING SLASH!
 |
 */
 	$application_folder = "application";
-
 
 /*
 |===============================================================
@@ -104,21 +102,6 @@ else
 	}
 
 	define('APPPATH', BASEPATH.$application_folder.'/');
-}
-
-/*
-|---------------------------------------------------------------
-| DEFINE E_STRICT
-|---------------------------------------------------------------
-|
-| Some older versions of PHP don't support the E_STRICT constant
-| so we need to explicitly define it otherwise the Exception class 
-| will generate errors.
-|
-*/
-if ( ! defined('E_STRICT'))
-{
-	define('E_STRICT', 2048);
 }
 
 /*
