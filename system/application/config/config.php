@@ -325,5 +325,6 @@ $config['rewrite_short_tags'] = TRUE;
 */
 $config['upload_path'] = './public/uploads/';
 $config['allowed_types'] = 'gif|jpg|png';
+$config['per_page'] = 1;
 
 ?>

@@ -67,7 +67,7 @@ class Admin extends Controller {
 		redirect('admin/home');
 	}
 
-	function voters()
+	function voters($page = null)
 	{
 		if($error = $this->session->flashdata('error'))
 		{
@@ -78,7 +78,23 @@ class Admin extends Controller {
 			$data['messages'] = $success;
 		}
 		$this->load->model('Boter');
-		$data['voters'] = $this->Boter->select_all();
+		$voters = $this->Boter->select_all();
+		$this->load->library('pagination');
+		$config['base_url'] = site_url('admin/voters');
+		$config['total_rows'] = count($voters);
+		$config['per_page'] = $this->config->item('per_page');
+		$config['first_link'] = img('public/images/go-first.png');
+		$config['last_link'] = img('public/images/go-last.png');
+		$config['prev_link'] = img('public/images/go-previous.png');
+		$config['next_link'] = img('public/images/go-next.png');
+		$this->pagination->initialize($config); 
+		$data['links'] = $this->pagination->create_links();
+		if ($page == null)
+		{
+			$page = 0;
+		}
+		$display = $config['per_page'];
+		$data['voters'] = $this->Boter->select_all_for_pagination($display, $page);
 		$data['username'] = $this->admin['username'];
 		$main['title'] = e('admin_voters_title');
 		$main['body'] = $this->load->view('admin/voters', $data, TRUE);

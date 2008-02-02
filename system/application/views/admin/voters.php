@@ -27,24 +27,6 @@
 <?php endif; ?>
 <div class="body">
 	<div class="center_body">
-<!--
-		<table width="100%">
-			<tr>
-				<td colspan="2" align="right">Display per Page
-					<select>
-						<option>20</option>
-						<option>50</option>
-						<option>100</option>
-						<option>200</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="left"><?= anchor('admin/add/voter', e('admin_voters_add')); ?></td>
-				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; Next | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
-			</tr>
-		</table>
--->
 		<fieldset>
 			<legend><span class="header"><?= e('admin_voters_label'); ?></span></legend>
 			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
@@ -75,15 +57,12 @@
 				<?php endforeach; ?>
 				<?php endif; ?>
 			</table>
+			<table cellspacing="2" cellpadding="2" width="100%" style="font-family : verdana, helvetica, arial, serif;">
+				<tr align="center" valign="middle">
+					<td><?= $links; ?></td>
+				</tr>
+			</table>
 		</fieldset>
-<!--
-		<table width="100%">
-			<tr>
-				<td align="left"><?= anchor('admin/add/voter', e('admin_voters_add')); ?></td>
-				<td align="right">1 - 20 of 100&nbsp;&nbsp;&nbsp;&lt;&lt; First | &lt; Previous | Next &gt; | Last &gt;&gt;</td>
-			</tr>
-		</table>
--->
 	</div>
 	<div class="clear"></div>
 </div>

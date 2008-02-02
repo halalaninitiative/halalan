@@ -75,6 +75,14 @@ class Boter extends Model {
 		return $query->result_array();
 	}
 
+	function select_all_for_pagination($limit, $offset)
+	{
+		$this->db->from('voters');
+		$this->db->limit($limit, $offset);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function select_by_username($username)
 	{
 		$this->db->from('voters');
