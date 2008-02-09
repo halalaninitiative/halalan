@@ -16,22 +16,24 @@
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" border="0" class="table">
 	<tr>
+		<th width="5%">#</th>
 		<th width="30%"><?= e('admin_parties_party'); ?></th>
-		<th width="55%"><?= e('admin_parties_description'); ?></th>
+		<th width="50%"><?= e('admin_parties_description'); ?></th>
 		<th width="15%"><?= e('common_action'); ?></th>
 	</tr>
 	<?php if (empty($parties)): ?>
 	<tr>
-		<td colspan="3" align="center"><em><?= e('admin_parties_no_parties'); ?></em></td>
+		<td colspan="4" align="center"><em><?= e('admin_parties_no_parties'); ?></em></td>
 	</tr>
 	<?php else: ?>
 	<?php $i = 0; ?>
 	<?php foreach ($parties as $party): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
+		<td width="5%" align="center"><?= ($i+1); ?></td>
 		<td width="30%">
 			<?= anchor('admin/edit/party/' . $party['id'], $party['party']); ?>
 		</td>
-		<td width="55%">
+		<td width="50%">
 			<?= nl2br($party['description']); ?>
 		</td>
 		<td width="15%" align="center"><?= anchor('admin/edit/party/' . $party['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/party/' . $party['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $party['party'] . '\', \'' . site_url('admin/delete/party/' . $party['id']) . '\');return false;"'); ?></a></td>
