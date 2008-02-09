@@ -1,89 +1,64 @@
-<div class="admin_menu">
-	<div id="left_menu">
-		<ul>
-			<li><?= anchor('admin', 'Home'); ?> | </li>
-			<li><?= anchor('admin/voters', 'Voters'); ?> |  </li>
-			<li><?= anchor('admin/parties', 'Parties'); ?> | </li>
-			<li><?= anchor('admin/positions', 'Positions'); ?> | </li>
-			<li><?= anchor('admin/candidates', 'Candidates'); ?></li>
-		</ul>
-	</div>
-	<div id="right_menu">
-		<p>LOGGED IN AS <?= strtoupper($username); ?> | <?= anchor('gate/logout', 'LOGOUT'); ?></p>
-	</div>
-	<div class="clear"></div>
-</div>
 <?php if (isset($messages) && !empty($messages)): ?>
-<div class="message">
-	<div class="message_header"><?= e('common_message_box'); ?></div>
-	<div class="message_body">
-		<ul>
-			<?php foreach ($messages as $message): ?>
-			<li><?= $message; ?></li>
-			<?php endforeach; ?>
-		</ul>
-	</div>
+<div class="positive">
+	<ul>
+		<?php foreach ($messages as $message): ?>
+		<li><?= $message; ?></li>
+		<?php endforeach; ?>
+	</ul>
 </div>
 <?php endif; ?>
 <?php if (empty($positions)): ?>
-<div class="body">
-	<div class="center_body">
-		<fieldset>
-			<legend><span class="header"><?= e('admin_candidates_label'); ?></span></legend>
-			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
-				<tr bgcolor="#FFAAAA">
-					<th width="30%" align="center"><?= e('admin_candidates_candidate'); ?></th>
-					<th width="55%" align="center"><?= e('admin_candidates_description'); ?></th>
-					<th width="15%" align="center"><?= e('common_action'); ?></th>
-				</tr>
-				<tr>
-					<td colspan="3" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
-				</tr>
-			</table>
-		</fieldset>
-	</div>
+<div class="content_left">
+	<h2><?= e('admin_candidates_label'); ?></h2>
 </div>
+<div class="content_right">
+	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
+</div>
+<div class="clear"></div>
+<table cellpadding="0" cellspacing="0" border="0" class="table">
+	<tr>
+		<th width="30%" align="center"><?= e('admin_candidates_candidate'); ?></th>
+		<th width="55%" align="center"><?= e('admin_candidates_description'); ?></th>
+		<th width="15%" align="center"><?= e('common_action'); ?></th>
+	</tr>
+	<tr>
+		<td colspan="3" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
+	</tr>
+</table>
 <?php else: ?>
 <?php foreach ($positions as $position): ?>
-<div class="body">
-	<div class="center_body">
-		<fieldset>
-			<legend><span class="header"><?= $position['position']; ?> Candidates</span></legend>
-			<table cellspacing="2" cellpadding="2" width="100%" bgcolor="white">
-				<tr bgcolor="#FFAAAA">
-					<th width="30%" align="center"><?= e('admin_candidates_candidate'); ?></th>
-					<th width="55%" align="center"><?= e('admin_candidates_description'); ?></th>
-					<th width="15%" align="center"><?= e('common_action'); ?></th>
-				</tr>
-				<?php if (empty($position['candidates'])): ?>
-				<tr>
-					<td colspan="3" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
-				</tr>
-				<?php else: ?>
-				<?php $i = 0; ?>
-				<?php foreach ($position['candidates'] as $candidate): ?>
-				<tr <?= ($i % 2 == 0) ? '' : 'bgcolor="#FFE5E5"'  ?>>
-					<td width="30%">
-						<?= anchor('admin/edit/candidate/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
-					</td>
-					<td width="55%">
-						<?= nl2br($candidate['description']); ?>
-					</td>
-					<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $candidate['last_name'] . ', ' . $candidate['first_name'] . '\', \'' . site_url('admin/delete/candidate/' . $candidate['id']) . '\');return false;"'); ?></a></td>
-				</tr>
-				<?php $i = $i + 1; ?>
-				<?php endforeach; ?>
-				<?php endif; ?>
-			</table>
-		</fieldset>
-	</div>
-	<div class="clear"></div>
+<div class="content_left">
+	<h2><?= $position['position']; ?> Candidates</h2>
 </div>
+<div class="content_right">
+	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
+</div>
+<div class="clear"></div>
+<table cellpadding="0" cellspacing="0" border="0" class="table">
+	<tr>
+		<th width="30%"><?= e('admin_candidates_candidate'); ?></th>
+		<th width="55%"><?= e('admin_candidates_description'); ?></th>
+		<th width="15%"><?= e('common_action'); ?></th>
+	</tr>
+	<?php if (empty($position['candidates'])): ?>
+	<tr>
+		<td colspan="3" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
+	</tr>
+	<?php else: ?>
+	<?php $i = 0; ?>
+	<?php foreach ($position['candidates'] as $candidate): ?>
+	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
+		<td width="30%">
+			<?= anchor('admin/edit/candidate/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
+		</td>
+		<td width="55%">
+			<?= nl2br($candidate['description']); ?>
+		</td>
+		<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $candidate['last_name'] . ', ' . $candidate['first_name'] . '\', \'' . site_url('admin/delete/candidate/' . $candidate['id']) . '\');return false;"'); ?></a></td>
+	</tr>
+	<?php $i = $i + 1; ?>
+	<?php endforeach; ?>
+	<?php endif; ?>
+</table>
 <?php endforeach; ?>
 <?php endif; ?>
-<div class="menu" id="menu_center">
-	<div id="center_menu">
-		<?= anchor('admin/add/candidate', e('admin_candidates_add')); ?>
-	</div>
-	<div class="clear"></div>
-</div>

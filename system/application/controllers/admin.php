@@ -44,10 +44,10 @@ class Admin extends Controller {
 		}
 		$this->load->model('Option');
 		$data['option'] = $this->Option->select(1);
-		$data['username'] = $this->admin['username'];
-		$main['title'] = e('admin_home_title');
-		$main['body'] = $this->load->view('admin/home', $data, TRUE);
-		$this->load->view('main', $main);
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_home_title');
+		$admin['body'] = $this->load->view('admin/home', $data, TRUE);
+		$this->load->view('admin', $admin);
 	}
 
 	function do_edit_option($id)
@@ -95,10 +95,10 @@ class Admin extends Controller {
 		}
 		$display = $config['per_page'];
 		$data['voters'] = $this->Boter->select_all_for_pagination($display, $page);
-		$data['username'] = $this->admin['username'];
-		$main['title'] = e('admin_voters_title');
-		$main['body'] = $this->load->view('admin/voters', $data, TRUE);
-		$this->load->view('main', $main);
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_voters_title');
+		$admin['body'] = $this->load->view('admin/voters', $data, TRUE);
+		$this->load->view('admin', $admin);
 	}
 
 	function parties()
@@ -113,10 +113,10 @@ class Admin extends Controller {
 		}
 		$this->load->model('Party');
 		$data['parties'] = $this->Party->select_all();
-		$data['username'] = $this->admin['username'];
-		$main['title'] = e('admin_parties_title');
-		$main['body'] = $this->load->view('admin/parties', $data, TRUE);
-		$this->load->view('main', $main);
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_parties_title');
+		$admin['body'] = $this->load->view('admin/parties', $data, TRUE);
+		$this->load->view('admin', $admin);
 	}
 
 	function positions()
@@ -131,10 +131,10 @@ class Admin extends Controller {
 		}
 		$this->load->model('Position');
 		$data['positions'] = $this->Position->select_all();
-		$data['username'] = $this->admin['username'];
-		$main['title'] = e('admin_positions_title');
-		$main['body'] = $this->load->view('admin/positions', $data, TRUE);
-		$this->load->view('main', $main);
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_positions_title');
+		$admin['body'] = $this->load->view('admin/positions', $data, TRUE);
+		$this->load->view('admin', $admin);
 	}
 
 	function candidates()
@@ -155,10 +155,10 @@ class Admin extends Controller {
 			$positions[$key]['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
 		}
 		$data['positions'] = $positions;
-		$data['username'] = $this->admin['username'];
-		$main['title'] = e('admin_candidates_title');
-		$main['body'] = $this->load->view('admin/candidates', $data, TRUE);
-		$this->load->view('main', $main);
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_candidates_title');
+		$admin['body'] = $this->load->view('admin/candidates', $data, TRUE);
+		$this->load->view('admin', $admin);
 	}
 
 	function delete($type, $id) 
@@ -237,7 +237,7 @@ class Admin extends Controller {
 
 	function edit($type, $id) 
 	{
-		$data['username'] = $this->admin['username'];
+		$admin['username'] = $this->admin['username'];
 		if($error = $this->session->flashdata('error'))
 		{
 			$data['messages'] = $error;
@@ -290,8 +290,8 @@ class Admin extends Controller {
 				$data['chosen'] = $tmp[0];
 				$data['action'] = 'edit';
 				$data['settings'] = $this->settings;
-				$main['title'] = e('admin_edit_voter_title');
-				$main['body'] = $this->load->view('admin/voter', $data, TRUE);
+				$admin['title'] = e('admin_edit_voter_title');
+				$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
 				break;
 			case 'party':
 				if (!$id)
@@ -303,8 +303,8 @@ class Admin extends Controller {
 				if ($party = $this->session->flashdata('party'))
 					$data['party'] = $party;
 				$data['action'] = 'edit';
-				$main['title'] = e('admin_edit_party_title');
-				$main['body'] = $this->load->view('admin/party', $data, TRUE);
+				$admin['title'] = e('admin_edit_party_title');
+				$admin['body'] = $this->load->view('admin/party', $data, TRUE);
 				break;
 			case 'position':
 				if (!$id)
@@ -316,8 +316,8 @@ class Admin extends Controller {
 				if ($position = $this->session->flashdata('position'))
 					$data['position'] = $position;
 				$data['action'] = 'edit';
-				$main['title'] = e('admin_edit_position_title');
-				$main['body'] = $this->load->view('admin/position', $data, TRUE);
+				$admin['title'] = e('admin_edit_position_title');
+				$admin['body'] = $this->load->view('admin/position', $data, TRUE);
 				break;
 			case 'candidate':
 				if (!$id)
@@ -345,18 +345,18 @@ class Admin extends Controller {
 				if ($candidate = $this->session->flashdata('candidate'))
 					$data['candidate'] = $candidate;
 				$data['action'] = 'edit';
-				$main['title'] = e('admin_edit_candidate_title');
-				$main['body'] = $this->load->view('admin/candidate', $data, TRUE);
+				$admin['title'] = e('admin_edit_candidate_title');
+				$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
 				break;
 			default:
 				redirect('admin/home');
 		}
-		$this->load->view('main', $main);
+		$this->load->view('admin', $admin);
 	}
 
 	function add($type)
 	{
-		$data['username'] = $this->admin['username'];
+		$admin['username'] = $this->admin['username'];
 		if($error = $this->session->flashdata('error'))
 		{
 			$data['messages'] = $error;
@@ -407,8 +407,8 @@ class Admin extends Controller {
 				}
 				$data['action'] = 'add';
 				$data['settings'] = $this->settings;
-				$main['title'] = e('admin_add_voter_title');
-				$main['body'] = $this->load->view('admin/voter', $data, TRUE);
+				$admin['title'] = e('admin_add_voter_title');
+				$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
 				break;
 			case 'party':
 				if ($party = $this->session->flashdata('party'))
@@ -416,8 +416,8 @@ class Admin extends Controller {
 				else
 					$data['party'] = array('party'=>'', 'description'=>'');
 				$data['action'] = 'add';
-				$main['title'] = e('admin_add_party_title');
-				$main['body'] = $this->load->view('admin/party', $data, TRUE);
+				$admin['title'] = e('admin_add_party_title');
+				$admin['body'] = $this->load->view('admin/party', $data, TRUE);
 				break;
 			case 'position':
 				if ($position = $this->session->flashdata('position'))
@@ -425,8 +425,8 @@ class Admin extends Controller {
 				else
 					$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>TRUE, 'unit'=>FALSE);
 				$data['action'] = 'add';
-				$main['title'] = e('admin_add_position_title');
-				$main['body'] = $this->load->view('admin/position', $data, TRUE);
+				$admin['title'] = e('admin_add_position_title');
+				$admin['body'] = $this->load->view('admin/position', $data, TRUE);
 				break;
 			case 'candidate':
 				$this->load->model('Party');
@@ -450,13 +450,13 @@ class Admin extends Controller {
 				else
 					$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'description'=>'', 'party_id'=>'', 'position_id'=>'');
 				$data['action'] = 'add';
-				$main['title'] = e('admin_add_candidate_title');
-				$main['body'] = $this->load->view('admin/candidate', $data, TRUE);
+				$admin['title'] = e('admin_add_candidate_title');
+				$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
 				break;
 			default:
 				redirect('admin/home');
 		}
-		$this->load->view('main', $main);
+		$this->load->view('admin', $admin);
 	}
 	
 	function do_add_voter()
