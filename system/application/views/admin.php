@@ -31,11 +31,11 @@
 	</div>
 	<div id="menu">
 		<ul>
-			<li><?= anchor('admin/home', 'HOME'); ?></li>
-			<li><?= anchor('admin/candidates', 'CANDIDATES'); ?></li>
-			<li><?= anchor('admin/parties', 'PARTIES'); ?></li>
-			<li><?= anchor('admin/positions', 'POSITIONS'); ?></li>
-			<li><?= anchor('admin/voters', 'VOTERS'); ?></li>
+			<li><?= anchor('admin/home', 'HOME', array('title'=>'Home')); ?></li>
+			<li><?= anchor('admin/candidates', 'CANDIDATES', array('title'=>'Manage Candidates')); ?></li>
+			<li><?= anchor('admin/parties', 'PARTIES', array('title'=>'Manage Parties')); ?></li>
+			<li><?= anchor('admin/positions', 'POSITIONS', array('title'=>'Manage Positions')); ?></li>
+			<li><?= anchor('admin/voters', 'VOTERS', array('title'=>'Manage Voters')); ?></li>
 		</ul>
 	</div>
 	<div id="content">

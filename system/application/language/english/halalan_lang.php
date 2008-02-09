@@ -151,11 +151,11 @@ $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfu
 $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
 
 // views/admin/home.php
-$lang['halalan_admin_home_left_label'] = 'Manage';
+$lang['halalan_admin_home_left_label'] = 'Manage Halalan';
 $lang['halalan_admin_home_right_label'] = 'Options';
 
 // views/admin/voters.php
-$lang['halalan_admin_voters_label'] = 'Voters';
+$lang['halalan_admin_voters_label'] = 'Manage Voters';
 $lang['halalan_admin_voters_voted'] = 'Voted';
 $lang['halalan_admin_voters_name'] = 'Name';
 $lang['halalan_admin_voters_no_voters'] = 'No voters found.';
@@ -181,7 +181,7 @@ $lang['halalan_admin_add_voter_submit'] = 'Add Voter';
 $lang['halalan_admin_edit_voter_submit'] = 'Edit Voter';
 
 // views/admin/parties.php
-$lang['halalan_admin_parties_label'] = 'Parties';
+$lang['halalan_admin_parties_label'] = 'Manage Parties';
 $lang['halalan_admin_parties_party'] = 'Party';
 $lang['halalan_admin_parties_description'] = 'Description';
 $lang['halalan_admin_parties_no_parties'] = 'No parties found.';
@@ -197,7 +197,7 @@ $lang['halalan_admin_add_party_submit'] = 'Add Party';
 $lang['halalan_admin_edit_party_submit'] = 'Edit Party';
 
 // views/admin/positions.php
-$lang['halalan_admin_positions_label'] = 'Positions';
+$lang['halalan_admin_positions_label'] = 'Manage Positions';
 $lang['halalan_admin_positions_position'] = 'Position';
 $lang['halalan_admin_positions_description'] = 'Description';
 $lang['halalan_admin_positions_no_positions'] = 'No positions found.';
@@ -216,7 +216,7 @@ $lang['halalan_admin_add_position_submit'] = 'Add Position';
 $lang['halalan_admin_edit_position_submit'] = 'Edit Position';
 
 // views/admin/candidates.php
-$lang['halalan_admin_candidates_label'] = 'Candidates';
+$lang['halalan_admin_candidates_label'] = 'Manage Candidates';
 $lang['halalan_admin_candidates_candidate'] = 'Candidate';
 $lang['halalan_admin_candidates_description'] = 'Description';
 $lang['halalan_admin_candidates_no_candidates'] = 'No candidates found.';
