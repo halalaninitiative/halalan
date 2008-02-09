@@ -19,7 +19,7 @@
 		<div id="header_bg">
 			<div id="header_left">
 				<h1>
-					<a href="#">Halalan</a>
+					<?= anchor(site_url(), 'Halalan'); ?>
 					<span>administration</span>
 				</h1>
 			</div>
