@@ -149,6 +149,10 @@ $lang['halalan_admin_candidate_no_position'] = 'Position is required';
 $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
 // do_edit_candidate
 $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
+// import
+$lang['halalan_admin_import_title'] = 'Import Voters';
+// export
+$lang['halalan_admin_export_title'] = 'Export Voters';
 
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
@@ -233,5 +237,16 @@ $lang['halalan_admin_candidate_position'] = 'Position';
 $lang['halalan_admin_candidate_picture'] = 'Picture';
 $lang['halalan_admin_add_candidate_submit'] = 'Add Candidate';
 $lang['halalan_admin_edit_candidate_submit'] = 'Edit Candidate';
+
+// views/admin/import.php
+$lang['halalan_admin_import_label'] = 'Import Voters';
+$lang['halalan_admin_import_general_positions'] = 'General Positions';
+$lang['halalan_admin_import_no_general_positions'] = 'No general positions found.';
+$lang['halalan_admin_import_specific_positions'] = 'Specific Positions';
+$lang['halalan_admin_import_no_specific_positions'] = 'No specific positions found.';
+$lang['halalan_admin_import_possible_positions'] = 'Possible Positions';
+$lang['halalan_admin_import_chosen_positions'] = 'Chosen Positions';
+$lang['halalan_admin_import_csv'] = 'CSV';
+$lang['halalan_admin_import_submit'] = 'Import';
 
 ?>

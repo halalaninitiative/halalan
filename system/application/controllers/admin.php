@@ -955,6 +955,87 @@ class Admin extends Controller {
 		redirect('admin/edit/candidate/' . $id);
 	}
 
+	function import()
+	{
+		if($error = $this->session->flashdata('error'))
+		{
+			$data['messages'] = $error;
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$data['messages'] = $success;
+		}
+		$this->load->model('Position');
+		$data['general'] = $this->Position->select_all_non_units();
+		$data['specific'] = $this->Position->select_all_units();
+		$tmp = array();
+		foreach ($data['specific'] as $s)
+		{
+			$tmp[$s['id']] = $s['position'];
+		}
+		$data['possible'] = $tmp;
+		if ($import = $this->session->flashdata('import'))
+		{
+			if (empty($import['chosen']))
+			{
+				$data['chosen'] = array();
+			}
+			else
+			{
+				$chosen = $import['chosen'];
+				unset($import['chosen']);
+				$tmp = array();
+				foreach ($data['possible'] as $key=>$value)
+				{
+					if (in_array($key, $chosen))
+					{
+						unset($data['possible'][$key]);
+						$tmp[$key] = $value;
+					}
+				}
+				$data['chosen'] = $tmp;
+			}
+		}
+		else
+		{
+			$data['chosen'] = array();
+		}
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_import_title');
+		$admin['body'] = $this->load->view('admin/import', $data, TRUE);
+		$this->load->view('admin', $admin);
+	}
+
+	function do_import()
+	{
+		$error = array();
+		$import['chosen'] = $this->input->post('chosen');
+		$config['upload_path'] = $this->config->item('upload_path') . 'csvs/';
+		$config['allowed_types'] = 'csv';
+		$this->upload->initialize($config);
+		if (!$this->upload->do_upload('csv'))
+		{
+			$error[] = $this->upload->display_errors();
+		}
+		else
+		{
+			// do parsing here
+		}
+		if (empty($error)) {
+			// do saving here
+		}
+		else {
+			$this->session->set_flashdata('import', $import);
+			$this->session->set_flashdata('error', $error);
+		}
+		redirect('admin/import');
+	}
+
+	function export()
+	{
+
+	}
+
 	function _resize($upload_data, $n)
 	{
 		$width = $upload_data['image_width'];

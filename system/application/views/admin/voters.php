@@ -47,3 +47,10 @@
 <div class="paging">
 	<?= $links; ?>
 </div>
+<div class="notes">
+	<h2>Advanced Options</h2>
+	<ul>
+		<li><?= anchor('admin/import', 'Import Voters'); ?></li>
+		<li><?= anchor('admin/export', 'Export Voters'); ?></li>
+	</ul>
+</div>
