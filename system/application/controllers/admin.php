@@ -396,9 +396,9 @@ class Admin extends Controller {
 								$tmp[$key] = $value;
 							}
 						}
+						$data['chosen'] = $tmp;
 					}
 					$data['voter'] = $voter;
-					$data['chosen'] = $tmp;
 				}
 				else
 				{
