@@ -1119,6 +1119,7 @@ class Admin extends Controller {
 				$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
 				$boter['password'] = sha1($password);
 				$row .= ',' . $password;
+				$this->Boter->update($boter, $voter['id']);
 			}
 			if ($this->settings['pin'])
 			{
@@ -1127,9 +1128,9 @@ class Admin extends Controller {
 					$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
 					$boter['pin'] = sha1($pin);
 					$row .= ',' . $pin;
+					$this->Boter->update($boter, $voter['id']);
 				}
 			}
-			$this->Boter->update($boter, $voter['id']);
 			if ($this->input->post('votes'))
 			{
 				$votes = $this->Vote->select_all_by_voter_id($voter['id']);
