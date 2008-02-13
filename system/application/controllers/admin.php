@@ -67,7 +67,7 @@ class Admin extends Controller {
 		redirect('admin/home');
 	}
 
-	function voters($page = null)
+	function voters($offset = null)
 	{
 		if($error = $this->session->flashdata('error'))
 		{
@@ -82,18 +82,22 @@ class Admin extends Controller {
 		$config['base_url'] = site_url('admin/voters');
 		$config['total_rows'] = count($voters);
 		$config['per_page'] = $this->config->item('per_page');
+		$config['num_links'] = 5;
 		$config['first_link'] = img('public/images/go-first.png');
 		$config['last_link'] = img('public/images/go-last.png');
 		$config['prev_link'] = img('public/images/go-previous.png');
 		$config['next_link'] = img('public/images/go-next.png');
 		$this->pagination->initialize($config); 
 		$data['links'] = $this->pagination->create_links();
-		if ($page == null)
+		if ($offset == null)
 		{
-			$page = 0;
+			$offset = 0;
 		}
-		$display = $config['per_page'];
-		$data['voters'] = $this->Boter->select_all_for_pagination($display, $page);
+		$limit = $config['per_page'];
+		$data['offset'] = $offset;
+		$data['limit'] = $limit;
+		$data['total_rows'] = $config['total_rows'];
+		$data['voters'] = $this->Boter->select_all_for_pagination($limit, $offset);
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_voters_title');
 		$admin['body'] = $this->load->view('admin/voters', $data, TRUE);

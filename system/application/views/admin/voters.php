@@ -27,9 +27,10 @@
 	</tr>
 	<?php else: ?>
 	<?php $i = 0; ?>
+	<?php $j = $offset; ?>
 	<?php foreach ($voters as $voter): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td width="5%" align="center"><?= ($i+1); ?></td>
+		<td width="5%" align="center"><?= ($j+1); ?></td>
 		<td width="75%"><?= anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?></td>
 		<td width="5%" align="center">
 			<?php if ($voter['voted'] == TRUE): ?>
@@ -40,13 +41,21 @@
 		</td>
 		<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $voter['last_name'] . ', ' . $voter['first_name'] . '\', \'' . site_url('admin/delete/voter/' . $voter['id']) . '\');return false;"'); ?></a></td>
 	</tr>
+	<?php $j++; ?>
 	<?php $i = $i + 1; ?>
 	<?php endforeach; ?>
 	<?php endif; ?>
 </table>
 <?php if (!empty($links)): ?>
 <div class="paging">
-	<?= $links; ?>
+	<?= $links; ?><br />
+	Results <?= ($offset+1); ?> -
+	<?php if (($offset+$limit) > $total_rows): ?>
+		<?= $total_rows; ?>
+	<?php else: ?>
+		<?= ($offset+$limit); ?>
+	<?php endif; ?>
+	of <?= $total_rows; ?>.
 </div>
 <?php endif; ?>
 <div class="notes">
