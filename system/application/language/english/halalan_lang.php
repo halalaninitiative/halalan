@@ -73,6 +73,7 @@ $lang['halalan_voter_confirm_vote_validation_label'] = 'Validation';
 $lang['halalan_voter_confirm_vote_captcha_label'] = 'Enter the word here:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Enter your pin here:';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Confirm';
+$lang['halalan_voter_confirm_vote_reminder'] = 'Once you press the confirm button, you can no longer change your votes.';
 
 // views/voter/logout.php
 $lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';

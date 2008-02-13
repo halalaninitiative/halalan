@@ -118,6 +118,8 @@
 		<?= anchor('voter/vote', 'GO BACK'); ?>
 		|
 		<input type="submit" value="<?= e('voter_confirm_vote_submit_button'); ?>" />
+		<br />
+		<span style="font-size:small;"><?= e('voter_confirm_vote_reminder'); ?></span>
 	</div>
 	<div class="clear"></div>
 </div>
