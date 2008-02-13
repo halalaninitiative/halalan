@@ -999,6 +999,7 @@ class Admin extends Controller {
 		{
 			$data['chosen'] = array();
 		}
+		$data['settings'] = $this->settings;
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_import_title');
 		$admin['body'] = $this->load->view('admin/import', $data, TRUE);
@@ -1018,12 +1019,50 @@ class Admin extends Controller {
 		}
 		else
 		{
-			// do parsing here
+			$upload_data = $this->upload->data();
+			$data = file($upload_data['full_path']);
 		}
-		if (empty($error)) {
-			// do saving here
+		if (empty($error))
+		{
+			$this->load->model('Boter');
+			$count = 0;
+			unset($data[0]); // remove header
+			foreach ($data as $datum)
+			{
+				$tmp = explode(',', $datum);
+				$voter['username'] = trim(strip_quotes($tmp[0]));
+				$voter['last_name'] = trim(strip_quotes($tmp[1]));
+				$voter['first_name'] = trim(strip_quotes($tmp[2]));
+				$voter['voted'] = FALSE;
+				if ($this->input->post('chosen'))
+				{
+					$voter['chosen'] = $this->input->post('chosen');
+				}
+				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
+				{
+					$this->Boter->insert($voter);
+					$count++;
+				}
+			}
+			if ($count == 1)
+			{
+				$success[] = $count . e('admin_import_success_singular');
+			}
+			else
+			{
+				$success[] = $count . e('admin_import_success_plural');
+			}
+			$reminder = e('admin_import_reminder');
+			if ($this->settings['pin'])
+			{
+				$reminder = trim($reminder, '.'); // remove period
+				$reminder .= e('admin_import_reminder_too');
+			}
+			$success[] = $reminder;
+			$this->session->set_flashdata('success', $success);
 		}
-		else {
+		else
+		{
 			$this->session->set_flashdata('import', $import);
 			$this->session->set_flashdata('error', $error);
 		}

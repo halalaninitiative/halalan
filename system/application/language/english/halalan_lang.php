@@ -151,6 +151,11 @@ $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfu
 $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
 // import
 $lang['halalan_admin_import_title'] = 'Import Voters';
+// do_import
+$lang['halalan_admin_import_success_singular'] = ' voter has been successfully imported.';
+$lang['halalan_admin_import_success_plural'] = ' voters have been successfully imported.';
+$lang['halalan_admin_import_reminder'] = 'You can use the Export Voters option to do batch generation of passwords.';
+$lang['halalan_admin_import_reminder_too'] = ' and pins.';
 // export
 $lang['halalan_admin_export_title'] = 'Export Voters';
 
@@ -247,6 +252,8 @@ $lang['halalan_admin_import_no_specific_positions'] = 'No specific positions fou
 $lang['halalan_admin_import_possible_positions'] = 'Possible Positions';
 $lang['halalan_admin_import_chosen_positions'] = 'Chosen Positions';
 $lang['halalan_admin_import_csv'] = 'CSV';
+$lang['halalan_admin_import_sample'] = 'Sample Format';
+$lang['halalan_admin_import_notes'] = 'Notes';
 $lang['halalan_admin_import_submit'] = 'Import';
 
 // views/admin/export.php

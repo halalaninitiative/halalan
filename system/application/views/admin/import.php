@@ -50,6 +50,38 @@
 			<?= form_upload(array('name'=>'csv', 'size'=>30)); ?>
 		</td>
 	</tr>
+	<tr>
+		<td width="30%" align="right">
+			<?= e('admin_import_sample'); ?>:
+		</td>
+		<td width="70%">
+			<?php if ($settings['password_pin_generation'] == 'web'): ?>
+			Username,Last Name,First Name<br />
+			user1,Suzumiya,Haruhi<br />
+			user2,Izumi,Konata<br />
+			user3,Etoh,Mei
+			<?php elseif ($settings['password_pin_generation'] == 'email'): ?>
+			Email,Last Name,First Name<br />
+			user1@example.com,Suzumiya,Haruhi<br />
+			user2@example.com,Izumi,Konata<br />
+			user3@example.com,Etoh,Mei
+			<?php endif; ?>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" align="right">
+			<?= e('admin_import_notes'); ?>:
+		</td>
+		<td width="70%">
+			<?php if ($settings['password_pin_generation'] == 'web'): ?>
+			Username
+			<?php elseif ($settings['password_pin_generation'] == 'email'): ?>
+			Email
+			<?php endif; ?>
+			must be unique.<br />
+			Incomplete data will be disregarded.
+		</td>
+	</tr>
 </table>
 <div class="paging">
 	<?= anchor('admin/voters', 'GO BACK'); ?>
