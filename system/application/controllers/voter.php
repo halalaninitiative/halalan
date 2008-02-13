@@ -201,7 +201,7 @@ class Voter extends Controller {
 				}
 			}
 			$this->Boter->update(array('voted'=>TRUE), $voter_id);
-			$this->session->userdata('votes', '');
+			$this->session->unset_userdata('votes');
 			redirect('voter/logout');
 		}
 		else
