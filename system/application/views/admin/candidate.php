@@ -16,18 +16,18 @@
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_first_name'); ?>:
-		</td>
-		<td width="70%">
-			<?= form_input(array('name'=>'first_name', 'value'=>$candidate['first_name'], 'style'=>'width:250px;')); ?>
-		</td>
-	</tr>
-	<tr>
-		<td width="30%" align="right">
 			<?= e('admin_candidate_last_name'); ?>:
 		</td>
 		<td width="70%">
 			<?= form_input(array('name'=>'last_name', 'value'=>$candidate['last_name'], 'style'=>'width:250px;')); ?>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" align="right">
+			<?= e('admin_candidate_first_name'); ?>:
+		</td>
+		<td width="70%">
+			<?= form_input(array('name'=>'first_name', 'value'=>$candidate['first_name'], 'style'=>'width:250px;')); ?>
 		</td>
 	</tr>
 	<tr>

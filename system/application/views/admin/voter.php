@@ -24,18 +24,18 @@
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_voter_first_name'); ?>:
-		</td>
-		<td width="70%">
-			<?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'])); ?>
-		</td>
-	</tr>
-	<tr>
-		<td width="30%" align="right">
 			<?= e('admin_voter_last_name'); ?>:
 		</td>
 		<td width="70%">
 			<?= form_input(array('name'=>'last_name', 'value'=>$voter['last_name'])); ?>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" align="right">
+			<?= e('admin_voter_first_name'); ?>:
+		</td>
+		<td width="70%">
+			<?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'])); ?>
 		</td>
 	</tr>
 	<tr>
