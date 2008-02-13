@@ -44,9 +44,11 @@
 	<?php endforeach; ?>
 	<?php endif; ?>
 </table>
+<?php if (!empty($links)): ?>
 <div class="paging">
 	<?= $links; ?>
 </div>
+<?php endif; ?>
 <div class="notes">
 	<h2>Advanced Options</h2>
 	<ul>
