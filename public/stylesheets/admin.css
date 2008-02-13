@@ -224,7 +224,6 @@ img {
 #content .positive {
     background: #CAEA99;
     border: 1px solid #70A522;
-    padding: 15px 15px 15px 15px;
     margin-bottom: 15px;
     font-size: 1.2em;
     color: #333333;
@@ -234,7 +233,6 @@ img {
 #content .negative {
     background: #FEDCDA;
     border: 1px solid #CE090E;
-    padding: 15px 15px 15px 15px;
     margin-bottom: 15px;
     font-size: 1.2em;
     color: #333333;
