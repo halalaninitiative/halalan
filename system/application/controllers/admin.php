@@ -1034,10 +1034,7 @@ class Admin extends Controller {
 				$voter['last_name'] = trim(strip_quotes($tmp[1]));
 				$voter['first_name'] = trim(strip_quotes($tmp[2]));
 				$voter['voted'] = FALSE;
-				if ($this->input->post('chosen'))
-				{
-					$voter['chosen'] = $this->input->post('chosen');
-				}
+				$voter['chosen'] = $this->input->post('chosen');
 				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
 				{
 					$this->Boter->insert($voter);
