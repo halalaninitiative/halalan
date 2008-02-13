@@ -249,4 +249,16 @@ $lang['halalan_admin_import_chosen_positions'] = 'Chosen Positions';
 $lang['halalan_admin_import_csv'] = 'CSV';
 $lang['halalan_admin_import_submit'] = 'Import';
 
+// views/admin/export.php
+$lang['halalan_admin_export_label'] = 'Export Voters';
+$lang['halalan_admin_export_password'] = 'Include password?';
+$lang['halalan_admin_export_password_description'] = 'used for batch generation of password';
+$lang['halalan_admin_export_pin'] = 'Include pin?';
+$lang['halalan_admin_export_pin_description'] = 'used for batch generation of pin';
+$lang['halalan_admin_export_votes'] = 'Include votes?';
+$lang['halalan_admin_export_votes_description'] = 'used for manual counting of votes';
+$lang['halalan_admin_export_status'] = 'Include status?';
+$lang['halalan_admin_export_status_description'] = 'used for determining who voted or not';
+$lang['halalan_admin_export_submit'] = 'Export';
+
 ?>

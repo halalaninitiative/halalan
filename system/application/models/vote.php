@@ -24,6 +24,17 @@ class Vote extends Model {
 		return $query->result_array();
 	}
 
+	function select_all_by_voter_id($voter_id)
+	{
+		$this->db->from('votes');
+		$this->db->join('candidates', 'candidates.id = votes.candidate_id');
+		$this->db->where(compact('voter_id'));
+		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('first_name', 'asc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 }
 
 ?>

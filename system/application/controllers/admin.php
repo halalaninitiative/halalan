@@ -79,7 +79,6 @@ class Admin extends Controller {
 		}
 		$this->load->model('Boter');
 		$voters = $this->Boter->select_all();
-		$this->load->library('pagination');
 		$config['base_url'] = site_url('admin/voters');
 		$config['total_rows'] = count($voters);
 		$config['per_page'] = $this->config->item('per_page');
@@ -1033,7 +1032,93 @@ class Admin extends Controller {
 
 	function export()
 	{
+		$data = '';
+		$data['settings'] = $this->settings;
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_export_title');
+		$admin['body'] = $this->load->view('admin/export', $data, TRUE);
+		$this->load->view('admin', $admin);
+	}
 
+	function do_export()
+	{
+		$header = '';
+		if ($this->settings['password_pin_generation'] == 'web')
+		{
+			$header = 'Username';
+		}
+		else if ($this->settings['password_pin_generation'] == 'email')
+		{
+			$header = 'Email';
+		}
+		$header .= ',Last Name,First Name';
+		if ($this->input->post('password'))
+		{
+			$header .= ',Password';
+		}
+		if ($this->settings['pin'])
+		{
+			if ($this->input->post('pin'))
+			{
+				$header .= ',PIN';
+			}
+		}
+		if ($this->input->post('votes'))
+		{
+			$header .= ',Votes';
+		}
+		if ($this->input->post('status'))
+		{
+			$header .= ',Voted';
+		}
+		$data[] = $header;
+		$this->load->model('Boter');
+		$this->load->model('Vote');
+		$voters = $this->Boter->select_all();
+		foreach ($voters as $voter)
+		{
+			$row = $voter['username'] . ',' . $voter['last_name'] . ',' . $voter['first_name'];
+			if ($this->input->post('password'))
+			{
+				$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
+				$boter['password'] = sha1($password);
+				$row .= ',' . $password;
+			}
+			if ($this->settings['pin'])
+			{
+				if ($this->input->post('pin'))
+				{
+					$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
+					$boter['pin'] = sha1($pin);
+					$row .= ',' . $pin;
+				}
+			}
+			$this->Boter->update($boter, $voter['id']);
+			if ($this->input->post('votes'))
+			{
+				$votes = $this->Vote->select_all_by_voter_id($voter['id']);
+				$tmp = array();
+				foreach ($votes as $vote)
+				{
+					$tmp[] = $vote['first_name'] . ' ' . $vote['last_name'];
+				}
+				$row .= ',' . implode(' | ', $tmp);
+			}
+			if ($this->input->post('status'))
+			{
+				if ($voter['voted'])
+				{
+					$row .= ',yes';
+				}
+				else
+				{
+					$row .= ',no';
+				}
+			}
+			$data[] = $row;
+		}
+		$data = implode("\r\n", $data);
+		force_download('voters.csv', $data);
 	}
 
 	function _resize($upload_data, $n)

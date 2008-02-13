@@ -36,7 +36,7 @@
 		</tr>
 		<tr>
 			<td align="right">
-				Result
+				Result:
 			</td>
 			<td>
 				<?= form_radio(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> Show
