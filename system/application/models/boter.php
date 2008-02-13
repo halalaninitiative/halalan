@@ -71,6 +71,8 @@ class Boter extends Model {
 	function select_all()
 	{
 		$this->db->from('voters');
+		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('first_name', 'asc');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -79,6 +81,7 @@ class Boter extends Model {
 	{
 		$this->db->from('voters');
 		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('first_name', 'asc');
 		$this->db->limit($limit, $offset);
 		$query = $this->db->get();
 		return $query->result_array();
