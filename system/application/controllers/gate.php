@@ -124,6 +124,7 @@ class Gate extends Controller {
 		$option = $this->Option->select(1);
 		if ($option['result'] && !$option['status'])
 		{
+			$this->load->model('Abstain');
 			$this->load->model('Candidate');
 			$this->load->model('Party');
 			$this->load->model('Position');
@@ -142,6 +143,7 @@ class Gate extends Controller {
 					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
 				}
 				$positions[$key]['candidates'] = $candidates;
+				$positions[$key]['abstains'] = $this->Abstain->count_all_by_position_id($position['id']);
 			}
 			$data['settings'] = $this->config->item('halalan');
 			$data['positions'] = $positions;

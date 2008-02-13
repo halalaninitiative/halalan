@@ -187,17 +187,29 @@ class Voter extends Controller {
 		}
 		if (empty($error))
 		{
+			$this->load->model('Abstain');
 			$this->load->model('Boter');
 			$this->load->model('Vote');
 			$voter_id = $this->voter['id'];
 			$timestamp = date("Y-m-d H:i:s");
 			$votes = $this->session->userdata('votes');
-			foreach ($votes as $candidate_ids)
+			foreach ($votes as $position_id=>$candidate_ids)
 			{
+				$abstain = FALSE;
 				foreach ($candidate_ids as $candidate_id)
 				{
-					if (!empty($candidate_id))
+					if (empty($candidate_id))
+					{
+						$abstain = TRUE;
+					}
+					else
+					{
 						$this->Vote->insert(compact('candidate_id', 'voter_id', 'timestamp'));
+					}
+				}
+				if ($abstain)
+				{
+					$this->Abstain->insert(compact('position_id', 'voter_id', 'timestamp'));
 				}
 			}
 			$this->Boter->update(array('voted'=>TRUE), $voter_id);

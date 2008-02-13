@@ -1,3 +1,10 @@
+CREATE TABLE abstains (
+  position_id integer NOT NULL,
+  voter_id integer NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY  (position_id,voter_id)
+);
+
 CREATE TABLE admins (
   id integer NOT NULL auto_increment,
   email varchar(63) NOT NULL,

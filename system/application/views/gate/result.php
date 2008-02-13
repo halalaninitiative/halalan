@@ -27,6 +27,13 @@
 					<td width="5%"><a href="#" title="Info on <?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
 				</tr>
 				<?php endforeach; ?>
+				<?php if ($positions[$i]['abstain'] == TRUE): ?>
+				<tr>
+					<td width="5%"><?= $positions[$i]['abstains']; ?></td>
+					<td width="90%">ABSTAIN</td>
+					<td width="5%"></td>
+				</tr>
+				<?php endif; ?>
 				<?php endif; ?>
 			</table>
 		</fieldset>
