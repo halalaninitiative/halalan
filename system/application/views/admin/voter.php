@@ -72,7 +72,7 @@
 	</tr>
 	<?php if ($action == 'edit'): ?>
 	<tr>
-		<td width="30%">
+		<td width="30%" align="right">
 			<?= e('admin_voter_regenerate'); ?>:
 		</td>
 		<td width="70%">
