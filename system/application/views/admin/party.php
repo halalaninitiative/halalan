@@ -19,7 +19,7 @@
 			<?= e('admin_party_party'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'party', 'value'=>$party['party'], 'size'=>30)); ?>
+			<?= form_input(array('name'=>'party', 'value'=>$party['party'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 			<?= e('admin_party_description'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_textarea(array('name'=>'description', 'value'=>$party['description'], 'rows'=>7, 'cols'=>35)); ?>
+			<?= form_textarea(array('name'=>'description', 'value'=>$party['description'])); ?>
 		</td>
 	</tr>
 	<tr>
@@ -35,7 +35,7 @@
 			<?= e('admin_party_logo'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_upload(array('name'=>'logo', 'size'=>30)); ?>
+			<?= form_upload(array('name'=>'logo')); ?>
 		</td>
 	</tr>
 </table>

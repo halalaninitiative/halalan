@@ -19,7 +19,7 @@
 			<?= e('admin_position_position'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'position', 'value'=>$position['position'], 'style'=>'width:250px;')); ?>
+			<?= form_input(array('name'=>'position', 'value'=>$position['position'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 			<?= e('admin_position_description'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_textarea(array('name'=>'description', 'value'=>$position['description'], 'style'=>'width:250px;height:125px;')); ?>
+			<?= form_textarea(array('name'=>'description', 'value'=>$position['description'])); ?>
 		</td>
 	</tr>
 	<tr>
@@ -35,7 +35,7 @@
 			<?= e('admin_position_maximum'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'maximum', 'value'=>$position['maximum'], 'style'=>'width:25px;')); ?>
+			<?= form_input(array('name'=>'maximum', 'value'=>$position['maximum'], 'class'=>'short')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -43,7 +43,7 @@
 			<?= e('admin_position_ordinality'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'ordinality', 'value'=>$position['ordinality'], 'style'=>'width:25px;')); ?>
+			<?= form_input(array('name'=>'ordinality', 'value'=>$position['ordinality'], 'class'=>'short')); ?>
 		</td>
 	</tr>
 	<tr>

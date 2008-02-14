@@ -19,7 +19,7 @@
 			<?= ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'username', 'value'=>$voter['username'])); ?>
+			<?= form_input(array('name'=>'username', 'value'=>$voter['username'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 			<?= e('admin_voter_last_name'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'last_name', 'value'=>$voter['last_name'])); ?>
+			<?= form_input(array('name'=>'last_name', 'value'=>$voter['last_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -35,7 +35,7 @@
 			<?= e('admin_voter_first_name'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'])); ?>
+			<?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>

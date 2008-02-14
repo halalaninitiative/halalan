@@ -214,6 +214,18 @@ img {
     padding: 3px;
   }
 
+#content .form_table input.text, #content .form_table select, #content .form_table textarea {
+    width: 250px;
+}
+
+#content .form_table input.short {
+    width: 25px;
+}
+
+#content .form_table textarea {
+    height: 125px;
+  }
+
 
 #content .form_table input:focus, #content .form_table select:focus, #content .form_table textarea:focus {
     background: #ffffff;

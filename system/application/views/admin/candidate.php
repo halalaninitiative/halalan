@@ -19,7 +19,7 @@
 			<?= e('admin_candidate_last_name'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'last_name', 'value'=>$candidate['last_name'], 'style'=>'width:250px;')); ?>
+			<?= form_input(array('name'=>'last_name', 'value'=>$candidate['last_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 			<?= e('admin_candidate_first_name'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'first_name', 'value'=>$candidate['first_name'], 'style'=>'width:250px;')); ?>
+			<?= form_input(array('name'=>'first_name', 'value'=>$candidate['first_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -35,7 +35,7 @@
 			<?= e('admin_candidate_description'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_textarea(array('name'=>'description', 'value'=>$candidate['description'], 'style'=>'width:250px;height:125px;')); ?>
+			<?= form_textarea(array('name'=>'description', 'value'=>$candidate['description'])); ?>
 		</td>
 	</tr>
 	<tr>
@@ -59,7 +59,7 @@
 			<?= e('admin_candidate_picture'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_upload(array('name'=>'picture', 'size'=>30)); ?>
+			<?= form_upload(array('name'=>'picture')); ?>
 		</td>
 	</tr>
 </table>
