@@ -69,7 +69,11 @@ window.onload = checkCookie;
 				<tr>
 					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'onclick'=>'checkNumber(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form, '. $positions[$i]['maximum'] . ');')); ?></td>
 					<td width="70%"><?= $name; ?></td>
+					<?php if ($settings['show_candidate_details']): ?>
 					<td width="20%">
+					<?php else: ?>
+					<td width="25%">
+					<?php endif; ?>
 						<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
 						<?php if (empty($candidate['party']['alias'])): ?>
 						<?= $candidate['party']['party']; ?>
@@ -78,7 +82,9 @@ window.onload = checkCookie;
 						<?php endif; ?>
 						<?php endif; ?>
 					</td>
+					<?php if ($settings['show_candidate_details']): ?>
 					<td width="5%"><a href="#" title="Info on <?= $name; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $name; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
+					<?php endif; ?>
 				</tr>
 				<?php endforeach; ?>
 				<?php
@@ -91,8 +97,7 @@ window.onload = checkCookie;
 				<?php if ($positions[$i]['abstain'] == TRUE): ?>
 				<tr>
 					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'onclick'=>'manipulateCheckBoxes(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form);')); ?></td>
-					<td width="90%">ABSTAIN</td>
-					<td width="5%"></td>
+					<td width="95%">ABSTAIN</td>
 				</tr>
 				<?php endif; ?>
 				<?php endif; ?>

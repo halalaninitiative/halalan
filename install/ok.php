@@ -115,6 +115,7 @@ $config['halalan']['password_pin_characters'] = "<?php echo $_POST['password_pin
 $config['halalan']['password_length'] = <?php echo $_POST['password_length']; ?>;
 $config['halalan']['pin_length'] = <?php echo $_POST['pin_length']; ?>;
 $config['halalan']['captcha'] = <?php echo $_POST['captcha']; ?>;
+$config['halalan']['show_candidate_details'] = <?php echo $_POST['details']; ?>;
 
 $config['language'] = "<?php echo $_POST['language']; ?>";
 
@@ -138,9 +139,8 @@ $config['language'] = "<?php echo $_POST['language']; ?>";
 		<div class="clear"></div>
 	</div>
 	<div id="footer">
-		&copy; 2006-2007 Halalan
 		<br />
-		University of the Philippines Linux Users' Group
+		Powered by Halalan.
 	</div>
 </body>
 </html>

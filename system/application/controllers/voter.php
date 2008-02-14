@@ -53,6 +53,7 @@ class Voter extends Controller {
 			$data['none'] = e('voter_vote_no_candidates');
 		if ($votes = $this->session->userdata('votes'))
 			$data['votes'] = $votes;
+		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
 		$data['username'] = $this->voter['username'];
 		$main['title'] = e('voter_vote_title');

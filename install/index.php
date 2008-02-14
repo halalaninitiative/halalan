@@ -170,6 +170,10 @@ else
 						<td width="35%">Language</td>
 						<td width="65%"><select name="language"><option value="english">English</option><option value="filipino">Filipino</option></select></td>
 					</tr>
+					<tr>
+						<td width="35%">Candidate Details in Ballot</td>
+						<td width="65%"><input type="radio" name="details" value="TRUE" checked="true" /> show <input type="radio" name="details" value="FALSE" /> hide</td>
+					</tr>
 				</table>
 			</fieldset>
 			<br />
@@ -190,9 +194,8 @@ else
 		<div class="clear"></div>
 	</div>
 	<div id="footer">
-		&copy; 2006-2007 Halalan
 		<br />
-		University of the Philippines Linux Users' Group
+		Powered by Halalan.
 	</div>
 </body>
 </html>
