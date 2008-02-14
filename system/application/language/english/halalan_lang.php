@@ -193,6 +193,7 @@ $lang['halalan_admin_edit_voter_submit'] = 'Edit Voter';
 // views/admin/parties.php
 $lang['halalan_admin_parties_label'] = 'Manage Parties';
 $lang['halalan_admin_parties_party'] = 'Party';
+$lang['halalan_admin_parties_alias'] = 'Alias';
 $lang['halalan_admin_parties_description'] = 'Description';
 $lang['halalan_admin_parties_no_parties'] = 'No parties found.';
 $lang['halalan_admin_parties_add'] = 'Add Party';
@@ -201,6 +202,7 @@ $lang['halalan_admin_parties_add'] = 'Add Party';
 $lang['halalan_admin_add_party_label'] = 'Add Party Details';
 $lang['halalan_admin_edit_party_label'] = 'Edit Party Details';
 $lang['halalan_admin_party_party'] = 'Party';
+$lang['halalan_admin_party_alias'] = 'Alias';
 $lang['halalan_admin_party_description'] = 'Description';
 $lang['halalan_admin_party_logo'] = 'Logo';
 $lang['halalan_admin_add_party_submit'] = 'Add Party';

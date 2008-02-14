@@ -417,7 +417,7 @@ class Admin extends Controller {
 				if ($party = $this->session->flashdata('party'))
 					$data['party'] = $party;
 				else
-					$data['party'] = array('party'=>'', 'description'=>'');
+					$data['party'] = array('party'=>'', 'alias'=>'', 'description'=>'');
 				$data['action'] = 'add';
 				$admin['title'] = e('admin_add_party_title');
 				$admin['body'] = $this->load->view('admin/party', $data, TRUE);
@@ -661,6 +661,7 @@ class Admin extends Controller {
 			$error[] = e('admin_party_no_party');
 		}
 		$party['party'] = $this->input->post('party', TRUE);
+		$party['alias'] = $this->input->post('alias', TRUE);
 		$party['description'] = $this->input->post('description', TRUE);
 		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
 		{
@@ -710,6 +711,7 @@ class Admin extends Controller {
 			$error[] = e('admin_party_no_party');
 		}
 		$party['party'] = $this->input->post('party', TRUE);
+		$party['alias'] = $this->input->post('alias', TRUE);
 		$party['description'] = $this->input->post('description', TRUE);
 		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
 		{
