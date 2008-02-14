@@ -32,6 +32,14 @@
 	</tr>
 	<tr>
 		<td width="30%" align="right">
+			<?= e('admin_candidate_alias'); ?>:
+		</td>
+		<td width="70%">
+			<?= form_input(array('name'=>'alias', 'value'=>$candidate['alias'], 'class'=>'text')); ?>
+		</td>
+	</tr>
+	<tr>
+		<td width="30%" align="right">
 			<?= e('admin_candidate_description'); ?>:
 		</td>
 		<td width="70%">

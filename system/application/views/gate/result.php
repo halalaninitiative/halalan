@@ -21,10 +21,17 @@
 				</tr>
 				<?php else: ?>
 				<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>
+				<?php
+					$name = $candidate['first_name'];
+					if (!empty($candidate['alias']))
+						$name .= ' "' . $candidate['alias'] . '"';
+					$name .= ' ' . $candidate['last_name'];
+					$name = quotes_to_entities($name);
+				?>
 				<tr>
 					<td width="5%" align="center"><?= $candidate['votes']; ?></td>
-					<td width="90%"><?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?></td>
-					<td width="5%"><a href="#" title="Info on <?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $candidate['first_name'] . ' ' . $candidate['last_name']; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
+					<td width="90%"><?= $name; ?></td>
+					<td width="5%"><a href="#" title="Info on <?= $name; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $name; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
 				</tr>
 				<?php endforeach; ?>
 				<?php if ($positions[$i]['abstain'] == TRUE): ?>

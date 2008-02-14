@@ -451,7 +451,7 @@ class Admin extends Controller {
 				if ($candidate = $this->session->flashdata('candidate'))
 					$data['candidate'] = $candidate;
 				else
-					$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'description'=>'', 'party_id'=>'', 'position_id'=>'');
+					$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'', 'position_id'=>'');
 				$data['action'] = 'add';
 				$admin['title'] = e('admin_add_candidate_title');
 				$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
@@ -860,6 +860,7 @@ class Admin extends Controller {
 		}
 		$candidate['first_name'] = $this->input->post('first_name', TRUE);
 		$candidate['last_name'] = $this->input->post('last_name', TRUE);
+		$candidate['alias'] = $this->input->post('alias', TRUE);
 		$candidate['description'] = $this->input->post('description', TRUE);
 		$candidate['party_id'] = $this->input->post('party_id', TRUE);
 		$candidate['position_id'] = $this->input->post('position_id', TRUE);
@@ -920,6 +921,7 @@ class Admin extends Controller {
 		}
 		$candidate['first_name'] = $this->input->post('first_name', TRUE);
 		$candidate['last_name'] = $this->input->post('last_name', TRUE);
+		$candidate['alias'] = $this->input->post('alias', TRUE);
 		$candidate['description'] = $this->input->post('description', TRUE);
 		$candidate['party_id'] = $this->input->post('party_id', TRUE);
 		$candidate['position_id'] = $this->input->post('position_id', TRUE);

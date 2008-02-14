@@ -53,6 +53,9 @@
 		<td width="5%" align="center"><?= ($i+1); ?></td>
 		<td width="30%">
 			<?= anchor('admin/edit/candidate/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
+			<?php if (!empty($candidate['alias'])): ?>
+			<?= '"' . $candidate['alias'] . '"'; ?>
+			<?php endif; ?>
 		</td>
 		<td width="50%">
 			<?= nl2br($candidate['description']); ?>
