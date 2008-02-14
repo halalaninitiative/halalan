@@ -1,5 +1,5 @@
 Halalan
-Version 1.1.0
+Version 1.1.1
 http://halalan.sourceforge.net
 http://halalan.googlecode.com
 Copyright (C) 2006-2008 UP Linux Users' Group
@@ -7,7 +7,7 @@ Copyright (C) 2006-2008 UP Linux Users' Group
 
 VERSION FEATURES:
 
-Updated framework, import/export of voters, updated admin interface, and some minor changes.
+Fix a critical bug wherein voters' specific positions are deleted when they log in.
 
 
 INSTALLATION:
