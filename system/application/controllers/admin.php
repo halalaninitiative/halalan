@@ -58,8 +58,8 @@ class Admin extends Controller {
 		$option = $this->Option->select($id);
 		if (!$option)
 			redirect('admin/home');
-		$option['status'] = $this->input->post('status');
-		$option['result'] = $this->input->post('result');
+		$option['status'] = $this->input->post('status', TRUE);
+		$option['result'] = $this->input->post('result', TRUE);
 		$this->load->model('Option');
 		$this->Option->update($option, $id);
 		$success[] = e('admin_edit_option_success');
@@ -495,10 +495,10 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_voter_no_first_name');
 		}
-		$voter['username'] = $this->input->post('username');
-		$voter['last_name'] = $this->input->post('last_name');
-		$voter['first_name'] = $this->input->post('first_name');
-		$voter['chosen'] = $this->input->post('chosen');
+		$voter['username'] = $this->input->post('username', TRUE);
+		$voter['last_name'] = $this->input->post('last_name', TRUE);
+		$voter['first_name'] = $this->input->post('first_name', TRUE);
+		$voter['chosen'] = $this->input->post('chosen', TRUE);
 		if (empty($error))
 		{
 			$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
@@ -588,10 +588,10 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_voter_no_first_name');
 		}
-		$voter['username'] = $this->input->post('username');
-		$voter['last_name'] = $this->input->post('last_name');
-		$voter['first_name'] = $this->input->post('first_name');
-		$voter['chosen'] = $this->input->post('chosen');
+		$voter['username'] = $this->input->post('username', TRUE);
+		$voter['last_name'] = $this->input->post('last_name', TRUE);
+		$voter['first_name'] = $this->input->post('first_name', TRUE);
+		$voter['chosen'] = $this->input->post('chosen', TRUE);
 		if (empty($error))
 		{
 			if ($this->input->post('password'))
@@ -660,8 +660,8 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_party_no_party');
 		}
-		$party['party'] = $this->input->post('party');
-		$party['description'] = $this->input->post('description');
+		$party['party'] = $this->input->post('party', TRUE);
+		$party['description'] = $this->input->post('description', TRUE);
 		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
 		{
 			$config['upload_path'] = $this->config->item('upload_path') . 'logos/';
@@ -709,8 +709,8 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_party_no_party');
 		}
-		$party['party'] = $this->input->post('party');
-		$party['description'] = $this->input->post('description');
+		$party['party'] = $this->input->post('party', TRUE);
+		$party['description'] = $this->input->post('description', TRUE);
 		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
 		{
 			$config['upload_path'] = $this->config->item('upload_path') . 'logos/';
@@ -771,12 +771,12 @@ class Admin extends Controller {
 			if (!ctype_digit($this->input->post('ordinality')))
 				$error[] = e('admin_position_ordinality_not_digit');
 		}
-		$position['position'] = $this->input->post('position');
-		$position['description'] = $this->input->post('description');
-		$position['maximum'] = $this->input->post('maximum');
-		$position['ordinality'] = $this->input->post('ordinality');
-		$position['abstain'] = $this->input->post('abstain');
-		$position['unit'] = $this->input->post('unit');
+		$position['position'] = $this->input->post('position', TRUE);
+		$position['description'] = $this->input->post('description', TRUE);
+		$position['maximum'] = $this->input->post('maximum', TRUE);
+		$position['ordinality'] = $this->input->post('ordinality', TRUE);
+		$position['abstain'] = $this->input->post('abstain', TRUE);
+		$position['unit'] = $this->input->post('unit', TRUE);
 		if (empty($error))
 		{
 			$this->load->model('Position');
@@ -823,12 +823,12 @@ class Admin extends Controller {
 			if (!ctype_digit($this->input->post('ordinality')))
 				$error[] = e('admin_position_ordinality_not_digit');
 		}
-		$position['position'] = $this->input->post('position');
-		$position['description'] = $this->input->post('description');
-		$position['maximum'] = $this->input->post('maximum');
-		$position['ordinality'] = $this->input->post('ordinality');
-		$position['abstain'] = $this->input->post('abstain');
-		$position['unit'] = $this->input->post('unit');
+		$position['position'] = $this->input->post('position', TRUE);
+		$position['description'] = $this->input->post('description', TRUE);
+		$position['maximum'] = $this->input->post('maximum', TRUE);
+		$position['ordinality'] = $this->input->post('ordinality', TRUE);
+		$position['abstain'] = $this->input->post('abstain', TRUE);
+		$position['unit'] = $this->input->post('unit', TRUE);
 		if (empty($error))
 		{
 			$this->Position->update($position, $id);
@@ -858,11 +858,11 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_candidate_no_position');
 		}
-		$candidate['first_name'] = $this->input->post('first_name');
-		$candidate['last_name'] = $this->input->post('last_name');
-		$candidate['description'] = $this->input->post('description');
-		$candidate['party_id'] = $this->input->post('party_id');
-		$candidate['position_id'] = $this->input->post('position_id');
+		$candidate['first_name'] = $this->input->post('first_name', TRUE);
+		$candidate['last_name'] = $this->input->post('last_name', TRUE);
+		$candidate['description'] = $this->input->post('description', TRUE);
+		$candidate['party_id'] = $this->input->post('party_id', TRUE);
+		$candidate['position_id'] = $this->input->post('position_id', TRUE);
 		if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
 		{
 			$config['upload_path'] = $this->config->item('upload_path') . 'pictures/';
@@ -918,11 +918,11 @@ class Admin extends Controller {
 		{
 			$error[] = e('admin_candidate_no_position');
 		}
-		$candidate['first_name'] = $this->input->post('first_name');
-		$candidate['last_name'] = $this->input->post('last_name');
-		$candidate['description'] = $this->input->post('description');
-		$candidate['party_id'] = $this->input->post('party_id');
-		$candidate['position_id'] = $this->input->post('position_id');
+		$candidate['first_name'] = $this->input->post('first_name', TRUE);
+		$candidate['last_name'] = $this->input->post('last_name', TRUE);
+		$candidate['description'] = $this->input->post('description', TRUE);
+		$candidate['party_id'] = $this->input->post('party_id', TRUE);
+		$candidate['position_id'] = $this->input->post('position_id', TRUE);
 		if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
 		{
 			$config['upload_path'] = $this->config->item('upload_path') . 'pictures/';
@@ -1013,7 +1013,7 @@ class Admin extends Controller {
 	function do_import()
 	{
 		$error = array();
-		$import['chosen'] = $this->input->post('chosen');
+		$import['chosen'] = $this->input->post('chosen', TRUE);
 		$config['upload_path'] = $this->config->item('upload_path') . 'csvs/';
 		$config['allowed_types'] = 'csv';
 		$this->upload->initialize($config);
@@ -1038,7 +1038,7 @@ class Admin extends Controller {
 				$voter['last_name'] = trim(strip_quotes($tmp[1]));
 				$voter['first_name'] = trim(strip_quotes($tmp[2]));
 				$voter['voted'] = FALSE;
-				$voter['chosen'] = $this->input->post('chosen');
+				$voter['chosen'] = $this->input->post('chosen', TRUE);
 				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
 				{
 					$this->Boter->insert($voter);
