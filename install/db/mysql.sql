@@ -19,6 +19,7 @@ CREATE TABLE candidates (
   id integer NOT NULL auto_increment,
   first_name varchar(63) NOT NULL,
   last_name varchar(31) NOT NULL,
+  alias varchar(15),
   party_id integer NOT NULL,
   position_id integer NOT NULL,
   description text,
@@ -29,6 +30,7 @@ CREATE TABLE candidates (
 CREATE TABLE parties (
   id integer NOT NULL auto_increment,
   party varchar(63) NOT NULL,
+  alias varchar(15),
   description text,
   logo char(40),
   PRIMARY KEY  (id)
