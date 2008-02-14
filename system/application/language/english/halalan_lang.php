@@ -64,6 +64,8 @@ $lang['halalan_voter_confirm_vote_no_pin'] = 'No PIN entered';
 $lang['halalan_voter_confirm_vote_not_pin'] = 'Incorrect PIN';
 // logout
 $lang['halalan_voter_logout_title'] = 'Logout';
+// votes
+$lang['halalan_voter_votes_title'] = 'Votes';
 
 // views/voter/vote.php
 $lang['halalan_voter_vote_submit_button'] = 'Vote';
@@ -77,6 +79,9 @@ $lang['halalan_voter_confirm_vote_reminder'] = 'Once you press the confirm butto
 
 // views/voter/logout.php
 $lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
+
+// views/voter/votes.php
+$lang['halalan_voter_votes_no_candidates'] = 'No candidates found.';
 
 // controllers/admin.php
 // commont to all functions

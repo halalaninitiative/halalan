@@ -8,12 +8,24 @@ class Voter extends Controller {
 	function Voter()
 	{
 		parent::Controller();
-		$this->voter = $this->session->userdata('voter');
-		if (!$this->voter)
+		if ($this->uri->segment(2) != 'votes')
 		{
-			$error[] = e('common_unauthorized');
-			$this->session->set_flashdata('error', $error);
-			redirect('gate/voter');
+			$this->voter = $this->session->userdata('voter');
+			if (!$this->voter)
+			{
+				$error[] = e('common_unauthorized');
+				$this->session->set_flashdata('error', $error);
+				redirect('gate/voter');
+			}
+		}
+		else
+		{
+			if (!$this->session->userdata('voter_id'))
+			{
+				$error[] = e('common_unauthorized');
+				$this->session->set_flashdata('error', $error);
+				redirect('gate/voter');
+			}
 		}
 		$this->settings = $this->config->item('halalan');
 		$this->load->model('Option');
@@ -233,6 +245,58 @@ class Voter extends Controller {
 		$main['title'] = e('voter_logout_title');
 		$main['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';
 		$main['body'] = $this->load->view('voter/logout', '', TRUE);
+		$this->load->view('main', $main);
+	}
+
+	function votes()
+	{
+		$voter_id = $this->session->userdata('voter_id');
+		$this->load->model('Abstain');
+		$this->load->model('Boter');
+		$this->load->model('Candidate');
+		$this->load->model('Party');
+		$this->load->model('Position');
+		$this->load->model('Vote');
+		$votes = $this->Vote->select_all_by_voter_id($voter_id);
+		$candidate_ids = array();
+		foreach ($votes as $vote)
+		{
+			$candidate_ids[] = $vote['candidate_id'];
+		}
+		$positions = $this->Position->select_all_with_units($voter_id);
+		foreach ($positions as $key=>$position)
+		{
+			$count = 0;
+			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
+			foreach ($candidates as $k=>$candidate)
+			{
+				if (in_array($candidate['id'], $candidate_ids))
+				{
+					$candidates[$k]['voted'] = TRUE;
+				}
+				else
+				{
+					$candidates[$k]['voted'] = FALSE;
+					$count++;
+				}
+				$candidates[$k]['party'] = $this->Party->select($candidate['party_id']);
+			}
+			if ($count == count($candidates))
+			{
+				$positions[$key]['abstains'] = TRUE;
+			}
+			else
+			{
+				$positions[$key]['abstains'] = FALSE;
+			}
+			$positions[$key]['candidates'] = $candidates;
+		}
+		$voter = $this->Boter->select($voter_id);
+		$data['settings'] = $this->config->item('halalan');
+		$data['positions'] = $positions;
+		$data['username'] = $voter['username'];
+		$main['title'] = e('voter_votes_title');
+		$main['body'] = $this->load->view('voter/votes', $data, TRUE);
 		$this->load->view('main', $main);
 	}
 
