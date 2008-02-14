@@ -18,10 +18,21 @@
 	<div id="header">
 		<div id="header_bg">
 			<div id="header_left">
+				<?php
+					$CI =& get_instance();
+					$special = $CI->config->item('halalan');
+				?>
+				<?php if (isset($special['v']) && $special['v']): ?>
+				<?= img('public/images/logo_admin_v.png'); ?>
+				<?php else: ?>
+				<?= img('public/images/logo_admin.png'); ?>
+				<?php endif; ?>
+<!--
 				<h1>
 					<?= anchor(site_url(), 'Halalan'); ?>
 					<span>administration</span>
 				</h1>
+-->
 			</div>
 			<div id="header_right">
 				<p>LOGGED IN AS <?= strtoupper($username); ?> | <?= anchor('gate/logout', 'LOGOUT'); ?></p>
