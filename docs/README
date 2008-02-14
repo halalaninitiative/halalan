@@ -1,13 +1,13 @@
 Halalan
-Version 1.0.1
+Version 1.1.0
 http://halalan.sourceforge.net
-http://sourceforge.net/projects/halalan
-Copyright (C) 2006-2007 UP Linux Users' Group
+http://halalan.googlecode.com
+Copyright (C) 2006-2008 UP Linux Users' Group
 
 
 VERSION FEATURES:
 
-Minor fixes and complete Filipino language file.
+Updated framework, import/export of voters, updated admin interface, and some minor changes.
 
 
 INSTALLATION:
@@ -46,3 +46,4 @@ Parts of this distribution consist of the following:
 CodeIgniter http://www.codeigniter.com - CodeIgniter License Agreement
 DOM Tooltip http://www.mojavelinux.com/projects/domtooltip - Apache License
 Oxygen Icons http://www.oxygen-icons.org - GNU Library General Public License
+Design derived from http://www.openwebdesign.org/design/4369/atrandafir582 - Public Domain

@@ -1,8 +1,8 @@
 Halalan
-Version 1.0.1
+Version 1.1.0
 http://halalan.sourceforge.net
-http://sourceforge.net/projects/halalan
-Copyright (C) 2006-2007 UP Linux Users' Group
+http://halalan.googlecode.com
+Copyright (C) 2006-2008 UP Linux Users' Group
 
 
 REQUIREMENTS:
@@ -20,5 +20,5 @@ INSTALLATION:
 --- Input the database settings at system/application/config/database.php
 --- Go to the Halalan URL + install (Ex. http://localhost/halalan/install)
 --- Copy the generated configuration to system/application/config/halalan.php
---- Create writable directories: public/captcha, public/uploads/logos, public/uploads/pictures
+--- Create writable directories: public/captcha, public/uploads/logos, public/uploads/pictures, public/uploads/csvs
 --- That's all
