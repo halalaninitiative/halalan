@@ -36,15 +36,14 @@ class Boter extends Model {
 		if (isset($voter['chosen']))
 		{
 			$chosen = $voter['chosen'];
-			unset($voter['chosen']);			
+			unset($voter['chosen']);
+			$voter_id = $id;
+			$this->db->where(compact('voter_id'));
+			$this->db->delete('positions_voters');
 		}
 		$this->db->update('voters', $voter, compact('id'));
-		$voter_id = $id;
-		$this->db->where(compact('voter_id'));
-		
 		if (!empty($chosen))
 		{
-			$this->db->delete('positions_voters');
 			foreach ($chosen as $position_id)
 			{
 				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
