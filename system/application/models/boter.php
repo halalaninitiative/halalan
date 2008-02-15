@@ -42,6 +42,7 @@ class Boter extends Model {
 			$this->db->delete('positions_voters');
 		}
 		$this->db->update('voters', $voter, compact('id'));
+
 		if (!empty($chosen))
 		{
 			foreach ($chosen as $position_id)
