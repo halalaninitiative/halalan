@@ -655,10 +655,16 @@ class Admin extends Controller {
 
 	function do_add_party()
 	{
+		$this->load->model('Party');
 		$error = array();
 		if (!$this->input->post('party'))
 		{
 			$error[] = e('admin_party_no_party');
+		}
+		else
+		{
+			if ($test = $this->Party->select_by_party($this->input->post('party')))
+				$error[] = e('admin_party_exists') . ' (' . $test['party'] . ')';
 		}
 		$party['party'] = $this->input->post('party', TRUE);
 		$party['alias'] = $this->input->post('alias', TRUE);
@@ -750,10 +756,16 @@ class Admin extends Controller {
 
 	function do_add_position()
 	{
+		$this->load->model('Position');
 		$error = array();
 		if (!$this->input->post('position'))
 		{
 			$error[] = e('admin_position_no_position');
+		}
+		else
+		{
+			if ($test = $this->Position->select_by_position($this->input->post('position')))
+				$error[] = e('admin_position_exists') . ' (' . $test['position'] . ')';
 		}
 		if (!$this->input->post('maximum'))
 		{
@@ -847,6 +859,7 @@ class Admin extends Controller {
 
 	function do_add_candidate()
 	{
+		$this->load->model('Candidate');
 		$error = array();
 		if (!$this->input->post('first_name'))
 		{
@@ -859,6 +872,13 @@ class Admin extends Controller {
 		if (!$this->input->post('position_id'))
 		{
 			$error[] = e('admin_candidate_no_position');
+		}
+		if ($test = $this->Candidate->select_by_name_and_alias($this->input->post('first_name'), $this->input->post('last_name'), $this->input->post('alias')))
+		{
+			$name = $test['last_name'] . ', ' . $test['first_name'];
+			if (!empty($test['alias']))
+				$name .= ' "' . $test['alias'] . '"';
+			$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
 		}
 		$candidate['first_name'] = $this->input->post('first_name', TRUE);
 		$candidate['last_name'] = $this->input->post('last_name', TRUE);

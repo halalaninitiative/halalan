@@ -127,6 +127,7 @@ $lang['halalan_admin_add_voter_success'] = 'Matagumpay na naidagdag ang botante.
 $lang['halalan_admin_edit_voter_success'] = 'Matagumpay na nabago ang botante.';
 // common to do_add_party and do_edit_party
 $lang['halalan_admin_party_no_party'] = 'Kinakailangan ang partido.';
+$lang['halalan_admin_party_exists'] = 'Mayroon nang ganitong partido.';
 // do_add_party
 $lang['halalan_admin_add_party_success'] = 'Matagumpay na naidagdag ang partido.';
 // do_edit_party
@@ -134,6 +135,7 @@ $lang['halalan_admin_edit_party_success'] = 'Matagumpay na nabago ang partido.';
 // common to do_add_position and do_edit_position
 $lang['halalan_admin_position_no_position'] = 'Kinakailangan ang posisyon.';
 $lang['halalan_admin_position_no_maximum'] = 'Kinakailangan ang dami ng maaaring iboto.';
+$lang['halalan_admin_position_exists'] = 'Mayroon nang ganitong posisyon.';
 $lang['halalan_admin_position_maximum_not_digit'] = 'Ang dami ng maaaring iboto ay dapat isang bilang.';
 $lang['halalan_admin_position_no_ordinality'] = 'Kinakailangan ang posisyon sa pagkakasunod-sunod.';
 $lang['halalan_admin_position_ordinality_not_digit'] = 'Ang posisyon sa pagkakasunod-sunod ay dapat isang bilang.';
@@ -145,6 +147,7 @@ $lang['halalan_admin_edit_position_success'] = 'Matagumpay na nabago ang posisyo
 $lang['halalan_admin_candidate_no_first_name'] = 'Kinakailangan ang pangalan.';
 $lang['halalan_admin_candidate_no_last_name'] = 'Kinakailangang ang apelyido.';
 $lang['halalan_admin_candidate_no_position'] = 'Kinakailangan ang posisyon.';
+$lang['halalan_admin_candidate_exists'] = 'Mayroon nang ganitong kandidato.';
 // do_add_candidate
 $lang['halalan_admin_add_candidate_success'] = 'Matagumpay na naidagdag ang kandidato.';
 // do_edit_candidate

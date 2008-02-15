@@ -133,6 +133,7 @@ $lang['halalan_admin_add_voter_success'] = 'The voter has been successfully adde
 $lang['halalan_admin_edit_voter_success'] = 'The voter has been successfully edited.';
 // common to do_add_party and do_edit_party
 $lang['halalan_admin_party_no_party'] = 'Party is required';
+$lang['halalan_admin_party_exists'] = 'Party already exists';
 // do_add_party
 $lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
 // do_edit_party
@@ -140,6 +141,7 @@ $lang['halalan_admin_edit_party_success'] = 'The party has been successfully edi
 // common to do_add_position and do_edit_position
 $lang['halalan_admin_position_no_position'] = 'Position is required';
 $lang['halalan_admin_position_no_maximum'] = 'Maximum is required';
+$lang['halalan_admin_position_exists'] = 'Position already exists';
 $lang['halalan_admin_position_maximum_not_digit'] = 'Maximum should be a digit';
 $lang['halalan_admin_position_no_ordinality'] = 'Ordinality is required';
 $lang['halalan_admin_position_ordinality_not_digit'] = 'Ordinality should be a digit';
@@ -151,6 +153,7 @@ $lang['halalan_admin_edit_position_success'] = 'The position has been successful
 $lang['halalan_admin_candidate_no_first_name'] = 'First name is required';
 $lang['halalan_admin_candidate_no_last_name'] = 'Last name is required';
 $lang['halalan_admin_candidate_no_position'] = 'Position is required';
+$lang['halalan_admin_candidate_exists'] = 'Candidate already exists';
 // do_add_candidate
 $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
 // do_edit_candidate

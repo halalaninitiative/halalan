@@ -69,6 +69,14 @@ class Position extends Model {
 		return $query->result_array();
 	}
 
+	function select_by_position($position)
+	{
+		$this->db->from('positions');
+		$this->db->where(compact('position'));
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+
 	function in_used($position_id)
 	{
 		$this->db->from('candidates');

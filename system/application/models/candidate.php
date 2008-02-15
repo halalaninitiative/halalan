@@ -39,6 +39,14 @@ class Candidate extends Model {
 		return $query->result_array();
 	}
 
+	function select_by_name_and_alias($first_name, $last_name, $alias)
+	{
+		$this->db->from('candidates');
+		$this->db->where(compact('first_name', 'last_name', 'alias'));
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+
 	function has_votes($candidate_id)
 	{
 		$this->db->from('votes');
