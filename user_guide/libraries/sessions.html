@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -103,7 +103,7 @@ even add your own data to a user's session, but the process of reading, writing,
 <li>The user's unique Session ID (this is a statistically random string with very strong entropy, hashed with MD5 for portability, and regenerated (by default) every five minutes)</li>
 <li>The user's IP Address</li>
 <li>The user's User Agent data (the first 50 characters of the browser data string)</li>
-<li>The "last activity" and "last visit" time stamps.</li>
+<li>The "last activity"  time stamp.</li>
 </ul>
 
 <p>The above data is stored in a cookie as a serialized array with this prototype:</p>
@@ -113,8 +113,7 @@ even add your own data to a user's session, but the process of reading, writing,
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'session_id'&nbsp;&nbsp;&nbsp;&nbsp;=> random hash,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'ip_address'&nbsp;&nbsp;&nbsp;&nbsp;=> 'string - user IP address',<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_agent'&nbsp;&nbsp;&nbsp;&nbsp;=> 'string - user agent data',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'last_activity' => timestamp,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'last_visit'&nbsp;&nbsp;&nbsp;&nbsp;=> timestamp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'last_activity' => timestamp<br />
 )</code>
 
 <p>If you have the encryption option enabled, the serialized array will be encrypted before being stored in the cookie,
@@ -269,7 +268,7 @@ do not need to write your own routine to do it.</p>
 <tr>
     <td class="td"><strong>sess_time_to_update</strong></td>
     <td class="td">300</td>
-    <td class="td">Time in milliseconds</td>
+    <td class="td">Time in seconds</td>
     <td class="td">This options controls how often the session class will regenerate itself and create a new session id.</td>
 </tr>
 <tr>
@@ -300,7 +299,7 @@ Previous Topic:&nbsp;&nbsp;<a href="pagination.html">Pagination Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="trackback.html">Trackback Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

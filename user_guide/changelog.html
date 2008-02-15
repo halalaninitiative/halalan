@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.0</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
 <td id="breadcrumb_right"><a href="./toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -56,6 +56,50 @@ Change Log
 <div id="content">
 
 <h1>Change Log</h1>
+
+
+<h2>Version 1.6.1</h2>
+<p>Release Date: February 12, 2008</p>
+
+<ul>
+	<li>Active Record 
+		<ul>
+			<li>Added <a href="./database/active_record.html#caching">Active Record Caching</a>.</li>
+			<li>Made Active Record fully database-prefix aware</li>
+		</ul>
+	</li>
+	<li>Database drivers
+		<ul>
+			<li>Added support for setting client character set and collation for MySQLi</li>
+		</ul>
+	</li>
+	<li>Core Changes
+		<ul>
+			<li>Modified xss_clean() to be more intelligent with its handling of URL encoded strings.</li>
+			<li>Added $_SERVER, $_FILES, $_ENV, and $_SESSION to sanitization of globals.</li>
+		    <li>Added a <a href="./helpers/path_helper.html">Path Helper</a>.</li>
+			<li>Simplified _reindex_segments() in the URI class</li>
+		</ul>
+	</li>
+</ul>
+
+
+<h3>Bugfixes for 1.6.1</h3>
+<ul>
+	<li>Deprecated is_numeric as a validation rule. Use of numeric and integer are preferred.</li>
+	<li>Fixed bug (#3379) in DBForge with SQLite for table creation.</li>
+	<li>Made Active Record fully database prefix aware (#3384)</li>
+	<li>Fixed a bug where DBForge was outputting invalid SQL in Postgres by adding brackets around the tables in FROM</li>
+	<li>Changed the behaviour of Active Record's update() to make the WHERE clause optional (#3395).</li>
+    <li>Fixed a bug (#3396) where certain POST variables would cause a PHP warning.</li>
+    <li>Fixed a bug in query binding (#3402).</li>
+	<li>Changed order of SQL keywords in the Profiler $highlight array so OR would not be highlighted before ORDER BY</li>
+	<li>Fixed a bug (#3404) where the MySQLi driver was testing if $this->conn_id was a resource instead of an object.</li>
+	<li>Fixed a bug (#3419) connecting to a database via a DSN string.</li>
+	<li>Fixed a bug (#3445) where the routed segment array was not re-indexed to begin with 1 when the default controller is used.</li>
+	<li>Fixed assorted user guide typos.</li>
+</ul>
+
 
 
 <h2>Version 1.6.0</h2>
@@ -433,7 +477,7 @@ Change Log
 <li>Deprecated the hash() function due to a naming conflict with a native PHP function with the same name.  Please use <kbd>dohash()</kbd> instead.</li>
 <li>Fixed an bug that was preventing the input class from unsetting GET variables.</li>
 <li>Fixed a router bug that was making it too greedy when matching end segments.</li>
-<li>Fixed a bug that was preventing multiple discreet database calls.</li>
+<li>Fixed a bug that was preventing multiple discrete database calls.</li>
 <li>Fixed a bug in which loading a language file was producing a "file contains no data" message.</li>
 <li>Fixed a session bug caused by the XSS Filtering feature inadvertently changing the case of certain words.</li>
 <li>Fixed some missing prefixes when using the database prefix feature.</li>
@@ -612,7 +656,7 @@ Previous Topic:&nbsp;&nbsp;<a href="license.html">License Agreement</a>
 <a href="index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="./general/credits.html">Credits</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2007 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>
