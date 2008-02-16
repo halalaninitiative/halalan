@@ -39,7 +39,7 @@
 			<img src="<?= base_url(); ?>public/images/x.png" />
 			<?php endif; ?>
 		</td>
-		<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $voter['last_name'] . ', ' . $voter['first_name'] . '\', \'' . site_url('admin/delete/voter/' . $voter['id']) . '\');return false;"'); ?></a></td>
+		<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '"'); ?></a></td>
 	</tr>
 	<?php $j++; ?>
 	<?php $i = $i + 1; ?>

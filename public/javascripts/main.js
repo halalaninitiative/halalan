@@ -1,9 +1,3 @@
-function confirmDelete(name, url)
-{
-	var answer = confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
-	if (answer)
-		document.location.href = url;
-}
 
 function copyToList(from,to)
 {
@@ -94,6 +88,7 @@ function restoreState(checkboxes) {
 			inputs[i].disabled = true;
 	}
 }
+
 function in_array(needle, haystack) {
 	for(var i = 0; i < haystack.length; i++) {
 		if(haystack[i] == needle)
@@ -107,8 +102,8 @@ function checkCookie() {
 		restoreState(checkboxes);
 }
 
-/* jQuery code */
-function on_status_button_clicked() {
+/* jQuery event handlers */
+function change_election_status() {
 	var result = $("tr.result");
 	var buttons = $("input[type=radio][name=result]");
 
@@ -121,9 +116,16 @@ function on_status_button_clicked() {
 	}
 }
 
+function confirm_delete() {
+	var edit_url = $(this).attr("href").replace('delete', 'edit');
+	var name = $("a[href=" + edit_url + "][title!=Edit]").text();
+	return confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
+}
+
 $(document).ready(function() {
-	/* Bind events */
-	$("input[type=radio][name=status]").click(on_status_button_clicked);
+	/* Bind handlers to events */
+	$("input[type=radio][name=status]").click(change_election_status);
+	$("a[title=Delete]").click(confirm_delete);
 
 	/* Init */
 	if ($("input[type=radio][name=status][value=1]").attr("checked")) {

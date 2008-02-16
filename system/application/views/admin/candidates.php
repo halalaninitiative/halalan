@@ -60,7 +60,7 @@
 		<td width="50%">
 			<?= nl2br($candidate['description']); ?>
 		</td>
-		<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '" onclick="confirmDelete(\'' . $candidate['last_name'] . ', ' . $candidate['first_name'] . '\', \'' . site_url('admin/delete/candidate/' . $candidate['id']) . '\');return false;"'); ?></a></td>
+		<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '"'); ?></a></td>
 	</tr>
 	<?php $i = $i + 1; ?>
 	<?php endforeach; ?>
