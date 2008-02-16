@@ -59,16 +59,7 @@ function checkNumber(field, name, form, limit) {
 		alert("You are over the allowed limit");
 	}
 }
-function manipulateCheckBoxes(field, name, form) {
-	var group = form.elements[name];
-	for(var i = 0; i < group.length; i++) {
-		if(field.checked)
-			group[i].disabled = true;
-		else
-			group[i].disabled = false;
-	}
-	field.disabled = false;
-}
+
 function saveState() {
 	var inputs = document.getElementsByTagName("input");
 	var checkboxes = new Array();
@@ -122,13 +113,19 @@ function confirm_delete() {
 	return confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
 }
 
+function abstain_position() {
+	var name = $(this).attr("name");
+	$("input[type=checkbox][name='" + name + "'][value!='']").attr("disabled", this.checked);
+}
+
 $(document).ready(function() {
 	/* Bind handlers to events */
 	$("input[type=radio][name=status]").click(change_election_status);
 	$("a[title=Delete]").click(confirm_delete);
+	$("input.abstain_position").click(abstain_position);
 
 	/* Init */
 	if ($("input[type=radio][name=status][value=1]").attr("checked")) {
-		$("input[type=radio][name=status][value=1]").trigger("click");
+		$("input[type=radio][name=status][value=1]").click();
 	}
 });

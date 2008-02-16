@@ -1,5 +1,5 @@
 <script>
-window.onload = checkCookie;
+$(document).ready(checkCookie);
 </script>
 
 <div class="menu">
@@ -96,7 +96,7 @@ window.onload = checkCookie;
 				?>
 				<?php if ($positions[$i]['abstain'] == TRUE): ?>
 				<tr>
-					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'onclick'=>'manipulateCheckBoxes(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form);')); ?></td>
+					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstain_position', 'checked'=>$checked, 'value'=>'')); ?></td>
 					<td width="95%">ABSTAIN</td>
 				</tr>
 				<?php endif; ?>
