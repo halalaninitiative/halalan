@@ -83,8 +83,31 @@ $(document).ready(checkCookie);
 						<?php endif; ?>
 					</td>
 					<?php if ($settings['show_candidate_details']): ?>
-					<td width="5%"><a href="#" title="Info on <?= $name; ?>" onclick="return makeFalse(domTT_activate(this, event, 'caption', '&lt;span style=&quot;width : 300px;&quot;&gt;&lt;strong&gt;Information&lt;/strong&gt;&lt;/span&gt;', 'content', setContent('<?= $candidate['id']; ?>', '<?= $name; ?>', '<?= $candidate['picture']; ?>', '<?= $candidate['description']; ?>', '<?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>', '<?= (isset($candidate['party']['logo']) && !empty($candidate['party']['logo'])) ? $candidate['party']['logo'] : ''; ?>',  '<?= base_url(); ?>/public/'), 'type', 'sticky', 'closeLink', '[X]', 'draggable', true));"><img src="<?= base_url(); ?>public/images/info.png" alt="info" /></a></td>
+					<td width="5%">
+						<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggle_details')); ?>
+					</td>
 					<?php endif; ?>
+				</tr>
+				<tr>
+					<td colspan="4">
+					<div style="display:none;" class="details">
+					<?php if (!empty($candidate['picture'])): ?>
+					<div style="float:left;padding-right:5px;">
+					<?= img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
+					</div>
+					<?php endif; ?>
+					<div style="float:left;">
+					Name: <?= $name; ?><br />
+					Party: <?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
+					</div>
+					<div class="clear"></div>
+					<?php if (!empty($candidate['description'])): ?>
+					<div><br />
+					<?= nl2br($candidate['description']); ?>
+					</div>
+					<?php endif; ?>
+					</div>
+					</td>
 				</tr>
 				<?php endforeach; ?>
 				<?php

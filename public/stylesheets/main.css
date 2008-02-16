@@ -156,87 +156,9 @@ fieldset {
     text-align : left;
   }
 
-
-/* Admin Styles */
-
-.admin_menu {
-    width : 720px;
-    margin : 0 auto 20px auto;
-    font-family : Verdana, Helvetica, Arial, sans-serif;
-    border-top : 1px solid #BBBBBB;
-    border-bottom : 1px solid #BBBBBB;
-    background-color : #AAFFAA;
-  }
-
-.header {
-    font-family : Verdana, Helvetica, Arial, sans-serif;
-    font-weight : bold;
-  }
-
-.admin_inner_center_body {
-    margin : 0 auto;
-    width : 680px;
-    padding : 0 0 0 0;
-}
-
-.add_voter,.add_voter_submit {
-
-	padding-left: 20%;
-	padding-right: 20%;	
-
-}
-
-.add_voter input {
-	
-	border: 1px solid black;
-	font-size: 15px;
-	width: 100%;
-}
-
-.add_voter_submit input {
-	
-	border: 1px solid black;
-	font-size: 15px;	
-	width: 70%;
-}
-
-/*a:link {
-	color: black; 
-	text-decoration: none;
-}
-
-a:hover {
-	color: green; 
-	text-decoration: none;
-	font-weight : bold;
-}
-
-a:active {
-	color: green; 
-	text-decoration: none;
-	font-weight: bold;
-}
-
-a:visited {
-	color: black; 
-	text-decoration: none;
-	font-weight: none;
-}*/
-
-/* End Admin Styles */
-
-/* DOM Tooltip Style */
-div.domTT {
-    border: 1px solid #BBBBBB;
-    background-color: #E5E5E5;
-    font-family : Verdana, Helvetica, Arial, sans-serif;
-  }
-div.domTT .caption {
-    text-align: left;
-    background-color: #BBBBBB;
-    padding : 2px;
-}
-div.domTT .contents {
-    text-align: left;
-    padding : 2px;
+/* candidate details */
+div.details {
+    border: 1px solid #FFAAAA;
+    background-color: #FFE5E5;
+    padding: 5px;
 }

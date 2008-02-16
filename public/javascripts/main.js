@@ -29,25 +29,6 @@ function allSelect()
   }
 }
 
-function setContent(id, name, picture, description, party, logo, url) {
-	var ret = "";
-	ret += "<div style=\"width: 300px;\">";
-	ret += "<div style=\"float: left;\">";
-	if (picture == '')
-	ret += "<img src=\"" + url + "images/default.png\" alt=\"picture\" />";
-	else
-	ret += "<img src=\"" + url + "uploads/pictures/" + picture + "\" alt=\"picture\" />";
-	ret += "</div>";
-	ret += "<div style=\"float: left;\">";
-	ret += "Name: " + name;
-	ret += "<br />Party: " + party;
-	ret += "</div>";
-	ret += "</div>";
-	ret += "<div style=\"clear: both;\"></div>";
-	ret += "<div style=\"width: 300px;\">" + description + "</div>";
-	return ret;
-}
-
 function checkNumber(field, name, form, limit) {
 	var cntr = 0;
 	var group = form.elements[name];
@@ -118,11 +99,28 @@ function abstain_position() {
 	$("input[type=checkbox][name='" + name + "'][value!='']").attr("disabled", this.checked);
 }
 
+function toggle_details() {
+	/*
+		<tr> parent
+		<td> parent
+		<img /> this
+		</td>
+		</tr>
+		<tr> next
+		<td> children(0)
+		<div></div> children(0)
+		</td>
+		</tr>
+	*/
+	$(this).parent().parent().next().children(0).children(0).slideToggle('slow');
+}
+
 $(document).ready(function() {
 	/* Bind handlers to events */
 	$("a.confirm_delete").click(confirm_delete);
 	$("input.change_election_status").click(change_election_status);
 	$("input.abstain_position").click(abstain_position);
+	$("img.toggle_details").click(toggle_details);
 
 	/* Init */
 	if ($("input[type=radio][name=status][value=1]").attr("checked")) {
