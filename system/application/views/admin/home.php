@@ -28,10 +28,10 @@
 				Status:
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running
+				<label><?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running</label>
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running
+				<label><?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running</label>
 			</td>
 		</tr>
 		<tr class="result">
@@ -39,10 +39,10 @@
 				Result:
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> Show
+				<label><?= form_radio(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> Show</label>
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'result', 'value'=>FALSE, 'checked'=>(($option['result']) ? FALSE : TRUE))); ?> Hide
+				<label><?= form_radio(array('name'=>'result', 'value'=>FALSE, 'checked'=>(($option['result']) ? FALSE : TRUE))); ?> Hide</label>
 			</td>
 		</tr>
 		<tr>
