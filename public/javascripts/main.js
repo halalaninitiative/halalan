@@ -58,12 +58,13 @@ function toggle_details() {
 		</td>
 		</tr>
 	*/
-	$(this).parent().parent().next().children(0).children(0).slideToggle('slow');
+	$(this).parent().parent().next().children(0).children(0).slideToggle('normal');
+	return false;
 }
 
 $(document).ready(function() {
 	/* Bind handlers to events */
-	$("img.toggle_details").click(toggle_details);
+	$("a.toggle_details").click(toggle_details);
 	$("input.check_number").click(check_number);
 	$("input.abstain_position").click(abstain_position);
 	$("form.save_state").submit(save_state);

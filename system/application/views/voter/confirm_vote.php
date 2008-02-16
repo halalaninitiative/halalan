@@ -74,7 +74,9 @@
 					</td>
 					<?php if ($settings['show_candidate_details']): ?>
 					<td width="5%">
-						<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggle_details')); ?>
+						<a href="#" class="toggle_details">
+						<?= img(array('src'=>'public/images/info.png', 'alt'=>'info')); ?>
+						</a>
 					</td>
 					<?php endif; ?>
 				</tr>
