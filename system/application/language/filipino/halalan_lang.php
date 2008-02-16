@@ -73,6 +73,7 @@ $lang['halalan_voter_confirm_vote_validation_label'] = 'Pagkumpirma';
 $lang['halalan_voter_confirm_vote_captcha_label'] = 'Ilagay ang salita dito:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Ilagay ang PIN dito:';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Kumpirmahin';
+$lang['halalan_voter_confirm_vote_reminder'] = 'Hindi na maaaring baguhin ang boto matapos pindutin ang Kumpirmahin.';
 
 // views/voter/logout.php
 $lang['halalan_voter_logout_message'] = '<p>Salamat sa paggamit ng Halalan!</p><p>Ikaw ay na-i-log-out na.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
