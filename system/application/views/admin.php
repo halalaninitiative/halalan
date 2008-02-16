@@ -13,7 +13,7 @@
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT_drag.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/main.js"></script>
 </head>
-<body>
+<body onload="disableResult(<?= ($option['status']) ? TRUE : FALSE ?>)">
 <div id="wrap">
 	<div id="header">
 		<div id="header_bg">

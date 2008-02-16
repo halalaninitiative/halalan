@@ -126,3 +126,12 @@ function getCookie(c_name) {
 	}
 	return "";
 }
+
+function disableResult(bool) {
+	var buttons = document.getElementsByName("result");
+	if (bool && buttons[0].checked) {
+		alert("Results won't be shown while election is running.");
+	}
+	buttons[0].disabled = bool;
+	buttons[1].disabled = bool;
+}
