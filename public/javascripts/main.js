@@ -127,11 +127,26 @@ function getCookie(c_name) {
 	return "";
 }
 
-function disableResult(bool) {
-	var buttons = document.getElementsByName("result");
-	if (bool && buttons[0].checked) {
-		alert("Results won't be shown while election is running.");
+/* jQuery code */
+function on_status_button_clicked() {
+	var result = $("tr.result");
+	var buttons = $("input[type=radio][name=result]");
+
+	if ($(this).val() == "1") {
+		result.fadeTo(250, 0.5)
+		buttons.attr("disabled", true);
+	} else {
+		result.fadeTo(250, 1.0);
+		buttons.attr("disabled", false);
 	}
-	buttons[0].disabled = bool;
-	buttons[1].disabled = bool;
 }
+
+$(document).ready(function() {
+	/* Bind events */
+	$("input[type=radio][name=status]").click(on_status_button_clicked);
+
+	/* Init */
+	if ($("input[type=radio][name=status][value=1]").attr("checked")) {
+		$("input[type=radio][name=status][value=1]").trigger("click");
+	}
+});

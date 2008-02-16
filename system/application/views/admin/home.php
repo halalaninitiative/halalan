@@ -28,13 +28,13 @@
 				Status:
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE), 'onclick'=>'disableResult(1)')); ?> Running
+				<?= form_radio(array('name'=>'status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE), 'onclick'=>'disableResult(0)')); ?> Not Running
+				<?= form_radio(array('name'=>'status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running
 			</td>
 		</tr>
-		<tr>
+		<tr class="result">
 			<td align="right">
 				Result:
 			</td>
