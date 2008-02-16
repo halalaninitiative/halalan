@@ -68,8 +68,8 @@ $(document).ready(check_cookie);
 					$name = quotes_to_entities($name);
 				?>
 				<tr>
-					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'check_number')); ?></td>
-					<td width="70%"><?= $name; ?></td>
+					<td width="5%"><?= form_checkbox(array('id'=>'votes[' . $positions[$i]['id'] . '][]' . '_' . $candidate['id'], 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'check_number')); ?></td>
+					<td width="70%"><label for="<?= 'votes[' . $positions[$i]['id'] . '][]' . '_' . $candidate['id']; ?>"><?= $name; ?></td>
 					<?php if ($settings['show_candidate_details']): ?>
 					<td width="20%">
 					<?php else: ?>
@@ -120,8 +120,8 @@ $(document).ready(check_cookie);
 				?>
 				<?php if ($positions[$i]['abstain'] == TRUE): ?>
 				<tr>
-					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstain_position', 'checked'=>$checked, 'value'=>'')); ?></td>
-					<td width="95%">ABSTAIN</td>
+					<td width="5%"><?= form_checkbox(array('id'=>'votes[' . $positions[$i]['id'] . '][]' . '_abstain', 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstain_position', 'checked'=>$checked, 'value'=>'')); ?></td>
+					<td width="95%"><label for="<?= 'votes[' . $positions[$i]['id'] . '][]' . '_abstain'; ?>">ABSTAIN</label></td>
 				</tr>
 				<?php endif; ?>
 				<?php endif; ?>
