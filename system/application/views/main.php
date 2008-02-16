@@ -11,6 +11,8 @@
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domLib.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/domTT/domTT_drag.js"></script>
+  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.cookie.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/main.js"></script>
 </head>
 <body>
