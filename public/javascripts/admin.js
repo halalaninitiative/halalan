@@ -45,4 +45,5 @@ $(document).ready(function() {
 	if ($(":radio[name=status][value=1]").attr("checked")) {
 		$(":radio[name=status][value=1]").click();
 	}
+	$("#menu ul li a[href=" + window.location.href + "]").css("background", "#4179f3");
 });
