@@ -32,10 +32,12 @@ class Voter extends Controller {
 		$option = $this->Option->select(1);
 		if (!$option['status'])
 		{
-			$error[] = e('voter_common_not_running_one');
-			$error[] = e('voter_common_not_running_two');
-			$this->session->set_flashdata('error', $error);
-			redirect('gate/voter');
+			//$error[] = e('voter_common_not_running_one');
+			//$error[] = e('voter_common_not_running_two');
+			//$this->session->set_flashdata('error', $error);
+			//redirect('gate/voter');
+			//force logout
+			redirect('gate/logout');
 		}
 	}
 
