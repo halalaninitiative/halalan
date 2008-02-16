@@ -1,5 +1,5 @@
 <script>
-$(document).ready(checkCookie);
+$(document).ready(check_cookie);
 </script>
 
 <div class="menu">
@@ -27,7 +27,7 @@ $(document).ready(checkCookie);
 	</div>
 </div>
 <?php endif; ?>
-<?= form_open('voter/do_vote', array('onsubmit'=>'saveState();')); ?>
+<?= form_open('voter/do_vote', array('class'=>'save_state')); ?>
 <?php if (count($positions) == 0): ?>
 <div class="message">
 	<div class="message_header"><?= e('common_message_box'); ?></div>
@@ -48,6 +48,7 @@ $(document).ready(checkCookie);
 		<fieldset>
 			<legend><span class="position"><?= $positions[$i]['position']; ?></span> (<?= $positions[$i]['maximum']; ?>)</legend>
 			<table cellspacing="2" cellpadding="2">
+				<?= form_hidden('max_votes[' . $positions[$i]['id'] . '][]', $positions[$i]['maximum']); ?>
 				<?php if (empty($positions[$i]['candidates'])): ?>
 				<tr>
 					<td><em><?= e('voter_vote_no_candidates'); ?></em></td>
@@ -67,7 +68,7 @@ $(document).ready(checkCookie);
 					$name = quotes_to_entities($name);
 				?>
 				<tr>
-					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'onclick'=>'checkNumber(this, \'votes[' . $positions[$i]['id'] . '][]\', this.form, '. $positions[$i]['maximum'] . ');')); ?></td>
+					<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'check_number')); ?></td>
 					<td width="70%"><?= $name; ?></td>
 					<?php if ($settings['show_candidate_details']): ?>
 					<td width="20%">
