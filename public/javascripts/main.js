@@ -120,8 +120,8 @@ function abstain_position() {
 
 $(document).ready(function() {
 	/* Bind handlers to events */
-	$("input[type=radio][name=status]").click(change_election_status);
-	$("a[title=Delete]").click(confirm_delete);
+	$("a.confirm_delete").click(confirm_delete);
+	$("input.change_election_status").click(change_election_status);
 	$("input.abstain_position").click(abstain_position);
 
 	/* Init */

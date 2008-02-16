@@ -39,7 +39,7 @@
 			<img src="<?= base_url(); ?>public/images/x.png" />
 			<?php endif; ?>
 		</td>
-		<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', 'title="' . e('common_delete') . '"'); ?></a></td>
+		<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?></a></td>
 	</tr>
 	<?php $j++; ?>
 	<?php $i = $i + 1; ?>

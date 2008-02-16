@@ -28,10 +28,10 @@
 				Status:
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running
+				<?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running
 			</td>
 			<td>
-				<?= form_radio(array('name'=>'status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running
+				<?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running
 			</td>
 		</tr>
 		<tr class="result">
