@@ -42,7 +42,7 @@ function setContent(id, name, picture, description, party, logo, url) {
 	if (picture == '')
 	ret += "<img src=\"" + url + "images/default.png\" alt=\"picture\" />";
 	else
-	ret += "<img src=\"" + url + "uploads/" + id + "/" + picture + "\" alt=\"picture\" />";
+	ret += "<img src=\"" + url + "uploads/pictures/" + picture + "\" alt=\"picture\" />";
 	ret += "</div>";
 	ret += "<div style=\"float: left;\">";
 	ret += "Name: " + name;
