@@ -68,7 +68,7 @@ $(document).ready(check_cookie);
 				?>
 				<tr>
 					<td width="5%"><?= form_checkbox(array('id'=>'votes[' . $positions[$i]['id'] . '][]' . '_' . $candidate['id'], 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'check_number')); ?></td>
-					<td width="70%"><label for="<?= 'votes[' . $positions[$i]['id'] . '][]' . '_' . $candidate['id']; ?>"><?= $name; ?></td>
+					<td width="70%"><label for="<?= 'votes[' . $positions[$i]['id'] . '][]' . '_' . $candidate['id']; ?>"><?= $name; ?></label></td>
 					<?php if ($settings['show_candidate_details']): ?>
 					<td width="20%">
 					<?php else: ?>
