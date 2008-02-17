@@ -36,7 +36,7 @@ function save_state() {
 function check_number() {
 	if (this.disabled)
 		return;
-	var limit = $(this).parents("table").siblings("legend").text().split('(')[1].replace(')', '');
+	var limit = $(this).parents("table").siblings("h2").text().split('(')[1].replace(')', '');
 	var inputs = $(this).parents("tr").siblings().find(":checked");
 
 	if (inputs.length >= limit) {
