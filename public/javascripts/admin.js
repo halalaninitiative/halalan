@@ -28,11 +28,12 @@ function copy_selected() {
 	var to = ($(this).val() == "  >>  ") ? $("#chosen") : $("#possible");
 	var selected = from.children(":selected");
 
-	if (!selected.length)
+	if (!selected.length) {
 		alert ('You haven\'t selected any options!');
-
-	to.append(selected);
-	selected.attr("selected", false);
+	} else {
+		to.append(selected);
+		selected.attr("selected", false);
+	}
 }
 
 $(document).ready(function() {
@@ -45,5 +46,6 @@ $(document).ready(function() {
 	if ($(":radio[name=status][value=1]").attr("checked")) {
 		$(":radio[name=status][value=1]").click();
 	}
-	$("#menu ul li a[href=" + window.location.href + "]").css("background", "#4179f3");
+	var url = window.location.href.replace("import", "voters").replace("export", "voters");
+	$("#menu ul li a[href=" + url + "]").css("background", "#4179F3");
 });
