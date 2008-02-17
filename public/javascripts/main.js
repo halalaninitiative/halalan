@@ -1,7 +1,7 @@
 
 function in_array(needle, haystack) {
-	for(var i = 0; i < haystack.length; i++) {
-		if(haystack[i] == needle)
+	for (var i = 0; i < haystack.length; i++) {
+		if (haystack[i] == needle)
 			return true;
 	}
 	return false;
@@ -20,12 +20,11 @@ function check_cookie() {
 
 /* jQuery event handlers */
 function abstain_position() {
-	var name = $(this).attr("name");
-	$(":checkbox[name='" + name + "'][value!='']").attr("disabled", this.checked);
+	$(this).parents("tr").siblings().find(":checkbox").attr("disabled", this.checked);
 }
 
 function save_state() {
-	var inputs = $(":checkbox")
+	var inputs = $(":checkbox");
 	var checkboxes = new Array();
 	for (var i = 0; i < inputs.length; i++) {
 		if (inputs[i].disabled == true)
@@ -35,8 +34,10 @@ function save_state() {
 }
 
 function check_number() {
+	if (this.disabled)
+		return;
 	var limit = $(this).parents("table").siblings("legend").text().split('(')[1].replace(')', '');
-	var inputs = $(this).parents("tr").siblings("tr").find(":checked");
+	var inputs = $(this).parents("tr").siblings().find(":checked");
 
 	if (inputs.length >= limit) {
 		this.checked = false;
@@ -57,7 +58,7 @@ function toggle_details() {
 		</td>
 		</tr>
 	*/
-	$(this).parent().parent().next().children(0).children(0).slideToggle('normal');
+	$(this).parents("tr").next().find("div.details").slideToggle('normal');
 	return false;
 }
 

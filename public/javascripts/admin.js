@@ -14,8 +14,7 @@ function change_election_status() {
 }
 
 function confirm_delete() {
-	var edit_url = $(this).attr("href").replace('delete', 'edit');
-	var name = $("a[href='" + edit_url + "'][title!=Edit]").text();
+	var name = $(this).parent().prev().prev().children().text();
 
 	return confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
 }
@@ -25,12 +24,13 @@ function select_chosen() {
 }
 
 function copy_selected() {
-	var from = ($(this).val() == "  >>  ") ? $("#possible") : $("#chosen");
-	var to = ($(this).val() == "  >>  ") ? $("#chosen") : $("#possible");
+	var val = $(this).val();
+	var from = (val == "  >>  ") ? $("#possible") : $("#chosen");
+	var to = (val == "  >>  ") ? $("#chosen") : $("#possible");
 	var selected = from.children(":selected");
 
 	if (!selected.length) {
-		alert ('You haven\'t selected any options!');
+		alert("You haven't selected any options!");
 	} else {
 		to.append(selected);
 		selected.attr("selected", false);
@@ -52,8 +52,7 @@ function manipulate_all_positions() {
 		$("table.table").hide();
 		$("div.content_right").hide();
 	}
-	img.attr("src", src);
-	img.attr("alt", alt);
+	img.attr("src", src).attr("alt", alt);
 
 	return false;
 }
@@ -62,11 +61,10 @@ function toggle_position() {
 	var idx = $("img.toggle_position").index(this);
 	var src = $(this).attr("src");
 	var alt = $(this).attr("alt");
-	
+
 	src = (alt == "Collapse") ? src.replace("minus.png", "plus.png") : src.replace("plus.png", "minus.png");
 	alt = (alt == "Collapse") ? "Expand" : "Collapse";
-	$(this).attr("src", src);
-	$(this).attr("alt", alt);
+	$(this).attr("src", src).attr("alt", alt);
 	$("table.table").eq(idx).toggle();
 	$("div.content_right").eq(idx).toggle();
 
@@ -87,7 +85,7 @@ $(document).ready(function() {
 	}
 	/* Collapse all */
 	$("a.manipulate_all_positions[text='collapse all']").click();
-	/* Highlight menu item of active view */
 	var url = window.location.href.replace("import", "voters").replace("export", "voters");
+	/* Highlight menu item of active view */
 	$("#menu ul li a[href=" + url + "]").css("background", "#4179F3");
 });
