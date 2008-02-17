@@ -61,18 +61,19 @@ class Voter extends Controller {
 			}
 			$positions[$key]['candidates'] = $candidates;
 		}
-		if ($error = $this->session->flashdata('error'))
-			$data['messages'] = $error;
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		if (count($positions) == 0)
 			$data['none'] = e('voter_vote_no_candidates');
 		if ($votes = $this->session->userdata('votes'))
 			$data['votes'] = $votes;
 		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
-		$data['username'] = $this->voter['username'];
-		$main['title'] = e('voter_vote_title');
-		$main['body'] = $this->load->view('voter/vote', $data, TRUE);
-		$this->load->view('main', $main);
+		$voter['username'] = $this->voter['username'];
+		$voter['title'] = e('voter_vote_title');
+		$voter['body'] = $this->load->view('voter/vote', $data, TRUE);
+		$this->load->view('voter', $voter);
 	}
 
 	function do_vote()
@@ -152,8 +153,9 @@ class Voter extends Controller {
 			}
 			$positions[$key]['candidates'] = $candidates;
 		}
-		if ($error = $this->session->flashdata('error'))
-			$data['messages'] = $error;
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		if ($this->settings['captcha'])
 		{
 			$this->load->plugin('captcha');
@@ -164,10 +166,10 @@ class Voter extends Controller {
 		}
 		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
-		$data['username'] = $this->voter['username'];
-		$main['title'] = e('voter_confirm_vote_title');
-		$main['body'] = $this->load->view('voter/confirm_vote', $data, TRUE);
-		$this->load->view('main', $main);
+		$voter['username'] = $this->voter['username'];
+		$voter['title'] = e('voter_confirm_vote_title');
+		$voter['body'] = $this->load->view('voter/confirm_vote', $data, TRUE);
+		$this->load->view('voter', $voter);
 	}
 
 	function do_confirm_vote()
@@ -244,10 +246,10 @@ class Voter extends Controller {
 		$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $this->voter['id']);
 		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
 		$this->session->sess_destroy();
-		$main['title'] = e('voter_logout_title');
-		$main['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';
-		$main['body'] = $this->load->view('voter/logout', '', TRUE);
-		$this->load->view('main', $main);
+		$voter['title'] = e('voter_logout_title');
+		$voter['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';
+		$voter['body'] = $this->load->view('voter/logout', '', TRUE);
+		$this->load->view('voter', $voter);
 	}
 
 	function votes()
@@ -296,10 +298,29 @@ class Voter extends Controller {
 		$voter = $this->Boter->select($voter_id);
 		$data['settings'] = $this->config->item('halalan');
 		$data['positions'] = $positions;
-		$data['username'] = $voter['username'];
-		$main['title'] = e('voter_votes_title');
-		$main['body'] = $this->load->view('voter/votes', $data, TRUE);
-		$this->load->view('main', $main);
+		// used for marking that this action is being used
+		$voter['voter_id'] = $voter_id;
+		$voter['username'] = $voter['username'];
+		$voter['title'] = e('voter_votes_title');
+		$voter['body'] = $this->load->view('voter/votes', $data, TRUE);
+		$this->load->view('voter', $voter);
+	}
+
+	function _get_messages()
+	{
+		$messages = '';
+		$message_type = '';
+		if($error = $this->session->flashdata('error'))
+		{
+			$messages = $error;
+			$message_type = 'negative';
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$messages = $success;
+			$message_type = 'positive';
+		}
+		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }
