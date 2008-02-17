@@ -1,7 +1,7 @@
 <div class="menu">
 	<div id="left_menu">
 		<ul>
-			<li class="active"><?= img(array('src'=>'public/images/user.png', 'alt'=>'voter')); ?> VOTES</li>
+			<li class="active"><?= img(array('src'=>'public/images/user.png', 'alt'=>'Voter')); ?> VOTES</li>
 		</ul>
 	</div>
 	<div id="right_menu">
@@ -39,9 +39,9 @@
 				<?php endif; ?>
 					<td width="5%" align="center">
 					<?php if ($candidate['voted']): ?>
-					<?= img('public/images/ok.png'); ?>
+					<?= img(array('src'=>'public/images/ok.png', 'alt'=>'Check')); ?>
 					<?php else: ?>
-					<?= img('public/images/x.png'); ?>
+					<?= img(array('src'=>'public/images/x.png', 'alt'=>'X')); ?>
 					<?php endif; ?>
 					</td>
 					<td width="70%"><?= $name; ?></td>
@@ -96,9 +96,9 @@
 				<?php endif; ?>
 					<td width="5%" align="center">
 					<?php if ($positions[$i]['abstains']): ?>
-					<?= img('public/images/ok.png'); ?>
+					<?= img(array('src'=>'public/images/ok.png', 'alt'=>'Check')); ?>
 					<?php else: ?>
-					<?= img('public/images/x.png'); ?>
+					<?= img(array('src'=>'public/images/x.png', 'alt'=>'X')); ?>
 					<?php endif; ?>
 					</td>
 					<td width="95%">ABSTAIN</td>
@@ -126,4 +126,3 @@
 	</div>
 	<div class="clear"></div>
 </div>
-</form>
