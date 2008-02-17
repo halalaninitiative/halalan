@@ -156,6 +156,12 @@ fieldset {
     text-align : left;
   }
 
+.reminder {
+    border: 1px solid #FFAAAA;
+    background-color: #FFE5E5;
+    font-size: small;
+}
+
 /* candidate details */
 div.details {
     border: 1px solid #FFAAAA;
