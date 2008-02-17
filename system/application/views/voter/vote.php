@@ -1,5 +1,7 @@
-<script>
+<script type="text/javascript">
+<![CDATA[
 $(document).ready(check_cookie);
+]]>
 </script>
 
 <div class="menu">
