@@ -48,7 +48,6 @@ $(document).ready(check_cookie);
 		<fieldset>
 			<legend><span class="position"><?= $positions[$i]['position']; ?></span> (<?= $positions[$i]['maximum']; ?>)</legend>
 			<table cellspacing="2" cellpadding="2">
-				<?= form_hidden('max_votes[' . $positions[$i]['id'] . '][]', $positions[$i]['maximum']); ?>
 				<?php if (empty($positions[$i]['candidates'])): ?>
 				<tr>
 					<td><em><?= e('voter_vote_no_candidates'); ?></em></td>

@@ -35,11 +35,10 @@ function save_state() {
 }
 
 function check_number() {
-	var name = $(this).attr("name");
-	var limit = $(":hidden[name='max_" + name + "']").val();
-	var inputs = $(":checkbox:checked[name='" + name + "']");
+	var limit = $(this).parents("table").siblings("legend").text().split('(')[1].replace(')', '');
+	var inputs = $(this).parents("tr").siblings("tr").find(":checked");
 
-	if(inputs.length > limit) {
+	if (inputs.length >= limit) {
 		this.checked = false;
 		alert("You are over the allowed limit");
 	}
