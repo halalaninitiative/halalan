@@ -38,11 +38,11 @@
 	<div id="menu">
 		<ul>
 			<?php if (isset($voter_id) && !empty($voter_id)): ?>
-			<li><?= anchor('voter/votes', 'VOTES', array('onclick'=>'return false;')); ?></li>
+			<li>VOTES</li>
 			<?php else: ?>
-			<li><?= anchor('voter/vote', 'VOTE', array('onclick'=>'return false;')); ?></li>
-			<li><?= anchor('voter/confirm_vote', 'CONFIRM VOTE', array('onclick'=>'return false;')); ?></li>
-			<li><?= anchor('voter/logout', 'LOG OUT', array('onclick'=>'return false;')); ?></li>
+			<li>VOTE</li>
+			<li>CONFIRM VOTE</li>
+			<li>LOG OUT</li>
 			<?php endif; ?>
 		</ul>
 	</div>
