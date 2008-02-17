@@ -90,10 +90,6 @@ img {
 
 #menu ul li {
     display: inline;
-  }
-
-
-#menu ul li a {
     color: #FFFFFF;
     display: block;
     text-decoration: none;
@@ -101,11 +97,6 @@ img {
     line-height: 25px;
     padding: 0 16px;
     border-right: 1px solid #ffffff;
-  }
-
-
-#menu ul li a:hover {
-    background: #5494F3;
   }
 
 
