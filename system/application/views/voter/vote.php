@@ -1,7 +1,7 @@
 <script type="text/javascript">
-<![CDATA[
+/* <![CDATA[ */
 $(document).ready(check_cookie);
-]]>
+/* ]]> */
 </script>
 
 
