@@ -27,9 +27,12 @@
 	</tr>
 </table>
 <?php else: ?>
+<a href="#" class="manipulate_all_positions">expand all</a> | <a href="#" class="manipulate_all_positions">collapse all</a>
+<br />
+<br />
 <?php foreach ($positions as $position): ?>
 <div class="content_left">
-	<h2><?= $position['position']; ?> Candidates</h2>
+	<h2><?= img(array('src'=>base_url() . 'public/images/minus.gif', 'class'=>'toggle_position', 'alt'=>'Collapse')); ?> <?= $position['position']; ?> Candidates</h2>
 </div>
 <div class="content_right">
 	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
@@ -67,4 +70,5 @@
 	<?php endif; ?>
 </table>
 <?php endforeach; ?>
+<a href="#" class="manipulate_all_positions">expand all</a> | <a href="#" class="manipulate_all_positions">collapse all</a>
 <?php endif; ?>
