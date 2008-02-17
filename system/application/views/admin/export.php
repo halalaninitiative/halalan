@@ -1,4 +1,3 @@
-<?= format_messages($messages, $message_type); ?>
 <?= form_open_multipart('admin/do_export'); ?>
 <h2><?= e('admin_export_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
