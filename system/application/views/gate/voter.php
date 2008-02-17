@@ -33,12 +33,12 @@
 			<table cellspacing="2" cellpadding="2" align="center">
 				<?php if ($option['result']): ?>
 				<tr>
-					<td><img src="<?= base_url(); ?>public/images/show.png" alt="Show" /></td>
+					<td><?= img(array('src'=>'public/images/show.png', 'alt'=>'Show')); ?></td>
 					<td><?= e('gate_voter_result'); ?>.</td>
 				</tr>
 				<?php else: ?>
 				<tr>
-					<td><img src="<?= base_url(); ?>public/images/no.png" alt="Not Running" /></td>
+					<td><?= img(array('src'=>'public/images/no.png', 'alt'=>'Not Running')); ?></td>
 					<td><?= e('gate_voter_not_running'); ?></td>
 				</tr>
 				<?php endif; ?>

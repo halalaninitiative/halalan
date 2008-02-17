@@ -5,9 +5,9 @@ $(document).ready(check_cookie);
 <div class="menu">
 	<div id="left_menu">
 		<ul>
-			<li class="active"><img src="<?= base_url(); ?>public/images/user.png" alt="voter" /> VOTE</li>
-			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> CONFIRM VOTE</li>
-			<li><img src="<?= base_url(); ?>public/images/forward.png" alt="next" /> LOG OUT</li>
+			<li class="active"><?= img(array('src'=>'public/images/user.png', 'alt'=>'voter')); ?> VOTE</li>
+			<li><?= img(array('src'=>'public/images/forward.png', 'alt'=>'next')); ?> CONFIRM VOTE</li>
+			<li><?= img(array('src'=>'public/images/forward.png', 'alt'=>'next')); ?> LOG OUT</li>
 		</ul>
 	</div>
 	<div id="right_menu">

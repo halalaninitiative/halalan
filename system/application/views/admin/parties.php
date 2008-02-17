@@ -30,15 +30,22 @@
 	<?php $i = 0; ?>
 	<?php foreach ($parties as $party): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td width="5%" align="center"><?= ($i+1); ?></td>
+		<td width="5%" align="center">
+			<?= ($i+1); ?>
+		</td>
 		<td width="25%">
 			<?= anchor('admin/edit/party/' . $party['id'], $party['party']); ?>
 		</td>
-		<td width="15%"><?= $party['alias']; ?></td>
+		<td width="15%">
+			<?= $party['alias']; ?>
+		</td>
 		<td width="40%">
 			<?= nl2br($party['description']); ?>
 		</td>
-		<td width="15%" align="center"><?= anchor('admin/edit/party/' . $party['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/party/' . $party['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?></a></td>
+		<td width="15%" align="center">
+			<?= anchor('admin/edit/party/' . $party['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?= anchor('admin/delete/party/' . $party['id'], img(array('src'=>'public/images/x.png', 'alt'=>e('common_delete'))), array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?></a>
+		</td>
 	</tr>
 	<?php $i = $i + 1; ?>
 	<?php endforeach; ?>

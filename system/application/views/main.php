@@ -15,7 +15,7 @@
 <body>
 <div id="wrap">
 	<div id="header">
-		<img src="<?= base_url(); ?>public/images/logo.png" alt="logo" />
+		<?= img(array('src'=>'public/images/logo.png', 'alt'=>'logo')); ?>
 	</div>
 	<?= $body; ?>
 	<div id="footer">

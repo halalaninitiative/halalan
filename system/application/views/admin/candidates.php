@@ -32,7 +32,7 @@
 <br />
 <?php foreach ($positions as $position): ?>
 <div class="content_left">
-	<h2><?= img(array('src'=>'public/images/minus.png', 'class'=>'toggle_position', 'alt'=>'Collapse')); ?> <?= $position['position']; ?> Candidates</h2>
+	<h2><?= img(array('src'=>base_url() . 'public/images/minus.png', 'class'=>'toggle_position', 'alt'=>'Collapse')); ?> <?= $position['position']; ?> Candidates</h2>
 </div>
 <div class="content_right">
 	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
@@ -53,7 +53,9 @@
 	<?php $i = 0; ?>
 	<?php foreach ($position['candidates'] as $candidate): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td width="5%" align="center"><?= ($i+1); ?></td>
+		<td width="5%" align="center">
+			<?= ($i+1); ?>
+		</td>
 		<td width="30%">
 			<?= anchor('admin/edit/candidate/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
 			<?php if (!empty($candidate['alias'])): ?>
@@ -63,7 +65,10 @@
 		<td width="50%">
 			<?= nl2br($candidate['description']); ?>
 		</td>
-		<td width="15%" align="center"><?= anchor('admin/edit/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/candidate/' . $candidate['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?></td>
+		<td width="15%" align="center">
+			<?= anchor('admin/edit/candidate/' . $candidate['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?= anchor('admin/delete/candidate/' . $candidate['id'], img(array('src'=>'public/images/x.png', 'alt'=>e('common_delete'))), array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?>
+		</td>
 	</tr>
 	<?php $i = $i + 1; ?>
 	<?php endforeach; ?>

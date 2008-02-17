@@ -1,7 +1,7 @@
 <div class="menu">
 	<div id="left_menu">
 		<ul>
-			<li class="active"><img src="<?= base_url(); ?>public/images/user.png" alt="voter" /> VOTES</li>
+			<li class="active"><?= img(array('src'=>'public/images/user.png', 'alt'=>'voter')); ?> VOTES</li>
 		</ul>
 	</div>
 	<div id="right_menu">

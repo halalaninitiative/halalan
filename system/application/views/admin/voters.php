@@ -30,16 +30,23 @@
 	<?php $j = $offset; ?>
 	<?php foreach ($voters as $voter): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td width="5%" align="center"><?= ($j+1); ?></td>
-		<td width="75%"><?= anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?></td>
+		<td width="5%" align="center">
+			<?= ($j+1); ?>
+		</td>
+		<td width="75%">
+			<?= anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
+		</td>
 		<td width="5%" align="center">
 			<?php if ($voter['voted'] == TRUE): ?>
-			<img src="<?= base_url(); ?>public/images/ok.png" />
+			<?= img(array('src'=>'public/images/ok.png', 'alt'=>'yes')); ?>
 			<?php else: ?>
-			<img src="<?= base_url(); ?>public/images/x.png" />
+			<?= img(array('src'=>'public/images/x.png', 'alt'=>'no')); ?>
 			<?php endif; ?>
 		</td>
-		<td width="15%" align="center"><?= anchor('admin/edit/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/edit.png" alt="' . e('common_edit') . '" />', 'title="' . e('common_edit') . '"'); ?> | <?= anchor('admin/delete/voter/' . $voter['id'], '<img src="' . base_url() . 'public/images/x.png" alt="' . e('common_delete') . '" />', array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?></a></td>
+		<td width="15%" align="center">
+			<?= anchor('admin/edit/voter/' . $voter['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?= anchor('admin/delete/voter/' . $voter['id'], img(array('src'=>'public/images/x.png', 'alt'=>e('common_delete'))), array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?></a>
+		</td>
 	</tr>
 	<?php $j++; ?>
 	<?php $i = $i + 1; ?>
