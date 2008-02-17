@@ -1,12 +1,4 @@
-<?php if (isset($messages) && !empty($messages)): ?>
-<div class="positive">
-	<ul>
-		<?php foreach ($messages as $message): ?>
-		<li><?= $message; ?></li>
-		<?php endforeach; ?>
-	</ul>
-</div>
-<?php endif; ?>
+<?= format_messages($messages, $message_type); ?>
 <?php if ($action == 'add'): ?>
 	<?= form_open('admin/do_add_voter', array('class'=>'select_chosen')); ?>
 <?php elseif ($action == 'edit'): ?>

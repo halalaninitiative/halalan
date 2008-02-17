@@ -34,14 +34,9 @@ class Admin extends Controller {
 
 	function home()
 	{
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Option');
 		$data['option'] = $this->Option->select(1);
 		$admin['username'] = $this->admin['username'];
@@ -69,14 +64,9 @@ class Admin extends Controller {
 
 	function voters($offset = null)
 	{
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Boter');
 		$voters = $this->Boter->select_all();
 		$config['base_url'] = site_url('admin/voters');
@@ -106,14 +96,9 @@ class Admin extends Controller {
 
 	function parties()
 	{
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Party');
 		$data['parties'] = $this->Party->select_all();
 		$admin['username'] = $this->admin['username'];
@@ -124,14 +109,9 @@ class Admin extends Controller {
 
 	function positions()
 	{
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Position');
 		$data['positions'] = $this->Position->select_all();
 		$admin['username'] = $this->admin['username'];
@@ -142,14 +122,9 @@ class Admin extends Controller {
 
 	function candidates()
 	{
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Candidate');
 		$this->load->model('Position');
 		$positions = $this->Position->select_all();
@@ -241,14 +216,9 @@ class Admin extends Controller {
 	function edit($type, $id) 
 	{
 		$admin['username'] = $this->admin['username'];
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		switch ($type)
 		{
 			case 'voter':
@@ -360,14 +330,9 @@ class Admin extends Controller {
 	function add($type)
 	{
 		$admin['username'] = $this->admin['username'];
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		switch ($type)
 		{
 			case 'voter':
@@ -1010,14 +975,9 @@ class Admin extends Controller {
 
 	function import()
 	{
-		if($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$data['messages'] = $success;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Position');
 		$data['general'] = $this->Position->select_all_non_units();
 		$data['specific'] = $this->Position->select_all_units();
@@ -1122,7 +1082,6 @@ class Admin extends Controller {
 
 	function export()
 	{
-		$data = '';
 		$data['settings'] = $this->settings;
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_export_title');
@@ -1246,6 +1205,23 @@ class Admin extends Controller {
 	function _valid_email($str)
 	{
 		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
+	}
+
+	function _get_messages()
+	{
+		$messages = '';
+		$message_type = '';
+		if($error = $this->session->flashdata('error'))
+		{
+			$messages = $error;
+			$message_type = 'negative';
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$messages = $success;
+			$message_type = 'positive';
+		}
+		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }

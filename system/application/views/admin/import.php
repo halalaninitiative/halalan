@@ -1,12 +1,4 @@
-<?php if (isset($messages) && !empty($messages)): ?>
-<div class="positive">
-	<ul>
-		<?php foreach ($messages as $message): ?>
-		<li><?= $message; ?></li>
-		<?php endforeach; ?>
-	</ul>
-</div>
-<?php endif; ?>
+<?= format_messages($messages, $message_type); ?>
 <?= form_open_multipart('admin/do_import', array('class'=>'select_chosen')); ?>
 <h2><?= e('admin_import_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">

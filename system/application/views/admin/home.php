@@ -1,12 +1,4 @@
-<?php if (isset($messages) && !empty($messages)): ?>
-<div class="positive">
-	<ul>
-		<?php foreach ($messages as $message): ?>
-		<li><?= $message; ?></li>
-		<?php endforeach; ?>
-	</ul>
-</div>
-<?php endif; ?>
+<?= format_messages($messages, $message_type); ?>
 <div class="content_left">
 	<h2><?= e('admin_home_left_label'); ?></h2>
 	<div class="notes">
