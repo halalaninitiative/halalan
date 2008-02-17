@@ -719,7 +719,10 @@ class Admin extends Controller {
 		else
 		{
 			if ($test = $this->Party->select_by_party($this->input->post('party')))
-				$error[] = e('admin_party_exists') . ' (' . $test['party'] . ')';
+			{
+				if ($test['id'] != $id)
+					$error[] = e('admin_party_exists') . ' (' . $test['party'] . ')';
+			}
 		}
 		$party['party'] = $this->input->post('party', TRUE);
 		$party['alias'] = $this->input->post('alias', TRUE);
@@ -827,7 +830,10 @@ class Admin extends Controller {
 		else
 		{
 			if ($test = $this->Position->select_by_position($this->input->post('position')))
-				$error[] = e('admin_position_exists') . ' (' . $test['position'] . ')';
+			{
+				if ($test['id'] != $id)
+					$error[] = e('admin_position_exists') . ' (' . $test['position'] . ')';
+			}
 		}
 		if (!$this->input->post('maximum'))
 		{
@@ -953,10 +959,13 @@ class Admin extends Controller {
 		}
 		if ($test = $this->Candidate->select_by_name_and_alias($this->input->post('first_name'), $this->input->post('last_name'), $this->input->post('alias')))
 		{
-			$name = $test['last_name'] . ', ' . $test['first_name'];
-			if (!empty($test['alias']))
-				$name .= ' "' . $test['alias'] . '"';
-			$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
+			if ($test['id'] != $id)
+			{
+				$name = $test['last_name'] . ', ' . $test['first_name'];
+				if (!empty($test['alias']))
+					$name .= ' "' . $test['alias'] . '"';
+				$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
+			}
 		}
 		$candidate['first_name'] = $this->input->post('first_name', TRUE);
 		$candidate['last_name'] = $this->input->post('last_name', TRUE);
