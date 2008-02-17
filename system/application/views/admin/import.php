@@ -26,9 +26,9 @@
 			<?php else: ?>
 				<table>
 					<tr>
-						<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="true" size="5" style="width : 150px;"'); ?><br /><?= e('admin_import_possible_positions'); ?></td>
+						<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_import_possible_positions'); ?></td>
 						<td><input type="button" class="copy_selected" value="  &gt;&gt;  " /><br /><input type="button" class="copy_selected" value="  &lt;&lt;  " /></td>
-						<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="true" size="5" style="width : 150px;"'); ?><br /><?= e('admin_import_chosen_positions'); ?></td>
+						<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_import_chosen_positions'); ?></td>
 					</tr>
 				</table>
 			<?php endif; ?>

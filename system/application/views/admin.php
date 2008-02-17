@@ -21,9 +21,9 @@
 					$special = $CI->config->item('halalan');
 				?>
 				<?php if (isset($special['v']) && $special['v']): ?>
-				<?= img('public/images/logo_admin_v.png'); ?>
+				<?= img(array('src'=>'public/images/logo_admin_v.png', 'alt'=>'Halalan Logo')); ?>
 				<?php else: ?>
-				<?= img('public/images/logo_admin.png'); ?>
+				<?= img(array('src'=>'public/images/logo_admin.png', 'alt'=>'Halalan Logo')); ?>
 				<?php endif; ?>
 <!--
 				<h1>
