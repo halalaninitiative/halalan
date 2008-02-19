@@ -26,16 +26,16 @@ class Gate extends Controller {
 
 	function voter()
 	{
-		$data = '';
-		if ($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Option');
 		$data['option'] = $this->Option->select(1);
-		$main['title'] = e('gate_voter_title');
-		$main['body'] = $this->load->view('gate/voter', $data, TRUE);
-		$this->load->view('main', $main);
+		$data['settings'] = $this->config->item('halalan');
+		$gate['login'] = 'voter';
+		$gate['title'] = e('gate_voter_title');
+		$gate['body'] = $this->load->view('gate/voter', $data, TRUE);
+		$this->load->view('gate', $gate);
 	}
 
 	function voter_login()
@@ -73,14 +73,14 @@ class Gate extends Controller {
 	
 	function admin()
 	{
-		$data = '';
-		if ($error = $this->session->flashdata('error'))
-		{
-			$data['messages'] = $error;
-		}
-		$main['title'] = e('gate_admin_title');
-		$main['body'] = $this->load->view('gate/admin', $data, TRUE);
-		$this->load->view('main', $main);
+		$messages = $this->_get_messages();
+		$data['messages'] = $messages['messages'];
+		$data['message_type'] = $messages['message_type'];
+		$data['settings'] = $this->config->item('halalan');
+		$gate['login'] = 'admin';
+		$gate['title'] = e('gate_admin_title');
+		$gate['body'] = $this->load->view('gate/admin', $data, TRUE);
+		$this->load->view('gate', $gate);
 	}
 
 	function admin_login()
@@ -149,15 +149,33 @@ class Gate extends Controller {
 			}
 			$data['settings'] = $this->config->item('halalan');
 			$data['positions'] = $positions;
-			$main['title'] = e('gate_result_title');
-			$main['body'] = $this->load->view('gate/result', $data, TRUE);
-			$this->load->view('main', $main);
+			$gate['login'] = 'result';
+			$gate['title'] = e('gate_result_title');
+			$gate['body'] = $this->load->view('gate/result', $data, TRUE);
+			$this->load->view('gate', $gate);
 		}
 		else
 		{
 			$this->session->set_flashdata('error', array(e('gate_result_unavailable')));
 			redirect('gate/voter');
 		}
+	}
+
+	function _get_messages()
+	{
+		$messages = '';
+		$message_type = '';
+		if($error = $this->session->flashdata('error'))
+		{
+			$messages = $error;
+			$message_type = 'negative';
+		}
+		else if($success = $this->session->flashdata('success'))
+		{
+			$messages = $success;
+			$message_type = 'positive';
+		}
+		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }

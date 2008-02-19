@@ -26,7 +26,7 @@ $lang['halalan_gate_result_title'] = 'Result';
 $lang['halalan_gate_result_unavailable'] = 'The result is not yet available.';
 
 // views/gate/voter.php
-$lang['halalan_gate_voter_login_label'] = 'Login to Halalan';
+$lang['halalan_gate_voter_login_label'] = 'LOGIN';
 $lang['halalan_gate_voter_username'] = 'Username';
 $lang['halalan_gate_voter_password'] = 'Password';
 $lang['halalan_gate_voter_login_button'] = 'Login';
@@ -34,12 +34,13 @@ $lang['halalan_gate_voter_not_running'] = 'The election is not running. Please w
 $lang['halalan_gate_voter_result'] = 'The result is now available! View it ' . anchor('gate/result', 'here');
 
 // views/gate/admin.php
-$lang['halalan_gate_admin_login_label'] = 'Login to Halalan as Admin';
+$lang['halalan_gate_admin_login_label'] = 'ADMIN LOGIN';
 $lang['halalan_gate_admin_username'] = 'Username';
 $lang['halalan_gate_admin_password'] = 'Password';
 $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // views/gate/result.php
+$lang['halalan_gate_result_label'] = 'RESULT';
 $lang['halalan_gate_result_no_candidates'] = 'No candidates found.';
 
 // controllers/voter.php
