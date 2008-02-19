@@ -14,7 +14,7 @@ function change_election_status() {
 }
 
 function confirm_delete() {
-	var name = $(this).parent().prev().prev().children().text();
+	var name = $(this).parent().siblings().eq(1).children().text();
 
 	return confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
 }
