@@ -71,7 +71,7 @@
 		<?php if ($positions[$i]['abstain'] == TRUE): ?>
 		<tr>
 			<td width="5%"><?= $positions[$i]['abstains']; ?></td>
-			<td width="60%"><label for="<?= 'cb' . $positions[$i]['id'] . '_abstain'; ?>">ABSTAIN</label></td>
+			<td width="60%">ABSTAIN</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td width="30%"></td>
 			<td width="5%"></td>
