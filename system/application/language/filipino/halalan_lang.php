@@ -41,7 +41,7 @@ $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // views/gate/result.php
 $lang['halalan_gate_result_no_candidates'] = 'Walang mga kandidato.';
-
+$lang['halalan_voter_votes_submit_button'] = 'Generate page for printing';
 // controllers/voter.php
 // commont to all functions
 $lang['halalan_voter_common_not_running_one'] = 'Hindi pa tumatakbo ang eleksyon.';
