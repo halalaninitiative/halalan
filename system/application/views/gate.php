@@ -22,7 +22,7 @@
 -->
 			</div>
 			<div id="header_right">
-				<p>
+				<p>GO TO
 				<?php if ($login == 'voter'): ?>
 				<?= anchor('gate/admin', 'ADMIN LOGIN'); ?>
 				<?php else: ?>
