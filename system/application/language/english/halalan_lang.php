@@ -83,6 +83,7 @@ $lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>Y
 
 // views/voter/votes.php
 $lang['halalan_voter_votes_no_candidates'] = 'No candidates found.';
+$lang['halalan_voter_votes_submit_button'] = 'Generate Page for Printing';
 
 // controllers/admin.php
 // commont to all functions
