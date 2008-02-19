@@ -52,7 +52,7 @@ function manipulate_all_positions() {
 		$("table.table").hide();
 		$("div.content_right").hide();
 	}
-	img.attr("src", src).attr("alt", alt);
+	img.attr("src", src).attr("alt", alt).attr("title", alt);
 
 	return false;
 }
