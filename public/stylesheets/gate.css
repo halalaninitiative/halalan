@@ -2,22 +2,6 @@
 @import url("common.css");
 
 
-#menu ul li a {
-    color: #FFFFFF;
-    display: block;
-    text-decoration: none;
-    float: left;
-    line-height: 25px;
-    padding: 0 16px;
-    border-right: 1px solid #ffffff;
-  }
-
-
-#menu ul li a:hover {
-    background: #5494F3;
-  }
-
-
 #content .content_center {
     margin : 0px auto;
     width : 375px;
@@ -28,12 +12,5 @@
 #content .form_table {
     width : 100%;
     text-align : left;
-  }
-
-/* candidate details */
-div.details {
-    border: 1px solid #FFAAAA;
-    background-color: #FFE5E5;
-    padding: 5px;
   }
 

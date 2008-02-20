@@ -95,6 +95,22 @@ img {
   }
 
 
+#menu ul li a {
+    color: #FFFFFF;
+    display: block;
+    text-decoration: none;
+    float: left;
+    line-height: 25px;
+    padding: 0 16px;
+    border-right: 1px solid #ffffff;
+  }
+
+
+#menu ul li a:hover {
+    background: #5494F3;
+  }
+
+
 #content {
     background : #ffffff url('../images/content.png') repeat-x top center;
     padding : 20px 15px 0px;
@@ -119,11 +135,6 @@ img {
 
 #content a:hover {
     text-decoration: underline;
-  }
-
-
-#content .align_right {
-    text-align : right;
   }
 
 
@@ -153,21 +164,6 @@ img {
     color: #999999;
     padding: 0px 0px 0px 3px;
     margin: 0px;
-  }
-
-
-#content .notes ul {
-    font-size : 1.1em;
-    line-height : 1.8em;
-    padding : 0px;
-    margin : 0px;
-    list-style : none;
-  }
-
-
-#content .notes ul li {
-    background : url('../images/bullet_grey.png') no-repeat center left;
-    padding : 0px 0px 0px 20px;
   }
 
 
@@ -206,28 +202,9 @@ img {
   }
 
 
-#content .form_table input.short {
-    width: 25px;
-  }
-
-
-#content .form_table textarea {
-    height: 125px;
-  }
-
-
 #content .form_table input:focus, #content .form_table select:focus, #content .form_table textarea:focus {
     background: #ffffff;
     border: 1px solid #686868;
-  }
-
-
-#content .positive {
-    background: #CAEA99;
-    border: 1px solid #70A522;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: #333333;
   }
 
 
@@ -237,40 +214,6 @@ img {
     margin-bottom: 15px;
     font-size: 1.2em;
     color: #333333;
-  }
-
-
-#content .table {
-    margin-bottom: 15px;
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-
-#content .table th {
-    background: url('../images/tableheader_bg.png') no-repeat center top;
-    padding: 5px 10px;
-    color: rgb(70,122,167);
-    border: 1px solid #CBD6DE;
-    font-size: 1.1em;
-    font-weight: bold;
-  }
-
-
-#content .table td {
-    padding: 5px 10px;
-    color: #666666;
-    border: 1px solid #CBD6DE;
-  }
-
-
-#content .table .odd {
-    background: #ffffff;
-  }
-
-
-#content .table .even {
-    background: #eeeeee;
   }
 
 
@@ -318,5 +261,12 @@ img {
 
 .clear {
     clear : both;
+  }
+
+/* candidate details */
+div.details {
+    border: 1px solid #FFAAAA;
+    background-color: #FFE5E5;
+    padding: 5px;
   }
 
