@@ -66,7 +66,7 @@ function togglePosition() {
 
 	src = (alt == "Collapse") ? src.replace("minus", "plus") : src.replace("plus", "minus");
 	alt = (alt == "Collapse") ? "Expand" : "Collapse";
-	$(this).attr("src", src).attr("alt", alt);
+	$(this).attr("src", src).attr("alt", alt).attr("title", alt);
 	$(this).siblings("span").toggle();
 	$("table.table").eq(idx).toggle();
 	$("div.content_right").eq(idx).toggle();
