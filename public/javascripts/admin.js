@@ -85,7 +85,6 @@ $(document).ready(function() {
 	}
 	/* Collapse all */
 	$("a.manipulate_all_positions[text='collapse all']").click();
-	var url = window.location.href.replace("import", "voters").replace("export", "voters");
 	/* Highlight menu item of active view */
-	$("#menu ul li a[href=" + url + "]").css("background", "#4179F3");
+	highlightMenuItem();
 });

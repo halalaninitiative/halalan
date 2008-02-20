@@ -52,6 +52,5 @@ $(document).ready(function() {
 	$("input.abstain_position").click(abstain_position);
 	$("form.save_state").submit(save_state);
 	/* Highlight menu item of active view */
-	var title = $("title").text().split('-')[2].replace(' ', '').toUpperCase().replace(' ', '');
-	$("li").filter(function () {return $(this).text().replace(' ', '') == title;}).css("background", "#4179F3");
+	highlightMenuItem();
 });
