@@ -55,9 +55,46 @@ class Voter extends Controller {
 		foreach ($positions as $key=>$position)
 		{
 			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
+			if ($this->settings['random_order'])
+			{
+				$in_session = $this->session->userdata('position_' . $position['id']);
+				if ($in_session)
+				{
+					$candidate_ids = array_flip($in_session);
+					$shuffled_candidates = array();
+				}
+				else
+				{
+					$candidate_ids = array();
+					shuffle($candidates);
+				}
+			}
 			foreach ($candidates as $candidate_id=>$candidate)
 			{
 				$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+				if ($this->settings['random_order'])
+				{
+					if ($in_session)
+					{
+						$shuffled_candidates[$candidate_ids[$candidate['id']]] = $candidate;
+					}
+					else
+					{
+						$candidate_ids[] = $candidate['id'];
+					}
+				}
+			}
+			if ($this->settings['random_order'])
+			{
+				if ($in_session)
+				{
+					ksort($shuffled_candidates);
+					$candidates = $shuffled_candidates;
+				}
+				else
+				{
+					$this->session->set_userdata('position_' . $position['id'], $candidate_ids);
+				}
 			}
 			$positions[$key]['candidates'] = $candidates;
 		}
@@ -146,10 +183,24 @@ class Voter extends Controller {
 		$positions = $this->Position->select_all_with_units($this->voter['id']);
 		foreach ($positions as $key=>$position)
 		{
+			if ($this->settings['random_order'])
+			{
+				$candidate_ids = array_flip($this->session->userdata('position_' . $position['id']));
+				$shuffled_candidates = array();
+			}
 			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
 			foreach ($candidates as $candidate_id=>$candidate)
 			{
 				$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+				if ($this->settings['random_order'])
+				{
+					$shuffled_candidates[$candidate_ids[$candidate['id']]] = $candidate;
+				}
+			}
+			if ($this->settings['random_order'])
+			{
+				ksort($shuffled_candidates);
+				$candidates = $shuffled_candidates;
 			}
 			$positions[$key]['candidates'] = $candidates;
 		}
