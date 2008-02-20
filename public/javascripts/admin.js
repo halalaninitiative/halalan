@@ -44,11 +44,13 @@ function manipulateAllPositions() {
 	var alt = (action == "expand") ? "Collapse" : "Expand";
 
 	if (action == "expand") {
-		src = src.replace("plus.png", "minus.png");
+		src = src.replace("plus", "minus");
+		img.siblings("span").hide();
 		$("table.table").show();
 		$("div.content_right").show();
 	} else {
-		src = src.replace("minus.png", "plus.png");
+		src = src.replace("minus", "plus");
+		img.siblings("span").show();
 		$("table.table").hide();
 		$("div.content_right").hide();
 	}
@@ -62,9 +64,10 @@ function togglePosition() {
 	var src = $(this).attr("src");
 	var alt = $(this).attr("alt");
 
-	src = (alt == "Collapse") ? src.replace("minus.png", "plus.png") : src.replace("plus.png", "minus.png");
+	src = (alt == "Collapse") ? src.replace("minus", "plus") : src.replace("plus", "minus");
 	alt = (alt == "Collapse") ? "Expand" : "Collapse";
 	$(this).attr("src", src).attr("alt", alt);
+	$(this).siblings("span").toggle();
 	$("table.table").eq(idx).toggle();
 	$("div.content_right").eq(idx).toggle();
 
