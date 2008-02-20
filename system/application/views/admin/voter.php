@@ -1,8 +1,8 @@
 <?= format_messages($messages, $message_type); ?>
 <?php if ($action == 'add'): ?>
-	<?= form_open('admin/do_add_voter', array('class'=>'select_chosen')); ?>
+	<?= form_open('admin/do_add_voter', array('class'=>'selectChosen')); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?= form_open('admin/do_edit_voter/' . $voter['id'], array('class'=>'select_chosen')); ?>
+	<?= form_open('admin/do_edit_voter/' . $voter['id'], array('class'=>'selectChosen')); ?>
 <?php endif; ?>
 <h2><?= e('admin_' . $action . '_voter_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
@@ -55,7 +55,7 @@
 				<table>
 					<tr>
 						<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_voter_possible_positions'); ?></td>
-						<td><input type="button" class="copy_selected" value="  &gt;&gt;  " /><br /><input type="button" class="copy_selected" value="  &lt;&lt;  " /></td>
+						<td><input type="button" class="copySelected" value="  &gt;&gt;  " /><br /><input type="button" class="copySelected" value="  &lt;&lt;  " /></td>
 						<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_voter_chosen_positions'); ?></td>
 					</tr>
 				</table>

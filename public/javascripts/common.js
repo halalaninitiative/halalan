@@ -32,7 +32,7 @@ function highlightMenuItem() {
 }
 
 /* jQuery event handlers */
-function toggle_details() {
+function toggleDetails() {
 	/*
 		<tr> parent
 		<td> parent

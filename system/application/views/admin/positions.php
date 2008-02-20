@@ -32,7 +32,7 @@
 		</td>
 		<td width="15%" align="center">
 			<?= anchor('admin/edit/position/' . $position['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?= anchor('admin/delete/position/' . $position['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?>
+			<?= anchor('admin/delete/position/' . $position['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

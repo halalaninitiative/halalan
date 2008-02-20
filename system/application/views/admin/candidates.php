@@ -19,12 +19,12 @@
 	</tr>
 </table>
 <?php else: ?>
-<a href="#" class="manipulate_all_positions">expand all</a> | <a href="#" class="manipulate_all_positions">collapse all</a>
+<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
 <br />
 <br />
 <?php foreach ($positions as $position): ?>
 <div class="content_left">
-	<h2><?= img(array('src'=>'public/images/minus.png', 'class'=>'toggle_position', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?= $position['position']; ?> Candidates</h2>
+	<h2><?= img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?= $position['position']; ?> Candidates</h2>
 </div>
 <div class="content_right">
 	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
@@ -59,7 +59,7 @@
 		</td>
 		<td width="15%" align="center">
 			<?= anchor('admin/edit/candidate/' . $candidate['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?= anchor('admin/delete/candidate/' . $candidate['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirm_delete', 'title'=>e('common_delete'))); ?>
+			<?= anchor('admin/delete/candidate/' . $candidate['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>
@@ -67,5 +67,5 @@
 	<?php endif; ?>
 </table>
 <?php endforeach; ?>
-<a href="#" class="manipulate_all_positions">expand all</a> | <a href="#" class="manipulate_all_positions">collapse all</a>
+<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
 <?php endif; ?>

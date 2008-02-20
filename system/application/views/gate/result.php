@@ -40,8 +40,8 @@
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td width="5%">
-				<a href="#" class="toggle_details">
-				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info')); ?>
+				<a href="#" class="toggleDetails">
+				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'title'=>'More info')); ?>
 				</a>
 			</td>
 			<?php endif; ?>

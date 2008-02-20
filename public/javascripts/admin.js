@@ -1,6 +1,6 @@
 
 /* jQuery event handlers */
-function change_election_status() {
+function changeElectionStatus() {
 	var result = $("tr.result");
 	var buttons = $(":radio[name=result]");
 
@@ -13,17 +13,17 @@ function change_election_status() {
 	}
 }
 
-function confirm_delete() {
+function confirmDelete() {
 	var name = $(this).parent().siblings().eq(1).children().text();
 
 	return confirm('Are you sure you want to delete ' + name + '?\nWarning: This action cannot be undone!');
 }
 
-function select_chosen() {
+function selectChosen() {
 	$("#chosen").children().attr("selected", true);
 }
 
-function copy_selected() {
+function copySelected() {
 	var val = $(this).val();
 	var from = (val == "  >>  ") ? $("#possible") : $("#chosen");
 	var to = (val == "  >>  ") ? $("#chosen") : $("#possible");
@@ -37,9 +37,9 @@ function copy_selected() {
 	}
 }
 
-function manipulate_all_positions() {
+function manipulateAllPositions() {
 	var action = ($(this).text() == "expand all") ? "expand" : "collapse";
-	var img = $("img.toggle_position");
+	var img = $("img.togglePosition");
 	var src = img.attr("src");
 	var alt = (action == "expand") ? "Collapse" : "Expand";
 
@@ -57,8 +57,8 @@ function manipulate_all_positions() {
 	return false;
 }
 
-function toggle_position() {
-	var idx = $("img.toggle_position").index(this);
+function togglePosition() {
+	var idx = $("img.togglePosition").index(this);
 	var src = $(this).attr("src");
 	var alt = $(this).attr("alt");
 
@@ -73,18 +73,18 @@ function toggle_position() {
 
 $(document).ready(function() {
 	/* Bind handlers to events */
-	$("a.confirm_delete").click(confirm_delete);
-	$("a.manipulate_all_positions").click(manipulate_all_positions);
-	$("img.toggle_position").click(toggle_position);
-	$("input.change_election_status").click(change_election_status);
-	$("input.copy_selected").click(copy_selected);
-	$("form.select_chosen").submit(select_chosen);
+	$("a.confirmDelete").click(confirmDelete);
+	$("a.manipulateAllPositions").click(manipulateAllPositions);
+	$("img.togglePosition").click(togglePosition);
+	$("input.changeElectionStatus").click(changeElectionStatus);
+	$("input.copySelected").click(copySelected);
+	$("form.selectChosen").submit(selectChosen);
 	/* Init */
 	if ($(":radio[name=status][value=1]").attr("checked")) {
 		$(":radio[name=status][value=1]").click();
 	}
 	/* Collapse all */
-	$("a.manipulate_all_positions[text='collapse all']").click();
+	$("a.manipulateAllPositions[text='collapse all']").click();
 	/* Highlight menu item of active view */
 	highlightMenuItem();
 });

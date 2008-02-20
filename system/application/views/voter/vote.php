@@ -1,12 +1,12 @@
 <script type="text/javascript">
 /* <![CDATA[ */
-$(document).ready(check_cookie);
+$(document).ready(checkCookie);
 /* ]]> */
 </script>
 
 
 <?= format_messages($messages, $message_type); ?>
-<?= form_open('voter/do_vote', array('class'=>'save_state')); ?>
+<?= form_open('voter/do_vote', array('class'=>'saveState')); ?>
 <?php if (count($positions) == 0): ?>
 <?= format_messages(array($none), 'negative'); ?>
 <?php endif; ?>
@@ -37,7 +37,7 @@ $(document).ready(check_cookie);
 			$name = quotes_to_entities($name);
 		?>
 		<tr>
-			<td width="5%"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_' . $candidate['id'], 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'check_number')); ?></td>
+			<td width="5%"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_' . $candidate['id'], 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'checkNumber')); ?></td>
 			<td width="60%"><label for="<?= 'cb' . $positions[$i]['id'] . '_' . $candidate['id']; ?>"><?= $name; ?></label></td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td width="30%">
@@ -54,8 +54,8 @@ $(document).ready(check_cookie);
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td width="5%">
-				<a href="#" class="toggle_details">
-				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info')); ?>
+				<a href="#" class="toggleDetails">
+				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'title'=>'More info')); ?>
 				</a>
 			</td>
 			<?php endif; ?>
@@ -91,7 +91,7 @@ $(document).ready(check_cookie);
 		?>
 		<?php if ($positions[$i]['abstain'] == TRUE): ?>
 		<tr>
-			<td width="5%"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_abstain', 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstain_position', 'checked'=>$checked, 'value'=>'')); ?></td>
+			<td width="5%"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_abstain', 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstainPosition', 'checked'=>$checked, 'value'=>'')); ?></td>
 			<td width="60%"><label for="<?= 'cb' . $positions[$i]['id'] . '_abstain'; ?>">ABSTAIN</label></td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td width="30%"></td>

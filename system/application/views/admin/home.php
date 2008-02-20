@@ -20,10 +20,10 @@
 				Status:
 			</td>
 			<td>
-				<label><?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running</label>
+				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> Running</label>
 			</td>
 			<td>
-				<label><?= form_radio(array('name'=>'status', 'class'=>'change_election_status', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running</label>
+				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running</label>
 			</td>
 		</tr>
 		<tr class="result">

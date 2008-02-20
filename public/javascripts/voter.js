@@ -1,5 +1,5 @@
 
-function in_array(needle, haystack) {
+function inArray(needle, haystack) {
 	for (var i = 0; i < haystack.length; i++) {
 		if (haystack[i] == needle)
 			return true;
@@ -7,23 +7,23 @@ function in_array(needle, haystack) {
 	return false;
 }
 
-function restore_state(checkboxes) {
+function restoreState(checkboxes) {
 	checkboxes = checkboxes.split(",");
-	$(":checkbox").filter(function(idx) {return in_array(idx, checkboxes)}).attr("disabled", true);
+	$(":checkbox").filter(function(idx) {return inArray(idx, checkboxes)}).attr("disabled", true);
 }
 
-function check_cookie() {
+function checkCookie() {
 	var checkboxes = $.cookie('halalan_cookie');
 	if (checkboxes != null && checkboxes != "")
-		restore_state(checkboxes);
+		restoreState(checkboxes);
 }
 
 /* jQuery event handlers */
-function abstain_position() {
+function abstainPosition() {
 	$(this).parents("tr").siblings().find(":checkbox").attr("disabled", this.checked);
 }
 
-function save_state() {
+function saveState() {
 	var inputs = $(":checkbox");
 	var checkboxes = new Array();
 	for (var i = 0; i < inputs.length; i++) {
@@ -33,7 +33,7 @@ function save_state() {
 	$.cookie('halalan_cookie', checkboxes.toString(), {expires: 1, path: '/'});
 }
 
-function check_number() {
+function checkNumber() {
 	if (this.disabled)
 		return;
 	var limit = $(this).parents("table").siblings("h2").text().split('(')[1].replace(')', '');
@@ -47,10 +47,10 @@ function check_number() {
 
 $(document).ready(function() {
 	/* Bind handlers to events */
-	$("a.toggle_details").click(toggle_details);
-	$("input.check_number").click(check_number);
-	$("input.abstain_position").click(abstain_position);
-	$("form.save_state").submit(save_state);
+	$("a.toggleDetails").click(toggleDetails);
+	$("input.checkNumber").click(checkNumber);
+	$("input.abstainPosition").click(abstainPosition);
+	$("form.saveState").submit(saveState);
 	/* Highlight menu item of active view */
 	highlightMenuItem();
 });
