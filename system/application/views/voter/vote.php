@@ -16,7 +16,8 @@
 			<td><em><?= e('voter_vote_no_candidates'); ?></em></td>
 		</tr>
 		<?php else: ?>
-		<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>
+		<?php shuffle($positions[$i]['candidates']); ?>
+		<?php foreach ($positions[$i]['candidates'] as $candidate): ?>
 		<?php
 			// used to populate the form
 			if (isset($votes[$positions[$i]['id']]) && in_array($candidate['id'], $votes[$positions[$i]['id']]))
