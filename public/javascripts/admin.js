@@ -76,13 +76,11 @@ $(document).ready(function() {
 	$("a.confirmDelete").click(confirmDelete);
 	$("a.manipulateAllPositions").click(manipulateAllPositions);
 	$("img.togglePosition").click(togglePosition);
-	$("input.changeElectionStatus").click(changeElectionStatus);
-	$("input.copySelected").click(copySelected);
+	$(":radio.changeElectionStatus").click(changeElectionStatus);
+	$(":button.copySelected").click(copySelected);
 	$("form.selectChosen").submit(selectChosen);
-	/* Init */
-	if ($(":radio[name=status][value=1]").attr("checked")) {
-		$(":radio[name=status][value=1]").click();
-	}
+	/* Disable Result radio buttons if election is already running */
+	$(":radio.changeElectionStatus[value=1]:checked").click();
 	/* Collapse all */
 	$("a.manipulateAllPositions[text='collapse all']").click();
 	/* Highlight menu item of active view */

@@ -1,12 +1,5 @@
-<script type="text/javascript">
-/* <![CDATA[ */
-$(document).ready(checkCookie);
-/* ]]> */
-</script>
-
-
 <?= format_messages($messages, $message_type); ?>
-<?= form_open('voter/do_vote', array('class'=>'saveState')); ?>
+<?= form_open('voter/do_vote'); ?>
 <?php if (count($positions) == 0): ?>
 <?= format_messages(array($none), 'negative'); ?>
 <?php endif; ?>
