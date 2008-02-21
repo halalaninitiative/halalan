@@ -1,11 +1,22 @@
 Halalan
-Version 1.1.1
+Version 1.2.0
 http://halalan.sourceforge.net
 http://halalan.googlecode.com
 Copyright (C) 2006-2008 UP Linux Users' Group
 
 
 Halalan Changelog
+
+1.2.0  20080221
+-----------------------
+--- Added a setting to randomize candidates order in ballot
+--- Added new JS library, jQuery 1.2.3 and jQuery.Cookie 1.0
+--- Fixed minor bugs
+--- Removed domTT dependency
+--- Replaced tooltip with sliding effect
+--- Separated JS from views
+--- Updated to CodeIgniter 1.6.1
+--- Updated voter interface
 
 1.1.1  20080215
 -----------------------
