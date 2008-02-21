@@ -116,6 +116,7 @@ $config['halalan']['password_length'] = <?php echo $_POST['password_length']; ?>
 $config['halalan']['pin_length'] = <?php echo $_POST['pin_length']; ?>;
 $config['halalan']['captcha'] = <?php echo $_POST['captcha']; ?>;
 $config['halalan']['show_candidate_details'] = <?php echo $_POST['details']; ?>;
+$config['halalan']['random_order'] = <?php echo $_POST['random']; ?>;
 
 $config['language'] = "<?php echo $_POST['language']; ?>";
 

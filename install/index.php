@@ -174,6 +174,10 @@ else
 						<td width="35%">Candidate Details in Ballot</td>
 						<td width="65%"><input type="radio" name="details" value="TRUE" checked="true" /> show <input type="radio" name="details" value="FALSE" /> hide</td>
 					</tr>
+					<tr>
+						<td width="35%">Randomize Candidate Order in Ballot</td>
+						<td width="65%"><input type="radio" name="random" value="TRUE" checked="true" /> show <input type="radio" name="random" value="FALSE" /> hide</td>
+					</tr>
 				</table>
 			</fieldset>
 			<br />
