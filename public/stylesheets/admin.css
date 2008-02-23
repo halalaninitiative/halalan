@@ -8,13 +8,11 @@
 
 
 #content .content_left {
-    float : left;
     width : 375px;
   }
 
 
 #content .content_right {
-    float : right;
     width : 375px;
   }
 
