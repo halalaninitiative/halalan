@@ -20,12 +20,17 @@ function modifyBallot() {
 	window.location = 'vote';
 }
 
+function printVotes() {
+	window.open('print_votes');
+}
+
 $(document).ready(function() {
 	/* Bind handlers to events */
 	$("a.toggleDetails").click(toggleDetails);
 	$(":checkbox.checkNumber").click(checkNumber);
 	$(":checkbox.abstainPosition").click(abstainPosition);
 	$(":button.modifyBallot").click(modifyBallot);
+	$(":button.printVotes").click(printVotes);
 	/* Restore the state of abstained positions */
 	$(":checkbox.abstainPosition:checked").click().attr("checked", true);
 	/* Highlight menu item of active view */

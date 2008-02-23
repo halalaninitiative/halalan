@@ -111,5 +111,5 @@
 <div class="clear"></div>
 <?php endif; ?>
 <div class="paging">
-<input type="button" value="<?= e('voter_votes_submit_button'); ?>" onclick="window.open('<?= site_url('voter/print_votes'); ?>');" />
+<input type="button" class="printVotes" value="<?= e('voter_votes_submit_button'); ?>" />
 </div>
