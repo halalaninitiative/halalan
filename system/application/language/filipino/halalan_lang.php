@@ -31,7 +31,7 @@ $lang['halalan_gate_voter_username'] = 'Username';
 $lang['halalan_gate_voter_password'] = 'Password';
 $lang['halalan_gate_voter_login_button'] = 'Login';
 $lang['halalan_gate_voter_not_running'] = 'Hindi pa nagsisimula ang eleksyon. Hintaying simulan ito ng tagapamahala ng eleksyon.';
-$lang['halalan_gate_voter_result'] = 'Ang resulta ng eleksyon ay matatagpuan ' . anchor('gate/result', 'dito');
+$lang['halalan_gate_voter_result'] = 'Ang resulta ng eleksyon ay matatagpuan ' . anchor('gate/results', 'dito') . '.';
 
 // views/gate/admin.php
 $lang['halalan_gate_admin_login_label'] = 'Login to Halalan as Admin';
@@ -72,6 +72,7 @@ $lang['halalan_voter_vote_submit_button'] = 'Boto';
 $lang['halalan_voter_confirm_vote_validation_label'] = 'Pagkumpirma';
 $lang['halalan_voter_confirm_vote_captcha_label'] = 'Ilagay ang salita dito:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Ilagay ang PIN dito:';
+$lang['halalan_voter_confirm_vote_modify_button'] = 'Modify Ballot';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Kumpirmahin';
 $lang['halalan_voter_confirm_vote_reminder'] = 'Hindi na maaaring baguhin ang boto matapos pindutin ang Kumpirmahin.';
 

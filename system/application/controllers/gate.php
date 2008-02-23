@@ -120,7 +120,7 @@ class Gate extends Controller {
 		redirect('gate/' . $gate);
 	}
 
-	function result()
+	function results()
 	{
 		$this->load->model('Option');
 		$option = $this->Option->select(1);

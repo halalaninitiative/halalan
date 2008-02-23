@@ -21,7 +21,7 @@
 		<?php if ($option['result']): ?>
 		<tr>
 			<td align="right"><?= img(array('src'=>'public/images/show.png', 'alt'=>'Show')); ?></td>
-			<td><?= e('gate_voter_result'); ?>.</td>
+			<td><?= e('gate_voter_result'); ?></td>
 		</tr>
 		<?php else: ?>
 		<tr>

@@ -16,11 +16,16 @@ function checkNumber() {
 	}
 }
 
+function modifyBallot() {
+	window.location = 'vote';
+}
+
 $(document).ready(function() {
 	/* Bind handlers to events */
 	$("a.toggleDetails").click(toggleDetails);
 	$(":checkbox.checkNumber").click(checkNumber);
 	$(":checkbox.abstainPosition").click(abstainPosition);
+	$(":button.modifyBallot").click(modifyBallot);
 	/* Restore the state of abstained positions */
 	$(":checkbox.abstainPosition:checked").click().attr("checked", true);
 	/* Highlight menu item of active view */

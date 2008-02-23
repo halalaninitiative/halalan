@@ -21,9 +21,9 @@ $lang['halalan_gate_voter_already_voted'] = 'You have already voted';
 $lang['halalan_gate_admin_title'] = 'Admin Login';
 // admin_login
 // logout
-// result
-$lang['halalan_gate_result_title'] = 'Result';
-$lang['halalan_gate_result_unavailable'] = 'The result is not yet available.';
+// results
+$lang['halalan_gate_result_title'] = 'Results';
+$lang['halalan_gate_result_unavailable'] = 'The results are not yet available.';
 
 // views/gate/voter.php
 $lang['halalan_gate_voter_login_label'] = 'LOGIN';
@@ -31,7 +31,7 @@ $lang['halalan_gate_voter_username'] = 'Username';
 $lang['halalan_gate_voter_password'] = 'Password';
 $lang['halalan_gate_voter_login_button'] = 'Login';
 $lang['halalan_gate_voter_not_running'] = 'The election is not running. Please wait for the election administrator to activate the election.';
-$lang['halalan_gate_voter_result'] = 'The result is now available! View it ' . anchor('gate/result', 'here');
+$lang['halalan_gate_voter_result'] = 'The ' . anchor('gate/results', 'results') . ' are now available!';
 
 // views/gate/admin.php
 $lang['halalan_gate_admin_login_label'] = 'ADMIN LOGIN';
@@ -40,7 +40,7 @@ $lang['halalan_gate_admin_password'] = 'Password';
 $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // views/gate/result.php
-$lang['halalan_gate_result_label'] = 'RESULT';
+$lang['halalan_gate_result_label'] = 'RESULTS';
 $lang['halalan_gate_result_no_candidates'] = 'No candidates found.';
 
 // controllers/voter.php
@@ -57,7 +57,7 @@ $lang['halalan_voter_vote_not_all_selected'] = 'You have not voted in all positi
 $lang['halalan_voter_vote_maximum'] = 'You have exceeded the number of votes in a certain position.';
 $lang['halalan_voter_vote_abstain_and_others'] = 'You can not vote for a candidate if you chose to abstain.';
 // confirm_vote
-$lang['halalan_voter_confirm_vote_title'] = 'Confirm Vote';
+$lang['halalan_voter_confirm_vote_title'] = 'Verify';
 // do_confirm_vote
 $lang['halalan_voter_confirm_vote_no_captcha'] = 'No captcha entered';
 $lang['halalan_voter_confirm_vote_not_captcha'] = 'Incorrect captcha';
@@ -69,13 +69,14 @@ $lang['halalan_voter_logout_title'] = 'Logout';
 $lang['halalan_voter_votes_title'] = 'Votes';
 
 // views/voter/vote.php
-$lang['halalan_voter_vote_submit_button'] = 'Vote';
+$lang['halalan_voter_vote_submit_button'] = 'Submit Ballot';
 
 // views/voter/confirm_vote.php
 $lang['halalan_voter_confirm_vote_validation_label'] = 'Validation';
 $lang['halalan_voter_confirm_vote_captcha_label'] = 'Enter the word here:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Enter your pin here:';
-$lang['halalan_voter_confirm_vote_submit_button'] = 'Confirm';
+$lang['halalan_voter_confirm_vote_modify_button'] = 'Modify Ballot';
+$lang['halalan_voter_confirm_vote_submit_button'] = 'Confirm Ballot';
 $lang['halalan_voter_confirm_vote_reminder'] = 'Once you press the confirm button, you can no longer change your votes.';
 
 // views/voter/logout.php

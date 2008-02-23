@@ -1,5 +1,5 @@
 <?= format_messages($messages, $message_type); ?>
-<?= form_open('voter/do_confirm_vote'); ?>
+<?= form_open('voter/do_verify'); ?>
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>
 <div class="content_left notes">
@@ -131,7 +131,7 @@
 <?php endif; ?>
 <div class="reminder"><?= e('voter_confirm_vote_reminder'); ?></div>
 <div class="paging">
-	<?= anchor('voter/vote', 'GO BACK'); ?>
+	<input type="button" class="modifyBallot" value="<?= e('voter_confirm_vote_modify_button'); ?>" />
 	|
 	<input type="submit" value="<?= e('voter_confirm_vote_submit_button'); ?>" />
 </div>

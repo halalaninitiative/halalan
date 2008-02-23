@@ -42,7 +42,7 @@
 			<li>VOTES</li>
 			<?php else: ?>
 			<li>VOTE</li>
-			<li>CONFIRM VOTE</li>
+			<li>VERIFY</li>
 			<li>LOG OUT</li>
 			<?php endif; ?>
 		</ul>

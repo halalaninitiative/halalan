@@ -162,7 +162,7 @@ class Voter extends Controller {
 		$this->session->set_userdata('votes', $votes);
 		if (empty($error))
 		{
-			redirect('voter/confirm_vote');
+			redirect('voter/verify');
 		}
 		else
 		{
@@ -171,7 +171,7 @@ class Voter extends Controller {
 		}
 	}
 
-	function confirm_vote()
+	function verify()
 	{
 		$votes = $this->session->userdata('votes');
 		if (empty($votes))
@@ -223,7 +223,7 @@ class Voter extends Controller {
 		$this->load->view('voter', $voter);
 	}
 
-	function do_confirm_vote()
+	function do_verify()
 	{
 		$error = array();
 		if ($this->settings['captcha'])
@@ -287,7 +287,7 @@ class Voter extends Controller {
 		else
 		{
 			$this->session->set_flashdata('error', $error);
-			redirect('voter/confirm_vote');
+			redirect('voter/verify');
 		}
 	}
 

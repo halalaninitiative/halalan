@@ -11,7 +11,7 @@ function highlightMenuItem() {
 
 	/* voter */
 	map['vote'] = "VOTE";
-	map['confirm_vote'] = "CONFIRM VOTE";
+	map['verify'] = "VERIFY";
 	map['logout'] = "LOG OUT";
 	map['votes'] = "VOTES";
 	/* admin */
