@@ -12,7 +12,7 @@ function checkNumber() {
 
 	if (inputs.length >= limit) {
 		this.checked = false;
-		alert("You are over the allowed limit");
+		alert("Maximum selections already reached.");
 	}
 }
 
@@ -25,4 +25,5 @@ $(document).ready(function() {
 	$(":checkbox.abstainPosition:checked").click().attr("checked", true);
 	/* Highlight menu item of active view */
 	highlightMenuItem();
+	animateFlashMessage();
 });

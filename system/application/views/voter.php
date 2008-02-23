@@ -9,6 +9,7 @@
   <?php endif; ?>
   <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>public/stylesheets/voter.css" />
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.color.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/common.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/voter.js"></script>
 </head>

@@ -88,4 +88,5 @@ $(document).ready(function() {
 	$("a.manipulateAllPositions[text='collapse all']").click();
 	/* Highlight menu item of active view */
 	highlightMenuItem();
+	animateFlashMessage();
 });

@@ -6,6 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>public/stylesheets/gate.css" />
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.color.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/common.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/gate.js"></script>
 </head>

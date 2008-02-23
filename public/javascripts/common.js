@@ -28,7 +28,14 @@ function highlightMenuItem() {
 	map['export'] = map['voters'];
 
 	var li = $("#menu ul li").filter(function() {return ($(this).text() == map[activeView]);});
-	li.children().andSelf().css("background", "#4983ff");
+	li.children().andSelf().css("background-color", "#4983ff");
+}
+
+function animateFlashMessage() {
+	var message = $("div.positive, div.negative");
+	var color = message.css('background-color');
+	
+	message.css('background-color', '#fdff46').animate( { backgroundColor: color }, 2000);
 }
 
 /* jQuery event handlers */
