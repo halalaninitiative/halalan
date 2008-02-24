@@ -350,12 +350,12 @@ class Voter extends Controller {
 			}
 			$positions[$key]['candidates'] = $candidates;
 		}
-		$voter = $this->Boter->select($voter_id);
+		$boter = $this->Boter->select($voter_id);
 		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
 		// used for marking that this action is being used
 		$voter['voter_id'] = $voter_id;
-		$voter['username'] = $voter['username'];
+		$voter['username'] = $boter['username'];
 		$voter['title'] = e('voter_votes_title');
 		$voter['body'] = $this->load->view('voter/votes', $data, TRUE);
 		$this->load->view('voter', $voter);
