@@ -282,6 +282,10 @@ class Voter extends Controller {
 			}
 			$this->Boter->update(array('voted'=>TRUE), $voter_id);
 			$this->session->unset_userdata('votes');
+			if ($this->settings['generate_image_trail'])
+			{
+				$this->_generate_image_trail();
+			}
 			redirect('voter/logout');
 		}
 		else
@@ -406,6 +410,100 @@ class Voter extends Controller {
 		$data['voter'] = $voter;
 		$data['settings'] = $this->settings;
 		$this->load->view('voter/print_votes', $data);
+	}
+
+	function _generate_image_trail()
+	{
+		$this->load->model('Boter');
+		$this->load->model('Candidate');
+		$this->load->model('Position');
+		$this->load->model('Vote');
+		$voter = $this->Boter->select($this->voter['id']);
+		$count = 0;
+		$positions = $this->Position->select_all_with_units($this->voter['id']);
+		foreach ($positions as $position)
+		{
+			// maximum + name
+			$count += $position['maximum'] + 1;
+		}
+		$y_size = 95 + ($count * 20) + 35;
+		$image = imagecreate(500, $y_size);
+		$bg = imagecolorallocate($image, 255, 255, 255);
+		$text = imagecolorallocate($image, 0, 0, 0);
+		imagestring($image, 5, 5, 5, $this->settings['name'], $text);
+		imagestring($image, 5, 5, 15, '', $text);
+		imagestring($image, 5, 5, 25, '', $text);
+		imagestring($image, 5, 5, 35, 'Username: ' . $this->voter['username'], $text);
+		imagestring($image, 5, 5, 45, '', $text);
+		imagestring($image, 5, 5, 55, 'Name: ' . $this->voter['last_name'] . ', ' . $this->voter['first_name'], $text);
+		imagestring($image, 5, 5, 65, '', $text);
+		imagestring($image, 5, 5, 75, 'Hash: ' . $voter['password'], $text);
+		imagestring($image, 5, 5, 85, '', $text);
+		$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
+		$candidate_ids = array();
+		foreach ($votes as $vote)
+		{
+			$candidate_ids[] = $vote['candidate_id'];
+		}
+		$y = 95;
+		foreach ($positions as $position)
+		{
+			imagestring($image, 5, 5, $y += 10, $position['position'], $text);
+			imagestring($image, 5, 5, $y += 10, '', $text);
+			$count = 0;
+			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
+			foreach ($candidates as $candidate)
+			{
+				if (in_array($candidate['id'], $candidate_ids))
+				{
+					$name = $candidate['first_name'];
+					if (!empty($candidate['alias']))
+						$name .= ' "' . $candidate['alias'] . '"';
+					$name .= ' ' . $candidate['last_name'];
+					imagestring($image, 5, 5, $y += 10, ' - ' . $name, $text);
+					imagestring($image, 5, 5, $y += 10, '', $text);
+				}
+				else
+				{
+					$count++;
+				}
+			}
+			if (empty($candidates))
+			{
+				imagestring($image, 5, 5, $y += 10, '', $text);
+				imagestring($image, 5, 5, $y += 10, '', $text);
+			}
+			else if ($count == count($candidates))
+			{
+				imagestring($image, 5, 5, $y += 10, ' - ABSTAIN', $text);
+				imagestring($image, 5, 5, $y += 10, '', $text);
+			}
+		}
+		imagestring($image, 2, 5, $y_size - 15, 'Generated on ' . date('Y-m-d H:i:s'), $text);
+		$image_trail_path = $this->settings['image_trail_path'];
+		imagepng($image, $image_trail_path . $this->voter['username'] . '.png', 0, PNG_NO_FILTER);
+		imagedestroy($image);
+		$config['source_image'] = $image_trail_path . $this->voter['username'] . '.png';
+		$config['wm_overlay_path'] = './public/images/logo_watermark.png';
+		$config['wm_type'] = 'overlay';
+		$config['wm_vrt_alignment'] = 'top';
+		$config['wm_hor_alignment'] = 'left';
+		$config['wm_opacity'] = 25;
+		$this->image_lib->initialize($config);
+		$this->image_lib->watermark();
+		$config['wm_vrt_alignment'] = 'top';
+		$config['wm_hor_alignment'] = 'right';
+		$this->image_lib->initialize($config);
+		$this->image_lib->watermark();
+		$config['wm_vrt_alignment'] = 'bottom';
+		$config['wm_hor_alignment'] = 'left';
+		$this->image_lib->initialize($config);
+		$this->image_lib->watermark();
+		$config['wm_vrt_alignment'] = 'bottom';
+		$config['wm_hor_alignment'] = 'right';
+		$this->image_lib->initialize($config);
+		$this->image_lib->watermark();
+		return TRUE;
 	}
 
 	function _get_messages()
