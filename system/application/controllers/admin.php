@@ -1077,6 +1077,7 @@ class Admin extends Controller {
 			$this->session->set_flashdata('import', $import);
 			$this->session->set_flashdata('error', $error);
 		}
+		unlink($upload_data['full_path']);
 		redirect('admin/import');
 	}
 
