@@ -38,7 +38,7 @@ else
 				$query = "SELECT * FROM admins";
 				$result = mysql_query($query);
 				$test = FALSE;
-				while ($row = mysql_fetch_array($result))
+				while ($row = @mysql_fetch_array($result))
 				{
 					if (!empty($row))
 					{
