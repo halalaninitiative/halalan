@@ -36,6 +36,7 @@ else if ($dbdriver == 'postgre')
 {
 	pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
 	$query = file_get_contents("db/postgresql.sql");
+	pg_query($query);
 }
 
 $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -53,7 +54,7 @@ if ($dbdriver == 'mysql')
 }
 else if ($dbdriver == 'postgre')
 {
-
+	pg_query($query);
 }
 
 ?>
