@@ -8,10 +8,10 @@
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" border="0" class="table">
 	<tr>
-		<th width="5%">#</th>
-		<th width="30%"><?= e('admin_positions_position'); ?></th>
-		<th width="55%"><?= e('admin_positions_description'); ?></th>
-		<th width="15%"><?= e('common_action'); ?></th>
+		<th scope="col" style="width:5%">#</th>
+		<th scope="col" style="width:30%"><?= e('admin_positions_position'); ?></th>
+		<th scope="col" style="width:55%"><?= e('admin_positions_description'); ?></th>
+		<th scope="col" style="width:15%"><?= e('common_action'); ?></th>
 	</tr>
 	<?php if (empty($positions)): ?>
 	<tr>
@@ -21,16 +21,16 @@
 	<?php $i = 0; ?>
 	<?php foreach ($positions as $position): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td width="5%" align="center">
+		<td align="center">
 			<?= ($i+1); ?>
 		</td>
-		<td width="30%">
+		<td>
 			<?= anchor('admin/edit/position/' . $position['id'], $position['position']); ?>
 		</td>
-		<td width="50%">
+		<td>
 			<?= nl2br($position['description']); ?>
 		</td>
-		<td width="15%" align="center">
+		<td align="center">
 			<?= anchor('admin/edit/position/' . $position['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
 			<?= anchor('admin/delete/position/' . $position['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
 		</td>

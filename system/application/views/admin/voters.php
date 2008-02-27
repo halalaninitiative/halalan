@@ -8,10 +8,10 @@
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" border="0" class="table">
 	<tr>
-		<th width="5%" align="center">#</th>
-		<th width="75%" align="center"><?= e('admin_voters_name'); ?></th>
-		<th width="5%" align="center"><?= e('admin_voters_voted'); ?></th>
-		<th width="15%" align="center"><?= e('common_action'); ?></th>
+		<th scope="col" style="width:5%">#</th>
+		<th scope="col" style="width:75%"><?= e('admin_voters_name'); ?></th>
+		<th scope="col" style="width:5%"><?= e('admin_voters_voted'); ?></th>
+		<th scope="col" style="width:15%"><?= e('common_action'); ?></th>
 	</tr>
 	<?php if (empty($voters)): ?>
 	<tr>
@@ -22,20 +22,20 @@
 	<?php $j = $offset; ?>
 	<?php foreach ($voters as $voter): ?>
 	<tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td width="5%" align="center">
+		<td align="center">
 			<?= ($j+1); ?>
 		</td>
-		<td width="75%">
+		<td>
 			<?= anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
 		</td>
-		<td width="5%" align="center">
+		<td align="center">
 			<?php if ($voter['voted'] == TRUE): ?>
 			<?= img(array('src'=>'public/images/ok.png', 'alt'=>'yes')); ?>
 			<?php else: ?>
 			<?= img(array('src'=>'public/images/x.png', 'alt'=>'no')); ?>
 			<?php endif; ?>
 		</td>
-		<td width="15%" align="center">
+		<td align="center">
 			<?= anchor('admin/edit/voter/' . $voter['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
 			<?= anchor('admin/delete/voter/' . $voter['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
 		</td>
