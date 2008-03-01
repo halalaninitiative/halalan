@@ -8,26 +8,26 @@
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_party_party'); ?>:
+			<label for="party"><?= e('admin_party_party'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'party', 'value'=>$party['party'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'party', 'name'=>'party', 'value'=>$party['party'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_party_alias'); ?>:
+			<label for="alias"><?= e('admin_party_alias'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'alias', 'value'=>$party['alias'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$party['alias'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_party_description'); ?>:
+			<label for="description"><?= e('admin_party_description'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_textarea(array('name'=>'description', 'value'=>$party['description'])); ?>
+			<?= form_textarea(array('id'=>'description', 'name'=>'description', 'value'=>$party['description'])); ?>
 		</td>
 	</tr>
 	<tr>

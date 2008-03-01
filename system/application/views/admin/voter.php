@@ -8,26 +8,26 @@
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td width="30%" align="right">
-			<?= ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?>:
+			<label for="username"><?= ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'username', 'value'=>$voter['username'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>$voter['username'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_voter_last_name'); ?>:
+			<label for="last_name"><?= e('admin_voter_last_name'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'last_name', 'value'=>$voter['last_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$voter['last_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_voter_first_name'); ?>:
+			<label for="first_name"><?= e('admin_voter_first_name'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'first_name', 'value'=>$voter['first_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$voter['first_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -54,9 +54,9 @@
 			<?php else: ?>
 				<table>
 					<tr>
-						<td><?= form_dropdown('possible[]', (count($possible)) ? $possible : array(''=>''), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_voter_possible_positions'); ?></td>
+						<td><?= form_dropdown('possible[]', (count($possible)) ? $possible : array(''=>''), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="possible"><?= e('admin_voter_possible_positions'); ?></label></td>
 						<td><input type="button" class="copySelected" value="  &gt;&gt;  " /><br /><input type="button" class="copySelected" value="  &lt;&lt;  " /></td>
-						<td><?= form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(''=>''), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_voter_chosen_positions'); ?></td>
+						<td><?= form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(''=>''), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="chosen"><?= e('admin_voter_chosen_positions'); ?></label></td>
 					</tr>
 				</table>
 			<?php endif; ?>
@@ -68,9 +68,9 @@
 			<?= e('admin_voter_regenerate'); ?>:
 		</td>
 		<td width="70%">
-			<?= form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> <label for="password"><?= e('admin_voter_password'); ?></label>
+			<label for="password"><?= form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_voter_password'); ?></label>
 			<?php if ($settings['pin']): ?>
-				<?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <label for="pin"><?= e('admin_voter_pin'); ?></label>
+				<label for="pin"><?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_voter_pin'); ?></label>
 			<?php endif; ?>
 		</td>
 	</tr>

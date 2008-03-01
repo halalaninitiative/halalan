@@ -8,50 +8,50 @@
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_last_name'); ?>:
+			<label for="last_name"><?= e('admin_candidate_last_name'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'last_name', 'value'=>$candidate['last_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$candidate['last_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_first_name'); ?>:
+			<label for="first_name"><?= e('admin_candidate_first_name'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'first_name', 'value'=>$candidate['first_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$candidate['first_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_alias'); ?>:
+			<label for="alias"><?= e('admin_candidate_alias'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_input(array('name'=>'alias', 'value'=>$candidate['alias'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$candidate['alias'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_description'); ?>:
+			<label for="description"><?= e('admin_candidate_description'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_textarea(array('name'=>'description', 'value'=>$candidate['description'])); ?>
+			<?= form_textarea(array('id'=>'description', 'name'=>'description', 'value'=>$candidate['description'])); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_party'); ?>:
+			<label for="party_id"><?= e('admin_candidate_party'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_dropdown('party_id', $parties, $candidate['party_id']); ?>
+			<?= form_dropdown('party_id', $parties, $candidate['party_id'], 'id="party_id"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td width="30%" align="right">
-			<?= e('admin_candidate_position'); ?>:
+			<label for="position_id"><?= e('admin_candidate_position'); ?>:</label>
 		</td>
 		<td width="70%">
-			<?= form_dropdown('position_id', $positions, $candidate['position_id']); ?>
+			<?= form_dropdown('position_id', $positions, $candidate['position_id'], 'id="position_id"'); ?>
 		</td>
 	</tr>
 	<tr>

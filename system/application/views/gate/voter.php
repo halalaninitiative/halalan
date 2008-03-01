@@ -5,12 +5,12 @@
 	<?php if ($option['status']): ?>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<tr>
-			<td align="right"><?= e('gate_voter_username'); ?>:</td>
-			<td><?= form_input(array('name'=>'username', 'class'=>'text')); ?></td>
+			<td align="right"><label for="username"><?= e('gate_voter_username'); ?>:</label></td>
+			<td><?= form_input(array('id'=>'username', 'name'=>'username', 'class'=>'text')); ?></td>
 		</tr>
 		<tr>
-			<td align="right"><?= e('gate_voter_password'); ?>:</td>
-			<td><?= form_password(array('name'=>'password', 'class'=>'text')); ?></td>
+			<td align="right"><label for="password"><?= e('gate_voter_password'); ?>:</label></td>
+			<td><?= form_password(array('id'=>'password', 'name'=>'password', 'class'=>'text')); ?></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><?= form_submit(array('value'=>e('gate_voter_login_button'))); ?></td>

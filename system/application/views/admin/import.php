@@ -26,9 +26,9 @@
 			<?php else: ?>
 				<table>
 					<tr>
-						<td><?= form_dropdown('possible[]', $possible, '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_import_possible_positions'); ?></td>
+						<td><?= form_dropdown('possible[]', (count($possible)) ? $possible : array(''=>''), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="possible"><?= e('admin_voter_possible_positions'); ?></label></td>
 						<td><input type="button" class="copySelected" value="  &gt;&gt;  " /><br /><input type="button" class="copySelected" value="  &lt;&lt;  " /></td>
-						<td><?= form_dropdown('chosen[]', $chosen, '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><?= e('admin_import_chosen_positions'); ?></td>
+						<td><?= form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(''=>''), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="chosen"><?= e('admin_voter_chosen_positions'); ?></label></td>
 					</tr>
 				</table>
 			<?php endif; ?>
