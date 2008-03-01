@@ -74,6 +74,10 @@ function togglePosition() {
 	return false;
 }
 
+function selectThis() {
+	this.select();
+}
+
 $(document).ready(function() {
 	/* Bind handlers to events */
 	$("a.confirmDelete").click(confirmDelete);
@@ -82,6 +86,7 @@ $(document).ready(function() {
 	$(":radio.changeElectionStatus").click(changeElectionStatus);
 	$(":button.copySelected").click(copySelected);
 	$("form.selectChosen").submit(selectChosen);
+	$(":text, textarea").focus(selectThis);
 	/* Disable Result radio buttons if election is already running */
 	$(":radio.changeElectionStatus[value=1]:checked").click();
 	/* Collapse all */
