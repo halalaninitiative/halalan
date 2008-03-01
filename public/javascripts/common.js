@@ -53,5 +53,4 @@ function toggleDetails() {
 		</tr>
 	*/
 	$(this).parents("tr").next().find("div.details").slideToggle('normal');
-	return false;
 }

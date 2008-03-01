@@ -26,7 +26,7 @@ function printVotes() {
 
 $(document).ready(function() {
 	/* Bind handlers to events */
-	$("a.toggleDetails").click(toggleDetails);
+	$("img.toggleDetails").click(toggleDetails);
 	$(":checkbox.checkNumber").click(checkNumber);
 	$(":checkbox.abstainPosition").click(abstainPosition);
 	$(":button.modifyBallot").click(modifyBallot);

@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
 	/* Bind handlers to events */
-	$("a.toggleDetails").click(toggleDetails);
+	$("img.toggleDetails").click(toggleDetails);
 	animateFlashMessage();
 });
