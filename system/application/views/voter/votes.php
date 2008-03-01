@@ -24,18 +24,18 @@
 		<?php else: ?>
 		<tr class="not_selected">
 		<?php endif; ?>
-			<td width="5%" align="center">
+			<td class="w5" align="center">
 			<?php if ($candidate['voted']): ?>
 			<?= img(array('src'=>'public/images/ok.png', 'alt'=>'Check')); ?>
 			<?php else: ?>
 			<?= img(array('src'=>'public/images/x.png', 'alt'=>'X')); ?>
 			<?php endif; ?>
 			</td>
-			<td width="60%"><?= $name; ?></td>
+			<td class="w60"><?= $name; ?></td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="30%">
+			<td class="w30">
 			<?php else: ?>
-			<td width="35%">
+			<td class="w35">
 			<?php endif; ?>
 				<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
 				<?php if (empty($candidate['party']['alias'])): ?>
@@ -46,10 +46,8 @@
 				<?php endif; ?>
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="5%">
-				<a href="#" class="toggleDetails">
-				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'title'=>'More info')); ?>
-				</a>
+			<td class="w5">
+				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails', 'title'=>'More info')); ?>
 			</td>
 			<?php endif; ?>
 		</tr>
@@ -81,19 +79,19 @@
 		<?php else: ?>
 		<tr class="not_selected">
 		<?php endif; ?>
-			<td width="5%" align="center">
+			<td class="w5" align="center">
 			<?php if ($positions[$i]['abstains']): ?>
 			<?= img(array('src'=>'public/images/ok.png', 'alt'=>'Check')); ?>
 			<?php else: ?>
 			<?= img(array('src'=>'public/images/x.png', 'alt'=>'X')); ?>
 			<?php endif; ?>
 			</td>
-			<td width="60%">ABSTAIN</td>
+			<td class="w60">ABSTAIN</td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="30%"></td>
-			<td width="5%"></td>
+			<td class="w30"></td>
+			<td class="w5"></td>
 			<?php else: ?>
-			<td width="35%"></td>
+			<td class="w35"></td>
 			<?php endif; ?>
 		</tr>
 		<?php endif; ?>

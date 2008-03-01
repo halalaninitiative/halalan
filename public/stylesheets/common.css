@@ -275,3 +275,24 @@ div.details {
     padding: 5px;
   }
 
+/* Widths */
+
+.w5 {
+    width: 5%;
+  }
+
+
+.w30 {
+    width: 30%;
+  }
+
+
+.w35 {
+    width: 35%;
+  }
+
+
+.w60 {
+    width: 60%;
+  }
+

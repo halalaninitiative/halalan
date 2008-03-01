@@ -30,12 +30,12 @@
 			$name = quotes_to_entities($name);
 		?>
 		<tr>
-			<td width="5%"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_' . $candidate['id'], 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'checkNumber')); ?></td>
-			<td width="60%"><label for="<?= 'cb' . $positions[$i]['id'] . '_' . $candidate['id']; ?>"><?= $name; ?></label></td>
+			<td class="w5"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_' . $candidate['id'], 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'class'=>'checkNumber')); ?></td>
+			<td class="w60"><label for="<?= 'cb' . $positions[$i]['id'] . '_' . $candidate['id']; ?>"><?= $name; ?></label></td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="30%">
+			<td class="w30">
 			<?php else: ?>
-			<td width="35%">
+			<td class="w35">
 			<?php endif; ?>
 				<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
 				<?php if (empty($candidate['party']['alias'])): ?>
@@ -46,7 +46,7 @@
 				<?php endif; ?>
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="5%">
+			<td class="w5">
 				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails', 'title'=>'More info')); ?>
 			</td>
 			<?php endif; ?>
@@ -82,13 +82,13 @@
 		?>
 		<?php if ($positions[$i]['abstain'] == TRUE): ?>
 		<tr>
-			<td width="5%"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_abstain', 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstainPosition', 'checked'=>$checked, 'value'=>'')); ?></td>
-			<td width="60%"><label for="<?= 'cb' . $positions[$i]['id'] . '_abstain'; ?>">ABSTAIN</label></td>
+			<td class="w5"><?= form_checkbox(array('id'=>'cb' . $positions[$i]['id'] . '_abstain', 'name'=>'votes[' . $positions[$i]['id'] . '][]', 'class'=>'abstainPosition', 'checked'=>$checked, 'value'=>'')); ?></td>
+			<td class="w60"><label for="<?= 'cb' . $positions[$i]['id'] . '_abstain'; ?>">ABSTAIN</label></td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="30%"></td>
-			<td width="5%"></td>
+			<td class="w30"></td>
+			<td class="w5"></td>
 			<?php else: ?>
-			<td width="35%"></td>
+			<td class="w35"></td>
 			<?php endif; ?>
 		</tr>
 		<?php endif; ?>

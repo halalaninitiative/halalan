@@ -7,34 +7,34 @@
 <h2><?= e('admin_' . $action . '_voter_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<label for="username"><?= ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?>:</label>
 		</td>
-		<td width="70%">
+		<td>
 			<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>$voter['username'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<label for="last_name"><?= e('admin_voter_last_name'); ?>:</label>
 		</td>
-		<td width="70%">
+		<td>
 			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$voter['last_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<label for="first_name"><?= e('admin_voter_first_name'); ?>:</label>
 		</td>
-		<td width="70%">
+		<td>
 			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$voter['first_name'], 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_voter_general_positions'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?php if (empty($general)): ?>
 				<em><?= e('admin_voter_no_general_positions'); ?></em>
 			<?php else: ?>
@@ -45,10 +45,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_voter_specific_positions'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?php if (empty($specific)): ?>
 			<em><?= e('admin_voter_no_specific_positions'); ?></em>
 			<?php else: ?>
@@ -64,10 +64,10 @@
 	</tr>
 	<?php if ($action == 'edit'): ?>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_voter_regenerate'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<label for="password"><?= form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_voter_password'); ?></label>
 			<?php if ($settings['pin']): ?>
 				<label for="pin"><?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_voter_pin'); ?></label>

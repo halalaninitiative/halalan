@@ -31,12 +31,12 @@
 		<?php else: ?>
 		<tr class="not_selected">
 		<?php endif; ?>
-			<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
-			<td width="60%"><?= $name; ?></td>
+			<td class="w5"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
+			<td class="w60"><?= $name; ?></td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="30%">
+			<td class="w30">
 			<?php else: ?>
-			<td width="35%">
+			<td class="w35">
 			<?php endif; ?>
 				<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
 				<?php if (empty($candidate['party']['alias'])): ?>
@@ -47,7 +47,7 @@
 				<?php endif; ?>
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="5%">
+			<td class="w5">
 				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails', 'title'=>'More info')); ?>
 			</td>
 			<?php endif; ?>
@@ -87,13 +87,13 @@
 		<?php else: ?>
 		<tr class="not_selected">
 		<?php endif; ?>
-			<td width="5%"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>'disabled')); ?></td>
-			<td width="60%">ABSTAIN</td>
+			<td class="w5"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>'disabled')); ?></td>
+			<td class="w60">ABSTAIN</td>
 			<?php if ($settings['show_candidate_details']): ?>
-			<td width="30%"></td>
-			<td width="5%"></td>
+			<td class="w30"></td>
+			<td class="w5"></td>
 			<?php else: ?>
-			<td width="35%"></td>
+			<td class="w35"></td>
 			<?php endif; ?>
 		</tr>
 		<?php endif; ?>

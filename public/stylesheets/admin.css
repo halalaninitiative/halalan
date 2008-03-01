@@ -69,27 +69,6 @@
     text-align: center;
   }
 
-/* Table header widths */
-
-#content .table th.w5 {
-    width: 5%;
-  }
-
-
-#content .table th.w10 {
-    width: 10%;
-  }
-
-
-#content .table th.w15 {
-    width: 15%;
-  }
-
-
-#content .table th.w45 {
-    width: 45%;
-  }
-
 
 #content .table td {
     padding: 5px 10px;
@@ -105,5 +84,21 @@
 
 #content .table .even {
     background: #eeeeee;
+  }
+
+/* Widths */
+
+.w10 {
+    width: 10%;
+  }
+
+
+.w15 {
+    width: 15%;
+  }
+
+
+.w45 {
+    width: 45%;
   }
 

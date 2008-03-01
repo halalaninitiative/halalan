@@ -14,3 +14,19 @@
     text-align : left;
   }
 
+/* Widths */
+
+.w20 {
+    width: 20%;
+  }
+
+
+.w25 {
+    width: 25%;
+  }
+
+
+.w70 {
+    width: 70%;
+  }
+

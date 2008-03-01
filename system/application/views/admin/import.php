@@ -3,10 +3,10 @@
 <h2><?= e('admin_import_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_import_general_positions'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?php if (empty($general)): ?>
 				<em><?= e('admin_import_no_general_positions'); ?></em>
 			<?php else: ?>
@@ -17,10 +17,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_import_specific_positions'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?php if (empty($specific)): ?>
 			<em><?= e('admin_import_no_specific_positions'); ?></em>
 			<?php else: ?>
@@ -35,18 +35,18 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_import_csv'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?= form_upload(array('name'=>'csv', 'size'=>30)); ?>
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_import_sample'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?php if ($settings['password_pin_generation'] == 'web'): ?>
 			Username,Last Name,First Name<br />
 			user1,Suzumiya,Haruhi<br />
@@ -61,10 +61,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="30%" align="right">
+		<td class="w30" align="right">
 			<?= e('admin_import_notes'); ?>:
 		</td>
-		<td width="70%">
+		<td>
 			<?php if ($settings['password_pin_generation'] == 'web'): ?>
 			Username
 			<?php elseif ($settings['password_pin_generation'] == 'email'): ?>

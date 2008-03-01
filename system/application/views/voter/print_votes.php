@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -9,7 +9,7 @@
 	<h2><?= $settings['name']; ?></h2>
 	<p>Voted as <?= $voter['username']; ?></p>
 	<h3>Votes</h3>
-	<table cellspacing="2" cellpadding="2" border="0" width="75%">
+	<table cellspacing="2" cellpadding="2" border="0" style="width: 75%">
 		<?php for ($i = 0; $i < count($positions); $i++): ?>
 		<?php if ($i % 2 == 0): ?>
 		<tr>
