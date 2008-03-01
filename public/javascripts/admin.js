@@ -5,7 +5,7 @@ function changeElectionStatus() {
 	var buttons = $(":radio[name=result]");
 
 	if ($(this).val() == "1") {
-		result.fadeTo(250, 0.5)
+		result.fadeTo(250, 0.5);
 		buttons.attr("disabled", true);
 	} else {
 		result.fadeTo(250, 1.0);
@@ -89,4 +89,6 @@ $(document).ready(function() {
 	/* Highlight menu item of active view */
 	highlightMenuItem();
 	animateFlashMessage();
+	/* Remove blank select option */
+	$("#possible, #chosen").children("[value='']").remove();
 });
