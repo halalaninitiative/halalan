@@ -6,12 +6,12 @@
 	<p class="align_right"><?= anchor('admin/add/position', e('admin_positions_add')); ?></p>
 </div>
 <div class="clear"></div>
-<table cellpadding="0" cellspacing="0" border="0" class="table">
+<table cellpadding="0" cellspacing="0" class="table">
 	<tr>
-		<th scope="col" style="width:5%">#</th>
-		<th scope="col" style="width:30%"><?= e('admin_positions_position'); ?></th>
-		<th scope="col" style="width:55%"><?= e('admin_positions_description'); ?></th>
-		<th scope="col" style="width:15%"><?= e('common_action'); ?></th>
+		<th scope="col" class="w5">#</th>
+		<th scope="col"><?= e('admin_positions_position'); ?></th>
+		<th scope="col" class="w45"><?= e('admin_positions_description'); ?></th>
+		<th scope="col" class="w10"><?= e('common_action'); ?></th>
 	</tr>
 	<?php if (empty($positions)): ?>
 	<tr>

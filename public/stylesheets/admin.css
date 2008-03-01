@@ -3,32 +3,32 @@
 
 
 #content .align_right {
-    text-align : right;
+    text-align: right;
   }
 
 
 #content .content_left {
-    width : 375px;
+    width: 375px;
   }
 
 
 #content .content_right {
-    width : 375px;
+    width: 375px;
   }
 
 
 #content .notes ul {
-    font-size : 1.1em;
-    line-height : 1.8em;
-    padding : 0px;
-    margin : 0px;
-    list-style : none;
+    font-size: 1.1em;
+    line-height: 1.8em;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
   }
 
 
 #content .notes ul li {
-    background : url('../images/bullet_grey.png') no-repeat center left;
-    padding : 0px 0px 0px 20px;
+    background: url('../images/bullet_grey.png') no-repeat center left;
+    padding: 0px 0px 0px 20px;
   }
 
 
@@ -55,6 +55,7 @@
     margin-bottom: 15px;
     width: 100%;
     border-collapse: collapse;
+    border: none;
   }
 
 
@@ -66,6 +67,27 @@
     font-size: 1.1em;
     font-weight: bold;
     text-align: center;
+  }
+
+/* Table header widths */
+
+#content .table th.w5 {
+    width: 5%;
+  }
+
+
+#content .table th.w10 {
+    width: 10%;
+  }
+
+
+#content .table th.w15 {
+    width: 15%;
+  }
+
+
+#content .table th.w45 {
+    width: 45%;
   }
 
 

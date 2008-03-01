@@ -7,12 +7,12 @@
 	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
 </div>
 <div class="clear"></div>
-<table cellpadding="0" cellspacing="0" border="0" class="table">
+<table cellpadding="0" cellspacing="0" class="table">
 	<tr>
-		<th scope="col" style="width:5%">#</th>
-		<th scope="col" style="width:30%"><?= e('admin_candidates_candidate'); ?></th>
-		<th scope="col" style="width:50%"><?= e('admin_candidates_description'); ?></th>
-		<th scope="col" style="width:15%"><?= e('common_action'); ?></th>
+		<th scope="col" class="w5">#</th>
+		<th scope="col"><?= e('admin_candidates_candidate'); ?></th>
+		<th scope="col" class="w45"><?= e('admin_candidates_description'); ?></th>
+		<th scope="col" class="w10"><?= e('common_action'); ?></th>
 	</tr>
 	<tr>
 		<td colspan="4" align="center"><em><?= e('admin_candidates_no_candidates'); ?></em></td>
@@ -30,12 +30,12 @@
 	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
 </div>
 <div class="clear"></div>
-<table cellpadding="0" cellspacing="0" border="0" class="table">
+<table cellpadding="0" cellspacing="0" class="table">
 	<tr>
-		<th scope="col" style="width:5%">#</th>
-		<th scope="col" style="width:30%"><?= e('admin_candidates_candidate'); ?></th>
-		<th scope="col" style="width:50%"><?= e('admin_candidates_description'); ?></th>
-		<th scope="col" style="width:15%"><?= e('common_action'); ?></th>
+		<th scope="col" class="w5">#</th>
+		<th scope="col"><?= e('admin_candidates_candidate'); ?></th>
+		<th scope="col" class="w45"><?= e('admin_candidates_description'); ?></th>
+		<th scope="col" class="w10"><?= e('common_action'); ?></th>
 	</tr>
 	<?php if (empty($position['candidates'])): ?>
 	<tr>
