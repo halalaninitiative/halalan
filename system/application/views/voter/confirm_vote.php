@@ -117,11 +117,11 @@
 	<tr>
 		<?php if ($settings['captcha']): ?>
 		<td><?= $captcha['image']; ?></td>
-		<td><?= e('voter_confirm_vote_captcha_label'); ?><br /><?= form_input(array('name'=>'captcha', 'size'=>20, 'maxlength'=>8)); ?></td>
+		<td><label for="captcha"><?= e('voter_confirm_vote_captcha_label'); ?><br /><?= form_input(array('id'=>'captcha', 'name'=>'captcha', 'size'=>20, 'maxlength'=>8)); ?></label></td>
 		<?php endif ;?>
 		<?php if ($settings['pin']): ?>
 		<td>&nbsp;</td>
-		<td><?= e('voter_confirm_vote_pin_label'); ?><br /><?= form_input(array('name'=>'pin', 'size'=>20)); ?></td>
+		<td><label for="pin"><?= e('voter_confirm_vote_pin_label'); ?><br /><?= form_input(array('id'=>'pin', 'name'=>'pin', 'size'=>20)); ?></label></td>
 		<?php endif; ?>
 	</tr>
 </table>
