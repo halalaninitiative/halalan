@@ -1051,8 +1051,19 @@ class Admin extends Controller {
 				$voter['chosen'] = $this->input->post('chosen', TRUE);
 				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
 				{
-					$this->Boter->insert($voter);
-					$count++;
+					if ($this->settings['password_pin_generation'] == 'web')
+					{
+						$this->Boter->insert($voter);
+						$count++;
+					}
+					else if ($this->settings['password_pin_generation'] == 'email')
+					{
+						if ($this->_valid_email($voter['username']))
+						{
+							$this->Boter->insert($voter);
+							$count++;
+						}
+					}
 				}
 			}
 			if ($count == 1)
