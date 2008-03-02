@@ -435,17 +435,15 @@ class Voter extends Controller {
 		imagestring($image, 5, 5, 25, '', $text);
 		imagestring($image, 5, 5, 35, 'Username: ' . $this->voter['username'], $text);
 		imagestring($image, 5, 5, 45, '', $text);
-		imagestring($image, 5, 5, 55, 'Name: ' . $this->voter['last_name'] . ', ' . $this->voter['first_name'], $text);
+		imagestring($image, 5, 5, 55, 'Hash: ' . $voter['password'], $text);
 		imagestring($image, 5, 5, 65, '', $text);
-		imagestring($image, 5, 5, 75, 'Hash: ' . $voter['password'], $text);
-		imagestring($image, 5, 5, 85, '', $text);
 		$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
 		$candidate_ids = array();
 		foreach ($votes as $vote)
 		{
 			$candidate_ids[] = $vote['candidate_id'];
 		}
-		$y = 95;
+		$y = 75;
 		foreach ($positions as $position)
 		{
 			imagestring($image, 5, 5, $y += 10, $position['position'], $text);
