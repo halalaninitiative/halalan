@@ -210,7 +210,7 @@ class Voter extends Controller {
 		if ($this->settings['captcha'])
 		{
 			$this->load->plugin('captcha');
-			$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60);
+			$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60, 'word_length'=> $this->settings['captcha_length']);
 			$captcha = create_captcha($vals);
 			$data['captcha'] = $captcha;
 			$this->session->set_userdata('word', $captcha['word']);
