@@ -1,9 +1,10 @@
 
 function highlightMenuItem() {
-	var map = new Object();
+	var map = {};
 	var number = new RegExp('[0-9]+');
 	var url = window.location.href.split('/');
 	var activeView = url.pop();
+	var li;
 
 	while (number.test(activeView)) {
 		activeView = url.pop();
@@ -27,18 +28,19 @@ function highlightMenuItem() {
 	map['import'] = map['voters'];
 	map['export'] = map['voters'];
 
-	var li = $("#menu ul li").filter(function() {return ($(this).text() == map[activeView]);});
-	li.children().andSelf().css("background-color", "#4983ff");
+	li = $('#menu li').filter(function () {return $(this).text() === map[activeView];});
+	li.children().andSelf().css('background-color', "#4983ff");
 }
 
 function animateFlashMessage() {
-	var message = $("div.positive, div.negative");
+	var message = $('div.positive, div.negative');
 	var color = message.css('background-color');
-	
-	message.css('background-color', '#fdff46').animate( { backgroundColor: color }, 2000);
+
+	message.css('background-color', '#fdff46').animate({backgroundColor: color}, 2000);
 }
 
 /* jQuery event handlers */
+
 function toggleDetails() {
 	/*
 		<tr> parent
@@ -52,5 +54,5 @@ function toggleDetails() {
 		</td>
 		</tr>
 	*/
-	$(this).parents("tr").next().find("div.details").slideToggle('normal');
+	$(this).parents('tr').next().find('div.details').slideToggle("normal");
 }
