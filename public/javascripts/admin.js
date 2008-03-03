@@ -2,15 +2,15 @@
 /* jQuery event handlers */
 
 function changeElectionStatus() {
-	var result = $('tr.result');
-	var buttons = $(':radio[name=result]');
+	var result = $('tr.results');
+	var checkbox = $('tr.results :checkbox');
 
 	if ($(this).val() === "1") {
 		result.fadeTo(250, 0.5);
-		buttons.attr('disabled', true);
+		checkbox.attr('disabled', true);
 	} else {
 		result.fadeTo(250, 1.0);
-		buttons.removeAttr('disabled');
+		checkbox.removeAttr('disabled');
 	}
 }
 

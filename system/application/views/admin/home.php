@@ -26,15 +26,12 @@
 				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> Not Running</label>
 			</td>
 		</tr>
-		<tr class="result">
+		<tr class="results">
 			<td align="right">
 				Results:
 			</td>
 			<td>
-				<label><?= form_radio(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> Show</label>
-			</td>
-			<td>
-				<label><?= form_radio(array('name'=>'result', 'value'=>FALSE, 'checked'=>(($option['result']) ? FALSE : TRUE))); ?> Hide</label>
+				<label><?= form_checkbox(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> Publish results?</label>
 			</td>
 		</tr>
 		<tr>
