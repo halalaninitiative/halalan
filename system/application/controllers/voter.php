@@ -479,9 +479,9 @@ class Voter extends Controller {
 		}
 		imagestring($image, 2, 5, $y_size - 15, 'Generated on ' . date('Y-m-d H:i:s'), $text);
 		$image_trail_path = $this->settings['image_trail_path'];
-		imagepng($image, $image_trail_path . $this->voter['username'] . '.png', 0, PNG_NO_FILTER);
+		imagepng($image, $image_trail_path . $this->voter['id'] . '.png', 0, PNG_NO_FILTER);
 		imagedestroy($image);
-		$config['source_image'] = $image_trail_path . $this->voter['username'] . '.png';
+		$config['source_image'] = $image_trail_path . $this->voter['id'] . '.png';
 		$config['wm_overlay_path'] = './public/images/logo_watermark.png';
 		$config['wm_type'] = 'overlay';
 		$config['wm_vrt_alignment'] = 'top';
