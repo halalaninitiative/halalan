@@ -135,15 +135,15 @@ else
 						<td width="65%"><input type="text" name="name" value="Election Name" /></td>
 					</tr>
 					<tr>
-						<td width="35%">Pin</td>
-						<td width="65%"><input type="radio" name="pin" value="TRUE" checked="true" /> enable <input type="radio" name="pin" value="FALSE" /> disable</td>
+						<td width="35%">PIN</td>
+						<td width="65%"><label><input type="checkbox" name="pin" value="TRUE" /> use in ballot validation?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">Password and Pin Generation</td>
+						<td width="35%">Password and PIN Generation</td>
 						<td width="65%"><select name="password_pin_generation"><option value="web" selected="selected">Web</option><option value="email">Email</option></select></td>
 					</tr>
 					<tr>
-						<td width="35%">Password and Pin Characters</td>
+						<td width="35%">Password and PIN Characters</td>
 						<td width="65%"><select name="password_pin_characters"><option value="alnum" selected="selected">Alphanumeric</option><option value="numeric">Numeric</option><option value="nozero">No Zero</option></select></td>
 					</tr>
 					<tr>
@@ -155,7 +155,7 @@ else
 						</select></td>
 					</tr>
 					<tr>
-						<td width="35%">Pin Length</td>
+						<td width="35%">PIN Length</td>
 						<td width="65%"><select name="pin_length">
 						<?php for ($i = 4; $i < 11; $i++) { ?>
 						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -164,19 +164,35 @@ else
 					</tr>
 					<tr>
 						<td width="35%">CAPTCHA</td>
-						<td width="65%"><input type="radio" name="captcha" value="TRUE" checked="true" /> enable <input type="radio" name="captcha" value="FALSE" /> disable</td>
+						<td width="65%"><label><input type="checkbox" name="captcha" value="TRUE" /> use in ballot validation?</label></td>
+					</tr>
+					<tr>
+						<td width="35%">CAPTCHA Length</td>
+						<td width="65%"><select name="captcha_length">
+						<?php for ($i = 4; $i < 11; $i++) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php } ?>
+						</select></td>
 					</tr>
 					<tr>
 						<td width="35%">Language</td>
 						<td width="65%"><select name="language"><option value="english">English</option><option value="filipino">Filipino</option></select></td>
 					</tr>
 					<tr>
-						<td width="35%">Candidate Details in Ballot</td>
-						<td width="65%"><input type="radio" name="details" value="TRUE" checked="true" /> show <input type="radio" name="details" value="FALSE" /> hide</td>
+						<td width="35%">Candidate Details</td>
+						<td width="65%"><label><input type="checkbox" name="details" value="TRUE" /> show in ballot?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">Randomize Candidate Order in Ballot</td>
-						<td width="65%"><input type="radio" name="random" value="TRUE" checked="true" /> show <input type="radio" name="random" value="FALSE" /> hide</td>
+						<td width="35%">Candidate Order</td>
+						<td width="65%"><label><input type="checkbox" name="random" value="TRUE" /> randomize order in ballot?</label></td>
+					</tr>
+					<tr>
+						<td width="35%">Virtual Paper Trail</td>
+						<td width="65%"><label><input type="checkbox" name="image_trail" value="TRUE" /> generate virtual paper trail (image file)?</label></td>
+					</tr>
+					<tr>
+						<td width="35%">Virtual Paper Trail Path</td>
+						<td width="65%"><input type="text" name="image_trail_path" size="40" value="/home/httpd/html/w/" /></td>
 					</tr>
 				</table>
 			</fieldset>
