@@ -81,6 +81,11 @@ a {
   }
 
 
+.w35 {
+    width: 35%;
+  }
+
+
 #left_menu {
     float : left;
     font-size : large;
@@ -136,4 +141,5 @@ fieldset {
     border : 1px solid #BBBBBB;
     background-color : #E5E5E5;
     text-align : left;
+    margin-bottom: 1.2em;
   }

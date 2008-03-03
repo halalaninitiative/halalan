@@ -107,96 +107,93 @@ else
 					</tr>
 				</table>
 			</fieldset>
-			<br />
 			<form method="post" action="ok.php">
 			<fieldset>
 				<legend class="position">Administrator Settings</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
-						<td width="35%">First Name</td>
-						<td width="65%"><input type="text" name="first_name" maxlength="63" /></td>
+						<td class="w35">First Name</td>
+						<td><input type="text" name="first_name" maxlength="63" /></td>
 					</tr>
 					<tr>
-						<td width="35%">Last Name</td>
-						<td width="65%"><input type="text" name="last_name" maxlength="31" /></td>
+						<td class="w35">Last Name</td>
+						<td><input type="text" name="last_name" maxlength="31" /></td>
 					</tr>
 					<tr>
-						<td width="35%">Email</td>
-						<td width="65%"><input type="text" name="email" maxlength="63" /></td>
+						<td class="w35">Email</td>
+						<td><input type="text" name="email" maxlength="63" /></td>
 					</tr>
 				</table>
 			</fieldset>
-			<br />
 			<fieldset>
 				<legend class="position">Election Settings</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
-						<td width="35%">Name</td>
-						<td width="65%"><input type="text" name="name" value="Election Name" /></td>
+						<td class="w35">Name</td>
+						<td><input type="text" name="name" value="Election Name" /></td>
 					</tr>
 					<tr>
-						<td width="35%">PIN</td>
-						<td width="65%"><label><input type="checkbox" name="pin" value="TRUE" /> use in ballot validation?</label></td>
+						<td class="w35">PIN</td>
+						<td><label><input type="checkbox" name="pin" value="TRUE" /> use in ballot validation?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">Password and PIN Generation</td>
-						<td width="65%"><select name="password_pin_generation"><option value="web" selected="selected">Web</option><option value="email">Email</option></select></td>
+						<td class="w35">Password and PIN Generation</td>
+						<td><select name="password_pin_generation"><option value="web" selected="selected">Web</option><option value="email">Email</option></select></td>
 					</tr>
 					<tr>
-						<td width="35%">Password and PIN Characters</td>
-						<td width="65%"><select name="password_pin_characters"><option value="alnum" selected="selected">Alphanumeric</option><option value="numeric">Numeric</option><option value="nozero">No Zero</option></select></td>
+						<td class="w35">Password and PIN Characters</td>
+						<td><select name="password_pin_characters"><option value="alnum" selected="selected">Alphanumeric</option><option value="numeric">Numeric</option><option value="nozero">No Zero</option></select></td>
 					</tr>
 					<tr>
-						<td width="35%">Password Length</td>
-						<td width="65%"><select name="password_length">
+						<td class="w35">Password Length</td>
+						<td><select name="password_length">
 						<?php for ($i = 4; $i < 11; $i++) { ?>
 						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
 						<?php } ?>
 						</select></td>
 					</tr>
 					<tr>
-						<td width="35%">PIN Length</td>
-						<td width="65%"><select name="pin_length">
+						<td class="w35">PIN Length</td>
+						<td><select name="pin_length">
 						<?php for ($i = 4; $i < 11; $i++) { ?>
 						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
 						<?php } ?>
 						</select></td>
 					</tr>
 					<tr>
-						<td width="35%">CAPTCHA</td>
-						<td width="65%"><label><input type="checkbox" name="captcha" value="TRUE" /> use in ballot validation?</label></td>
+						<td class="w35">CAPTCHA</td>
+						<td><label><input type="checkbox" name="captcha" value="TRUE" /> use in ballot validation?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">CAPTCHA Length</td>
-						<td width="65%"><select name="captcha_length">
+						<td class="w35">CAPTCHA Length</td>
+						<td><select name="captcha_length">
 						<?php for ($i = 4; $i < 11; $i++) { ?>
 						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
 						<?php } ?>
 						</select></td>
 					</tr>
 					<tr>
-						<td width="35%">Language</td>
-						<td width="65%"><select name="language"><option value="english">English</option><option value="filipino">Filipino</option></select></td>
+						<td class="w35">Language</td>
+						<td><select name="language"><option value="english">English</option><option value="filipino">Filipino</option></select></td>
 					</tr>
 					<tr>
-						<td width="35%">Candidate Details</td>
-						<td width="65%"><label><input type="checkbox" name="details" value="TRUE" /> show in ballot?</label></td>
+						<td class="w35">Candidate Details</td>
+						<td><label><input type="checkbox" name="details" value="TRUE" /> show in ballot?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">Candidate Order</td>
-						<td width="65%"><label><input type="checkbox" name="random" value="TRUE" /> randomize order in ballot?</label></td>
+						<td class="w35">Candidate Order</td>
+						<td><label><input type="checkbox" name="random" value="TRUE" /> randomize order in ballot?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">Virtual Paper Trail</td>
-						<td width="65%"><label><input type="checkbox" name="image_trail" value="TRUE" /> generate virtual paper trail (image file)?</label></td>
+						<td class="w35">Virtual Paper Trail</td>
+						<td><label><input type="checkbox" name="image_trail" value="TRUE" /> generate virtual paper trail (image file)?</label></td>
 					</tr>
 					<tr>
-						<td width="35%">Virtual Paper Trail Path</td>
-						<td width="65%"><input type="text" name="image_trail_path" size="40" value="/home/httpd/html/w/" /></td>
+						<td class="w35">Virtual Paper Trail Path</td>
+						<td><input type="text" name="image_trail_path" size="40" value="/home/httpd/html/w/" /></td>
 					</tr>
 				</table>
 			</fieldset>
-			<br />
 			<fieldset>
 				<legend class="position"></legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
@@ -217,5 +214,6 @@ else
 		<br />
 		Powered by Halalan.
 	</div>
+</div>
 </body>
 </html>

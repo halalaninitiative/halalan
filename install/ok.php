@@ -87,12 +87,12 @@ else if ($dbdriver == 'postgre')
 				<legend class="position">Administrator Settings</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
-						<td width="35%">Username</td>
-						<td width="65%">admin</td>
+						<td class="w35">Username</td>
+						<td>admin</td>
 					</tr>
 					<tr>
-						<td width="35%">Password</td>
-						<td width="65%"><?php echo $password; ?></td>
+						<td class="w35">Password</td>
+						<td><?php echo $password; ?></td>
 					</tr>
 					<tr>
 						<td colspan="2">The administrator login is found at <a href="<?php echo dirname($config['base_url']); ?>/<?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin"><?php echo dirname($config['base_url']); ?>/<?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin</a></td>
@@ -105,7 +105,7 @@ else if ($dbdriver == 'postgre')
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
 						<td align="center">
-<textarea cols="75" rows="25" readonly="true">
+<textarea cols="75" rows="25" readonly="readonly">
 <?php echo "<?php"; ?> if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // don't change if you already entered some data
@@ -147,5 +147,6 @@ $config['language'] = "<?php echo $_POST['language']; ?>";
 		<br />
 		Powered by Halalan.
 	</div>
+</div>
 </body>
 </html>
