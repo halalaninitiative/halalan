@@ -5,4 +5,5 @@ $(document).ready(function () {
 	$('img.toggleDetails').click(toggleDetails);
 	/* Code that aren't bound to events */
 	animateFlashMessage();
+	highlightMenuItem();
 });

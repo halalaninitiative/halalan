@@ -35,6 +35,14 @@
 			<div class="clear"></div>
 		</div>
 	</div>
+	<?php if ($login == 'result' || $login == 'statistics'): ?>
+	<div id="menu">
+		<ul>
+			<li><?= anchor('gate/results', 'RESULTS', array('title'=>'Results')); ?></li>
+			<li><?= anchor('gate/statistics', 'STATISTICS', array('title'=>'Statistics')); ?></li>
+		</ul>
+	</div>
+	<?php endif; ?>
 	<div id="content">
 		<?= $body; ?>
 	</div>

@@ -27,6 +27,9 @@ function highlightMenuItem() {
 	map['voter'] = map['voters'];
 	map['import'] = map['voters'];
 	map['export'] = map['voters'];
+	/* gate */
+	map['results'] = "RESULTS";
+	map['statistics'] = "STATISTICS";
 
 	li = $('#menu li').filter(function () {return $(this).text() === map[activeView];});
 	li.children().andSelf().css('background-color', "#4983ff");

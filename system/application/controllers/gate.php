@@ -161,6 +161,18 @@ class Gate extends Controller {
 		}
 	}
 
+	function statistics()
+	{
+		$this->load->model('Boter');
+		$data['voter_count'] = $this->Boter->count_all();
+		$data['voted_count'] = $this->Boter->count_voted();
+		$data['settings'] = $this->config->item('halalan');
+		$gate['login'] = 'statistics';
+		$gate['title'] = e('gate_statistics_title');
+		$gate['body'] = $this->load->view('gate/statistics', $data, TRUE);
+		$this->load->view('gate', $gate);
+	}
+
 	function _get_messages()
 	{
 		$messages = '';
