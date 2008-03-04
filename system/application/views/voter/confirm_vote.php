@@ -27,9 +27,9 @@
 			$name = quotes_to_entities($name);
 		?>
 		<?php if ($checked): ?>
-		<tr>
+		<tr class="selected">
 		<?php else: ?>
-		<tr class="not_selected">
+		<tr>
 		<?php endif; ?>
 			<td class="w5"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
 			<td class="w60"><?= $name; ?></td>
@@ -83,9 +83,9 @@
 		?>
 		<?php if ($positions[$i]['abstain'] == TRUE): ?>
 		<?php if ($checked): ?>
-		<tr>
+		<tr class="selected">
 		<?php else: ?>
-		<tr class="not_selected">
+		<tr>
 		<?php endif; ?>
 			<td class="w5"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>'disabled')); ?></td>
 			<td class="w60">ABSTAIN</td>

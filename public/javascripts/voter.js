@@ -3,6 +3,11 @@
 
 function abstainPosition() {
 	$(this).parents('tr').siblings().find(':checkbox').attr('disabled', this.checked);
+	if (this.checked) {
+		$(this).parents('tr').addClass('selected');
+	} else {
+		$(this).parents('tr').removeClass('selected');
+	}
 }
 
 function checkNumber() {
@@ -16,6 +21,10 @@ function checkNumber() {
 	if (inputs.length >= limit) {
 		this.checked = false;
 		alert("Maximum selections already reached.");
+	} else if (this.checked) {
+		$(this).parents('tr').addClass('selected');
+	} else {
+		$(this).parents('tr').removeClass('selected');
 	}
 }
 
@@ -43,6 +52,7 @@ $(document).ready(function () {
 	$(':button.printVotes').click(printVotes);
 	/* Restore the state of abstained positions */
 	$(':checkbox.abstainPosition:checked').click().attr('checked', true);
+	$(':checked').parents('tr').addClass('selected');
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();

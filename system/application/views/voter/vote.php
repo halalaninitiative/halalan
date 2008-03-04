@@ -10,7 +10,7 @@
 <div class="content_right notes">
 <?php endif; ?>
 	<h2><?= $positions[$i]['position']; ?> (<?= $positions[$i]['maximum']; ?>)</h2>
-	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+	<table cellpadding="0" cellspacing="0" border="0" class="form_table highlight">
 		<?php if (empty($positions[$i]['candidates'])): ?>
 		<tr>
 			<td><em><?= e('voter_vote_no_candidates'); ?></em></td>
@@ -51,7 +51,7 @@
 			</td>
 			<?php endif; ?>
 		</tr>
-		<tr>
+		<tr class="details">
 			<td colspan="4">
 			<div style="display:none;" class="details">
 			<?php if (!empty($candidate['picture'])): ?>

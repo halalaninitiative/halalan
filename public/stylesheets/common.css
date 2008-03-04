@@ -1,20 +1,20 @@
 
 
 body {
-    background : #eeeeee;
-    font : 62.5% Verdana, Arial, Helvetica, sans-serif;
-    padding : 15px 0px;
-    margin : 0px;
+    background: #eeeeee;
+    font: 62.5% Verdana, Arial, Helvetica, sans-serif;
+    padding: 15px 0px;
+    margin: 0px;
   }
 
 
 a {
-    text-decoration : none;
+    text-decoration: none;
   }
 
 
 img {
-    border : none;
+    border: none;
   }
 
 
@@ -24,38 +24,38 @@ img.toggleDetails:hover {
 
 
 #wrap {
-    background : #ffffff url('../images/bg.png') repeat-y center center;
-    margin : 0px auto;
-    width : 820px;
+    background: #ffffff url('../images/bg.png') repeat-y center center;
+    margin: 0px auto;
+    width: 820px;
   }
 
 
 #header {
-    background : url('../images/header.png') no-repeat top center;
-    padding : 10px 10px 0px;
+    background: url('../images/header.png') no-repeat top center;
+    padding: 10px 10px 0px;
   }
 
 
 #header_bg {
-    background : black url('../images/header_bg.png') repeat-x top center;
-    padding : 25px 15px 15px;
-    color : white;
+    background: black url('../images/header_bg.png') repeat-x top center;
+    padding: 25px 15px 15px;
+    color: white;
   }
 
 
 #header_bg a {
-    color : white;
+    color: white;
   }
 
 
 #header_left {
-    float : left;
+    float: left;
   }
 
 
 #header_left h1 {
     font-size: 2.5em;
-    margin : 0px;
+    margin: 0px;
   }
 
 
@@ -66,7 +66,7 @@ img.toggleDetails:hover {
 
 
 #header_right {
-    float : right;
+    float: right;
     height: 30px;
   }
 
@@ -82,7 +82,7 @@ img.toggleDetails:hover {
     border-top: 1px solid #ffffff;
     height: 25px;
     clear: both;
-    margin : 0px 10px;
+    margin: 0px 10px;
   }
 
 
@@ -117,18 +117,18 @@ img.toggleDetails:hover {
 
 
 #content {
-    background : #ffffff url('../images/content.png') repeat-x top center;
-    padding : 20px 15px 0px;
-    margin : 0 10px;
-    color : #666666;
+    background: #ffffff url('../images/content.png') repeat-x top center;
+    padding: 20px 15px 0px;
+    margin: 0 10px;
+    color: #666666;
   }
 
 
 #content h2 {
-    font-size : 1.5em;
-    font-family : 'Trebuchet MS', Arial, Helvetica;
-    margin : 0px 0px 15px;
-    color : #74a8f5;
+    font-size: 1.5em;
+    font-family: 'Trebuchet MS', Arial, Helvetica;
+    margin: 0px 0px 15px;
+    color: #74a8f5;
   }
 
 
@@ -144,24 +144,24 @@ img.toggleDetails:hover {
 
 
 #content .content_left {
-    float : left;
-    width : 367px;
+    float: left;
+    width: 367px;
   }
 
 
 #content .content_right {
-    float : right;
-    width : 367px;
+    float: right;
+    width: 367px;
   }
 
 
 #content .notes {
-    background : #eeeeee;
-    padding : 5px;
-    margin : 0px 0px 15px;
-    border-style : solid none none;
-    border-width : 1px medium medium;
-    border-top-color : #cccccc;
+    background: #eeeeee;
+    padding: 5px;
+    margin: 0px 0px 15px;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    border-top-color: #cccccc;
   }
 
 
@@ -232,41 +232,47 @@ img.toggleDetails:hover {
 
 
 #footer {
-    background : url('../images/footer.png') no-repeat bottom center;
-    padding : 0px 10px 10px;
-    color : white;
+    background: url('../images/footer.png') no-repeat bottom center;
+    padding: 0px 10px 10px;
+    color: white;
   }
 
 
 #footer_bg {
-    background : black url('../images/footer_bg.png') repeat-x bottom center;
-    padding : 15px 15px 25px;
+    background: black url('../images/footer_bg.png') repeat-x bottom center;
+    padding: 15px 15px 25px;
   }
 
 
 #footer_left {
-    float : left;
+    float: left;
   }
 
 
 #footer_left p {
-    margin : 0px;
+    margin: 0px;
   }
 
 
 #footer_right {
-    float : right;
+    float: right;
   }
 
 
 #footer_right p {
-    margin : 0px;
+    margin: 0px;
   }
 
 
 .clear {
-    clear : both;
+    clear: both;
   }
+
+
+table.highlight tr:not(.details):hover {
+    background-color: #e0e0e0;
+  }
+
 
 /* candidate details */
 div.details {
