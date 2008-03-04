@@ -2,11 +2,15 @@
 /* jQuery event handlers */
 
 function abstainPosition() {
-	$(this).parents('tr').siblings().find(':checkbox').attr('disabled', this.checked);
+	var tr = $(this).parents('tr');
+
+	tr.siblings().find(':checkbox').attr('disabled', this.checked);
 	if (this.checked) {
-		$(this).parents('tr').addClass('selected');
+		tr.addClass('selected');
+		tr.siblings().removeClass('selected');
 	} else {
-		$(this).parents('tr').removeClass('selected');
+		tr.removeClass('selected');
+		tr.siblings().find(':checked').parents('tr').addClass('selected');
 	}
 }
 
