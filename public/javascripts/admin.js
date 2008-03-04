@@ -94,6 +94,19 @@ function togglePosition() {
 
 /* DOM is ready */
 $(document).ready(function () {
+	var menu_map = {};
+	menu_map['home'] = "HOME";
+	menu_map['candidates'] = "CANDIDATES";
+	menu_map['candidate'] = menu_map['candidates'];
+	menu_map['parties'] = "PARTIES";
+	menu_map['party'] = menu_map['parties'];
+	menu_map['positions'] = "POSITIONS";
+	menu_map['position'] = menu_map['positions'];
+	menu_map['voters'] = "VOTERS";
+	menu_map['voter'] = menu_map['voters'];
+	menu_map['import'] = menu_map['voters'];
+	menu_map['export'] = menu_map['voters'];
+
 	/* Bind handlers to events */
 	$('a.confirmDelete').click(confirmDelete);
 	$('a.manipulateAllPositions').click(manipulateAllPositions);
@@ -106,7 +119,7 @@ $(document).ready(function () {
 	/* Collapse all */
 	$('a.manipulateAllPositions[text="collapse all"]').click();
 	/* Code that aren't bound to events */
-	highlightMenuItem();
+	highlightMenuItem(menu_map);
 	animateFlashMessage();
 	/* Remove blank select option */
 	$('#possible, #chosen').children('[value=""]').remove();

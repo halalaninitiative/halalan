@@ -29,6 +29,12 @@ function printVotes() {
 
 /* DOM is ready */
 $(document).ready(function () {
+	var menu_map = {};
+	menu_map['vote'] = "VOTE";
+	menu_map['verify'] = "VERIFY";
+	menu_map['logout'] = "LOG OUT";
+	menu_map['votes'] = "VOTES";
+
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);
 	$(':checkbox.checkNumber').click(checkNumber);
@@ -38,6 +44,6 @@ $(document).ready(function () {
 	/* Restore the state of abstained positions */
 	$(':checkbox.abstainPosition:checked').click().attr('checked', true);
 	/* Code that aren't bound to events */
-	highlightMenuItem();
+	highlightMenuItem(menu_map);
 	animateFlashMessage();
 });

@@ -1,6 +1,5 @@
 
-function highlightMenuItem() {
-	var map = {};
+function highlightMenuItem(map) {
 	var number = new RegExp('[0-9]+');
 	var url = window.location.href.split('/');
 	var activeView = url.pop();
@@ -9,27 +8,6 @@ function highlightMenuItem() {
 	while (number.test(activeView)) {
 		activeView = url.pop();
 	}
-
-	/* voter */
-	map['vote'] = "VOTE";
-	map['verify'] = "VERIFY";
-	map['logout'] = "LOG OUT";
-	map['votes'] = "VOTES";
-	/* admin */
-	map['home'] = "HOME";
-	map['candidates'] = "CANDIDATES";
-	map['candidate'] = map['candidates'];
-	map['parties'] = "PARTIES";
-	map['party'] = map['parties'];
-	map['positions'] = "POSITIONS";
-	map['position'] = map['positions'];
-	map['voters'] = "VOTERS";
-	map['voter'] = map['voters'];
-	map['import'] = map['voters'];
-	map['export'] = map['voters'];
-	/* gate */
-	map['results'] = "RESULTS";
-	map['statistics'] = "STATISTICS";
 
 	li = $('#menu li').filter(function () {return $(this).text() === map[activeView];});
 	li.children().andSelf().css('background-color', "#4983ff");
