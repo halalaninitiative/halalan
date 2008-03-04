@@ -24,6 +24,8 @@ $lang['halalan_gate_admin_title'] = 'Admin Login';
 // results
 $lang['halalan_gate_result_title'] = 'Results';
 $lang['halalan_gate_result_unavailable'] = 'The results are not yet available.';
+// statistics
+$lang['halalan_gate_statistics_title'] = 'Statistics';
 
 // views/gate/voter.php
 $lang['halalan_gate_voter_login_label'] = 'LOGIN';
@@ -42,6 +44,8 @@ $lang['halalan_gate_admin_login_button'] = 'Login';
 // views/gate/result.php
 $lang['halalan_gate_result_label'] = 'RESULTS';
 $lang['halalan_gate_result_no_candidates'] = 'No candidates found.';
+// views/gate/statistics.php
+$lang['halalan_gate_statistics_label'] = 'STATISTICS';
 
 // controllers/voter.php
 // commont to all functions
