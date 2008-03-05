@@ -45,6 +45,7 @@
 			<?php endif; ?>
 		</tr>
 		<tr>
+			<?php if ($settings['show_candidate_details']): ?>
 			<td colspan="4">
 			<div style="display:none;" class="details">
 			<?php if (!empty($candidate['picture'])): ?>
@@ -63,6 +64,9 @@
 			</div>
 			<?php endif; ?>
 			</div>
+			<?php else: ?>
+			<td>
+			<?php endif; ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>
