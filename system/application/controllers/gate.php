@@ -167,9 +167,9 @@ class Gate extends Controller {
 		$option = $this->Option->select(1);
 		if ($option['result'] && !$option['status'])
 		{
-			$this->load->model('Boter');
-			$data['voter_count'] = $this->Boter->count_all();
-			$data['voted_count'] = $this->Boter->count_voted();
+			$this->load->model('Statistics');
+			$data['voter_count'] = $this->Statistics->count_all_voters();
+			$data['voted_count'] = $this->Statistics->count_voted();
 			$data['settings'] = $this->config->item('halalan');
 			$gate['login'] = 'statistics';
 			$gate['title'] = e('gate_statistics_title');
