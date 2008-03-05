@@ -110,8 +110,6 @@ class Voter extends Controller {
 		$voter['username'] = $this->voter['username'];
 		$voter['title'] = e('voter_vote_title');
 		$voter['body'] = $this->load->view('voter/vote', $data, TRUE);
-		// tell the browser not to cache the page
-		$this->_no_cache();
 		$this->load->view('voter', $voter);
 	}
 
@@ -222,8 +220,6 @@ class Voter extends Controller {
 		$voter['username'] = $this->voter['username'];
 		$voter['title'] = e('voter_confirm_vote_title');
 		$voter['body'] = $this->load->view('voter/confirm_vote', $data, TRUE);
-		// tell the browser not to cache the page
-		$this->_no_cache();
 		$this->load->view('voter', $voter);
 	}
 
@@ -362,8 +358,6 @@ class Voter extends Controller {
 		$voter['username'] = $boter['username'];
 		$voter['title'] = e('voter_votes_title');
 		$voter['body'] = $this->load->view('voter/votes', $data, TRUE);
-		// tell the browser not to cache the page
-		$this->_no_cache();
 		$this->load->view('voter', $voter);
 	}
 
@@ -415,8 +409,6 @@ class Voter extends Controller {
 		$data['positions'] = $positions;
 		$data['voter'] = $voter;
 		$data['settings'] = $this->settings;
-		// tell the browser not to cache the page
-		$this->_no_cache();
 		$this->load->view('voter/print_votes', $data);
 	}
 
@@ -527,13 +519,6 @@ class Voter extends Controller {
 			$message_type = 'positive';
 		}
 		return array('messages'=>$messages, 'message_type'=>$message_type);
-	}
-
-	function _no_cache()
-	{
-		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
-		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-		$this->output->set_header('Pragma: no-cache');
 	}
 
 }
