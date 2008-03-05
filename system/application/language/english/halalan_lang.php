@@ -73,7 +73,8 @@ $lang['halalan_voter_logout_title'] = 'Logout';
 $lang['halalan_voter_votes_title'] = 'Votes';
 
 // views/voter/vote.php
-$lang['halalan_voter_vote_reminder'] = 'You need to confirm your votes in the next page.';
+$lang['halalan_voter_vote_reminder'] = 'You need to verify and confirm your votes in the next page.';
+$lang['halalan_voter_vote_reminder_too'] = 'You can submit your votes by pressing the <i>Submit Ballot</i> button ' . anchor('voter/vote#bottom', 'below') . '.';
 $lang['halalan_voter_vote_submit_button'] = 'Submit Ballot';
 
 // views/voter/confirm_vote.php
@@ -82,8 +83,8 @@ $lang['halalan_voter_confirm_vote_captcha_label'] = 'Enter the word here:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Enter your pin here:';
 $lang['halalan_voter_confirm_vote_modify_button'] = 'Modify Ballot';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Confirm Ballot';
-$lang['halalan_voter_confirm_vote_reminder'] = 'Once you press the confirm button, you can no longer change your votes.';
-$lang['halalan_voter_confirm_vote_reminder_too'] = 'You can confirm your votes by pressing the confirm button below.';
+$lang['halalan_voter_confirm_vote_reminder'] = 'Once you press the <i>Confirm Ballot</i> button, you can no longer change your votes.';
+$lang['halalan_voter_confirm_vote_reminder_too'] = 'You can confirm your votes by pressing the <i>Confirm Ballot</i> button ' . anchor('voter/verify#bottom', 'below') . '.';
 
 // views/voter/logout.php
 $lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';

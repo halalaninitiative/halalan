@@ -1,3 +1,4 @@
+<div class="reminder"><?= e('voter_vote_reminder_too'); ?></div>
 <?= format_messages($messages, $message_type); ?>
 <?= form_open('voter/do_vote'); ?>
 <?php if (count($positions) == 0): ?>
@@ -107,6 +108,7 @@
 <?php endif; ?>
 <div class="reminder"><?= e('voter_vote_reminder'); ?></div>
 <div class="paging">
+	<a name="bottom"></a>
 	<?php if (count($positions) == 0): ?>
 	<input type="submit" value="<?= e('voter_vote_submit_button'); ?>" disabled="disabled" />
 	<?php else: ?>

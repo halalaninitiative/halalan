@@ -130,6 +130,7 @@
 <?php endif; ?>
 <div class="reminder"><?= e('voter_confirm_vote_reminder'); ?></div>
 <div class="paging">
+	<a name="bottom"></a>
 	<input type="button" class="modifyBallot" value="<?= e('voter_confirm_vote_modify_button'); ?>" />
 	|
 	<input type="submit" value="<?= e('voter_confirm_vote_submit_button'); ?>" />
