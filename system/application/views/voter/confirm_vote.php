@@ -1,3 +1,4 @@
+<div class="reminder"><?= e('voter_confirm_vote_reminder_too'); ?></div>
 <?= format_messages($messages, $message_type); ?>
 <?= form_open('voter/do_verify'); ?>
 <?php for ($i = 0; $i < count($positions); $i++): ?>

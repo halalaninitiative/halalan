@@ -105,6 +105,7 @@
 </div>
 <div class="clear"></div>
 <?php endif; ?>
+<div class="reminder"><?= e('voter_vote_reminder'); ?></div>
 <div class="paging">
 	<?php if (count($positions) == 0): ?>
 	<input type="submit" value="<?= e('voter_vote_submit_button'); ?>" disabled="disabled" />
