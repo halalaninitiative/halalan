@@ -76,7 +76,7 @@ class Voter extends Controller {
 				{
 					if ($in_session)
 					{
-						$shuffled_candidates[$candidate_ids[$candidate['id']]] = $candidate;
+						$shuffled_candidates[$candidate_ids[$candidate['id']]] = $candidates[$candidate_id];
 					}
 					else
 					{
