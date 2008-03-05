@@ -20,9 +20,9 @@
 			$name = quotes_to_entities($name);
 		?>
 		<?php if ($candidate['voted']): ?>
-		<tr>
+		<tr class="selected">
 		<?php else: ?>
-		<tr class="not_selected">
+		<tr>
 		<?php endif; ?>
 			<td class="w5" align="center">
 			<?php if ($candidate['voted']): ?>
