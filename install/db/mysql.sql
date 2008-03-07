@@ -63,6 +63,7 @@ CREATE TABLE voters (
   voted tinyint(1) NOT NULL,
   login timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   logout timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  ip_address integer unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY  (id)
 );
 

@@ -17,6 +17,7 @@ $lang['halalan_gate_common_login_failure'] = 'Login failed.';
 $lang['halalan_gate_voter_title'] = 'Voter Login';
 // voter_login
 $lang['halalan_gate_voter_already_voted'] = 'You have already voted';
+$lang['halalan_gate_voter_currently_logged_in'] = 'Voter currently logged in another session.';
 // admin
 $lang['halalan_gate_admin_title'] = 'Admin Login';
 // admin_login

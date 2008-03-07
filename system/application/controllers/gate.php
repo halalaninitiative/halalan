@@ -45,6 +45,13 @@ class Gate extends Controller {
 		$password = sha1($this->input->post('password'));
 		if ($voter = $this->Boter->authenticate($username, $password))
 		{
+			if (strtotime($voter['login']) - strtotime($voter['logout']) > 0)
+			{
+				$error[] = e('gate_voter_currently_logged_in');
+				$this->session->set_flashdata('error', $error);
+				redirect('gate/voter');
+			}
+
 			if ($voter['voted'] == TRUE)
 			{
 				//$error[] = e('gate_voter_already_voted');
@@ -55,7 +62,7 @@ class Gate extends Controller {
 			}
 			else
 			{
-				$this->Boter->update(array('login'=>date("Y-m-d H:i:s")), $voter['id']);
+				$this->Boter->update(array('login'=>date("Y-m-d H:i:s"), 'ip_address'=>ip2long($this->input->ip_address())), $voter['id']);
 				// don't save password to session
 				unset($voter['password']);
 				$this->session->set_userdata('voter', $voter);
