@@ -45,7 +45,7 @@ class Gate extends Controller {
 		$password = sha1($this->input->post('password'));
 		if ($voter = $this->Boter->authenticate($username, $password))
 		{
-			if (strtotime($voter['login']) - strtotime($voter['logout']) > 0)
+			if (strtotime($voter['login']) > strtotime($voter['logout']))
 			{
 				$error[] = e('gate_voter_currently_logged_in');
 				$this->session->set_flashdata('error', $error);
