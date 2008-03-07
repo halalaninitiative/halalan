@@ -181,7 +181,25 @@ $lang['halalan_admin_export_title'] = 'Export Voters';
 
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
+$lang['halalan_admin_home_manage_question'] = 'What do you want to do?';
+$lang['halalan_admin_home_manage_candidates'] = 'Manage Candidates';
+$lang['halalan_admin_home_manage_parties'] = 'Manage Parties';
+$lang['halalan_admin_home_manage_positions'] = 'Manage Positions';
+$lang['halalan_admin_home_manage_voters'] = 'Manage Voters';
+$lang['halalan_admin_home_left_label_too'] = 'Regenaration Box';
+$lang['halalan_admin_home_email'] = 'Email';
+$lang['halalan_admin_home_username'] = 'Username';
+$lang['halalan_admin_home_regenerate'] = 'Regenerate';
+$lang['halalan_admin_home_password'] = 'Password';
+$lang['halalan_admin_home_pin'] = 'Pin';
+$lang['halalan_admin_home_submit_too'] = 'Regenerate';
 $lang['halalan_admin_home_right_label'] = 'Options';
+$lang['halalan_admin_home_status'] = 'Status';
+$lang['halalan_admin_home_running'] = 'Running';
+$lang['halalan_admin_home_not_running'] = 'Not Running';
+$lang['halalan_admin_home_results'] = 'Results';
+$lang['halalan_admin_home_publish'] = 'Publish results?';
+$lang['halalan_admin_home_submit'] = 'Save';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_label'] = 'Manage Voters';

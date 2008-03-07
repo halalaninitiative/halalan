@@ -39,6 +39,7 @@ class Admin extends Controller {
 		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Option');
 		$data['option'] = $this->Option->select(1);
+		$data['settings'] = $this->settings;
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_home_title');
 		$admin['body'] = $this->load->view('admin/home', $data, TRUE);
@@ -59,6 +60,11 @@ class Admin extends Controller {
 		$this->Option->update($option, $id);
 		$success[] = e('admin_edit_option_success');
 		$this->session->set_flashdata('success', $success);
+		redirect('admin/home');
+	}
+
+	function do_regenerate()
+	{
 		redirect('admin/home');
 	}
 
