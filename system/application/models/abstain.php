@@ -16,8 +16,7 @@ class Abstain extends Model {
 	{
 		$this->db->from('abstains');
 		$this->db->where(compact('position_id'));
-		$query = $this->db->get();
-		return count($query->result_array());
+		return $this->db->count_all_results();
 	}
 
 }

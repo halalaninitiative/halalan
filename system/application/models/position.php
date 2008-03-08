@@ -81,11 +81,7 @@ class Position extends Model {
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('position_id'));
-		$query = $this->db->get();
-		if (count($query->result_array()) > 0)
-			return TRUE;
-		else
-			return FALSE;
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
 
 }

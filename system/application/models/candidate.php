@@ -51,11 +51,7 @@ class Candidate extends Model {
 	{
 		$this->db->from('votes');
 		$this->db->where(compact('candidate_id'));
-		$query = $this->db->get();
-		if (count($query->result_array()) > 0)
-			return TRUE;
-		else
-			return FALSE;
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
 
 }
