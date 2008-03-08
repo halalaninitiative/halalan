@@ -172,9 +172,9 @@ class Admin extends Controller {
 				if (!$id)
 					redirect('admin/parties');
 				$this->load->model('Party');
-				if ($this->Party->in_used($id))
+				if ($this->Party->in_use($id))
 				{
-					$this->session->set_flashdata('error', array(e('admin_delete_party_in_used')));
+					$this->session->set_flashdata('error', array(e('admin_delete_party_in_use')));
 				}
 				else
 				{
@@ -187,9 +187,9 @@ class Admin extends Controller {
 				if (!$id)
 					redirect('admin/positions');
 				$this->load->model('Position');
-				if ($this->Position->in_used($id))
+				if ($this->Position->in_use($id))
 				{
-					$this->session->set_flashdata('error', array(e('admin_delete_position_in_used')));
+					$this->session->set_flashdata('error', array(e('admin_delete_position_in_use')));
 				}
 				else
 				{

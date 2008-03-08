@@ -77,7 +77,7 @@ class Position extends Model {
 		return $query->row_array();
 	}
 
-	function in_used($position_id)
+	function in_use($position_id)
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('position_id'));

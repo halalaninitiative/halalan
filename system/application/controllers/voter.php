@@ -127,13 +127,13 @@ class Voter extends Controller {
 			// check if all positions have selected candidates
 			$this->load->model('Position');
 			$positions = $this->Position->select_all_with_units($this->voter['id']);
-			$in_used = 0;
+			$in_use = 0;
 			foreach ($positions as $position)
 			{
-				if ($this->Position->in_used($position['id']))
-					$in_used++;
+				if ($this->Position->in_use($position['id']))
+					$in_use++;
 			}
-			if ($in_used != count($votes))
+			if ($in_use != count($votes))
 			{
 				$error[] = e('voter_vote_not_all_selected');
 			}

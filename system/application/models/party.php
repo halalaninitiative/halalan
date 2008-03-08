@@ -46,7 +46,7 @@ class Party extends Model {
 		return $query->row_array();
 	}
 
-	function in_used($party_id)
+	function in_use($party_id)
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('party_id'));

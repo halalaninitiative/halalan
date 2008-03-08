@@ -99,9 +99,9 @@ $lang['halalan_admin_candidates_title'] = 'Manage Candidates';
 // delete
 $lang['halalan_admin_delete_voter_already_voted'] = 'Hindi maaaring tanggalin ang botanteng nakaboto na.';
 $lang['halalan_admin_delete_voter_success'] = 'Matagumpay na natanggal ang botante.';
-$lang['halalan_admin_delete_party_in_used'] = 'Hindi maaaring tanggalin ang partido kasalukuyang ginagamit.';
+$lang['halalan_admin_delete_party_in_use'] = 'Hindi maaaring tanggalin ang partido kasalukuyang ginagamit.';
 $lang['halalan_admin_delete_party_success'] = 'Matagumpay na natanggal ang partido.';
-$lang['halalan_admin_delete_position_in_used'] = 'Hindi maaaring tanggalin ang posisyon na kasalukuyang ginagamit.';
+$lang['halalan_admin_delete_position_in_use'] = 'Hindi maaaring tanggalin ang posisyon na kasalukuyang ginagamit.';
 $lang['halalan_admin_delete_position_success'] = 'Matagumpay na natanggal ang posisyon.';
 $lang['halalan_admin_delete_candidate_already_has_votes'] = 'Hindi maaaring tanggalin ang kandidatong nakatanggap na ng boto.';
 $lang['halalan_admin_delete_candidate_success'] = 'Matagumpay na natanggal ang kandidato.';

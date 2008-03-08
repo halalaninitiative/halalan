@@ -114,9 +114,9 @@ $lang['halalan_admin_candidates_title'] = 'Manage Candidates';
 // delete
 $lang['halalan_admin_delete_voter_already_voted'] = 'A voter who has already voted cannot be deleted.';
 $lang['halalan_admin_delete_voter_success'] = 'The voter has been successfully deleted.';
-$lang['halalan_admin_delete_party_in_used'] = 'A party which is in used cannot be deleted.';
+$lang['halalan_admin_delete_party_in_use'] = 'A party which is in use cannot be deleted.';
 $lang['halalan_admin_delete_party_success'] = 'The party has been successfully deleted.';
-$lang['halalan_admin_delete_position_in_used'] = 'A position which is in used cannot be deleted.';
+$lang['halalan_admin_delete_position_in_use'] = 'A position which is in use cannot be deleted.';
 $lang['halalan_admin_delete_position_success'] = 'The position has been successfully deleted.';
 $lang['halalan_admin_delete_candidate_already_has_votes'] = 'The candidate who already has votes cannot be deleted.';
 $lang['halalan_admin_delete_candidate_success'] = 'The candidate has been successfully deleted.';
