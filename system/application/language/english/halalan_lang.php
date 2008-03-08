@@ -74,7 +74,7 @@ $lang['halalan_voter_logout_title'] = 'Logout';
 $lang['halalan_voter_votes_title'] = 'Votes';
 
 // views/voter/vote.php
-$lang['halalan_voter_vote_reminder'] = 'You need to verify and confirm your votes in the next page.';
+$lang['halalan_voter_vote_reminder'] = 'You still need to verify and confirm your votes in the next page.';
 $lang['halalan_voter_vote_reminder_too'] = 'You can submit your votes by pressing the <em>Submit Ballot</em> button ' . anchor('voter/vote#bottom', 'below') . '.';
 $lang['halalan_voter_vote_submit_button'] = 'Submit Ballot';
 
@@ -82,13 +82,13 @@ $lang['halalan_voter_vote_submit_button'] = 'Submit Ballot';
 $lang['halalan_voter_confirm_vote_validation_label'] = 'Validation';
 $lang['halalan_voter_confirm_vote_captcha_label'] = 'Enter the word here:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Enter your pin here:';
-$lang['halalan_voter_confirm_vote_modify_button'] = 'Modify Ballot';
+$lang['halalan_voter_confirm_vote_modify_button'] = 'Modify Votes';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Confirm Ballot';
 $lang['halalan_voter_confirm_vote_reminder'] = 'Once you press the <em>Confirm Ballot</em> button, you can no longer change your votes.';
-$lang['halalan_voter_confirm_vote_reminder_too'] = 'You can confirm your votes by pressing the <em>Confirm Ballot</em> button ' . anchor('voter/verify#bottom', 'below') . '.';
+$lang['halalan_voter_confirm_vote_reminder_too'] = '<b>Your ballot has NOT been recorded yet.</b><br />Please review your votes, then complete your submission by pressing the <em>Confirm Ballot</em> button ' . anchor('voter/verify#bottom', 'below') . '.';
 
 // views/voter/logout.php
-$lang['halalan_voter_logout_message'] = '<p>Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
+$lang['halalan_voter_logout_message'] = '<p>Your ballot has been recorded. Thank you for using Halalan!</p><p>You have been automatically logged out.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
 
 // views/voter/votes.php
 $lang['halalan_voter_votes_no_candidates'] = 'No candidates found.';
