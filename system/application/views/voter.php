@@ -21,7 +21,8 @@
 	<div id="header">
 		<div id="header_bg">
 			<div id="header_left">
-				<?= img(array('src'=>'public/images/logo_voter.png', 'alt'=>'voter logo')); ?>
+				<?= img(array('src'=>'public/images/logo_small.png', 'alt'=>'voter logo')); ?>
+				<span>ballot</span>
 <!--
 				<h1>
 					<?= anchor(site_url(), 'Halalan'); ?>

@@ -482,7 +482,7 @@ class Voter extends Controller {
 		imagepng($image, $image_trail_path . $this->voter['id'] . '.png', 0, PNG_NO_FILTER);
 		imagedestroy($image);
 		$config['source_image'] = $image_trail_path . $this->voter['id'] . '.png';
-		$config['wm_overlay_path'] = './public/images/logo_watermark.png';
+		$config['wm_overlay_path'] = './public/images/logo_small.png';
 		$config['wm_type'] = 'overlay';
 		$config['wm_vrt_alignment'] = 'top';
 		$config['wm_hor_alignment'] = 'left';

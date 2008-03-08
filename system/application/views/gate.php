@@ -15,7 +15,10 @@
 	<div id="header">
 		<div id="header_bg">
 			<div id="header_left">
-				<?= img(array('src'=>'public/images/logo_login.png', 'alt'=>'login logo')); ?>
+				<?= img(array('src'=>'public/images/logo_small.png', 'alt'=>'login logo')); ?>
+				<?php if (!$option['result'] && ($login == 'voter' || $login == 'admin')): ?>
+				<span>login</span>
+				<?php endif; ?>
 <!--
 				<h1>
 					<?= anchor(site_url(), 'Halalan'); ?>

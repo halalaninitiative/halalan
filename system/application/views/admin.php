@@ -25,7 +25,8 @@
 				<?php if (isset($special['v']) && $special['v']): ?>
 				<?= img(array('src'=>'public/images/logo_admin_v.png', 'alt'=>'Halalan Logo')); ?>
 				<?php else: ?>
-				<?= img(array('src'=>'public/images/logo_admin.png', 'alt'=>'Halalan Logo')); ?>
+				<?= img(array('src'=>'public/images/logo_small.png', 'alt'=>'Halalan Logo')); ?>
+				<span>administration</span>
 				<?php endif; ?>
 <!--
 				<h1>
