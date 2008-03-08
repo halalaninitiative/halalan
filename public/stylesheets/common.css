@@ -55,12 +55,12 @@ img {
 
 
 #header_left span {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
     font-style: italic;
-    position: absolute;
-    padding-left: 10px;
-    padding-top: 20px;
+    position: relative;
+    bottom: 5px;
+    left: 5px;
   }
 
 
