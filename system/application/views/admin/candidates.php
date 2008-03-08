@@ -24,7 +24,7 @@
 <br />
 <?php foreach ($positions as $position): ?>
 <div class="content_left">
-	<h2><?= img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?= $position['position']; ?> Candidates <span>(<?= count($position['candidates']); ?>)</span></h2>
+	<h2><?= img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition pointer', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?= $position['position']; ?> Candidates <span>(<?= count($position['candidates']); ?>)</span></h2>
 </div>
 <div class="content_right">
 	<p class="align_right"><?= anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>

@@ -2,11 +2,6 @@
 @import url("common.css");
 
 
-img.togglePosition:hover {
-    cursor: pointer;
-  }
-
-
 #content .align_right {
     text-align: right;
   }

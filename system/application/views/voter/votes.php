@@ -47,7 +47,7 @@
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w5">
-				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails', 'title'=>'More info')); ?>
+				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
 			</td>
 			<?php endif; ?>
 		</tr>
