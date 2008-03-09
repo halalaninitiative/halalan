@@ -43,8 +43,8 @@
 			<?= e('admin_position_abstain'); ?>:
 		</td>
 		<td>
-			<label for="yes"><?= form_radio(array('id'=>'yes', 'name'=>'abstain', 'value'=>TRUE, 'checked'=>(($position['abstain']) ? TRUE : FALSE))); ?> Yes</label>
-			<label for="no"><?= form_radio(array('id'=>'no', 'name'=>'abstain', 'value'=>FALSE, 'checked'=>(($position['abstain']) ? FALSE : TRUE))); ?> No</label>
+			<label for="yes"><?= form_radio(array('id'=>'yes', 'name'=>'abstain', 'value'=>1, 'checked'=>(($position['abstain']) ? TRUE : FALSE))); ?> Yes</label>
+			<label for="no"><?= form_radio(array('id'=>'no', 'name'=>'abstain', 'value'=>0, 'checked'=>(($position['abstain']) ? FALSE : TRUE))); ?> No</label>
 		</td>
 	</tr>
 	<tr>
@@ -52,8 +52,8 @@
 			<?= e('admin_position_unit'); ?>:
 		</td>
 		<td>
-			<label for="general"><?= form_radio(array('id'=>'general', 'name'=>'unit', 'value'=>FALSE, 'checked'=>(($position['unit']) ? FALSE : TRUE))); ?> General</label>
-			<label for="specific"><?= form_radio(array('id'=>'specific', 'name'=>'unit', 'value'=>TRUE, 'checked'=>(($position['unit']) ? TRUE : FALSE))); ?> Specific</label>
+			<label for="general"><?= form_radio(array('id'=>'general', 'name'=>'unit', 'value'=>0, 'checked'=>(($position['unit']) ? FALSE : TRUE))); ?> General</label>
+			<label for="specific"><?= form_radio(array('id'=>'specific', 'name'=>'unit', 'value'=>1, 'checked'=>(($position['unit']) ? TRUE : FALSE))); ?> Specific</label>
 		</td>
 	</tr>
 </table>

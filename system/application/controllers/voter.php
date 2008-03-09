@@ -280,7 +280,7 @@ class Voter extends Controller {
 					$this->Abstain->insert(compact('position_id', 'voter_id', 'timestamp'));
 				}
 			}
-			$this->Boter->update(array('voted'=>TRUE), $voter_id);
+			$this->Boter->update(array('voted'=>1), $voter_id);
 			$this->session->unset_userdata('votes');
 			if ($this->settings['generate_image_trail'])
 			{

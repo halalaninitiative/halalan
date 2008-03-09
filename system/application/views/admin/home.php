@@ -17,9 +17,9 @@
 				<?= e('admin_home_regenerate'); ?>:
 			</td>
 			<td>
-				<label for="password"><?= form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_home_password'); ?></label>
+				<label for="password"><?= form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>1, 'checked'=>FALSE)); ?> <?= e('admin_home_password'); ?></label>
 				<?php if ($settings['pin']): ?>
-					<label for="pin"><?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_home_pin'); ?></label>
+					<label for="pin"><?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>1, 'checked'=>FALSE)); ?> <?= e('admin_home_pin'); ?></label>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -52,10 +52,10 @@
 				<?= e('admin_home_status'); ?>:
 			</td>
 			<td>
-				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>TRUE, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> <?= e('admin_home_running'); ?></label>
+				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>1, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> <?= e('admin_home_running'); ?></label>
 			</td>
 			<td>
-				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>FALSE, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> <?= e('admin_home_not_running'); ?></label>
+				<label><?= form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>0, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> <?= e('admin_home_not_running'); ?></label>
 			</td>
 		</tr>
 		<tr class="results">
@@ -63,7 +63,7 @@
 				<?= e('admin_home_results'); ?>:
 			</td>
 			<td>
-				<label><?= form_checkbox(array('name'=>'result', 'value'=>TRUE, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> <?= e('admin_home_publish'); ?></label>
+				<label><?= form_checkbox(array('name'=>'result', 'value'=>1, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> <?= e('admin_home_publish'); ?></label>
 			</td>
 		</tr>
 		<tr>

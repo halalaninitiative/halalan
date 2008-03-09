@@ -52,7 +52,7 @@ class Gate extends Controller {
 				redirect('gate/voter');
 			}
 
-			if ($voter['voted'] == TRUE)
+			if ($voter['voted'] == 1)
 			{
 				//$error[] = e('gate_voter_already_voted');
 				//$this->session->set_flashdata('error', $error);

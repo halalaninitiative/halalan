@@ -157,7 +157,7 @@ class Admin extends Controller {
 				$voter = $this->Boter->select($id);
 				if (!$voter)
 					redirect('admin/voters');
-				if ($voter['voted'] == TRUE)
+				if ($voter['voted'] == 1)
 				{
 					$this->session->set_flashdata('error', array(e('admin_delete_voter_already_voted')));
 				}
@@ -397,7 +397,7 @@ class Admin extends Controller {
 				if ($position = $this->session->flashdata('position'))
 					$data['position'] = $position;
 				else
-					$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>TRUE, 'unit'=>FALSE);
+					$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>1, 'unit'=>0);
 				$data['action'] = 'add';
 				$admin['title'] = e('admin_add_position_title');
 				$admin['body'] = $this->load->view('admin/position', $data, TRUE);
@@ -479,7 +479,7 @@ class Admin extends Controller {
 				$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
 				$voter['pin'] = sha1($pin);
 			}
-			$voter['voted'] = FALSE;
+			$voter['voted'] = 0;
 			$this->Boter->insert($voter);
 			$success = array();
 			$success[] = e('admin_add_voter_success');
@@ -1053,7 +1053,7 @@ class Admin extends Controller {
 				$voter['username'] = trim(strip_quotes($tmp[0]));
 				$voter['last_name'] = trim(strip_quotes($tmp[1]));
 				$voter['first_name'] = trim(strip_quotes($tmp[2]));
-				$voter['voted'] = FALSE;
+				$voter['voted'] = 0;
 				$voter['chosen'] = $this->input->post('chosen', TRUE);
 				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
 				{
