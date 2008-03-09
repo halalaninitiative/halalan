@@ -1,5 +1,5 @@
 <?= format_messages($messages, $message_type); ?>
-<?= form_open('gate/admin_login'); ?>
+<?= form_open('gate/admin_login', array('class'=>'hashPassword')); ?>
 <div class="content_center">
 	<h2><?= strtoupper($settings['name']) . ' ' . e('gate_admin_login_label'); ?></h2>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">

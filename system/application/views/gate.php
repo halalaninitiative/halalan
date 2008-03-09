@@ -8,6 +8,7 @@
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.color.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/common.js"></script>
+  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/sha1.js"></script>
   <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/gate.js"></script>
 </head>
 <body>

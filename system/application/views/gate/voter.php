@@ -1,5 +1,5 @@
 <?= format_messages($messages, $message_type); ?>
-<?= form_open('gate/voter_login'); ?>
+<?= form_open('gate/voter_login', array('class'=>'hashPassword')); ?>
 <div class="content_center">
 	<h2><?= strtoupper($settings['name']) . ' ' . e('gate_voter_login_label'); ?></h2>
 	<?php if ($option['status']): ?>

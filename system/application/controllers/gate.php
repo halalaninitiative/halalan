@@ -42,7 +42,10 @@ class Gate extends Controller {
 	{
 		$this->load->model('Boter');
 		$username = $this->input->post('username');
-		$password = sha1($this->input->post('password'));
+		if (strlen($this->input->post('password')) == 40)
+			$password = $this->input->post('password');
+		else
+			$password = sha1($this->input->post('password'));
 		if ($voter = $this->Boter->authenticate($username, $password))
 		{
 			if (strtotime($voter['login']) > strtotime($voter['logout']))
@@ -94,7 +97,10 @@ class Gate extends Controller {
 	{
 		$this->load->model('Abmin');
 		$username = $this->input->post('username');
-		$password = sha1($this->input->post('password'));
+		if (strlen($this->input->post('password')) == 40)
+			$password = $this->input->post('password');
+		else
+			$password = sha1($this->input->post('password'));
 		if ($admin = $this->Abmin->authenticate($username, $password))
 		{
 			// don't save password to session
