@@ -16,7 +16,7 @@
 		<div id="header_bg">
 			<div id="header_left">
 				<?= img(array('src'=>'public/images/logo_small.png', 'alt'=>'login logo')); ?>
-				<?php if (!$option['result'] && ($login == 'voter' || $login == 'admin')): ?>
+				<?php if ($login != 'result' && $login != 'statistics'): ?>
 				<span>login</span>
 				<?php endif; ?>
 <!--
