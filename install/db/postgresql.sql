@@ -63,6 +63,7 @@ CREATE TABLE voters (
   voted varchar(1) NOT NULL,
   login timestamp NOT NULL,
   logout timestamp NOT NULL,
+  ip_address integer NOT NULL,
   PRIMARY KEY  (id)
 );
 
@@ -80,4 +81,4 @@ CREATE TABLE options (
   PRIMARY KEY  (id)
 );
 
-INSERT INTO options (id, status, result) VALUES (1, 0, 0);
+INSERT INTO options (id, status, result) VALUES (1, '0', '0');
