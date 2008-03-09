@@ -11,7 +11,7 @@
 			<label for="position"><?= e('admin_position_position'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'position', 'name'=>'position', 'value'=>$position['position'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'position', 'name'=>'position', 'value'=>$position['position'], 'maxlength'=>63, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>

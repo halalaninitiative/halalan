@@ -11,7 +11,7 @@
 			<label for="last_name"><?= e('admin_candidate_last_name'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$candidate['last_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$candidate['last_name'], 'maxlength'=>31, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -19,7 +19,7 @@
 			<label for="first_name"><?= e('admin_candidate_first_name'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$candidate['first_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$candidate['first_name'], 'maxlength'=>63, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 			<label for="alias"><?= e('admin_candidate_alias'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$candidate['alias'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$candidate['alias'], 'maxlength'=>15, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>

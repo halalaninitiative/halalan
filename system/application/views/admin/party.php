@@ -11,7 +11,7 @@
 			<label for="party"><?= e('admin_party_party'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'party', 'name'=>'party', 'value'=>$party['party'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'party', 'name'=>'party', 'value'=>$party['party'], 'maxlength'=>63, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -19,7 +19,7 @@
 			<label for="alias"><?= e('admin_party_alias'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$party['alias'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$party['alias'], 'maxlength'=>15, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>

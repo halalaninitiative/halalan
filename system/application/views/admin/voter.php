@@ -11,7 +11,7 @@
 			<label for="username"><?= ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>$voter['username'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>$voter['username'], 'maxlength'=>63, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -19,7 +19,7 @@
 			<label for="last_name"><?= e('admin_voter_last_name'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$voter['last_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$voter['last_name'], 'maxlength'=>31, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 			<label for="first_name"><?= e('admin_voter_first_name'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$voter['first_name'], 'class'=>'text')); ?>
+			<?= form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$voter['first_name'], 'maxlength'=>63, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>

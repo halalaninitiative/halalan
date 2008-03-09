@@ -9,7 +9,7 @@
 				<label for="username"><?= ($settings['password_pin_generation'] == 'email') ? e('admin_home_email') : e('admin_home_username'); ?>:</label>
 			</td>
 			<td>
-				<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>'', 'class'=>'text')); ?>
+				<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>'', 'maxlength'=>63, 'class'=>'text')); ?>
 			</td>
 		</tr>
 		<tr>
