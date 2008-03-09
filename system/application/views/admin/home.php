@@ -12,17 +12,15 @@
 				<?= form_input(array('id'=>'username', 'name'=>'username', 'value'=>'', 'maxlength'=>63, 'class'=>'text')); ?>
 			</td>
 		</tr>
+		<?php if ($settings['pin']): ?>
 		<tr>
 			<td align="right">
-				<?= e('admin_home_regenerate'); ?>:
 			</td>
 			<td>
-				<label for="password"><?= form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>1, 'checked'=>FALSE)); ?> <?= e('admin_home_password'); ?></label>
-				<?php if ($settings['pin']): ?>
-					<label for="pin"><?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>1, 'checked'=>FALSE)); ?> <?= e('admin_home_pin'); ?></label>
-				<?php endif; ?>
+				<label for="pin"><?= form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?= e('admin_home_pin'); ?></label>
 			</td>
 		</tr>
+		<?php endif; ?>
 		<tr>
 			<td colspan="2" align="center">
 				<?= form_submit(array('name'=>'submit', 'value'=>e('admin_home_submit_too'))); ?>

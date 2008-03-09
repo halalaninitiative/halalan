@@ -101,8 +101,15 @@ $lang['halalan_admin_common_running_two'] = 'You cannot manage the election at t
 // index
 // home
 $lang['halalan_admin_home_title'] = 'Home';
-// do_edit_options
+// do_edit_option
 $lang['halalan_admin_edit_option_success'] = 'The option has been successfully edited';
+// do_regenerate
+$lang['halalan_admin_regenerate_no_username'] = 'Username is required.';
+$lang['halalan_admin_regenerate_no_email'] = 'Email is required.';
+$lang['halalan_admin_regenerate_not_exists'] = 'The voter does not exists.';
+$lang['halalan_admin_regenerate_invalid_email'] = 'Email is invalid.';
+$lang['halalan_admin_regenerate_success'] = 'Regeneration successful.';
+$lang['halalan_admin_regenerate_email_success'] = 'The new login credentials was successfully emailed.';
 // voters
 $lang['halalan_admin_voters_title'] = 'Manage Voters';
 // parties
@@ -189,9 +196,7 @@ $lang['halalan_admin_home_manage_voters'] = 'Manage Voters';
 $lang['halalan_admin_home_left_label_too'] = 'Regenaration Box';
 $lang['halalan_admin_home_email'] = 'Email';
 $lang['halalan_admin_home_username'] = 'Username';
-$lang['halalan_admin_home_regenerate'] = 'Regenerate';
-$lang['halalan_admin_home_password'] = 'Password';
-$lang['halalan_admin_home_pin'] = 'Pin';
+$lang['halalan_admin_home_pin'] = 'Regenerate pin too?';
 $lang['halalan_admin_home_submit_too'] = 'Regenerate';
 $lang['halalan_admin_home_right_label'] = 'Options';
 $lang['halalan_admin_home_status'] = 'Status';
