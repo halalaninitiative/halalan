@@ -45,7 +45,8 @@ class Position extends Model {
 	{
 		$this->db->from('positions');
 		$this->db->join('positions_voters', 'positions.id = positions_voters.position_id', 'left');
-		$this->db->where('(positions.unit = FALSE OR positions.unit IS NULL) OR positions_voters.voter_id = ' . $voter_id);
+		$this->db->where(array('positions.unit'=>'0'));
+		$this->db->or_where(array('positions_voters.voter_id'=>$voter_id));
 		$this->db->order_by('ordinality ASC');
 		$query = $this->db->get();
 		return $query->result_array();
@@ -54,7 +55,7 @@ class Position extends Model {
 	function select_all_non_units()
 	{
 		$this->db->from('positions');
-		$this->db->where('unit = FALSE OR unit IS NULL');
+		$this->db->where(array('unit'=>'0'));
 		$this->db->order_by('ordinality ASC');
 		$query = $this->db->get();
 		return $query->result_array();
@@ -63,7 +64,7 @@ class Position extends Model {
 	function select_all_units()
 	{
 		$this->db->from('positions');
-		$this->db->where('unit = TRUE');
+		$this->db->where(array('unit'=>'1'));
 		$this->db->order_by('ordinality ASC');
 		$query = $this->db->get();
 		return $query->result_array();
