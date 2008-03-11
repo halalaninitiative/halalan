@@ -60,7 +60,7 @@ $lang['halalan_voter_vote_no_candidates'] = 'No candidates found.';
 $lang['halalan_voter_vote_no_selected'] = 'No candidates selected';
 $lang['halalan_voter_vote_not_all_selected'] = 'You have not voted in all positions.';
 $lang['halalan_voter_vote_maximum'] = 'You have exceeded the number of votes in a certain position.';
-$lang['halalan_voter_vote_abstain_and_others'] = 'You can not vote for a candidate if you chose to abstain.';
+$lang['halalan_voter_vote_abstain_and_others'] = 'You cannot vote for a candidate if you chose to abstain.';
 // confirm_vote
 $lang['halalan_voter_confirm_vote_title'] = 'Verify';
 // do_confirm_vote
@@ -106,7 +106,7 @@ $lang['halalan_admin_edit_option_success'] = 'The option has been successfully e
 // do_regenerate
 $lang['halalan_admin_regenerate_no_username'] = 'Username is required.';
 $lang['halalan_admin_regenerate_no_email'] = 'Email is required.';
-$lang['halalan_admin_regenerate_not_exists'] = 'The voter does not exists.';
+$lang['halalan_admin_regenerate_not_exists'] = 'The voter does not exist.';
 $lang['halalan_admin_regenerate_invalid_email'] = 'Email is invalid.';
 $lang['halalan_admin_regenerate_success'] = 'Regeneration successful.';
 $lang['halalan_admin_regenerate_email_success'] = 'The new login credentials was successfully emailed.';
