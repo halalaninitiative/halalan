@@ -17,6 +17,7 @@ $lang['halalan_gate_common_login_failure'] = 'Hindi matagumpay na pagpasok.';
 $lang['halalan_gate_voter_title'] = 'Voter Login';
 // voter_login
 $lang['halalan_gate_voter_already_voted'] = 'Ikaw ay nakaboto na.';
+$lang['halalan_gate_voter_currently_logged_in'] = 'Ang botante ay kasalukuyang naka-log-in sa ibang session.';
 // admin
 $lang['halalan_gate_admin_title'] = 'Admin Login';
 // admin_login
@@ -24,9 +25,11 @@ $lang['halalan_gate_admin_title'] = 'Admin Login';
 // result
 $lang['halalan_gate_result_title'] = 'Resulta';
 $lang['halalan_gate_result_unavailable'] = 'Wala pa ang mga resulta ng eleksyon.';
+// statistics
+$lang['halalan_gate_statistics_title'] = 'Statistics';
 
 // views/gate/voter.php
-$lang['halalan_gate_voter_login_label'] = 'Login to Halalan';
+$lang['halalan_gate_voter_login_label'] = 'LOGIN';
 $lang['halalan_gate_voter_username'] = 'Username';
 $lang['halalan_gate_voter_password'] = 'Password';
 $lang['halalan_gate_voter_login_button'] = 'Login';
@@ -34,14 +37,18 @@ $lang['halalan_gate_voter_not_running'] = 'Hindi pa nagsisimula ang eleksyon. Hi
 $lang['halalan_gate_voter_result'] = 'Ang resulta ng eleksyon ay matatagpuan ' . anchor('gate/results', 'dito') . '.';
 
 // views/gate/admin.php
-$lang['halalan_gate_admin_login_label'] = 'Login to Halalan as Admin';
+$lang['halalan_gate_admin_login_label'] = 'ADMIN LOGIN';
 $lang['halalan_gate_admin_username'] = 'Username';
 $lang['halalan_gate_admin_password'] = 'Password';
 $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // views/gate/result.php
+$lang['halalan_gate_result_label'] = 'RESULTA';
 $lang['halalan_gate_result_no_candidates'] = 'Walang mga kandidato.';
-$lang['halalan_voter_votes_submit_button'] = 'Generate page for printing';
+// views/gate/statistics.php
+$lang['halalan_gate_statistics_label'] = 'STATISTICS';
+
+
 // controllers/voter.php
 // commont to all functions
 $lang['halalan_voter_common_not_running_one'] = 'Hindi pa tumatakbo ang eleksyon.';
@@ -56,7 +63,7 @@ $lang['halalan_voter_vote_not_all_selected'] = 'Hindi lahat ng posisyon ay nabot
 $lang['halalan_voter_vote_maximum'] = 'Lumagpas ka sa bilang ng maaaring iboto sa isang posisyon.';
 $lang['halalan_voter_vote_abstain_and_others'] = 'Hindi ka maaaring pumili ng kandidato kung napili na ang abstain.';
 // confirm_vote
-$lang['halalan_voter_confirm_vote_title'] = 'Kumpirmahin ang Boto';
+$lang['halalan_voter_confirm_vote_title'] = 'Pagkumpirma';
 // do_confirm_vote
 $lang['halalan_voter_confirm_vote_no_captcha'] = 'Walang nilagay na captcha';
 $lang['halalan_voter_confirm_vote_not_captcha'] = 'Mali ang nilagay na captcha';
@@ -64,20 +71,29 @@ $lang['halalan_voter_confirm_vote_no_pin'] = 'Walang nilagay na PIN';
 $lang['halalan_voter_confirm_vote_not_pin'] = 'Mali ang nilagay na PIN';
 // logout
 $lang['halalan_voter_logout_title'] = 'Logout';
+// votes
+$lang['halalan_voter_votes_title'] = 'Mga Boto';
 
 // views/voter/vote.php
-$lang['halalan_voter_vote_submit_button'] = 'Boto';
+$lang['halalan_voter_vote_reminder'] = 'Kailangan pang kumpirmahin ang iyong mga boto sa susunod na pahina.';
+$lang['halalan_voter_vote_reminder_too'] = 'Isumite ang iyong mga boto sa pamamagitan ng pagpindot ng Isumite sa ' . anchor('voter/vote#bottom', 'baba') . '.';
+$lang['halalan_voter_vote_submit_button'] = 'Isumite';
 
 // views/voter/confirm_vote.php
 $lang['halalan_voter_confirm_vote_validation_label'] = 'Pagkumpirma';
 $lang['halalan_voter_confirm_vote_captcha_label'] = 'Ilagay ang salita dito:';
 $lang['halalan_voter_confirm_vote_pin_label'] = 'Ilagay ang PIN dito:';
-$lang['halalan_voter_confirm_vote_modify_button'] = 'Modify Ballot';
+$lang['halalan_voter_confirm_vote_modify_button'] = 'Baguhin';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Kumpirmahin';
-$lang['halalan_voter_confirm_vote_reminder'] = 'Hindi na maaaring baguhin ang boto matapos pindutin ang Kumpirmahin.';
+$lang['halalan_voter_confirm_vote_reminder'] = 'Hindi na maaaring baguhin ang boto matapos pindutin ang <em>Kumpirmahin</em>.';
+$lang['halalan_voter_confirm_vote_reminder_too'] = '<strong>Hindi pa naitatala ang iyong balota.</strong><br />Tingnan muli ang mga boto at pindutin ang <em>Kumpirmahin</em> sa ' . anchor('voter/verify#bottom', 'baba') . ' kung sigurado na sa iyong mga boto.';
 
 // views/voter/logout.php
-$lang['halalan_voter_logout_message'] = '<p>Salamat sa paggamit ng Halalan!</p><p>Ikaw ay na-i-log-out na.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
+$lang['halalan_voter_logout_message'] = '<p>Naitala na ang iyong balota. Salamat sa paggamit ng Halalan!</p><p>Ikaw ay na-i-log-out na.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';
+
+// views/voter/votes.php
+$lang['halalan_voter_votes_no_candidates'] = 'Walang natagpuang kandidato.';
+$lang['halalan_voter_votes_submit_button'] = 'Generate Page for Printing';
 
 // controllers/admin.php
 // commont to all functions
@@ -88,6 +104,13 @@ $lang['halalan_admin_common_running_two'] = 'Hindi mo maaaring galawin ang eleks
 $lang['halalan_admin_home_title'] = 'Home';
 // do_edit_options
 $lang['halalan_admin_edit_option_success'] = 'Matagumpay na napalitan ang opsyon.';
+// do_regenerate
+$lang['halalan_admin_regenerate_no_username'] = 'Kinakailangan ang username.';
+$lang['halalan_admin_regenerate_no_email'] = 'Kinakailangan ang email.';
+$lang['halalan_admin_regenerate_not_exists'] = 'Walang ganitong botante.';
+$lang['halalan_admin_regenerate_invalid_email'] = 'Hindi katanggap-tanggap ang email.';
+$lang['halalan_admin_regenerate_success'] = 'Tagumpay.';
+$lang['halalan_admin_regenerate_email_success'] = 'Matagumpay na naipadala ang impormasyon para sa login.';
 // voters
 $lang['halalan_admin_voters_title'] = 'Manage Voters';
 // parties
@@ -119,10 +142,10 @@ $lang['halalan_admin_add_candidate_title'] = 'Magdagdag ng Kandidato';
 $lang['halalan_admin_voter_no_username'] = 'Kinakailangan ang username.';
 $lang['halalan_admin_voter_no_email'] = 'Kinakailangan ang email.';
 $lang['halalan_admin_voter_exists'] = 'Mayroon nang ganitong botante.';
-$lang['halalan_admin_voter_invalid_email'] = 'Hindi maaari ang ganitong email.';
+$lang['halalan_admin_voter_invalid_email'] = 'Hindi katanggap-tanggap ang email.';
 $lang['halalan_admin_voter_no_last_name'] = 'Kinakailangang ang apelyido.';
 $lang['halalan_admin_voter_no_first_name'] = 'Kinakailangan ang pangalan.';
-$lang['halalan_admin_voter_email_success'] = 'Ang impormasyon para sa paglog-in ay matagumpay na naipadala na.';
+$lang['halalan_admin_voter_email_success'] = 'Matagumpay na naipadala ang impormasyon para sa login.';
 // do_add_voter
 $lang['halalan_admin_add_voter_success'] = 'Matagumpay na naidagdag ang botante.';
 // do_edit_voter
@@ -167,7 +190,23 @@ $lang['halalan_admin_export_title'] = 'Export Voters';
 
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage';
+$lang['halalan_admin_home_manage_question'] = 'Ano ang gusto mong gawin?';
+$lang['halalan_admin_home_manage_candidates'] = 'Manage Candidates';
+$lang['halalan_admin_home_manage_parties'] = 'Manage Parties';
+$lang['halalan_admin_home_manage_positions'] = 'Manage Positions';
+$lang['halalan_admin_home_manage_voters'] = 'Manage Voters';
+$lang['halalan_admin_home_left_label_too'] = 'Regenaration Box';
+$lang['halalan_admin_home_email'] = 'Email';
+$lang['halalan_admin_home_username'] = 'Username';
+$lang['halalan_admin_home_pin'] = 'Regenerate pin?';
+$lang['halalan_admin_home_submit_too'] = 'Regenerate';
 $lang['halalan_admin_home_right_label'] = 'Options';
+$lang['halalan_admin_home_status'] = 'Status';
+$lang['halalan_admin_home_running'] = 'Bukas';
+$lang['halalan_admin_home_not_running'] = 'Sarado';
+$lang['halalan_admin_home_results'] = 'Resulta';
+$lang['halalan_admin_home_publish'] = 'Ipahayag ang resulta?';
+$lang['halalan_admin_home_submit'] = 'Save';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_label'] = 'Mga Botante';
