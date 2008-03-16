@@ -143,7 +143,7 @@ class CI_Session {
 		}
 
 		session_name($this->sess_cookie);
-		ini_set('session.cookie_lifetime', $this->sess_length);
+		session_set_cookie_params($this->sess_length);
 		session_start();
 	
 		/*
@@ -396,6 +396,7 @@ class CI_Session {
 					$this->CI->config->item('cookie_domain'),
 					0
 				);*/
+		setcookie(session_name(), '', time() - 3600, '/');
 		session_destroy();
 	}
 	
