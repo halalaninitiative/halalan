@@ -57,13 +57,13 @@ CREATE TABLE voters (
   id integer NOT NULL auto_increment,
   username varchar(63) NOT NULL,
   password char(40) NOT NULL,
-  pin char(40) NOT NULL,
+  pin char(40),
   first_name varchar(63) NOT NULL,
   last_name varchar(31) NOT NULL,
   voted varchar(1) NOT NULL,
-  login datetime NOT NULL,
-  logout datetime NOT NULL,
-  ip_address integer NOT NULL,
+  login datetime,
+  logout datetime,
+  ip_address integer,
   PRIMARY KEY  (id)
 );
 
