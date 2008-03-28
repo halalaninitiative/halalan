@@ -8,10 +8,9 @@ class Voter extends Controller {
 	function Voter()
 	{
 		parent::Controller();
-		if ($this->uri->segment(2) != 'votes' && $this->uri->segment(2) != 'print_votes')
+		if (in_array($this->uri->segment(2), array('votes', 'print_votes')))
 		{
-			$this->voter = $this->session->userdata('voter');
-			if (!$this->voter)
+			if (!$this->session->userdata('voter_id'))
 			{
 				$error[] = e('common_unauthorized');
 				$this->session->set_flashdata('error', $error);
@@ -20,7 +19,8 @@ class Voter extends Controller {
 		}
 		else
 		{
-			if (!$this->session->userdata('voter_id'))
+			$this->voter = $this->session->userdata('voter');
+			if (!$this->voter)
 			{
 				$error[] = e('common_unauthorized');
 				$this->session->set_flashdata('error', $error);
@@ -48,63 +48,57 @@ class Voter extends Controller {
 
 	function vote()
 	{
-		$this->load->model('Candidate');
-		$this->load->model('Party');
-		$this->load->model('Position');
-		$positions = $this->Position->select_all_with_units($this->voter['id']);
-		foreach ($positions as $key=>$position)
+		$no_random_order = false;
+		if ($this->settings['random_order'])
 		{
-			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-			if ($this->settings['random_order'])
+			$this->load->model('Random_Order');
+			$random_order = $this->Random_Order->select_by_voter_id($this->voter['id']);
+			if (empty($random_order))
 			{
-				$in_session = $this->session->userdata('position_' . $position['id']);
-				if ($in_session)
+				$no_random_order = true;
+			}
+			else
+			{
+				$positions = unserialize($random_order['random_order']);
+			}
+		}
+		if (!$this->settings['random_order'] || $no_random_order)
+		{
+			$this->load->model('Candidate');
+			$this->load->model('Party');
+			$this->load->model('Position');
+			$positions = $this->Position->select_all_with_units($this->voter['id']);
+			foreach ($positions as $key=>$position)
+			{
+				$candidates = $this->Candidate->select_all_by_position_id($position['id']);
+				foreach ($candidates as $candidate_id=>$candidate)
 				{
-					$candidate_ids = array_flip($in_session);
-					$shuffled_candidates = array();
+					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
 				}
-				else
+				if ($no_random_order)
 				{
-					$candidate_ids = array();
 					shuffle($candidates);
 				}
+				$positions[$key]['candidates'] = $candidates;
 			}
-			foreach ($candidates as $candidate_id=>$candidate)
+			if ($no_random_order)
 			{
-				$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
-				if ($this->settings['random_order'])
-				{
-					if ($in_session)
-					{
-						$shuffled_candidates[$candidate_ids[$candidate['id']]] = $candidates[$candidate_id];
-					}
-					else
-					{
-						$candidate_ids[] = $candidate['id'];
-					}
-				}
+				$random_order['voter_id'] = $this->voter['id'];
+				$random_order['random_order'] = serialize($positions);
+				$this->Random_Order->insert($random_order);
 			}
-			if ($this->settings['random_order'])
-			{
-				if ($in_session)
-				{
-					ksort($shuffled_candidates);
-					$candidates = $shuffled_candidates;
-				}
-				else
-				{
-					$this->session->set_userdata('position_' . $position['id'], $candidate_ids);
-				}
-			}
-			$positions[$key]['candidates'] = $candidates;
 		}
 		$messages = $this->_get_messages();
 		$data['messages'] = $messages['messages'];
 		$data['message_type'] = $messages['message_type'];
 		if (count($positions) == 0)
+		{
 			$data['none'] = e('voter_vote_no_candidates');
+		}
 		if ($votes = $this->session->userdata('votes'))
+		{
 			$data['votes'] = $votes;
+		}
 		$data['settings'] = $this->settings;
 		$data['positions'] = $positions;
 		$voter['username'] = $this->voter['username'];
@@ -175,34 +169,31 @@ class Voter extends Controller {
 	{
 		$votes = $this->session->userdata('votes');
 		if (empty($votes))
-			redirect('voter/vote');
-		$data['votes'] = $votes;
-		$this->load->model('Candidate');
-		$this->load->model('Party');
-		$this->load->model('Position');
-		$positions = $this->Position->select_all_with_units($this->voter['id']);
-		foreach ($positions as $key=>$position)
 		{
-			if ($this->settings['random_order'])
+			redirect('voter/vote');
+		}
+		$data['votes'] = $votes;
+		if ($this->settings['random_order'])
+		{
+			$this->load->model('Random_Order');
+			$random_order = $this->Random_Order->select_by_voter_id($this->voter['id']);
+			$positions = unserialize($random_order['random_order']);
+		}
+		else
+		{
+			$this->load->model('Candidate');
+			$this->load->model('Party');
+			$this->load->model('Position');
+			$positions = $this->Position->select_all_with_units($this->voter['id']);
+			foreach ($positions as $key=>$position)
 			{
-				$candidate_ids = array_flip($this->session->userdata('position_' . $position['id']));
-				$shuffled_candidates = array();
-			}
-			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-			foreach ($candidates as $candidate_id=>$candidate)
-			{
-				$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
-				if ($this->settings['random_order'])
+				$candidates = $this->Candidate->select_all_by_position_id($position['id']);
+				foreach ($candidates as $candidate_id=>$candidate)
 				{
-					$shuffled_candidates[$candidate_ids[$candidate['id']]] = $candidate;
+					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
 				}
+				$positions[$key]['candidates'] = $candidates;
 			}
-			if ($this->settings['random_order'])
-			{
-				ksort($shuffled_candidates);
-				$candidates = $shuffled_candidates;
-			}
-			$positions[$key]['candidates'] = $candidates;
 		}
 		$messages = $this->_get_messages();
 		$data['messages'] = $messages['messages'];
