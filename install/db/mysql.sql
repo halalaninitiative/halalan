@@ -85,6 +85,6 @@ INSERT INTO options (id, status, result) VALUES (1, '0', '0');
 
 CREATE TABLE random_orders (
     voter_id integer NOT NULL,
-    random_order text NOT NULL
+    random_order text NOT NULL,
     PRIMARY KEY  (voter_id)
 );
