@@ -928,14 +928,14 @@ class Admin extends Controller {
 			}
 			if (empty($error))
 			{
-				if ($case == 'add' || $voter['password'])
+				if ($case == 'add' || $this->input->post('password'))
 				{
 					$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
 					$voter['password'] = sha1($password);
 				}
 				if ($this->settings['pin'])
 				{
-					if ($case == 'add' || $voter['pin'])
+					if ($case == 'add' || $this->input->post('pin'))
 					{
 						$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
 						$voter['pin'] = sha1($pin);
@@ -955,13 +955,13 @@ class Admin extends Controller {
 				if ($this->settings['password_pin_generation'] == 'web')
 				{
 					$success[] = 'Username: '. $voter['username'];
-					if ($case == 'add' || $voter['password'])
+					if ($case == 'add' || $this->input->post('password'))
 					{
 						$success[] = 'Password: '. $password;
 					}
 					if ($this->settings['pin'])
 					{
-						if ($case == 'add' || $voter['pin'])
+						if ($case == 'add' || $this->input->post('pin'))
 						{
 							$success[] = 'PIN: '. $pin;
 						}
@@ -973,13 +973,13 @@ class Admin extends Controller {
 					$this->email->to($voter['username']);
 					$this->email->subject($this->settings['name'] . ' Login Credentials');
 					$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
-					if ($case == 'add' || $voter['password'])
+					if ($case == 'add' || $this->input->post('password'))
 					{
 						$message .= "Password: $password\n";
 					}
 					if ($this->settings['pin'])
 					{
-						if ($case == 'add' || $voter['pin'])
+						if ($case == 'add' || $this->input->post('pin'))
 						{
 							$message .= "PIN: $pin\n";
 						}
