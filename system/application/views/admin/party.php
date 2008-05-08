@@ -1,8 +1,8 @@
 <?= format_messages($messages, $message_type); ?>
 <?php if ($action == 'add'): ?>
-	<?= form_open_multipart('admin/do_add_party'); ?>
+	<?= form_open_multipart('admin/do_add/party'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?= form_open_multipart('admin/do_edit_party/' . $party['id']); ?>
+	<?= form_open_multipart('admin/do_edit/party/' . $party['id']); ?>
 <?php endif; ?>
 <h2><?= e('admin_' . $action . '_party_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
