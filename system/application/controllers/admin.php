@@ -294,217 +294,26 @@ class Admin extends Controller {
 		$this->load->view('main', $main);
 	}
 
-	function edit($type, $id) 
-	{
-		$admin['username'] = $this->admin['username'];
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		switch ($type)
-		{
-			case 'voter':
-				if (!$id)
-					redirect('admin/voters');
-				$this->load->model('Boter');
-				$data['voter'] = $this->Boter->select($id);
-				if (!$data['voter'])
-					redirect('admin/voters');
-				$this->load->model('Position');
-				$this->load->model('Position_Voter');
-				$data['general'] = $this->Position->select_all_non_units();
-				$data['specific'] = $this->Position->select_all_units();
-				if ($voter = $this->session->flashdata('voter'))
-				{
-					$data['voter'] = $voter;
-					if (empty($voter['chosen']))
-						$chosen = array();
-					else
-						$chosen = $voter['chosen'];
-					unset($voter['chosen']);
-				}
-				else
-				{
-					$tmp = $this->Position_Voter->select_all_by_voter_id($id);
-					$chosen = array();
-					foreach ($tmp as $t)
-					{
-						$chosen[] = $t['position_id'];
-					}
-				}
-				$tmp[0] = array();
-				$tmp[1] = array();
-				foreach ($data['specific'] as $s)
-				{
-					if (in_array($s['id'], $chosen))
-						$tmp[0][$s['id']] = $s['position'];
-					else
-						$tmp[1][$s['id']] = $s['position'];
-				}
-				$data['possible'] = $tmp[1];
-				$data['chosen'] = $tmp[0];
-				$data['action'] = 'edit';
-				$data['settings'] = $this->settings;
-				$admin['title'] = e('admin_edit_voter_title');
-				$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
-				break;
-			case 'party':
-				if (!$id)
-					redirect('admin/parties');
-				$this->load->model('Party');
-				$data['party'] = $this->Party->select($id);
-				if (!$data['party'])
-					redirect('admin/parties');
-				if ($party = $this->session->flashdata('party'))
-					$data['party'] = $party;
-				$data['action'] = 'edit';
-				$admin['title'] = e('admin_edit_party_title');
-				$admin['body'] = $this->load->view('admin/party', $data, TRUE);
-				break;
-			case 'position':
-				if (!$id)
-					redirect('admin/positions');
-				$this->load->model('Position');
-				$data['position'] = $this->Position->select($id);
-				if (!$data['position'])
-					redirect('admin/positions');
-				if ($position = $this->session->flashdata('position'))
-					$data['position'] = $position;
-				$data['action'] = 'edit';
-				$admin['title'] = e('admin_edit_position_title');
-				$admin['body'] = $this->load->view('admin/position', $data, TRUE);
-				break;
-			case 'candidate':
-				if (!$id)
-					redirect('admin/candidates');
-				$this->load->model('Candidate');
-				$data['candidate'] = $this->Candidate->select($id);
-				if (!$data['candidate'])
-					redirect('admin/candidates');
-				$this->load->model('Party');
-				$parties = $this->Party->select_all();
-				$tmp = array('0'=>'Select Party');
-				foreach ($parties as $party)
-				{
-					$tmp[$party['id']] = $party['party'];
-				}
-				$data['parties'] = $tmp;
-				$this->load->model('Position');
-				$positions = $this->Position->select_all();
-				$tmp = array('0'=>'Select Position');
-				foreach ($positions as $position)
-				{
-					$tmp[$position['id']] = $position['position'];
-				}
-				$data['positions'] = $tmp;
-				if ($candidate = $this->session->flashdata('candidate'))
-					$data['candidate'] = $candidate;
-				$data['action'] = 'edit';
-				$admin['title'] = e('admin_edit_candidate_title');
-				$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
-				break;
-			default:
-				redirect('admin/home');
-		}
-		$this->load->view('admin', $admin);
-	}
-
 	function add($type)
 	{
-		$admin['username'] = $this->admin['username'];
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
 		switch ($type)
 		{
-			case 'voter':
-				$this->load->model('Position');
-				$data['general'] = $this->Position->select_all_non_units();
-				$data['specific'] = $this->Position->select_all_units();
-				$tmp = array();
-				foreach ($data['specific'] as $s)
-				{
-					$tmp[$s['id']] = $s['position'];
-				}
-				$data['possible'] = $tmp;
-				if ($voter = $this->session->flashdata('voter'))
-				{
-					if (empty($voter['chosen']))
-					{
-						$data['chosen'] = array();
-					}
-					else
-					{
-						$chosen = $voter['chosen'];
-						unset($voter['chosen']);
-						$tmp = array();
-						foreach ($data['possible'] as $key=>$value)
-						{
-							if (in_array($key, $chosen))
-							{
-								unset($data['possible'][$key]);
-								$tmp[$key] = $value;
-							}
-						}
-						$data['chosen'] = $tmp;
-					}
-					$data['voter'] = $voter;
-				}
-				else
-				{
-					$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
-					$data['chosen'] = array();
-				}
-				$data['action'] = 'add';
-				$data['settings'] = $this->settings;
-				$admin['title'] = e('admin_add_voter_title');
-				$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
+			case 'candidate':
+				$admin = $this->_candidate('add');
 				break;
 			case 'party':
-				if ($party = $this->session->flashdata('party'))
-					$data['party'] = $party;
-				else
-					$data['party'] = array('party'=>'', 'alias'=>'', 'description'=>'');
-				$data['action'] = 'add';
-				$admin['title'] = e('admin_add_party_title');
-				$admin['body'] = $this->load->view('admin/party', $data, TRUE);
+				$admin = $this->_party('add');
 				break;
 			case 'position':
-				if ($position = $this->session->flashdata('position'))
-					$data['position'] = $position;
-				else
-					$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>1, 'unit'=>0);
-				$data['action'] = 'add';
-				$admin['title'] = e('admin_add_position_title');
-				$admin['body'] = $this->load->view('admin/position', $data, TRUE);
+				$admin = $this->_position('add');
 				break;
-			case 'candidate':
-				$this->load->model('Party');
-				$parties = $this->Party->select_all();
-				$tmp = array('0'=>'Select Party');
-				foreach ($parties as $party)
-				{
-					$tmp[$party['id']] = $party['party'];
-				}
-				$data['parties'] = $tmp;
-				$this->load->model('Position');
-				$positions = $this->Position->select_all();
-				$tmp = array('0'=>'Select Position');
-				foreach ($positions as $position)
-				{
-					$tmp[$position['id']] = $position['position'];
-				}
-				$data['positions'] = $tmp;
-				if ($candidate = $this->session->flashdata('candidate'))
-					$data['candidate'] = $candidate;
-				else
-					$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'', 'position_id'=>'');
-				$data['action'] = 'add';
-				$admin['title'] = e('admin_add_candidate_title');
-				$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
+			case 'voter':
+				$admin = $this->_voter('add');
 				break;
 			default:
 				redirect('admin/home');
 		}
+		$admin['username'] = $this->admin['username'];
 		$this->load->view('admin', $admin);
 	}
 
@@ -529,6 +338,29 @@ class Admin extends Controller {
 		}
 	}
 
+	function edit($type, $id)
+	{
+		switch ($type)
+		{
+			case 'candidate':
+				$admin = $this->_candidate('edit', $id);
+				break;
+			case 'party':
+				$admin = $this->_party('edit', $id);
+				break;
+			case 'position':
+				$admin = $this->_position('edit', $id);
+				break;
+			case 'voter':
+				$admin = $this->_voter('edit', $id);
+				break;
+			default:
+				redirect('admin/home');
+		}
+		$admin['username'] = $this->admin['username'];
+		$this->load->view('admin', $admin);
+	}
+
 	function do_edit($case = null, $id = null)
 	{
 		switch ($case)
@@ -547,6 +379,57 @@ class Admin extends Controller {
 				break;
 			default:
 				redirect('admin/home');
+		}
+	}
+
+	function _candidate($case = null, $id = null)
+	{
+		if ($case == 'add' || $case == 'edit')
+		{
+			if ($case == 'add')
+			{
+				$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'0', 'position_id'=>'0');
+			}
+			else if ($case == 'edit')
+			{
+				if (!$id)
+					redirect('admin/candidates');
+				$this->load->model('Candidate');
+				$data['candidate'] = $this->Candidate->select($id);
+				if (!$data['candidate'])
+					redirect('admin/candidates');
+			}
+			$messages = $this->_get_messages();
+			$data['messages'] = $messages['messages'];
+			$data['message_type'] = $messages['message_type'];
+			$this->load->model('Party');
+			$parties = $this->Party->select_all();
+			$tmp = array('0'=>'Select Party');
+			foreach ($parties as $party)
+			{
+				$tmp[$party['id']] = $party['party'];
+			}
+			$data['parties'] = $tmp;
+			$this->load->model('Position');
+			$positions = $this->Position->select_all();
+			$tmp = array('0'=>'Select Position');
+			foreach ($positions as $position)
+			{
+				$tmp[$position['id']] = $position['position'];
+			}
+			$data['positions'] = $tmp;
+			if ($candidate = $this->session->flashdata('candidate'))
+			{
+				$data['candidate'] = $candidate;
+			}	
+			$data['action'] = $case;
+			$admin['title'] = e('admin_' . $case . '_candidate_title');
+			$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
+			return $admin;
+		}
+		else
+		{
+			redirect('admin/candidates');
 		}
 	}
 
@@ -660,6 +543,41 @@ class Admin extends Controller {
 		}
 	}
 
+	function _party($case = null, $id = null)
+	{
+		if ($case == 'add' || $case == 'edit')
+		{
+			if ($case == 'add')
+			{
+				$data['party'] = array('party'=>'', 'alias'=>'', 'description'=>'');
+			}
+			else if ($case == 'edit')
+			{
+				if (!$id)
+					redirect('admin/parties');
+				$this->load->model('Party');
+				$data['party'] = $this->Party->select($id);
+				if (!$data['party'])
+					redirect('admin/parties');
+			}
+			$messages = $this->_get_messages();
+			$data['messages'] = $messages['messages'];
+			$data['message_type'] = $messages['message_type'];
+			if ($party = $this->session->flashdata('party'))
+			{
+				$data['party'] = $party;
+			}
+			$data['action'] = $case;
+			$admin['title'] = e('admin_' . $case . '_party_title');
+			$admin['body'] = $this->load->view('admin/party', $data, TRUE);
+			return $admin;
+		}
+		else
+		{
+			redirect('admin/parties');
+		}
+	}
+
 	function _do_party($case = null, $id = null)
 	{
 		if ($case == 'add' || $case == 'edit')
@@ -756,6 +674,41 @@ class Admin extends Controller {
 		}
 	}
 
+	function _position($case = null, $id = null)
+	{
+		if ($case == 'add' || $case == 'edit')
+		{
+			if ($case == 'add')
+			{
+				$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>1, 'unit'=>0);
+			}
+			else if ($case == 'edit')
+			{
+				if (!$id)
+					redirect('admin/positions');
+				$this->load->model('Position');
+				$data['position'] = $this->Position->select($id);
+				if (!$data['position'])
+					redirect('admin/positions');
+			}
+			$messages = $this->_get_messages();
+			$data['messages'] = $messages['messages'];
+			$data['message_type'] = $messages['message_type'];
+			if ($position = $this->session->flashdata('position'))
+			{
+				$data['position'] = $position;
+			}
+			$data['action'] = $case;
+			$admin['title'] = e('admin_' . $case . '_position_title');
+			$admin['body'] = $this->load->view('admin/position', $data, TRUE);
+			return $admin;
+		}
+		else
+		{
+			redirect('admin/positions');
+		}
+	}
+
 	function _do_position($case = null, $id = null)
 	{
 		if ($case == 'add' || $case == 'edit')
@@ -846,6 +799,75 @@ class Admin extends Controller {
 		else
 		{
 			redirect('admin/positions');
+		}
+	}
+
+	function _voter($case = null, $id = null)
+	{
+		if ($case == 'add' || $case == 'edit')
+		{
+			if ($case == 'add')
+			{
+				$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
+				$chosen = array();
+			}
+			else if ($case == 'edit')
+			{
+				if (!$id)
+					redirect('admin/voters');
+				$this->load->model('Boter');
+				$data['voter'] = $this->Boter->select($id);
+				if (!$data['voter'])
+					redirect('admin/voters');
+				$this->load->model('Position_Voter');
+				$tmp = $this->Position_Voter->select_all_by_voter_id($id);
+				$chosen = array();
+				foreach ($tmp as $t)
+				{
+					$chosen[] = $t['position_id'];
+				}
+			}
+			$messages = $this->_get_messages();
+			$data['messages'] = $messages['messages'];
+			$data['message_type'] = $messages['message_type'];
+			$this->load->model('Position');
+			$data['general'] = $this->Position->select_all_non_units();
+			$data['specific'] = $this->Position->select_all_units();
+			$data['possible'] = array();
+			$data['chosen'] = array();
+			if ($voter = $this->session->flashdata('voter'))
+			{
+				if (empty($voter['chosen']))
+				{
+					$chosen = array();
+				}
+				else
+				{
+					$chosen = $voter['chosen'];
+					unset($voter['chosen']);
+				}
+				$data['voter'] = $voter;
+			}
+			foreach ($data['specific'] as $s)
+			{
+				if (in_array($s['id'], $chosen))
+				{
+					$data['chosen'][$s['id']] = $s['position'];
+				}
+				else
+				{
+					$data['possible'][$s['id']] = $s['position'];
+				}
+			}
+			$data['action'] = $case;
+			$data['settings'] = $this->settings;
+			$admin['title'] = e('admin_' . $case . '_voter_title');
+			$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
+			return $admin;
+		}
+		else
+		{
+			redirect('admin/voters');
 		}
 	}
 
