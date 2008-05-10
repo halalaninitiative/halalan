@@ -7,7 +7,11 @@ if (empty($_POST['last_name']))
 	$error = TRUE;
 if (empty($_POST['email']))
 	$error = TRUE;
+if (empty($_POST['url']))
+	$error = TRUE;
 if (empty($_POST['name']))
+	$error = TRUE;
+if (empty($_POST['image_trail_path']))
 	$error = TRUE;
 if ($error)
 {
@@ -95,7 +99,7 @@ else if ($dbdriver == 'postgre')
 						<td><?php echo $password; ?></td>
 					</tr>
 					<tr>
-						<td colspan="2">The administrator login is found at <a href="<?php echo dirname($config['base_url']); ?>/<?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin"><?php echo dirname($config['base_url']); ?>/<?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin</a></td>
+						<td colspan="2">The administrator login is found at <a href="<?php echo $_POST['url']; ?><?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin"><?php echo $_POST['url']; ?><?php echo $config['index_page']; ?><?php echo (!empty($config['index_page'])) ? '/' : ''; ?>gate/admin</a></td>
 					</tr>
 				</table>
 			</fieldset>
@@ -105,7 +109,7 @@ else if ($dbdriver == 'postgre')
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
 						<td align="center">
-<textarea cols="75" rows="25" readonly="readonly">
+<textarea cols="70" rows="25" readonly="readonly">
 <?php echo "<?php"; ?> if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // don't change if you already entered some data
@@ -122,6 +126,7 @@ $config['halalan']['random_order'] = <?php echo ($_POST['random']) ? $_POST['ran
 $config['halalan']['generate_image_trail'] = <?php echo ($_POST['image_trail']) ? $_POST['image_trail'] : 'FALSE'; ?>;
 $config['halalan']['image_trail_path'] = "<?php echo $_POST['image_trail_path']; ?>";
 
+$config['base_url'] = "<?php echo $_POST['url']; ?>";
 $config['language'] = "<?php echo $_POST['language']; ?>";
 
 <?php echo "?>"; ?>
@@ -139,13 +144,11 @@ $config['language'] = "<?php echo $_POST['language']; ?>";
 					</tr>
 				</table>
 			</fieldset>
-			<br />
 		</div>
 		<div class="clear"></div>
 	</div>
 	<div id="footer">
-		<br />
-		Powered by Halalan.
+		&copy; University of the Philippines Linux Users' Group (UnPLUG)
 	</div>
 </div>
 </body>

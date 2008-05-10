@@ -11,12 +11,7 @@
 |	http://www.your-site.com/
 |
 */
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
-	$protocol = 'https';
-else
-	$protocol = 'http';
-$base_url = $protocol . "://$_SERVER[HTTP_HOST]" . substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/')) . '/';
-$config['base_url']	= $base_url;
+$config['base_url']	= "http://127.0.0.1/CodeIgniter/";
 
 /*
 |--------------------------------------------------------------------------

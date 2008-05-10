@@ -9,34 +9,32 @@ require_once('../system/application/config/database.php');
 
 extract($db['default']);
 
-$some_random_variable_again = true;
+$missing_driver = false;
 if (empty($dbdriver) || ($dbdriver != 'mysql' && $dbdriver != 'postgre'))
 {
-	$some_random_variable_again = false;
+	$missing_driver = true;
 }
 else
 {
-	$some_random_variable = true;
+	$misconfigured_settings = false;
 	if ($dbdriver == 'mysql')
 	{
 		$link = mysql_connect($hostname, $username, $password);
-		//alert($link);
-		//echo($link);
 		if (!$link)
 		{
-			$some_random_variable = false;
+			$misconfigured_settings = true;
 		}
 		else
 		{
 			$db_selected = mysql_select_db($database, $link);
 			if (!$db_selected)
 			{
-				$some_random_variable = false;
+				$misconfigured_settings = true;
 			}
 			else
 			{
 				$query = "SELECT * FROM admins";
-				$result = mysql_query($query);
+				$result = @mysql_query($query);
 				$test = FALSE;
 				while ($row = @mysql_fetch_array($result))
 				{
@@ -56,7 +54,30 @@ else
 	}
 	else if ($dbdriver == 'postgre')
 	{
-		$some_random_variable = pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
+		$link = pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
+		if (!$link)
+		{
+			$misconfigured_settings = true;
+		}
+		else
+		{
+			$query = "SELECT * FROM admins";
+			$result = @pg_query($query);
+			$test = FALSE;
+			while ($row = @pg_fetch_array($result))
+			{
+				if (!empty($row))
+				{
+					$test = TRUE;
+					break;
+				}
+			}
+			if ($test)
+			{
+				echo "Halalan is already installed.";
+				exit;
+			}
+		}
 	}
 }
 
@@ -78,7 +99,7 @@ else
 	<div class="body">
 		<div class="center_body">
 <?php
-if (!$some_random_variable_again)
+if ($missing_driver)
 {
 ?>
 			<fieldset>
@@ -87,7 +108,7 @@ if (!$some_random_variable_again)
 			</fieldset>
 <?php
 }
-else if (!$some_random_variable)
+else if ($misconfigured_settings)
 {
 ?>
 			<fieldset>
@@ -128,6 +149,10 @@ else
 			<fieldset>
 				<legend class="position">Election Settings</legend>
 				<table cellspacing="2" cellpadding="2" width="100%">
+					<tr>
+						<td class="w35">URL</td>
+						<td><input type="text" name="url" value="http://localhost/" /> with trailing slash</td>
+					</tr>
 					<tr>
 						<td class="w35">Name</td>
 						<td><input type="text" name="name" value="Election Name" /></td>
@@ -190,7 +215,7 @@ else
 					</tr>
 					<tr>
 						<td class="w35">Virtual Paper Trail Path</td>
-						<td><input type="text" name="image_trail_path" size="40" value="/home/httpd/html/w/" /></td>
+						<td><input type="text" name="image_trail_path" size="40" value="/var/www/html/w/" /></td>
 					</tr>
 				</table>
 			</fieldset>
@@ -206,13 +231,12 @@ else
 <?php
 }
 ?>
-			<br />
 		</div>
 		<div class="clear"></div>
 	</div>
 	<div id="footer">
 		<br />
-		Powered by Halalan.
+		&copy; University of the Philippines Linux Users' Group (UnPLUG)
 	</div>
 </div>
 </body>
