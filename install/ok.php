@@ -13,6 +13,14 @@ if (empty($_POST['name']))
 	$error = TRUE;
 if (empty($_POST['image_trail_path']))
 	$error = TRUE;
+if ($_POST['captcha'] || $_POST['image_trail'])
+{
+	if (!extension_loaded('gd') || !function_exists('gd_info'))
+	{
+		echo "The PHP installation doesn't seem to have a GD extension.  Please install the GD library and install Halalan again.";
+		exit;
+	}
+}
 if ($error)
 {
 	echo "The installer encountered some errors.  Please use your browser back button to go back and correct them.";
