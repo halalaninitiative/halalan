@@ -22,7 +22,7 @@ div.reminder {
     text-align:center;
   }
 
-/* not selected */
+/* selected candidates */
 .selected {
     background-color: #c7d5f3;
   }

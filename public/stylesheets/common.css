@@ -273,7 +273,7 @@ img {
   }
 
 
-table.highlight tr:not(.details):hover {
+table.highlight tr:not(.details):not(.selected):hover {
     background-color: #e0e0e0;
   }
 
