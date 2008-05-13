@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -122,4 +122,6 @@ $autoload['model'] = array();
 // $autoload['core'] = array();
 
 
-?>
+
+/* End of file autoload.php */
+/* Location: ./system/application/config/autoload.php */

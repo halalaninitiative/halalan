@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : Queries</title>
+<title>Queries : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -86,18 +86,16 @@ It simply lets you submit a query. Most users will rarely use this function.</p>
 // outputs prefix_tablename</code></p>
 <h1>Protecting identifiers</h1>
 <p>In many databases it is advisable to protect table and field names - for example with backticks in MySQL. Active Record queries are automatically protected, however if you need to manually protect an identifier you can use:</p>
-<p><code>$this-&gt;db-&gt;protect_identifier('table_name');</code></p>
+<p><code>$this-&gt;db-&gt;protect_identifiers('table_name');</code></p>
 <h1>Escaping Queries</h1>
 <p>It's a very good security practice to escape your data before submitting it into your database.
 CodeIgniter has two functions that help you do this:</p>
 
 <ol>
-</li>
 <li><strong>$this->db->escape()</strong> This function determines the data type so that it
 can escape only string data.  It also automatically adds single quotes around the data so you don't have to:
 
 <code>$sql = "INSERT INTO table (title) VALUES(".$this->db->escape($title).")";</code></li>
-
 
 <li><strong>$this->db->escape_str()</strong>  This function escapes the data passed to it, regardless of type.
 Most of the time you'll use the above function rather then this one. Use the function like this:

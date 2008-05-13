@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : XML-RPC and XML-RPC Server Classes</title>
+<title>XML-RPC and XML-RPC Server Classes : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -180,8 +180,9 @@ class and method for processing.</p>
 $this->load->library('xmlrpc');<br />
 $this->load->library('xmlrpcs');<br />
 <br />
-$config['functions']['<var>new_post</var>']&nbsp;&nbsp;= array('function' => '<dfn>My_blog.new_entry</dfn>');<br />
-$config['functions']['<var>update_post</var>'] = array('function' => '<dfn>My_blog.update_entry</dfn>');<br />
+$config['functions]['<var>new_post</var>'] = array('function' => '<dfn>My_blog.new_entry</dfn>'),<br />
+$config['functions]['<var>update_post</var>'] = array('function' => '<dfn>My_blog.update_entry</dfn>');<br />
+$config['object'] = $this;<br />
 <br />
 $this->xmlrpcs->initialize($config);<br />
 $this->xmlrpcs->serve();</code>
@@ -189,6 +190,9 @@ $this->xmlrpcs->serve();</code>
 <p>The above example contains an array specifying two method requests that the Server allows.
 The allowed methods are on the left side of the array. When either of those are received, they will be mapped to the class and method on the right.</p>
 
+<p>The '<var>object</var>' key is a special key that you pass an instantiated class object with, which is necessary when the method you are mapping to is not
+	part of the CodeIgniter super object.</p>
+	
 <p>In other words, if an XML-RPC Client sends a request for the <var>new_post</var> method, your
 server will load the <dfn>My_blog</dfn> class and call the <dfn>new_entry</dfn> function.
 If the request is for the <var>update_post</var> method, your
@@ -196,8 +200,7 @@ server will load the <dfn>My_blog</dfn> class and call the <dfn>update_entry</df
 
 <p>The function names in the above example are arbitrary.  You'll decide what they should be called on your server,
 or if you are using standardized APIs, like the Blogger or MetaWeblog API, you'll use their function names.</p>
-
-
+	
 <h2>Processing Server Requests</h2>
 
 <p>When the XML-RPC Server receives a request and loads the class/method for processing, it will pass
@@ -290,7 +293,7 @@ $response = array (<br />
 
 <p class="important">Notice that the above array is formatted as a <dfn>struct</dfn>.  This is the most common data type for responses.</p>
 
-<p>As with Requests, a response can be on of the seven data types listed in the  <a href="#datatypes">Data Types</a>  section.</p>
+<p>As with Requests, a response can be one of the seven data types listed in the  <a href="#datatypes">Data Types</a>  section.</p>
 
 
 <h2>Sending an Error Response</h2>
@@ -392,7 +395,7 @@ class Xmlrpc_server extends Controller {
 
 <p>You should now see the message you sent to the server, and its response back to you.</p>
 
-<p>The client you created sends a message ("How's is going?") to the server, along with a reqest for the "Greetings" method.
+<p>The client you created sends a message ("How's is going?") to the server, along with a request for the "Greetings" method.
 The Server receives the request and maps it to the "process" function, where a response is sent back.</p>
 
 

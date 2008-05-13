@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : Creating Libraries</title>
+<title>Creating Libraries : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -98,7 +98,7 @@ they are initialized.</p>
 
 <p>Classes should have this basic prototype (Note:  We are using the name <kbd>Someclass</kbd> purely as an example):</p>
 
-<code>&lt;?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<code>&lt;?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 <br /><br />
 class Someclass {<br />
 <br />
@@ -137,7 +137,7 @@ $this->load->library('Someclass', <kbd>$params</kbd>);</code>
 
 <p>If you use this feature you must set up your class constructor to expect data:</p>
 
-<code>&lt;?php  if (!defined('BASEPATH')) exit('No direct script access allowed');<br />
+<code>&lt;?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');<br />
 <br />
 class Someclass {<br />
 <br />
@@ -179,12 +179,13 @@ If you would like to use CodeIgniter's classes from within your own custom class
 
 <p>First, assign the CodeIgniter object to a variable:</p>
 
-<code>$CI =& get_instance();</code>
+<code>$CI =&amp; get_instance();</code>
 
 <p>Once you've assigned the object to a variable, you'll use that variable <em>instead</em> of <kbd>$this</kbd>:</p>
 
 <code>
-$CI =& get_instance();<br /><br />
+$CI =&amp; get_instance();<br />
+<br />
 $CI->load->helper('url');<br />
 $CI->load->library('session');<br />
 $CI->config->item('base_url');<br />
@@ -193,8 +194,9 @@ etc.
 
 <p class="important"><strong>Note:</strong> You'll notice that the above get_instance() function is being passed by reference:
 <br /><br />
-<var>$CI =& get_instance();</var>
-<br /><br />
+<var>$CI =&amp; get_instance();</var>
+<br />
+<br />
 <kbd>This is very important.</kbd> Assigning by reference allows you to use the original CodeIgniter object rather than creating a copy of it.
 <br /><br />
 <kbd>Also, please note:</kbd> If you are running PHP 4 it's usually best to avoid calling <dfn>get_instance()</dfn>

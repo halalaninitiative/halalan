@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : Security</title>
+<title>Security : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -99,13 +99,12 @@ retrieving data from your database.</p>
 XML-RPC data, or even data from the SERVER array, you are encouraged to practice this three step approach:</p>
 
 <ol>
-
 <li>Filter the data as if it were tainted.</li>
 <li>Validate the data to ensure it conforms to the correct  type, length, size, etc. (sometimes this step can replace step one)</li>
 <li>Escape the data before submitting it into your database.</li>
 </ol>
 
-CodeIgniter provides the following functions to assist in this process:</p>
+<p>CodeIgniter provides the following functions to assist in this process:</p>
 
 <ul>
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : Form Helper</title>
+<title>Form Helper : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -110,7 +110,7 @@ echo form_open('email/send', '', $hidden);</code>
 
 <p>The above example would create a form similar to this:</p>
 
-<code>&lt;form method="post" action="http:/www.your-site.com/index.php/email/send" &nbsp;class="email" &nbsp;id="myform" /><br />
+<code>&lt;form method="post" action="http:/www.your-site.com/index.php/email/send"><br />
 &lt;input type="hidden" name="username" value="Joe" /><br />
 &lt;input type="hidden" name="member_id" value="234" /></code>
 
@@ -249,7 +249,7 @@ echo form_fieldset_close();
 <br />
 <br />
 // Produces<br />
-&lt;fieldset id=&quot;address_info&quot;&gt;  
+&lt;fieldset&gt;  
 <br />
 &lt;legend&gt;Address Information&lt;/legend&gt;  
 <br />
@@ -288,12 +288,12 @@ echo fieldset_close($string);<br />
 <p>Similar to the other form functions in this helper, you can also pass an array of attributes to the function:</p>
 
 <code>$data = array(<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'newsletter',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'newsletter',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'value'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'accept',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'checked'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> TRUE,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'style'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'margin:10px',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'newsletter',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'newsletter',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'value'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'accept',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'checked'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> TRUE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'style'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'margin:10px',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;);<br />
 <br />
 echo form_checkbox($data);<br />
 <br />
@@ -328,19 +328,52 @@ fourth parameter:</p>
 <br />
 // Would produce:
 <br />
-&lt;label id=&quot;username&quot;&gt;What is your Name&lt;/label&gt;</code>
+&lt;label for=&quot;username&quot;&gt;What is your Name&lt;/label&gt;</code>
 <p>Similar to other functions, you can submit an associative array in the third parameter if you prefer to set additional attributes.    </p>
 <p><code>$attributes = array(<br />
-    	 'class' =&gt; 'mycustomclass',<br />
-    	 'style' =&gt; 'color: #000;',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'class' =&gt; 'mycustomclass',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'style' =&gt; 'color: #000;',<br />
 );<br />
     echo form_label('What is your Name', 'username', $attributes);<br />
         <br />
 // Would produce: <br />
-&lt;label id=&quot;username&quot; class=&quot;mycustomclass&quot; style=&quot;color: #000;&quot;&gt;What is your Name&lt;/label&gt;</code></p>
+&lt;label for=&quot;username&quot; class=&quot;mycustomclass&quot; style=&quot;color: #000;&quot;&gt;What is your Name&lt;/label&gt;</code></p>
 <h2>form_reset()</h2>
 
 <p>Lets you generate a standard reset button. Use is identical to <dfn>form_submit()</dfn>.</p>
+
+<h2>form_button()</h2>
+
+<p>Lets you generate a standard button element. You can minimally pass the button name and content in the first and second parameter:</p>
+<code>
+echo form_button(’name’,’content’);<br />
+<br />
+// Would produce<br />
+&lt;button name="name" type="submit"&gt;Content&lt;/button&gt;
+</code>
+
+Or you can pass an associative array containing any data you wish your form to contain:
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;‘name’ => ‘button’,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;‘id’ => ‘button’,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;‘value’ => ‘true’,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;‘type’ => ‘reset’,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;‘content’ => ‘Reset’<br />
+);<br />
+<br />
+echo form_button($data);<br />
+<br />
+// Would produce:<br />
+&lt;button name="button" id="button" value="true" type="reset"&gt;Reset&lt;/button&gt;
+</code>
+
+If you would like your form to contain some additional data, like JavaScript, you can pass it as a string in the third parameter:
+<code>
+$js = ‘onClick="some_function()"’;<br /><br />
+echo form_button(’mybutton’, ‘Click Me’, $js);
+</code>
+
 
 <h2>form_close()</h2>
 

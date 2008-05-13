@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : String Helper</title>
+<title>String Helper : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -136,12 +136,12 @@ $string=reduce_multiples($string,","); //results in "Fred, Bill, Joe, Jimmy"
 <p>The function accepts the following parameters:
 <code>reduce_multiples(string: text to search in, string: character to reduce, boolean: whether to remove the character from the front and end of the string)</code>
 
-The first parameter contrains the string in which you want to reduce the multiplies. The second parameter contains the character you want to have reduced.
-The third parameter is False by default. If it it's to true it will remove occurences of the character at the beginning and the end of the string. Example:
+The first parameter contains the string in which you want to reduce the multiplies. The second parameter contains the character you want to have reduced.
+The third parameter is FALSE by default; if set to TRUE it will remove occurences of the character at the beginning and the end of the string. Example:
 
 <code>
 $string=",Fred, Bill,, Joe, Jimmy,";<br />
-$string=reduce_multiples($string,",",true); //results in "Fred, Bill, Joe, Jimmy"
+$string=reduce_multiples($string, ", ", TRUE); //results in "Fred, Bill, Joe, Jimmy"
 </code>
 </p> 
 

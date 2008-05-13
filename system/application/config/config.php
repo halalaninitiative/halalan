@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -111,9 +111,9 @@ $config['subclass_prefix'] = 'MY_';
 | Allowed URL Characters
 |--------------------------------------------------------------------------
 |
-| This lets you specify which characters are permitted within your URLs.
-| When someone tries to submit a URL with disallowed characters they will
-| get a warning message.
+| This lets you specify with a regular expression which characters are permitted
+| within your URLs.  When someone tries to submit a URL with disallowed
+| characters they will get a warning message.
 |
 | As a security measure you are STRONGLY encouraged to restrict URLs to
 | as few characters as possible.  By default only these are allowed: a-z 0-9~%.:_-
@@ -123,7 +123,7 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 
 
 /*
@@ -149,7 +149,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_-';
 |
 */
 $config['enable_query_strings'] = FALSE;
-$config['directory_trigger'] = 'd';
+$config['directory_trigger'] = 'd';	 // experimental not currently in use
 $config['controller_trigger'] = 'c';
 $config['function_trigger'] = 'm';
 
@@ -323,4 +323,5 @@ $config['allowed_types'] = 'gif|jpg|png';
 $config['per_page'] = 50;
 $config['halalan_version'] = '1.2.0';
 
-?>
+/* End of file config.php */
+/* Location: ./system/application/config/config.php */

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide</title>
+<title>Session Class : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -123,7 +123,7 @@ and encrypting the data automatically.</p>
 
 <p>Note: Session cookies are only updated every five minutes by default to reduce processor load.  If you repeatedly reload a page
 you'll notice that the "last activity" time only updates if five minutes or more has passed since the last time
-the cookie was written. This time is configurable my changing the $config['time_to_update'] line in your system/config/config.php file.</p>
+the cookie was written. This time is configurable by changing the $config['time_to_update'] line in your system/config/config.php file.</p>
 
 <h2>Retrieving Session Data</h2>
 
@@ -224,6 +224,10 @@ do not need to write your own routine to do it.</p>
 <h2>Destroying a Session </h2>
 <p>To clear the current session: </p>
 <code>$this-&gt;session-&gt;sess_destroy();</code>
+<p class="important"><strong>Note:</strong> This function should be the last one called, and even flash variables will no longer be available.  If you only want some items destroyed and not all, use <dfn>unset_userdata()</dfn>.</p>
+
+
+
 <h2>Session Preferences</h2>
 <p>You'll find the following Session related preferences in your <kbd>application/config/config.php</kbd> file:</p>
 
@@ -239,7 +243,7 @@ do not need to write your own routine to do it.</p>
     <td class="td"><strong>sess_cookie_name</strong></td>
     <td class="td">ci_session</td>
     <td class="td">None</td>
-    <td class="td">The name you world the session cookie saved as.</td>
+    <td class="td">The name you want the session cookie saved as.</td>
 </tr>
 <tr>
     <td class="td"><strong>sess_expiration</strong></td>

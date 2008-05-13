@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | USER AGENT TYPES
@@ -100,4 +100,6 @@ $robots = array(
 				);	
 
 
-?>
+
+/* End of file user_agents.php */
+/* Location: ./system/application/config/user_agents.php */

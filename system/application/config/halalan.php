@@ -16,5 +16,6 @@ $config['halalan']['generate_image_trail'] = TRUE;
 $config['halalan']['image_trail_path'] = '/home/httpd/html/w/';
 
 $config['halalan']['v'] = FALSE;
+$config['base_url'] = 'http://localhost/~waldemar/halalan/';
 
 ?>

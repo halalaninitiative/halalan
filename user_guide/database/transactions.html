@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : Transactions</title>
+<title>Transactions : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -94,6 +94,17 @@ $this->db->query('AND YET ANOTHER QUERY...');<br />
 
 <p>You can run as many queries as you want between the start/complete functions and they will all be committed or rolled back based on success or failure
 of any given query.</p>
+
+
+<h2>Strict Mode</h2>
+
+<p>By default CodeIgniter runs all transactions in <dfn>Strict Mode</dfn>.  When strict mode is enabled, if you are running multiple groups of
+transactions, if one group fails all groups will be rolled back. If strict mode is disabled, each group is treated independently, meaning
+a failure of one group will not affect any others.</p>
+
+<p>Strict Mode can be disabled as follows:</p>
+
+<code>$this->db->trans_strict(FALSE);</code>
 
 
 <h2>Managing Errors</h2>
@@ -167,10 +178,6 @@ else<br />
 
 <p class="important"><strong>Note:</strong> Make sure to use <kbd>$this->db->trans_begin()</kbd> when running manual transactions, <strong>NOT</strong>
 <dfn>$this->db->trans_start()</dfn>.</p>
-
-
-
-
 
 
 

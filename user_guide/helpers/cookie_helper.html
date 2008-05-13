@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>CodeIgniter User Guide : Cookie Helper</title>
+<title>Cookie Helper : CodeIgniter User Guide</title>
 
 <style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.6.1</h1></td>
+<td><h1>CodeIgniter User Guide Version 1.6.2</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -70,7 +70,7 @@ Cookie Helper
 
 <h2>set_cookie()</h2>
 
-<p>Sets a cookie containing the values you specify.  There are two ways to pass information this function so that a cookie can be set:
+<p>Sets a cookie containing the values you specify.  There are two ways to pass information to this function so that a cookie can be set:
 Array Method, and Discrete Parameters:</p>
 
 <h4>Array Method</h4>
@@ -109,7 +109,7 @@ zero the cookie will only last as long as the browser is open.</p>
 
 <h2>get_cookie()</h2>
 
-<p>Lets you fetch a cookie.  The first parameter will contain the name of the cookie you are looking for:</p>
+<p>Lets you fetch a cookie.  The first parameter will contain the name of the cookie you are looking for (including any prefixes):</p>
 
 <code>get_cookie('some_cookie');</code>
 
@@ -117,10 +117,7 @@ zero the cookie will only last as long as the browser is open.</p>
 
 <p>The second optional parameter lets you run the data through the XSS filter.  It's enabled by setting the second parameter to boolean TRUE;</p>
 
-<code>get_cookie('some_cookie', TRUE);</code>
-
-
-
+<p><code>get_cookie('some_cookie', TRUE);</code></p>
 <h2>delete_cookie()</h2>
 
 <p>Lets you delete a cookie.  Unless you've set a custom path or other values, only the name of the cookie is needed:</p>
@@ -139,12 +136,11 @@ of values in the first parameter or you can set discrete parameters.</p>
 
 <div id="footer">
 <p>
-Previous Topic:&nbsp;&nbsp;<a href="array_helper.html">Array Helper</a>
+Previous Topic:&nbsp;&nbsp;<a href="compatibility_helper.html">Compatibility Helper</a>
 &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-Next Topic:&nbsp;&nbsp;<a href="date_helper.html">Date Helper</a>
-</p>
+Next Topic:&nbsp;&nbsp;<a href="date_helper.html">Date Helper</a></p>
 <p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2008 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 

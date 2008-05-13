@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -43,4 +43,6 @@
 $route['default_controller'] = "gate";
 $route['scaffolding_trigger'] = "";
 
-?>
+
+/* End of file routes.php */
+/* Location: ./system/application/config/routes.php */

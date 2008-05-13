@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -286,4 +286,6 @@ class Scaffolding {
 	}
 
 }
-?>
+
+/* End of file Scaffolding.php */
+/* Location: ./system/scaffolding/Scaffolding.php */

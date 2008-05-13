@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -28,7 +28,7 @@ Once loaded you can generate a captcha like this:
 					'word'		 => 'Random word',
 					'img_path'	 => './captcha/',
 					'img_url'	 => 'http://www.your-site.com/captcha/',
-					'font_path'	 => './system/texb.ttf',
+					'font_path'	 => './system/fonts/texb.ttf',
 					'img_width'	 => '150',
 					'img_height' => 30,
 					'expiration' => 7200
@@ -244,7 +244,15 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 	// Create image
 	// -----------------------------------
 			
-	$im = ImageCreate($img_width, $img_height);
+	// PHP.net recommends imagecreatetruecolor(), but it isn't always available
+	if (function_exists('imagecreatetruecolor'))
+	{
+		$im = imagecreatetruecolor($img_width, $img_height);
+	}
+	else
+	{
+		$im = imagecreate($img_width, $img_height);
+	}
 			
 	// -----------------------------------
 	//  Assign colors
@@ -343,4 +351,6 @@ function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = 
 	return array('word' => $word, 'time' => $now, 'image' => $img);
 }
 
-?>
+
+/* End of file captcha_pi.php */
+/* Location: ./system/plugins/captcha_pi.php */
