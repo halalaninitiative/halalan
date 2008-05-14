@@ -69,6 +69,13 @@ else if ($dbdriver == 'postgre')
 	pg_query($query);
 }
 
+$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+$encryption_key = '';
+for ($i=0; $i < 32; $i++)
+{
+	$encryption_key .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
+}
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -136,6 +143,7 @@ $config['halalan']['image_trail_path'] = "<?php echo $_POST['image_trail_path'];
 
 $config['base_url'] = "<?php echo $_POST['url']; ?>";
 $config['language'] = "<?php echo $_POST['language']; ?>";
+$config['encryption_key'] = "<?php echo $encryption_key; ?>";
 
 <?php echo "?>"; ?>
 </textarea>
