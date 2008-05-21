@@ -19,14 +19,14 @@ else
 	$misconfigured_settings = false;
 	if ($dbdriver == 'mysql')
 	{
-		$link = mysql_connect($hostname, $username, $password);
+		$link = @mysql_connect($hostname, $username, $password);
 		if (!$link)
 		{
 			$misconfigured_settings = true;
 		}
 		else
 		{
-			$db_selected = mysql_select_db($database, $link);
+			$db_selected = @mysql_select_db($database, $link);
 			if (!$db_selected)
 			{
 				$misconfigured_settings = true;
@@ -54,7 +54,7 @@ else
 	}
 	else if ($dbdriver == 'postgre')
 	{
-		$link = pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
+		$link = @pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
 		if (!$link)
 		{
 			$misconfigured_settings = true;
