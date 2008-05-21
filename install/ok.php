@@ -53,7 +53,7 @@ else if ($dbdriver == 'postgre')
 
 $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $password = '';
-for ($i=0; $i < 6; $i++)
+for ($i=0; $i < $_POST['password_length']; $i++)
 {
 	$password .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
 }
