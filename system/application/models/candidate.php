@@ -43,7 +43,14 @@ class Candidate extends Model {
 	function select_by_name_and_alias($first_name, $last_name, $alias)
 	{
 		$this->db->from('candidates');
-		$this->db->where(compact('first_name', 'last_name', 'alias'));
+		if (empty($alias))
+		{
+			$this->db->where(compact('first_name', 'last_name'));
+		}
+		else
+		{
+			$this->db->where(compact('first_name', 'last_name', 'alias'));
+		}
 		$query = $this->db->get();
 		return $query->row_array();
 	}

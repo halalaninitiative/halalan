@@ -465,23 +465,26 @@ class Admin extends Controller {
 			{
 				$error[] = e('admin_candidate_no_position');
 			}
-			if ($test = $this->Candidate->select_by_name_and_alias($candidate['first_name'], $candidate['last_name'], $candidate['alias']))
+			if ($candidate['first_name'] && $candidate['last_name'])
 			{
-				if ($case == 'add')
+				if ($test = $this->Candidate->select_by_name_and_alias($candidate['first_name'], $candidate['last_name'], $candidate['alias']))
 				{
-					$name = $test['last_name'] . ', ' . $test['first_name'];
-					if (!empty($test['alias']))
-						$name .= ' "' . $test['alias'] . '"';
-					$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
-				}
-				else if ($case == 'edit')
-				{
-					if ($test['id'] != $id)
+					if ($case == 'add')
 					{
 						$name = $test['last_name'] . ', ' . $test['first_name'];
 						if (!empty($test['alias']))
 							$name .= ' "' . $test['alias'] . '"';
 						$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
+					}
+					else if ($case == 'edit')
+					{
+						if ($test['id'] != $id)
+						{
+							$name = $test['last_name'] . ', ' . $test['first_name'];
+							if (!empty($test['alias']))
+								$name .= ' "' . $test['alias'] . '"';
+							$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
+						}
 					}
 				}
 			}
