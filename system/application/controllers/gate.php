@@ -40,6 +40,12 @@ class Gate extends Controller {
 
 	function voter_login()
 	{
+		if (!$this->input->post('username') || !$this->input->post('password'))
+		{
+			$error[] = e('gate_common_login_failure');
+			$this->session->set_flashdata('error', $error);
+			redirect('gate/voter');
+		}
 		$this->load->model('Boter');
 		$username = $this->input->post('username');
 		if (strlen($this->input->post('password')) == 40)
@@ -95,6 +101,12 @@ class Gate extends Controller {
 
 	function admin_login()
 	{
+		if (!$this->input->post('username') || !$this->input->post('password'))
+		{
+			$error[] = e('gate_common_login_failure');
+			$this->session->set_flashdata('error', $error);
+			redirect('gate/admin');
+		}
 		$this->load->model('Abmin');
 		$username = $this->input->post('username');
 		if (strlen($this->input->post('password')) == 40)
