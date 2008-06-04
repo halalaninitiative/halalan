@@ -310,18 +310,6 @@ $config['time_reference'] = 'local';
 */
 $config['rewrite_short_tags'] = TRUE;
 
-/*
-|--------------------------------------------------------------------------
-| Halalan
-|--------------------------------------------------------------------------
-|
-| Text here. :D
-|
-*/
-$config['upload_path'] = './public/uploads/';
-$config['allowed_types'] = 'gif|jpg|png';
-$config['per_page'] = 50;
-$config['halalan_version'] = '1.2.0';
 
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

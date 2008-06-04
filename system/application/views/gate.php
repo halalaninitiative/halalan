@@ -56,10 +56,7 @@
 				<p>&copy; University of the Philippines Linux Users' Group (UnPLUG)</p>
 			</div>
 			<div id="footer_right">
-				<?php
-					$CI =& get_instance();
-				?>
-				<p>Powered by Halalan <?= $CI->config->item('halalan_version'); ?></p>
+				<p>Powered by Halalan <?= HALALAN_VERSION; ?></p>
 			</div>
 			<div class="clear"></div>
 		</div>

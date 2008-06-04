@@ -152,7 +152,7 @@ class Admin extends Controller {
 		$voters = $this->Boter->select_all();
 		$config['base_url'] = site_url('admin/voters');
 		$config['total_rows'] = count($voters);
-		$config['per_page'] = $this->config->item('per_page');
+		$config['per_page'] = HALALAN_PER_PAGE;
 		$config['num_links'] = 5;
 		$config['first_link'] = img('public/images/go-first.png');
 		$config['last_link'] = img('public/images/go-last.png');
@@ -490,8 +490,8 @@ class Admin extends Controller {
 			}
 			if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
 			{
-				$config['upload_path'] = $this->config->item('upload_path') . 'pictures/';
-				$config['allowed_types'] = $this->config->item('allowed_types');
+				$config['upload_path'] = HALALAN_UPLOAD_PATH . 'pictures/';
+				$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
 				$this->upload->initialize($config);
 				if ($case == 'edit')
 				{
@@ -621,8 +621,8 @@ class Admin extends Controller {
 			}
 			if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
 			{
-				$config['upload_path'] = $this->config->item('upload_path') . 'logos/';
-				$config['allowed_types'] = $this->config->item('allowed_types');
+				$config['upload_path'] = HALALAN_UPLOAD_PATH . 'logos/';
+				$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
 				$this->upload->initialize($config);
 				if ($case == 'edit')
 				{
@@ -1069,7 +1069,7 @@ class Admin extends Controller {
 	{
 		$error = array();
 		$import['chosen'] = $this->input->post('chosen', TRUE);
-		$config['upload_path'] = $this->config->item('upload_path') . 'csvs/';
+		$config['upload_path'] = HALALAN_UPLOAD_PATH . 'csvs/';
 		$config['allowed_types'] = 'csv';
 		$this->upload->initialize($config);
 		if (!$this->upload->do_upload('csv'))
