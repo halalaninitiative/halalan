@@ -9,7 +9,7 @@
 		</tr>
 		<tr>
 			<td align="right"><label for="password"><?= e('gate_admin_password'); ?>:</label></td>
-			<td><?= form_password(array('id'=>'password', 'name'=>'password', 'maxlength'=>$settings['password_length'], 'class'=>'text')); ?></td>
+			<td><?= form_password(array('id'=>'password', 'name'=>'password', 'class'=>'text')); ?></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><?= form_submit(array('value'=>e('gate_admin_login_button'))); ?></td>
