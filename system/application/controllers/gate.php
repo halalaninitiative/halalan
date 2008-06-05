@@ -136,8 +136,14 @@ class Gate extends Controller {
 		}
 		else if($voter = $this->session->userdata('voter'))
 		{
+			// voter has not yet voted
 			$this->load->model('Boter');
 			$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $voter['id']);
+			$gate = 'voter';
+		}
+		else
+		{
+			// voter has already voted
 			$gate = 'voter';
 		}
 		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
