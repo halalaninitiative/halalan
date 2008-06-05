@@ -954,7 +954,7 @@ class Admin extends Controller {
 					$this->Boter->update($voter, $id);
 				}
 				$success = array();
-				$success[] = e('admin_add_voter_success');
+				$success[] = e('admin_' . $case . '_voter_success');
 				if ($this->settings['password_pin_generation'] == 'web')
 				{
 					$success[] = 'Username: '. $voter['username'];
