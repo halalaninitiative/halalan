@@ -2,30 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Halalan - Ballot - <?= $title; ?></title>
+  <title>Halalan - Ballot - <?php echo $title; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Last-Modified" content="<?= gmdate('D, d M Y H:i:s'); ?> GMT" />
+  <meta http-equiv="Last-Modified" content="<?php echo gmdate('D, d M Y H:i:s'); ?> GMT" />
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, post-check=0, pre-check=0" />
   <meta http-equiv="Pragma" content="no-cache" />
   <?php if (isset($meta) && !empty($meta)): ?>
-  <?= $meta; ?>
+  <?php echo $meta; ?>
   <?php endif; ?>
-  <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>public/stylesheets/voter.css" />
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.js"></script>
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.color.js"></script>
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/common.js"></script>
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/voter.js"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/voter.css" />
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/common.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/voter.js"></script>
 </head>
 <body>
 <div id="wrap">
 	<div id="header">
 		<div id="header_bg">
 			<div id="header_left">
-				<?= img(array('src'=>'public/images/logo_small.png', 'alt'=>'voter logo')); ?>
+				<?php echo img(array('src'=>'public/images/logo_small.png', 'alt'=>'voter logo')); ?>
 				<span>ballot</span>
 <!--
 				<h1>
-					<?= anchor(site_url(), 'Halalan'); ?>
+					<?php echo anchor(site_url(), 'Halalan'); ?>
 					<span>ballot</span>
 				</h1>
 -->
@@ -34,7 +34,7 @@
 				<?php if (isset($meta) && !empty($meta)): ?>
 				<p>YOU ARE NOW LOGGED OUT</p>
 				<?php else: ?>
-				<p>LOGGED IN AS <?= strtoupper($username); ?> | <?= anchor('gate/logout', 'LOGOUT'); ?></p>
+				<p>LOGGED IN AS <?php echo strtoupper($username); ?> | <?php echo anchor('gate/logout', 'LOGOUT'); ?></p>
 				<?php endif; ?>
 			</div>
 			<div class="clear"></div>
@@ -52,7 +52,7 @@
 		</ul>
 	</div>
 	<div id="content">
-		<?= $body; ?>
+		<?php echo $body; ?>
 	</div>
 	<div id="footer">
 		<div id="footer_bg">
@@ -60,7 +60,7 @@
 				<p>&copy; University of the Philippines Linux Users' Group (UnPLUG)</p>
 			</div>
 			<div id="footer_right">
-				<p>Powered by Halalan <?= HALALAN_VERSION; ?></p>
+				<p>Powered by Halalan <?php echo HALALAN_VERSION; ?></p>
 			</div>
 			<div class="clear"></div>
 		</div>

@@ -4,13 +4,13 @@
 <head>
   <title>Halalan - Ballot - Print Votes</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Last-Modified" content="<?= gmdate('D, d M Y H:i:s'); ?> GMT" />
+  <meta http-equiv="Last-Modified" content="<?php echo gmdate('D, d M Y H:i:s'); ?> GMT" />
   <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, post-check=0, pre-check=0" />
   <meta http-equiv="Pragma" content="no-cache" />
 </head>
 <body>
-	<h2><?= $settings['name']; ?></h2>
-	<p>Voted as <?= $voter['username']; ?></p>
+	<h2><?php echo $settings['name']; ?></h2>
+	<p>Voted as <?php echo $voter['username']; ?></p>
 	<h3>Votes</h3>
 	<table cellspacing="2" cellpadding="2" border="0" style="width: 75%">
 		<?php for ($i = 0; $i < count($positions); $i++): ?>
@@ -18,7 +18,7 @@
 		<tr>
 		<?php endif; ?>
 			<td valign="top">
-				<strong><?= $positions[$i]['position']; ?> (<?= $positions[$i]['maximum']; ?>)</strong>
+				<strong><?php echo $positions[$i]['position']; ?> (<?php echo $positions[$i]['maximum']; ?>)</strong>
 				<ul>
 					<?php if (empty($positions[$i]['candidates'])): ?>
 					<li>No candidates found.</li>
@@ -43,7 +43,7 @@
 							}
 						}
 					?>
-					<li><?= $name; ?>, <?= $party; ?></li>
+					<li><?php echo $name; ?>, <?php echo $party; ?></li>
 					<?php endif; ?>
 					<?php endforeach; ?>
 					<?php if ($positions[$i]['abstain'] == TRUE): ?>

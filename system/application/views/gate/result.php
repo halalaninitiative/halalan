@@ -1,5 +1,5 @@
 <div class="content_center">
-<h2><?= strtoupper($settings['name']) . ' ' . e('gate_result_label'); ?></h2>
+<h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_result_label'); ?></h2>
 </div>
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>
@@ -7,11 +7,11 @@
 <?php else: ?>
 <div class="content_right notes">
 <?php endif; ?>
-	<h2><?= $positions[$i]['position']; ?> (<?= $positions[$i]['maximum']; ?>)</h2>
+	<h2><?php echo $positions[$i]['position']; ?> (<?php echo $positions[$i]['maximum']; ?>)</h2>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<?php if (empty($positions[$i]['candidates'])): ?>
 		<tr>
-			<td><em><?= e('gate_result_no_candidates'); ?></em></td>
+			<td><em><?php echo e('gate_result_no_candidates'); ?></em></td>
 		</tr>
 		<?php else: ?>
 		<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>
@@ -23,8 +23,8 @@
 			$name = quotes_to_entities($name);
 		?>
 		<tr>
-			<td class="w5" align="center"><?= $candidate['votes']; ?></td>
-			<td class="w70"><?= $name; ?></td>
+			<td class="w5" align="center"><?php echo $candidate['votes']; ?></td>
+			<td class="w70"><?php echo $name; ?></td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w20">
 			<?php else: ?>
@@ -32,15 +32,15 @@
 			<?php endif; ?>
 				<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
 				<?php if (empty($candidate['party']['alias'])): ?>
-				<?= $candidate['party']['party']; ?>
+				<?php echo $candidate['party']['party']; ?>
 				<?php else: ?>
-				<?= $candidate['party']['alias']; ?>
+				<?php echo $candidate['party']['alias']; ?>
 				<?php endif; ?>
 				<?php endif; ?>
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w5">
-				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
+				<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
 			</td>
 			<?php endif; ?>
 		</tr>
@@ -50,17 +50,17 @@
 			<div style="display:none;" class="details">
 			<?php if (!empty($candidate['picture'])): ?>
 			<div style="float:left;padding-right:5px;">
-			<?= img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
+			<?php echo img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
 			</div>
 			<?php endif; ?>
 			<div style="float:left;">
-			Name: <?= $name; ?><br />
-			Party: <?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
+			Name: <?php echo $name; ?><br />
+			Party: <?php echo (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
 			</div>
 			<div class="clear"></div>
 			<?php if (!empty($candidate['description'])): ?>
 			<div><br />
-			<?= nl2br($candidate['description']); ?>
+			<?php echo nl2br($candidate['description']); ?>
 			</div>
 			<?php endif; ?>
 			</div>
@@ -72,7 +72,7 @@
 		<?php endforeach; ?>
 		<?php if ($positions[$i]['abstain'] == TRUE): ?>
 		<tr>
-			<td class="w5"><?= $positions[$i]['abstains']; ?></td>
+			<td class="w5"><?php echo $positions[$i]['abstains']; ?></td>
 			<td class="w60">ABSTAIN</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w30"></td>

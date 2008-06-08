@@ -1,5 +1,5 @@
 <div class="notes">
-	<?= e('voter_logout_message'); ?>
+	<?php echo e('voter_logout_message'); ?>
 </div>
 <div class="paging">
 	THANK YOU FOR VOTING!

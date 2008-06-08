@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Halalan - Administration - <?= $title; ?></title>
+  <title>Halalan - Administration - <?php echo $title; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <?php if (isset($meta) && !empty($meta)): ?>
-  <?= $meta; ?>
+  <?php echo $meta; ?>
   <?php endif; ?>
-  <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>public/stylesheets/admin.css" />
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.js"></script>
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/jquery.color.js"></script>
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/common.js"></script>
-  <script type="text/javascript" src="<?= base_url(); ?>public/javascripts/admin.js"></script>
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/admin.css" />
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/common.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/admin.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -23,35 +23,35 @@
 					$special = $CI->config->item('halalan');
 				?>
 				<?php if (isset($special['v']) && $special['v']): ?>
-				<?= img(array('src'=>'public/images/logo_admin_v.png', 'alt'=>'Halalan Logo')); ?>
+				<?php echo img(array('src'=>'public/images/logo_admin_v.png', 'alt'=>'Halalan Logo')); ?>
 				<?php else: ?>
-				<?= img(array('src'=>'public/images/logo_small.png', 'alt'=>'Halalan Logo')); ?>
+				<?php echo img(array('src'=>'public/images/logo_small.png', 'alt'=>'Halalan Logo')); ?>
 				<span>administration</span>
 				<?php endif; ?>
 <!--
 				<h1>
-					<?= anchor(site_url(), 'Halalan'); ?>
+					<?php echo anchor(site_url(), 'Halalan'); ?>
 					<span>administration</span>
 				</h1>
 -->
 			</div>
 			<div id="header_right">
-				<p>LOGGED IN AS <?= strtoupper($username); ?> | <?= anchor('gate/logout', 'LOGOUT'); ?></p>
+				<p>LOGGED IN AS <?php echo strtoupper($username); ?> | <?php echo anchor('gate/logout', 'LOGOUT'); ?></p>
 			</div>
 			<div class="clear"></div>
 		</div>
 	</div>
 	<div id="menu">
 		<ul>
-			<li><?= anchor('admin/home', 'HOME', array('title'=>'Home')); ?></li>
-			<li><?= anchor('admin/candidates', 'CANDIDATES', array('title'=>'Manage Candidates')); ?></li>
-			<li><?= anchor('admin/parties', 'PARTIES', array('title'=>'Manage Parties')); ?></li>
-			<li><?= anchor('admin/positions', 'POSITIONS', array('title'=>'Manage Positions')); ?></li>
-			<li><?= anchor('admin/voters', 'VOTERS', array('title'=>'Manage Voters')); ?></li>
+			<li><?php echo anchor('admin/home', 'HOME', array('title'=>'Home')); ?></li>
+			<li><?php echo anchor('admin/candidates', 'CANDIDATES', array('title'=>'Manage Candidates')); ?></li>
+			<li><?php echo anchor('admin/parties', 'PARTIES', array('title'=>'Manage Parties')); ?></li>
+			<li><?php echo anchor('admin/positions', 'POSITIONS', array('title'=>'Manage Positions')); ?></li>
+			<li><?php echo anchor('admin/voters', 'VOTERS', array('title'=>'Manage Voters')); ?></li>
 		</ul>
 	</div>
 	<div id="content">
-		<?= $body; ?>
+		<?php echo $body; ?>
 	</div>
 	<div id="footer">
 		<div id="footer_bg">
@@ -59,7 +59,7 @@
 				<p>&copy; University of the Philippines Linux Users' Group (UnPLUG)</p>
 			</div>
 			<div id="footer_right">
-				<p>Powered by Halalan <?= HALALAN_VERSION; ?></p>
+				<p>Powered by Halalan <?php echo HALALAN_VERSION; ?></p>
 			</div>
 			<div class="clear"></div>
 		</div>

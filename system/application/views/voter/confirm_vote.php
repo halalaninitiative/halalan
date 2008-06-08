@@ -1,17 +1,17 @@
-<div class="reminder"><?= e('voter_confirm_vote_reminder_too'); ?></div>
-<?= format_messages($messages, $message_type); ?>
-<?= form_open('voter/do_verify'); ?>
+<div class="reminder"><?php echo e('voter_confirm_vote_reminder_too'); ?></div>
+<?php echo format_messages($messages, $message_type); ?>
+<?php echo form_open('voter/do_verify'); ?>
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>
 <div class="content_left notes">
 <?php else: ?>
 <div class="content_right notes">
 <?php endif; ?>
-	<h2><?= $positions[$i]['position']; ?> (<?= $positions[$i]['maximum']; ?>)</h2>
+	<h2><?php echo $positions[$i]['position']; ?> (<?php echo $positions[$i]['maximum']; ?>)</h2>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<?php if (empty($positions[$i]['candidates'])): ?>
 		<tr>
-			<td><em><?= e('voter_vote_no_candidates'); ?></em></td>
+			<td><em><?php echo e('voter_vote_no_candidates'); ?></em></td>
 		</tr>
 		<?php else: ?>
 		<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>
@@ -32,8 +32,8 @@
 		<?php else: ?>
 		<tr>
 		<?php endif; ?>
-			<td class="w5"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
-			<td class="w60"><?= $name; ?></td>
+			<td class="w5"><?php echo form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$candidate['id'], 'disabled'=>'disabled')); ?></td>
+			<td class="w60"><?php echo $name; ?></td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w30">
 			<?php else: ?>
@@ -41,15 +41,15 @@
 			<?php endif; ?>
 				<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
 				<?php if (empty($candidate['party']['alias'])): ?>
-				<?= $candidate['party']['party']; ?>
+				<?php echo $candidate['party']['party']; ?>
 				<?php else: ?>
-				<?= $candidate['party']['alias']; ?>
+				<?php echo $candidate['party']['alias']; ?>
 				<?php endif; ?>
 				<?php endif; ?>
 			</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w5">
-				<?= img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
+				<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
 			</td>
 			<?php endif; ?>
 		</tr>
@@ -59,17 +59,17 @@
 			<div style="display:none;" class="details">
 			<?php if (!empty($candidate['picture'])): ?>
 			<div style="float:left;padding-right:5px;">
-			<?= img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
+			<?php echo img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
 			</div>
 			<?php endif; ?>
 			<div style="float:left;">
-			Name: <?= $name; ?><br />
-			Party: <?= (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
+			Name: <?php echo $name; ?><br />
+			Party: <?php echo (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
 			</div>
 			<div class="clear"></div>
 			<?php if (!empty($candidate['description'])): ?>
 			<div><br />
-			<?= nl2br($candidate['description']); ?>
+			<?php echo nl2br($candidate['description']); ?>
 			</div>
 			<?php endif; ?>
 			</div>
@@ -92,7 +92,7 @@
 		<?php else: ?>
 		<tr>
 		<?php endif; ?>
-			<td class="w5"><?= form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>'disabled')); ?></td>
+			<td class="w5"><?php echo form_checkbox(array('name'=>'votes[' . $positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>'', 'disabled'=>'disabled')); ?></td>
 			<td class="w60">ABSTAIN</td>
 			<?php if ($settings['show_candidate_details']): ?>
 			<td class="w30"></td>
@@ -117,26 +117,26 @@
 <?php endif; ?>
 <?php if ($settings['captcha'] || $settings['pin']): ?>
 <div class="notes">
-<h2><?= e('voter_confirm_vote_validation_label'); ?></h2>
+<h2><?php echo e('voter_confirm_vote_validation_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<?php if ($settings['captcha']): ?>
-		<td><?= $captcha['image']; ?></td>
-		<td><label for="captcha"><?= e('voter_confirm_vote_captcha_label'); ?><br /><?= form_input(array('id'=>'captcha', 'name'=>'captcha', 'size'=>20, 'maxlength'=>$settings['captcha_length'])); ?></label></td>
+		<td><?php echo $captcha['image']; ?></td>
+		<td><label for="captcha"><?php echo e('voter_confirm_vote_captcha_label'); ?><br /><?php echo form_input(array('id'=>'captcha', 'name'=>'captcha', 'size'=>20, 'maxlength'=>$settings['captcha_length'])); ?></label></td>
 		<?php endif ;?>
 		<?php if ($settings['pin']): ?>
 		<td>&nbsp;</td>
-		<td><label for="pin"><?= e('voter_confirm_vote_pin_label'); ?><br /><?= form_input(array('id'=>'pin', 'name'=>'pin', 'size'=>20, 'maxlength'=>$settings['pin_length'])); ?></label></td>
+		<td><label for="pin"><?php echo e('voter_confirm_vote_pin_label'); ?><br /><?php echo form_input(array('id'=>'pin', 'name'=>'pin', 'size'=>20, 'maxlength'=>$settings['pin_length'])); ?></label></td>
 		<?php endif; ?>
 	</tr>
 </table>
 </div>
 <?php endif; ?>
-<div class="reminder"><?= e('voter_confirm_vote_reminder'); ?></div>
+<div class="reminder"><?php echo e('voter_confirm_vote_reminder'); ?></div>
 <div class="paging">
 	<a name="bottom"></a>
-	<input type="button" class="modifyBallot" value="<?= e('voter_confirm_vote_modify_button'); ?>" />
+	<input type="button" class="modifyBallot" value="<?php echo e('voter_confirm_vote_modify_button'); ?>" />
 	|
-	<input type="submit" value="<?= e('voter_confirm_vote_submit_button'); ?>" />
+	<input type="submit" value="<?php echo e('voter_confirm_vote_submit_button'); ?>" />
 </div>
 </form>

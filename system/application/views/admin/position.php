@@ -1,65 +1,65 @@
-<?= format_messages($messages, $message_type); ?>
+<?php echo format_messages($messages, $message_type); ?>
 <?php if ($action == 'add'): ?>
-	<?= form_open_multipart('admin/do_add/position'); ?>
+	<?php echo form_open_multipart('admin/do_add/position'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?= form_open_multipart('admin/do_edit/position/' . $position['id']); ?>
+	<?php echo form_open_multipart('admin/do_edit/position/' . $position['id']); ?>
 <?php endif; ?>
-<h2><?= e('admin_' . $action . '_position_label'); ?></h2>
+<h2><?php echo e('admin_' . $action . '_position_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td class="w30" align="right">
-			<label for="position"><?= e('admin_position_position'); ?>:</label>
+			<label for="position"><?php echo e('admin_position_position'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'position', 'name'=>'position', 'value'=>$position['position'], 'maxlength'=>63, 'class'=>'text')); ?>
+			<?php echo form_input(array('id'=>'position', 'name'=>'position', 'value'=>$position['position'], 'maxlength'=>63, 'class'=>'text')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="description"><?= e('admin_position_description'); ?>:</label>
+			<label for="description"><?php echo e('admin_position_description'); ?>:</label>
 		</td>
 		<td>
-			<?= form_textarea(array('id'=>'description', 'name'=>'description', 'value'=>$position['description'])); ?>
+			<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value'=>$position['description'])); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="maximum"><?= e('admin_position_maximum'); ?>:</label>
+			<label for="maximum"><?php echo e('admin_position_maximum'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'maximum', 'name'=>'maximum', 'value'=>$position['maximum'], 'class'=>'short')); ?>
+			<?php echo form_input(array('id'=>'maximum', 'name'=>'maximum', 'value'=>$position['maximum'], 'class'=>'short')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="ordinality"><?= e('admin_position_ordinality'); ?>:</label>
+			<label for="ordinality"><?php echo e('admin_position_ordinality'); ?>:</label>
 		</td>
 		<td>
-			<?= form_input(array('id'=>'ordinality', 'name'=>'ordinality', 'value'=>$position['ordinality'], 'class'=>'short')); ?>
+			<?php echo form_input(array('id'=>'ordinality', 'name'=>'ordinality', 'value'=>$position['ordinality'], 'class'=>'short')); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<?= e('admin_position_abstain'); ?>:
+			<?php echo e('admin_position_abstain'); ?>:
 		</td>
 		<td>
-			<label for="yes"><?= form_radio(array('id'=>'yes', 'name'=>'abstain', 'value'=>1, 'checked'=>(($position['abstain']) ? TRUE : FALSE))); ?> Yes</label>
-			<label for="no"><?= form_radio(array('id'=>'no', 'name'=>'abstain', 'value'=>0, 'checked'=>(($position['abstain']) ? FALSE : TRUE))); ?> No</label>
+			<label for="yes"><?php echo form_radio(array('id'=>'yes', 'name'=>'abstain', 'value'=>1, 'checked'=>(($position['abstain']) ? TRUE : FALSE))); ?> Yes</label>
+			<label for="no"><?php echo form_radio(array('id'=>'no', 'name'=>'abstain', 'value'=>0, 'checked'=>(($position['abstain']) ? FALSE : TRUE))); ?> No</label>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<?= e('admin_position_unit'); ?>:
+			<?php echo e('admin_position_unit'); ?>:
 		</td>
 		<td>
-			<label for="general"><?= form_radio(array('id'=>'general', 'name'=>'unit', 'value'=>0, 'checked'=>(($position['unit']) ? FALSE : TRUE))); ?> General</label>
-			<label for="specific"><?= form_radio(array('id'=>'specific', 'name'=>'unit', 'value'=>1, 'checked'=>(($position['unit']) ? TRUE : FALSE))); ?> Specific</label>
+			<label for="general"><?php echo form_radio(array('id'=>'general', 'name'=>'unit', 'value'=>0, 'checked'=>(($position['unit']) ? FALSE : TRUE))); ?> General</label>
+			<label for="specific"><?php echo form_radio(array('id'=>'specific', 'name'=>'unit', 'value'=>1, 'checked'=>(($position['unit']) ? TRUE : FALSE))); ?> Specific</label>
 		</td>
 	</tr>
 </table>
 <div class="paging">
-	<?= anchor('admin/positions', 'GO BACK'); ?>
+	<?php echo anchor('admin/positions', 'GO BACK'); ?>
 	|
-	<?= form_submit('submit', e('admin_' . $action . '_position_submit')) ?>
+	<?php echo form_submit('submit', e('admin_' . $action . '_position_submit')) ?>
 </div>
-<?= form_close(); ?>
+<?php echo form_close(); ?>
