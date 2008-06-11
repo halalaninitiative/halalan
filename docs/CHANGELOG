@@ -1,11 +1,25 @@
 Halalan
-Version 1.2.0
-http://halalan.sourceforge.net
+Version 1.3.0
+http://halalan.uplug.org
 http://halalan.googlecode.com
 Copyright (C) 2006-2008 UP Linux Users' Group
 
 
 Halalan Changelog
+
+1.3.0  20080612
+-----------------------
+--- Added conformance to XHTML 1.0 Strict
+--- Added PostgreSQL support
+--- Added more UI enhancements
+--- Added statistics page
+--- Added new configuration variables
+--- Added client-side password hashing
+--- Fixed minor bugs
+--- Moved saving of random order from session to DB
+--- Replaced all <?= with <?php echo
+--- Upgraded to CodeIgniter 1.6.2
+--- Upgraded to jQuery 1.2.6
 
 1.2.0  20080221
 -----------------------
