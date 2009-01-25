@@ -10,12 +10,12 @@ $config['halalan']['pin_length'] = 4;
 $config['halalan']['captcha'] = TRUE;
 $config['halalan']['captcha_length'] = 4;
 $config['halalan']['show_candidate_details'] = TRUE;
-$config['halalan']['random_order'] = TRUE;
-$config['halalan']['generate_image_trail'] = FALSE;
-$config['halalan']['image_trail_path'] = "/var/www/html/w/";
+$config['halalan']['random_order'] = FALSE;
+$config['halalan']['generate_image_trail'] = TRUE;
+$config['halalan']['image_trail_path'] = "/home/waldemar/Desktop/trails";
 
-$config['base_url'] = "http://localhost/~waldemar/halalan/";
+$config['base_url'] = "http://localhost/~waldemar/kappa/";
 $config['language'] = "english";
-$config['encryption_key'] = "FIJDtfzhUllTcd41zC4a6VwtMaQlPEOl";
+$config['encryption_key'] = "M89XeDIZ5KVTZiEm2q8SPWDS1t3H0iER";
 
 ?>
