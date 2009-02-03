@@ -5,7 +5,7 @@ class Gate extends Controller {
 	function Gate()
 	{
 		parent::Controller();
-		if ($this->uri->segment(2) != 'results' && $this->uri->segment(2) != 'logout')
+		if ($this->uri->segment(2) != 'results' && $this->uri->segment(2) != 'statistics' && $this->uri->segment(2) != 'logout')
 		{
 			if ($this->session->userdata('admin'))
 			{
@@ -155,7 +155,8 @@ class Gate extends Controller {
 	{
 		$this->load->model('Option');
 		$option = $this->Option->select(1);
-		if ($option['result'] && !$option['status'])
+		$settings = $this->config->item('halalan');
+		if (($option['result'] && !$option['status']) || ($settings['realtime_results'] && $this->session->userdata('admin')))
 		{
 			$this->load->model('Abstain');
 			$this->load->model('Candidate');
@@ -196,7 +197,8 @@ class Gate extends Controller {
 	{
 		$this->load->model('Option');
 		$option = $this->Option->select(1);
-		if ($option['result'] && !$option['status'])
+		$settings = $this->config->item('halalan');
+		if (($option['result'] && !$option['status']) || ($settings['realtime_results'] && $this->session->userdata('admin')))
 		{
 			$this->load->model('Statistics');
 			$data['voter_count'] = $this->Statistics->count_all_voters();

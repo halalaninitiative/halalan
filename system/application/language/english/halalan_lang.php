@@ -203,7 +203,8 @@ $lang['halalan_admin_home_status'] = 'Status';
 $lang['halalan_admin_home_running'] = 'Running';
 $lang['halalan_admin_home_not_running'] = 'Not Running';
 $lang['halalan_admin_home_results'] = 'Results';
-$lang['halalan_admin_home_publish'] = 'Publish results?';
+$lang['halalan_admin_home_publish'] = 'Publish results? (for all; election must not be running)';
+$lang['halalan_admin_home_realtime'] = 'View in Realtime (administrator only)';
 $lang['halalan_admin_home_submit'] = 'Save';
 
 // views/admin/voters.php

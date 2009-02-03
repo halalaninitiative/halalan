@@ -13,6 +13,7 @@ $config['halalan']['show_candidate_details'] = TRUE;
 $config['halalan']['random_order'] = FALSE;
 $config['halalan']['generate_image_trail'] = TRUE;
 $config['halalan']['image_trail_path'] = "/home/waldemar/Desktop/trails";
+$config['halalan']['realtime_results'] = TRUE;
 
 $config['base_url'] = "http://localhost/~waldemar/kappa/";
 $config['language'] = "english";

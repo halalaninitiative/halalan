@@ -50,20 +50,38 @@
 				<?php echo e('admin_home_status'); ?>:
 			</td>
 			<td>
+				<?php if ($settings['realtime_results']): ?>
+				<label><?php echo form_radio(array('name'=>'status', 'value'=>1, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> <?php echo e('admin_home_running'); ?></label>
+				<?php else: ?>
 				<label><?php echo form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>1, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> <?php echo e('admin_home_running'); ?></label>
+				<?php endif; ?>
 			</td>
 			<td>
+				<?php if ($settings['realtime_results']): ?>
+				<label><?php echo form_radio(array('name'=>'status', 'value'=>0, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> <?php echo e('admin_home_not_running'); ?></label>
+				<?php else: ?>
 				<label><?php echo form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>0, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> <?php echo e('admin_home_not_running'); ?></label>
+				<?php endif; ?>
 			</td>
 		</tr>
 		<tr class="results">
 			<td align="right">
 				<?php echo e('admin_home_results'); ?>:
 			</td>
-			<td>
+			<td colspan="2">
 				<label><?php echo form_checkbox(array('name'=>'result', 'value'=>1, 'checked'=>(($option['result']) ? TRUE : FALSE))); ?> <?php echo e('admin_home_publish'); ?></label>
 			</td>
 		</tr>
+		<?php if ($settings['realtime_results']): ?>
+		<tr>
+			<td align="right">
+				&nbsp;
+			</td>
+			<td colspan="2">
+				&nbsp;&nbsp;&nbsp;<?php echo anchor('gate/results', e('admin_home_realtime')); ?>
+			</td>
+		</tr>
+		<?php endif; ?>
 		<tr>
 			<td colspan="3" align="center">
 				<?php echo form_submit(array('name'=>'submit', 'value'=>e('admin_home_submit'))); ?>
