@@ -34,7 +34,7 @@
 				<?php if (isset($meta) && !empty($meta)): ?>
 				<p>YOU ARE NOW LOGGED OUT</p>
 				<?php else: ?>
-				<p>LOGGED IN AS <?php echo strtoupper($username); ?> | <?php echo anchor('gate/logout', 'LOGOUT'); ?></p>
+				<p>LOGGED IN AS <?php echo strtoupper($username); ?> | <?php echo anchor('gate/logout', 'LOGOUT', array('class'=>'confirmLogout')); ?></p>
 				<?php endif; ?>
 			</div>
 			<div class="clear"></div>

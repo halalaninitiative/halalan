@@ -40,6 +40,13 @@ function printVotes() {
 	window.open("print_votes");
 }
 
+function confirmLogout() {
+	var url = window.location.href.split('/').pop();
+	if ('vote' == url || 'verify' == url) {
+		return confirm("Your ballot has NOT been recorded yet.\nAre you sure you want to logout?");
+	}
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -54,6 +61,7 @@ $(document).ready(function () {
 	$(':checkbox.abstainPosition').click(abstainPosition);
 	$(':button.modifyBallot').click(modifyBallot);
 	$(':button.printVotes').click(printVotes);
+	$('.confirmLogout').click(confirmLogout);
 	/* Restore the state of abstained positions */
 	$(':checkbox.abstainPosition:checked').click().attr('checked', true);
 	$(':checked').parents('tr').addClass('selected');
