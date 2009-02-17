@@ -5,13 +5,8 @@ function abstainPosition() {
 	var tr = $(this).parents('tr');
 
 	tr.siblings().find(':checkbox').attr('disabled', this.checked);
-	if (this.checked) {
-		tr.addClass('selected');
-		tr.siblings().removeClass('selected');
-	} else {
-		tr.removeClass('selected');
-		tr.siblings().find(':checked').parents('tr').addClass('selected');
-	}
+	tr.toggleClass('selected', this.checked);
+	tr.siblings().find(':checked').parents('tr').toggleClass('selected', !this.checked);
 }
 
 function checkNumber() {
@@ -24,11 +19,9 @@ function checkNumber() {
 
 	if (inputs.length >= limit) {
 		this.checked = false;
-		alert("Maximum selections already reached.");
-	} else if (this.checked) {
-		$(this).parents('tr').addClass('selected');
+		alert("You have already selected the maximum\nnumber of candidates for this position.");
 	} else {
-		$(this).parents('tr').removeClass('selected');
+		$(this).parents('tr').toggleClass('selected', this.checked);
 	}
 }
 
@@ -41,8 +34,8 @@ function printVotes() {
 }
 
 function confirmLogout() {
-	var url = window.location.href.split('/').pop();
-	if ('vote' == url || 'verify' == url) {
+	var page = window.location.href.split('/').pop();
+	if ('vote' == page || 'verify' == page) {
 		return confirm("Your ballot has NOT been recorded yet.\nAre you sure you want to logout?");
 	}
 }
