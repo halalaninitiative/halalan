@@ -33,6 +33,15 @@ class Position extends Model {
 		return $query->row_array();
 	}
 
+	function select_multiple($ids)
+	{
+		$this->db->from('positions');
+		$this->db->where_in('id', $ids);
+		$this->db->order_by('ordinality ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function select_all()
 	{
 		$this->db->from('positions');

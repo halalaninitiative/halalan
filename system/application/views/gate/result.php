@@ -1,6 +1,46 @@
+<?php echo format_messages($messages, $message_type); ?>
 <div class="content_center">
 <h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_result_label'); ?></h2>
 </div>
+
+<?php echo form_open('gate/do_results'); ?>
+<div class="content_left">
+	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+	<?php for ($i = 0; $i < count($all_positions) / 2; $i++): ?>
+		<?
+			if (in_array($all_positions[$i]['id'], $selected))
+				$checked = TRUE;
+			else
+				$checked = FALSE;
+		?>
+		<tr>
+			<td class="w5"><?php echo form_checkbox(array('id'=>'cb' . $all_positions[$i]['id'], 'name'=>'positions[' . $all_positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$all_positions[$i]['id'])); ?></td>
+			<td><label for="<?php echo 'cb' . $all_positions[$i]['id']; ?>"><?php echo $all_positions[$i]['position']; ?></label></td>
+		</tr>
+	<?php endfor; ?>
+	</table>
+</div>
+<div class="content_right">
+	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+	<?php for (; $i < count($all_positions); $i++): ?>
+		<?
+			if (in_array($all_positions[$i]['id'], $selected))
+				$checked = TRUE;
+			else
+				$checked = FALSE;
+		?>
+		<tr>
+			<td class="w5"><?php echo form_checkbox(array('id'=>'cb' . $all_positions[$i]['id'], 'name'=>'positions[' . $all_positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$all_positions[$i]['id'])); ?></td>
+			<td><label for="<?php echo 'cb' . $all_positions[$i]['id']; ?>"><?php echo $all_positions[$i]['position']; ?></label></td>
+		</tr>
+	<?php endfor; ?>
+	</table>
+</div>
+<div class="paging">
+<?php echo form_submit(array('value'=>e('gate_result_submit_button'))); ?>
+</div>
+</form>
+
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>
 <div class="content_left notes">

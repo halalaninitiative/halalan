@@ -158,12 +158,17 @@ class Gate extends Controller {
 		$settings = $this->config->item('halalan');
 		if (($option['result'] && !$option['status']) || ($settings['realtime_results'] && $this->session->userdata('admin')))
 		{
-			$this->load->model('Abstain');
-			$this->load->model('Candidate');
-			$this->load->model('Party');
+			$selected = $this->session->flashdata('positions');
+			if (!empty($selected))
+			{
+				$this->load->model('Abstain');
+				$this->load->model('Candidate');
+				$this->load->model('Party');
+				$this->load->model('Vote');
+			}
 			$this->load->model('Position');
-			$this->load->model('Vote');
-			$positions = $this->Position->select_all();
+			$all_positions = $this->Position->select_all();
+			$positions = $this->Position->select_multiple($selected);
 			foreach ($positions as $key=>$position)
 			{
 				$candidates = array();
@@ -179,7 +184,12 @@ class Gate extends Controller {
 				$positions[$key]['candidates'] = $candidates;
 				$positions[$key]['abstains'] = $this->Abstain->count_all_by_position_id($position['id']);
 			}
+			$messages = $this->_get_messages();
+			$data['messages'] = $messages['messages'];
+			$data['message_type'] = $messages['message_type'];
 			$data['settings'] = $this->config->item('halalan');
+			$data['all_positions'] = $all_positions;
+			$data['selected'] = $selected;
 			$data['positions'] = $positions;
 			$gate['login'] = 'result';
 			$gate['title'] = e('gate_result_title');
@@ -191,6 +201,17 @@ class Gate extends Controller {
 			$this->session->set_flashdata('error', array(e('gate_result_unavailable')));
 			redirect('gate/voter');
 		}
+	}
+
+	function do_results()
+	{
+		$positions = $this->input->post('positions', TRUE);
+		$this->session->set_flashdata('positions', array_keys($positions));
+		if (empty($positions))
+		{
+			$this->session->set_flashdata('error', array(e('gate_result_no_positions')));
+		}
+		redirect('gate/results');
 	}
 
 	function statistics()

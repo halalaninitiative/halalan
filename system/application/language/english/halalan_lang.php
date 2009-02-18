@@ -45,6 +45,8 @@ $lang['halalan_gate_admin_login_button'] = 'Login';
 // views/gate/result.php
 $lang['halalan_gate_result_label'] = 'RESULTS';
 $lang['halalan_gate_result_no_candidates'] = 'No candidates found.';
+$lang['halalan_gate_result_submit_button'] = 'Show Results';
+$lang['halalan_gate_result_no_positions'] = 'No positions selected.';
 // views/gate/statistics.php
 $lang['halalan_gate_statistics_label'] = 'STATISTICS';
 
