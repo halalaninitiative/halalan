@@ -212,6 +212,15 @@ img {
   }
 
 
+#content .positive {
+    background: #CAEA99;
+    border: 1px solid #70A522;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #333333;
+  }
+
+
 #content .negative {
     background: #FEDCDA;
     border: 1px solid #CE090E;

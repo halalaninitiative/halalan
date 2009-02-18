@@ -211,6 +211,10 @@ class Gate extends Controller {
 		{
 			$this->session->set_flashdata('error', array(e('gate_result_no_positions')));
 		}
+		else
+		{
+			$this->session->set_flashdata('success', array(e('gate_result_page_updated')));
+		}
 		redirect('gate/results');
 	}
 
