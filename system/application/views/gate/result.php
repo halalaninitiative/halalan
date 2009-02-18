@@ -3,9 +3,10 @@
 <h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_result_label'); ?></h2>
 </div>
 
+
 <?php echo form_open('gate/do_results'); ?>
 <div class="content_left">
-	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+	<table cellpadding="0" cellspacing="0" border="0" class="form_table options">
 	<?php for ($i = 0; $i < count($all_positions) / 2; $i++): ?>
 		<?
 			if (in_array($all_positions[$i]['id'], $selected))
@@ -21,7 +22,7 @@
 	</table>
 </div>
 <div class="content_right">
-	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+	<table cellpadding="0" cellspacing="0" border="0" class="form_table options">
 	<?php for (; $i < count($all_positions); $i++): ?>
 		<?
 			if (in_array($all_positions[$i]['id'], $selected))
@@ -36,10 +37,17 @@
 	<?php endfor; ?>
 	</table>
 </div>
+
 <div class="paging">
 <?php echo form_submit(array('value'=>e('gate_result_submit_button'))); ?>
+<br /><br />
+<a href="#" class="toggeAllPositions">select all</a> | <a href="#" class="toggeAllPositions">deselect all</a> | <a href="#" class="toggleOptions"><?php echo (empty($positions)) ? 'show' : 'hide'; ?> options</a>
 </div>
 </form>
+
+<?php if (empty($positions)): ?>
+<div class="reminder"><?php echo e('gate_result_reminder'); ?></div>
+<?php endif; ?>
 
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>

@@ -294,6 +294,17 @@ div.details {
     padding: 5px;
   }
 
+
+/* confirm vote reminder */
+div.reminder {
+    border: 1px solid #FFAAAA;
+    background-color: #FFE5E5;
+    padding: 5px;
+    margin: 0px 0px 15px;
+    font-size: small;
+    text-align:center;
+  }
+
 /* Widths */
 
 .w5 {

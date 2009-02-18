@@ -5,6 +5,25 @@ function hashPassword() {
 	}
 }
 
+function toggleOptions() {
+	if ($(this).text() == "hide options") {
+		$(this).text("show options");
+		$('.options').fadeOut();
+		$(':submit').fadeOut();
+	} else {
+		$(this).text("hide options");
+		$('.options').fadeIn();
+		$(':submit').fadeIn();
+	}
+	return false;
+}
+
+function toggeAllPositions() {
+	var cboxes = $('.options').find(':checkbox');
+	cboxes.attr('checked', ($(this).text() === "select all"));
+	return false;
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -13,7 +32,11 @@ $(document).ready(function () {
 
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);
+	$('.toggleOptions').click(toggleOptions);
+	$('.toggeAllPositions').click(toggeAllPositions);
 	$('form.hashPassword').submit(hashPassword);
+	/* Trigger events on load */
+	$('.toggleOptions').click();
 	/* Code that aren't bound to events */
 	animateFlashMessage();
 	highlightMenuItem(menu_map);
