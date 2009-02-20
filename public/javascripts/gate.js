@@ -6,20 +6,18 @@ function hashPassword() {
 }
 
 function toggleOptions() {
-	if ($(this).text() == "hide options") {
-		$(this).text("show options");
-		$('.options').fadeOut();
-		$(':submit').fadeOut();
+	if ($(this).text() == "[hide options]") {
+		$(this).text("[show options ]");
+		$('form').fadeOut();
 	} else {
-		$(this).text("hide options");
-		$('.options').fadeIn();
-		$(':submit').fadeIn();
+		$(this).text("[hide options]");
+		$('form').fadeIn();
 	}
 	return false;
 }
 
 function toggeAllPositions() {
-	var cboxes = $('.options').find(':checkbox');
+	var cboxes = $('form').find(':checkbox');
 	cboxes.attr('checked', ($(this).text() === "select all"));
 	return false;
 }
