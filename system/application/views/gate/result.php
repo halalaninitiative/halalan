@@ -1,10 +1,12 @@
-<?php echo format_messages($messages, $message_type); ?>
 <div class="content_center">
 <h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_result_label'); ?></h2>
 </div>
 
+<?php if (empty($positions)): ?>
+<div class="reminder"><?php echo e('gate_result_reminder'); ?></div>
+<?php endif; ?>
 
-<?php echo form_open('gate/do_results'); ?>
+<?php echo form_open('gate/results'); ?>
 <div class="content_left">
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table options">
 	<?php for ($i = 0; $i < count($all_positions) / 2; $i++): ?>
@@ -44,10 +46,6 @@
 <a href="#" class="toggeAllPositions">select all</a> | <a href="#" class="toggeAllPositions">deselect all</a> | <a href="#" class="toggleOptions"><?php echo (empty($positions)) ? 'show' : 'hide'; ?> options</a>
 </div>
 </form>
-
-<?php if (empty($positions)): ?>
-<div class="reminder"><?php echo e('gate_result_reminder'); ?></div>
-<?php endif; ?>
 
 <?php for ($i = 0; $i < count($positions); $i++): ?>
 <?php if ($i % 2 == 0): ?>

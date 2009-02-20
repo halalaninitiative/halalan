@@ -45,9 +45,7 @@ $lang['halalan_gate_admin_login_button'] = 'Login';
 // views/gate/result.php
 $lang['halalan_gate_result_label'] = 'RESULTA';
 $lang['halalan_gate_result_no_candidates'] = 'Walang mga kandidato.';
-$lang['halalan_gate_result_no_positions'] = 'Walang napiling posisyon.';
 $lang['halalan_gate_result_submit_button'] = 'Update Page';
-$lang['halalan_gate_result_page_updated'] = 'Page updated.';
 $lang['halalan_gate_result_reminder'] = 'Select at least one position then press <em>Update Page</em>.';
 // views/gate/statistics.php
 $lang['halalan_gate_statistics_label'] = 'STATISTICS';
