@@ -9,10 +9,24 @@
 <div class="paging">
 <a href="#" class="toggleOptions">[<?php echo (empty($positions)) ? 'show' : 'hide'; ?> options]</a>
 <?php echo form_open('gate/results'); ?>
-<div class="content_left">
+<?php for ($s = 0; $s < 2; $s++): ?>
+<?php
+	$limit = count($all_positions);
+	if ($s == 0)
+	{
+		$side = 'left';
+		$i = 0;
+		$limit /= 2;
+	}
+	else
+	{
+		$side = 'right';
+	}
+?>
+<div class="content_<?php echo $side; ?>">
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
-	<?php for ($i = 0; $i < count($all_positions) / 2; $i++): ?>
-		<?php $checked = (in_array($all_positions[$i]['id'], $selected)); ?>
+	<?php for (; $i < $limit; $i++): ?>
+		<?php $checked = in_array($all_positions[$i]['id'], $selected); ?>
 		<tr>
 			<td class="w5"><?php echo form_checkbox(array('id'=>'cb' . $all_positions[$i]['id'], 'name'=>'positions[' . $all_positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$all_positions[$i]['id'])); ?></td>
 			<td><label for="<?php echo 'cb' . $all_positions[$i]['id']; ?>"><?php echo $all_positions[$i]['position']; ?></label></td>
@@ -20,17 +34,7 @@
 	<?php endfor; ?>
 	</table>
 </div>
-<div class="content_right">
-	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
-	<?php for (; $i < count($all_positions); $i++): ?>
-		<?php $checked = (in_array($all_positions[$i]['id'], $selected)); ?>
-		<tr>
-			<td class="w5"><?php echo form_checkbox(array('id'=>'cb' . $all_positions[$i]['id'], 'name'=>'positions[' . $all_positions[$i]['id'] . '][]', 'checked'=>$checked, 'value'=>$all_positions[$i]['id'])); ?></td>
-			<td><label for="<?php echo 'cb' . $all_positions[$i]['id']; ?>"><?php echo $all_positions[$i]['position']; ?></label></td>
-		</tr>
-	<?php endfor; ?>
-	</table>
-</div>
+<?php endfor; ?>
 <div class="notes">
 	<?php echo form_submit(array('value'=>e('gate_result_submit_button'))); ?>
 	<br /><br />
