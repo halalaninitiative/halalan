@@ -217,6 +217,10 @@ else
 						<td class="w35">Virtual Paper Trail Path</td>
 						<td><input type="text" name="image_trail_path" size="40" value="/var/www/html/w/" /></td>
 					</tr>
+					<tr>
+						<td class="w35">Real-time Results</td>
+						<td><label><input type="checkbox" name="realtime_results" value="TRUE" /> enable real-time results (for admins only)?</label></td>
+					</tr>
 				</table>
 			</fieldset>
 			<fieldset>
