@@ -7,7 +7,7 @@ function hashPassword() {
 
 function toggleOptions() {
 	if ($(this).text() == "[hide options]") {
-		$(this).text("[show options ]");
+		$(this).text("[show options]");
 		$('form').fadeOut();
 	} else {
 		$(this).text("[hide options]");
