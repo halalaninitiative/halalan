@@ -50,18 +50,10 @@
 				<?php echo e('admin_home_status'); ?>:
 			</td>
 			<td>
-				<?php if ($settings['realtime_results']): ?>
 				<label><?php echo form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>1, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> <?php echo e('admin_home_running'); ?></label>
-				<?php else: ?>
-				<label><?php echo form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>1, 'checked'=>(($option['status']) ? TRUE : FALSE))); ?> <?php echo e('admin_home_running'); ?></label>
-				<?php endif; ?>
 			</td>
 			<td>
-				<?php if ($settings['realtime_results']): ?>
 				<label><?php echo form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>0, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> <?php echo e('admin_home_not_running'); ?></label>
-				<?php else: ?>
-				<label><?php echo form_radio(array('name'=>'status', 'class'=>'changeElectionStatus', 'value'=>0, 'checked'=>(($option['status']) ? FALSE : TRUE))); ?> <?php echo e('admin_home_not_running'); ?></label>
-				<?php endif; ?>
 			</td>
 		</tr>
 		<tr class="results">
