@@ -100,6 +100,10 @@ class Admin extends Controller {
 					$voter['pin'] = sha1($pin);
 				}
 			}
+			if ($this->input->post('login'))
+			{
+				$voter['login'] = NULL;
+			}
 			$this->Boter->update($voter, $voter['id']);
 			$success = array();
 			$success[] = e('admin_regenerate_success');

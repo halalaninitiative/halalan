@@ -22,6 +22,13 @@
 		</tr>
 		<?php endif; ?>
 		<tr>
+			<td align="right">
+			</td>
+			<td>
+				<label for="login"><?php echo form_checkbox(array('id'=>'login', 'name'=>'login', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?php echo e('admin_home_login'); ?></label>
+			</td>
+		</tr>
+		<tr>
 			<td colspan="2" align="center">
 				<?php echo form_submit(array('name'=>'submit', 'value'=>e('admin_home_submit_too'))); ?>
 			</td>
