@@ -44,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Parts of this distribution consist of the following:
 CodeIgniter http://www.codeigniter.com - CodeIgniter License Agreement
-jQuery http://jquery.com - GNU General Public License
+jQuery (and plugins) http://jquery.com - GNU General Public License
+SHA-1 JavaScript implementation http://pajhome.org.uk/crypt/md5 - BSD License
 Oxygen Icons http://www.oxygen-icons.org - GNU Library General Public License
 Design derived from http://www.openwebdesign.org/design/4369/atrandafir582 - Public Domain
