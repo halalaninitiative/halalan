@@ -1,11 +1,20 @@
 Halalan
-Version 1.3.0
+Version 1.4.0
 http://halalan.uplug.org
 http://halalan.googlecode.com
 Copyright (C) 2006-2008 UP Linux Users' Group
 
 
 Halalan Changelog
+
+1.4.0  20090307
+-----------------------
+--- Added admin option to clear login timestamp
+--- Added viewing of results per position
+--- Added realtime viewing of results
+--- Added minor enhancements
+--- Upgraded to CodeIgniter 1.7.1
+--- Upgraded to jQuery 1.3.1
 
 1.3.0  20080612
 -----------------------
