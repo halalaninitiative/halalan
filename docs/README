@@ -1,5 +1,5 @@
 Halalan
-Version 1.4.0
+Version 1.4.1
 http://halalan.uplug.org
 http://halalan.googlecode.com
 Copyright (C) 2006-2008 UP Linux Users' Group
@@ -7,7 +7,7 @@ Copyright (C) 2006-2008 UP Linux Users' Group
 
 VERSION FEATURES:
 
-Realtime results and results per position.
+Fixed for PHP 5.3.0.
 
 
 INSTALLATION:
