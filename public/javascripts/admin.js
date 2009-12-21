@@ -100,8 +100,6 @@ $(document).ready(function () {
 	menu_map['parties'] = "PARTIES";
 	menu_map['positions'] = "POSITIONS";
 	menu_map['voters'] = "VOTERS";
-	menu_map['import'] = menu_map['voters'];
-	menu_map['export'] = menu_map['voters'];
 
 	/* Bind handlers to events */
 	$('a.confirmDelete').click(confirmDelete);
