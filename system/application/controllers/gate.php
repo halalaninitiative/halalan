@@ -9,11 +9,11 @@ class Gate extends Controller {
 		{
 			if ($this->session->userdata('admin'))
 			{
-				redirect('admin/index');
+				redirect('admin/home');
 			}
 			else if ($this->session->userdata('voter'))
 			{
-				redirect('voter/index');
+				redirect('voter/vote');
 			}
 		}
 		
@@ -118,7 +118,7 @@ class Gate extends Controller {
 			// don't save password to session
 			unset($admin['password']);
 			$this->session->set_userdata('admin', $admin);
-			redirect('admin/index');
+			redirect('admin/home');
 		}
 		else
 		{
