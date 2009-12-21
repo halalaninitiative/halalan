@@ -1,8 +1,8 @@
 <?php echo format_messages($messages, $message_type); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open('admin/do_add/voter', array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/voters/do_add', array('class'=>'selectChosen')); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open('admin/do_edit/voter/' . $voter['id'], array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/voters/do_edit/' . $voter['id'], array('class'=>'selectChosen')); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_voter_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">

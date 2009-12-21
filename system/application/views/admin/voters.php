@@ -3,7 +3,7 @@
 	<h2><?php echo e('admin_voters_label'); ?></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/add/voter', e('admin_voters_add')); ?></p>
+	<p class="align_right"><?php echo anchor('admin/voters/add', e('admin_voters_add')); ?></p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -26,7 +26,7 @@
 			<?php echo ($j+1); ?>
 		</td>
 		<td>
-			<?php echo anchor('admin/edit/voter/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
+			<?php echo anchor('admin/voters/edit/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
 		</td>
 		<td align="center">
 			<?php if ($voter['voted'] == TRUE): ?>
@@ -36,8 +36,8 @@
 			<?php endif; ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/edit/voter/' . $voter['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/delete/voter/' . $voter['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/voters/edit/' . $voter['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/voters/delete/' . $voter['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
 		</td>
 	</tr>
 	<?php $j++; ?>
@@ -60,7 +60,7 @@
 <div class="notes">
 	<h2>Advanced Options</h2>
 	<ul>
-		<li><?php echo anchor('admin/import', 'Import Voters'); ?></li>
-		<li><?php echo anchor('admin/export', 'Export Voters'); ?></li>
+		<li><?php echo anchor('admin/voters/import', 'Import Voters'); ?></li>
+		<li><?php echo anchor('admin/voters/export', 'Export Voters'); ?></li>
 	</ul>
 </div>

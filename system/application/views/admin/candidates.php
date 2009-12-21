@@ -4,7 +4,7 @@
 	<h2><?php echo e('admin_candidates_label'); ?></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
+	<p class="align_right"><?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?></p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -27,7 +27,7 @@
 	<h2><?php echo img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition pointer', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/add/candidate', e('admin_candidates_add')); ?></p>
+	<p class="align_right"><?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?></p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -49,7 +49,7 @@
 			<?php echo ($i+1); ?>
 		</td>
 		<td>
-			<?php echo anchor('admin/edit/candidate/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
+			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
 			<?php if (!empty($candidate['alias'])): ?>
 			<?php echo '"' . $candidate['alias'] . '"'; ?>
 			<?php endif; ?>
@@ -58,8 +58,8 @@
 			<?php echo nl2br($candidate['description']); ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/edit/candidate/' . $candidate['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/delete/candidate/' . $candidate['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/candidates/delete/' . $candidate['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

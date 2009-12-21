@@ -1,5 +1,5 @@
 <?php echo format_messages($messages, $message_type); ?>
-<?php echo form_open_multipart('admin/do_import', array('class'=>'selectChosen')); ?>
+<?php echo form_open_multipart('admin/voters/do_import', array('class'=>'selectChosen')); ?>
 <h2><?php echo e('admin_import_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>

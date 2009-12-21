@@ -1,8 +1,8 @@
 <?php echo format_messages($messages, $message_type); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/do_add/position'); ?>
+	<?php echo form_open_multipart('admin/positions/do_add'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/do_edit/position/' . $position['id']); ?>
+	<?php echo form_open_multipart('admin/positions/do_edit/' . $position['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_position_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">

@@ -2,7 +2,7 @@
 <div class="content_left">
 	<?php if ($option['status']): ?>
 	<h2><?php echo e('admin_home_left_label_too'); ?></h2>
-	<?php echo form_open('admin/do_regenerate'); ?>
+	<?php echo form_open('admin/home/do_regenerate'); ?>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<tr>
 			<td align="right">
@@ -50,7 +50,7 @@
 </div>
 <div class="content_right">
 	<h2><?php echo e('admin_home_right_label'); ?></h2>
-	<?php echo form_open('admin/do_edit_option/1'); ?>
+	<?php echo form_open('admin/home/do_edit_option/1'); ?>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<tr>
 			<td align="right">
