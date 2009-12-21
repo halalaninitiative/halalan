@@ -97,13 +97,9 @@ $(document).ready(function () {
 	var menu_map = {};
 	menu_map['home'] = "HOME";
 	menu_map['candidates'] = "CANDIDATES";
-	menu_map['candidate'] = menu_map['candidates'];
 	menu_map['parties'] = "PARTIES";
-	menu_map['party'] = menu_map['parties'];
 	menu_map['positions'] = "POSITIONS";
-	menu_map['position'] = menu_map['positions'];
 	menu_map['voters'] = "VOTERS";
-	menu_map['voter'] = menu_map['voters'];
 	menu_map['import'] = menu_map['voters'];
 	menu_map['export'] = menu_map['voters'];
 

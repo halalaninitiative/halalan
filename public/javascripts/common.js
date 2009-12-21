@@ -1,16 +1,16 @@
 
 function highlightMenuItem(map) {
-	var number = new RegExp('[0-9]+');
-	var url = window.location.href.split('/');
-	var activeView = url.pop();
+	var regex = new RegExp();
+	var url = window.location.href;
 	var li;
-
-	while (number.test(activeView)) {
-		activeView = url.pop();
+	for (var property in map) {
+		regex.compile(property);
+		if (regex.test(url)) {
+			li = $('#menu li').filter(function () {return $(this).text() === map[property];});
+			li.children().andSelf().css('background-color', "#4983ff");
+			break;
+		}
 	}
-
-	li = $('#menu li').filter(function () {return $(this).text() === map[activeView];});
-	li.children().andSelf().css('background-color', "#4983ff");
 }
 
 function animateFlashMessage() {
