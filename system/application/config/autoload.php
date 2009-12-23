@@ -108,7 +108,7 @@ $autoload['language'] = array('halalan');
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('Position');
 
 
 /*

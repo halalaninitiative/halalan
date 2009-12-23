@@ -29,10 +29,6 @@ class Positions extends Controller {
 	
 	function index()
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		$this->load->model('Position');
 		$data['positions'] = $this->Position->select_all();
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_positions_title');
@@ -42,188 +38,106 @@ class Positions extends Controller {
 
 	function add()
 	{
-		$admin = $this->_position('add');
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	function do_add()
-	{
-		$this->_do_position('add');
+		$this->_position('add');
 	}
 
 	function edit($id)
 	{
-		$admin = $this->_position('edit', $id);
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	function do_edit($id = null)
-	{
-		$this->_do_position('edit', $id);
+		$this->_position('edit', $id);
 	}
 
 	function delete($id) 
 	{
 		if (!$id)
 			redirect('admin/positions');
-		$this->load->model('Position');
 		if ($this->Position->in_use($id))
 		{
-			$this->session->set_flashdata('error', array(e('admin_delete_position_in_use')));
+			$this->session->set_flashdata('messages', array('negative', e('admin_delete_position_in_use')));
 		}
 		else
 		{
 			$this->Position->delete($id);
-			$this->session->set_flashdata('success', array(e('admin_delete_position_success')));
+			$this->session->set_flashdata('messages', array('positive', e('admin_delete_position_success')));
 		}
 		redirect('admin/positions');
 	}
 
-	function _position($case = null, $id = null)
+	function _position($case, $id = null)
 	{
-		if ($case == 'add' || $case == 'edit')
+		if ($case == 'add')
 		{
-			if ($case == 'add')
-			{
-				$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>1, 'unit'=>0);
-			}
-			else if ($case == 'edit')
-			{
-				if (!$id)
-					redirect('admin/positions');
-				$this->load->model('Position');
-				$data['position'] = $this->Position->select($id);
-				if (!$data['position'])
-					redirect('admin/positions');
-			}
-			$messages = $this->_get_messages();
-			$data['messages'] = $messages['messages'];
-			$data['message_type'] = $messages['message_type'];
-			if ($position = $this->session->flashdata('position'))
-			{
-				$data['position'] = $position;
-			}
-			$data['action'] = $case;
-			$admin['title'] = e('admin_' . $case . '_position_title');
-			$admin['body'] = $this->load->view('admin/position', $data, TRUE);
-			return $admin;
+			$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>'1', 'unit'=>'0');
 		}
-		else
+		else if ($case == 'edit')
 		{
-			redirect('admin/positions');
+			if (!$id)
+				redirect('admin/positions');
+			$data['position'] = $this->Position->select($id);
+			if (!$data['position'])
+				redirect('admin/positions');
+			$this->session->set_flashdata('position', $data['position']); // used in callback rules
 		}
-	}
-
-	function _do_position($case = null, $id = null)
-	{
-		if ($case == 'add' || $case == 'edit')
+		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists');
+		$this->form_validation->set_rules('description', e('admin_position_description'));
+		$this->form_validation->set_rules('maximum', e('admin_position_maximum'), 'required|is_natural_no_zero');
+		$this->form_validation->set_rules('ordinality', e('admin_position_ordinality'), 'required|is_natural_no_zero');
+		$this->form_validation->set_rules('abstain', e('admin_position_abstain'));
+		$this->form_validation->set_rules('unit', e('admin_position_unit'));
+		if ($this->form_validation->run())
 		{
-			$this->load->model('Position');
-			if ($case == 'edit')
-			{
-				if (!$id)
-					redirect('admin/positions');
-				$position = $this->Position->select($id);
-				if (!$position)
-					redirect('admin/positions');
-			}
-			$error = array();
 			$position['position'] = $this->input->post('position', TRUE);
 			$position['description'] = $this->input->post('description', TRUE);
 			$position['maximum'] = $this->input->post('maximum', TRUE);
 			$position['ordinality'] = $this->input->post('ordinality', TRUE);
 			$position['abstain'] = $this->input->post('abstain', TRUE);
 			$position['unit'] = $this->input->post('unit', TRUE);
-			if (!$position['position'])
-			{
-				$error[] = e('admin_position_no_position');
-			}
-			else
-			{
-				if ($test = $this->Position->select_by_position($position['position']))
-				{
-					if ($case == 'add')
-					{
-						$error[] = e('admin_position_exists') . ' (' . $test['position'] . ')';
-					}
-					else if ($case == 'edit')
-					{
-						if ($test['id'] != $id)
-						{
-							$error[] = e('admin_position_exists') . ' (' . $test['position'] . ')';
-						}
-					}
-				}
-			}
-			if (!$position['maximum'])
-			{
-				$error[] = e('admin_position_no_maximum');
-			}
-			else
-			{
-				if (!ctype_digit($position['maximum']))
-					$error[] = e('admin_position_maximum_not_digit');
-			}
-			if (!$position['ordinality'])
-			{
-				$error[] = e('admin_position_no_ordinality');
-			}
-			else
-			{
-				if (!ctype_digit($position['ordinality']))
-					$error[] = e('admin_position_ordinality_not_digit');
-			}
-			if (empty($error))
-			{
-				if ($case == 'add')
-				{
-					$this->Position->insert($position);
-					$success[] = e('admin_add_position_success');
-				}
-				else if ($case == 'edit')
-				{
-					$this->Position->update($position, $id);
-					$success[] = e('admin_edit_position_success');
-				}
-				$this->session->set_flashdata('success', $success);
-			}
-			else
-			{
-				$this->session->set_flashdata('position', $position);
-				$this->session->set_flashdata('error', $error);
-			}
 			if ($case == 'add')
 			{
+				$this->Position->insert($position);
+				$this->session->set_flashdata('messages', array('positive', e('admin_add_position_success')));
 				redirect('admin/positions/add');
 			}
 			else if ($case == 'edit')
 			{
-				redirect('admin/positions/edit/' . $id);	
+				$this->Position->update($position, $id);
+				$this->session->set_flashdata('messages', array('positive', e('admin_edit_position_success')));
+				redirect('admin/positions/edit/' . $id);
+			}
+		}
+		$data['action'] = $case;
+		$admin['title'] = e('admin_' . $case . '_position_title');
+		$admin['body'] = $this->load->view('admin/position', $data, TRUE);
+		$admin['username'] = $this->admin['username'];
+		$this->load->view('admin', $admin);
+	}
+
+	function _rule_position_exists()
+	{
+		$position = trim($this->input->post('position', TRUE));
+		if ($test = $this->Position->select_by_position($position))
+		{
+			$error = FALSE;
+			if ($position = $this->session->flashdata('position')) // edit
+			{
+				if ($test['id'] != $position['id'])
+				{
+					$error = TRUE;
+				}
+			}
+			else {
+				$error = TRUE;
+			}
+			if ($error)
+			{
+				$message = e('admin_position_exists') . ' (' . $test['position'] . ')';
+				$this->form_validation->set_message('_rule_position_exists', $message);
+				return FALSE;
 			}
 		}
 		else
 		{
-			redirect('admin/positions');
+			return TRUE;
 		}
-	}
-
-	function _get_messages()
-	{
-		$messages = '';
-		$message_type = '';
-		if($error = $this->session->flashdata('error'))
-		{
-			$messages = $error;
-			$message_type = 'negative';
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$messages = $success;
-			$message_type = 'positive';
-		}
-		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }
