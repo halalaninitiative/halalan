@@ -1,41 +1,41 @@
-<?php echo format_messages($messages, $message_type); ?>
+<?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/parties/do_add'); ?>
+	<?php echo form_open_multipart('admin/parties/add'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/parties/do_edit/' . $party['id']); ?>
+	<?php echo form_open_multipart('admin/parties/edit/' . $party['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_party_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td class="w30" align="right">
-			<label for="party"><?php echo e('admin_party_party'); ?>:</label>
+			<?php echo form_label(e('admin_party_party') . ':', 'party'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'party', 'name'=>'party', 'value'=>$party['party'], 'maxlength'=>63, 'class'=>'text')); ?>
+			<?php echo form_input('party', set_value('party', $party['party']), 'id="party" maxlength="63" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="alias"><?php echo e('admin_party_alias'); ?>:</label>
+			<?php echo form_label(e('admin_party_alias') . ':', 'alias'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$party['alias'], 'maxlength'=>15, 'class'=>'text')); ?>
+			<?php echo form_input('alias', set_value('alias', $party['alias']), 'id="alias" maxlength="15" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="description"><?php echo e('admin_party_description'); ?>:</label>
+			<?php echo form_label(e('admin_party_description') . ':', 'description'); ?>
 		</td>
 		<td>
-			<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value'=>$party['description'])); ?>
+			<?php echo form_textarea('description', set_value('description', $party['description']), 'id="description"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<?php echo e('admin_party_logo'); ?>:
+			<?php echo form_label(e('admin_party_logo') . ':', 'logo'); ?>
 		</td>
 		<td>
-			<?php echo form_upload(array('name'=>'logo')); ?>
+			<?php echo form_upload('logo', '', 'id="logo"'); ?>
 		</td>
 	</tr>
 </table>

@@ -68,4 +68,40 @@ function format_messages($messages, $type)
 	return $return;
 }
 
+/**
+ * Return formatted validation errors or custom messages
+ *
+ * @access	public
+ * @param	string
+ * @param	array
+ * @return	string
+ */
+function display_messages($validation, $custom)
+{
+	$return = '';
+	// negatives take precedent
+	// but we are sure that only one of the params has values
+	if (!empty($validation))
+	{
+		$return .= '<div class="negative"><ul>';
+		$return .= $validation;
+		$return .= '</ul></div>';
+	}
+	else if (!empty($custom))
+	{
+		if ($custom[0] == 'positive')
+		{
+			$return .= '<div class="positive"><ul>';
+		}
+		else
+		{
+			$return .= '<div class="negative"><ul>';
+		}
+		unset($custom[0]);
+		$return .= '<li>' . implode('</li><li>', $custom) . '</li>';
+		$return .= '</ul></div>';
+	}
+	return $return;
+}
+
 ?>
