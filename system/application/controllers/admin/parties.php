@@ -29,7 +29,6 @@ class Parties extends Controller {
 	
 	function index()
 	{
-		$this->load->model('Party');
 		$data['parties'] = $this->Party->select_all();
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_parties_title');
@@ -51,7 +50,6 @@ class Parties extends Controller {
 	{
 		if (!$id)
 			redirect('admin/parties');
-		$this->load->model('Party');
 		if ($this->Party->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_party_in_use')));
@@ -74,7 +72,6 @@ class Parties extends Controller {
 		{
 			if (!$id)
 				redirect('admin/parties');
-			$this->load->model('Party');
 			$data['party'] = $this->Party->select($id);
 			if (!$data['party'])
 				redirect('admin/parties');
@@ -117,7 +114,6 @@ class Parties extends Controller {
 	function _rule_party_exists()
 	{
 		$party = trim($this->input->post('party', TRUE));
-		$this->load->model('Party');
 		if ($test = $this->Party->select_by_party($party))
 		{
 			$error = FALSE;
