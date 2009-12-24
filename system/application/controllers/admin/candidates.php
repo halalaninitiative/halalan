@@ -29,11 +29,6 @@ class Candidates extends Controller {
 	
 	function index()
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		$this->load->model('Candidate');
-		$this->load->model('Position');
 		$positions = $this->Position->select_all();
 		foreach ($positions as $key=>$value)
 		{
@@ -48,206 +43,161 @@ class Candidates extends Controller {
 
 	function add()
 	{
-		$admin = $this->_candidate('add');
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	function do_add()
-	{
-		$this->_do_candidate('add');
+		$this->_candidate('add');
 	}
 
 	function edit($id)
 	{
-		$admin = $this->_candidate('edit', $id);
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	function do_edit($id = null)
-	{
-		$this->_do_candidate('edit', $id);
+		$this->_candidate('edit', $id);
 	}
 
 	function delete($id) 
 	{
 		if (!$id)
 			redirect('admin/candidates');
-		$this->load->model('Candidate');
 		if ($this->Candidate->has_votes($id))
 		{
-			$this->session->set_flashdata('error', array(e('admin_delete_candidate_already_has_votes')));
+			$this->session->set_flashdata('messages', array('negative', e('admin_delete_candidate_already_has_votes')));
 		}
 		else
 		{
 			$this->Candidate->delete($id);
-			$this->session->set_flashdata('success', array(e('admin_delete_candidate_success')));
+			$this->session->set_flashdata('messages', array('positive', e('admin_delete_candidate_success')));
 		}
 		redirect('admin/candidates');
 	}
 
-	function _candidate($case = null, $id = null)
+	function _candidate($case, $id = null)
 	{
-		if ($case == 'add' || $case == 'edit')
+		if ($case == 'add')
 		{
-			if ($case == 'add')
-			{
-				$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'0', 'position_id'=>'0');
-			}
-			else if ($case == 'edit')
-			{
-				if (!$id)
-					redirect('admin/candidates');
-				$this->load->model('Candidate');
-				$data['candidate'] = $this->Candidate->select($id);
-				if (!$data['candidate'])
-					redirect('admin/candidates');
-			}
-			$messages = $this->_get_messages();
-			$data['messages'] = $messages['messages'];
-			$data['message_type'] = $messages['message_type'];
-			$this->load->model('Party');
-			$parties = $this->Party->select_all();
-			$tmp = array('0'=>'Select Party');
-			foreach ($parties as $party)
-			{
-				$tmp[$party['id']] = $party['party'];
-			}
-			$data['parties'] = $tmp;
-			$this->load->model('Position');
-			$positions = $this->Position->select_all();
-			$tmp = array('0'=>'Select Position');
-			foreach ($positions as $position)
-			{
-				$tmp[$position['id']] = $position['position'];
-			}
-			$data['positions'] = $tmp;
-			if ($candidate = $this->session->flashdata('candidate'))
-			{
-				$data['candidate'] = $candidate;
-			}	
-			$data['action'] = $case;
-			$admin['title'] = e('admin_' . $case . '_candidate_title');
-			$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
-			return $admin;
+			$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'', 'position_id'=>'');
 		}
-		else
+		else if ($case == 'edit')
 		{
-			redirect('admin/candidates');
+			if (!$id)
+				redirect('admin/candidates');
+			$data['candidate'] = $this->Candidate->select($id);
+			if (!$data['candidate'])
+				redirect('admin/candidates');
+			$this->session->set_flashdata('candidate', $data['candidate']); // used in callback rules
 		}
-	}
-
-	function _do_candidate($case = null, $id = null)
-	{
-		if ($case == 'add' || $case == 'edit')
+		$this->form_validation->set_rules('first_name', e('admin_candidate_first_name'), 'required');
+		$this->form_validation->set_rules('last_name', e('admin_candidate_last_name'), 'required|callback__rule_candidate_exists');
+		$this->form_validation->set_rules('alias', e('admin_candidate_alias'));
+		$this->form_validation->set_rules('description', e('admin_candidate_description'));
+		$this->form_validation->set_rules('party_id', e('admin_candidate_party'));
+		$this->form_validation->set_rules('position_id', e('admin_candidate_position'), 'required');
+		$this->form_validation->set_rules('picture', e('admin_candidate_picture'), 'callback__rule_picture');
+		if ($this->form_validation->run())
 		{
-			$this->load->model('Candidate');
-			if ($case == 'edit')
-			{
-				if (!$id)
-					redirect('admin/candidates');
-				$candidate = $this->Candidate->select($id);
-				if (!$candidate)
-					redirect('admin/candidates');
-			}
-			$error = array();
 			$candidate['first_name'] = $this->input->post('first_name', TRUE);
 			$candidate['last_name'] = $this->input->post('last_name', TRUE);
 			$candidate['alias'] = $this->input->post('alias', TRUE);
 			$candidate['description'] = $this->input->post('description', TRUE);
 			$candidate['party_id'] = $this->input->post('party_id', TRUE);
 			$candidate['position_id'] = $this->input->post('position_id', TRUE);
-			if (!$candidate['first_name'])
+			if ($picture = $this->session->userdata('candidate_picture'))
 			{
-				$error[] = e('admin_candidate_no_first_name');
-			}
-			if (!$candidate['last_name'])
-			{
-				$error[] = e('admin_candidate_no_last_name');
-			}
-			if (!$candidate['position_id'])
-			{
-				$error[] = e('admin_candidate_no_position');
-			}
-			if ($candidate['first_name'] && $candidate['last_name'])
-			{
-				if ($test = $this->Candidate->select_by_name_and_alias($candidate['first_name'], $candidate['last_name'], $candidate['alias']))
-				{
-					if ($case == 'add')
-					{
-						$name = $test['last_name'] . ', ' . $test['first_name'];
-						if (!empty($test['alias']))
-							$name .= ' "' . $test['alias'] . '"';
-						$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
-					}
-					else if ($case == 'edit')
-					{
-						if ($test['id'] != $id)
-						{
-							$name = $test['last_name'] . ', ' . $test['first_name'];
-							if (!empty($test['alias']))
-								$name .= ' "' . $test['alias'] . '"';
-							$error[] = e('admin_candidate_exists') . ' (' . $name . ')';
-						}
-					}
-				}
-			}
-			if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
-			{
-				$config['upload_path'] = HALALAN_UPLOAD_PATH . 'pictures/';
-				$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
-				$this->upload->initialize($config);
-				if ($case == 'edit')
-				{
-					// delete old picture first
-					unlink($config['upload_path'] . $candidate['picture']);
-				}
-				if (!$this->upload->do_upload('picture'))
-				{
-					$error[] = $this->upload->display_errors();
-				}
-				else
-				{
-					$upload_data = $this->upload->data();
-					$return = $this->_resize($upload_data, 96);
-					if (is_array($return))
-						$error = array_merge($error, $return);
-					else
-						$candidate['picture'] = $return;
-				}
-			}
-			if (empty($error))
-			{
-				if ($case == 'add')
-				{
-					$this->Candidate->insert($candidate);
-					$success[] = e('admin_add_candidate_success');
-				}
-				else if ($case == 'edit')
-				{
-					$this->Candidate->update($candidate, $id);
-					$success[] = e('admin_edit_candidate_success');
-				}
-				$this->session->set_flashdata('success', $success);
-			}
-			else
-			{
-				$this->session->set_flashdata('candidate', $candidate);
-				$this->session->set_flashdata('error', $error);
+				$candidate['picture'] = $picture;
+				$this->session->unset_userdata('candidate_picture');
 			}
 			if ($case == 'add')
 			{
+				$this->Candidate->insert($candidate);
+				$this->session->set_flashdata('messages', array('positive', e('admin_add_candidate_success')));
 				redirect('admin/candidates/add');
 			}
 			else if ($case == 'edit')
 			{
+				$this->Candidate->update($candidate, $id);
+				$this->session->set_flashdata('messages', array('positive', e('admin_edit_candidate_success')));
 				redirect('admin/candidates/edit/' . $id);
+			}
+		}
+		$data['parties'] = $this->Party->select_all();
+		$data['positions'] = $this->Position->select_all();
+		$data['action'] = $case;
+		$admin['title'] = e('admin_' . $case . '_candidate_title');
+		$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
+		$admin['username'] = $this->admin['username'];
+		$this->load->view('admin', $admin);
+	}
+
+	function _rule_candidate_exists()
+	{
+		$first_name = trim($this->input->post('first_name', TRUE));
+		$last_name = trim($this->input->post('last_name', TRUE));
+		$alias = trim($this->input->post('alias', TRUE));
+		if ($test = $this->Candidate->select_by_name_and_alias($first_name, $last_name, $alias))
+		{
+			$error = FALSE;
+			if ($candidate = $this->session->flashdata('candidate')) // edit
+			{
+				if ($test['id'] != $candidate['id'])
+				{
+					$error = TRUE;
+				}
+			}
+			else {
+				$error = TRUE;
+			}
+			if ($error)
+			{
+				$name = $test['last_name'] . ', ' . $test['first_name'];
+				if (!empty($test['alias']))
+				{
+					$name .= ' "' . $test['alias'] . '"';
+				}
+				$message = e('admin_candidate_exists') . ' (' . $name . ')';
+				$this->form_validation->set_message('_rule_candidate_exists', $message);
+				return FALSE;
 			}
 		}
 		else
 		{
-			redirect('admin/candidates');
+			return TRUE;
+		}
+	}
+
+	function _rule_picture()
+	{
+		if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
+		{
+			$config['upload_path'] = HALALAN_UPLOAD_PATH . 'logos/';
+			$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
+			$this->upload->initialize($config);
+			if ($candidate = $this->session->flashdata('candidate')) // edit
+			{
+				// delete old logo first
+				unlink($config['upload_path'] . $candidate['picture']);
+			}
+			if (!$this->upload->do_upload('picture'))
+			{
+				$message = $this->upload->display_errors('', '');
+				$this->form_validation->set_message('_rule_picture', $message);
+				return FALSE;
+			}
+			else
+			{
+				$upload_data = $this->upload->data();
+				$return = $this->_resize($upload_data, 96);
+				if (is_array($return))
+				{
+					$this->form_validation->set_message('_rule_picture', $return[0]);
+					return FALSE;
+				}
+				else
+				{
+					// flashdata doesn't work I don't know why
+					$this->session->set_userdata('candidate_picture', $return);
+					return TRUE;
+				}
+			}
+		}
+		else
+		{
+			return TRUE;
 		}
 	}
 
@@ -279,23 +229,6 @@ class Candidates extends Controller {
 			return $name;
 		else
 			return $error;
-	}
-
-	function _get_messages()
-	{
-		$messages = '';
-		$message_type = '';
-		if($error = $this->session->flashdata('error'))
-		{
-			$messages = $error;
-			$message_type = 'negative';
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$messages = $success;
-			$message_type = 'positive';
-		}
-		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }

@@ -1,65 +1,85 @@
-<?php echo format_messages($messages, $message_type); ?>
+<?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/candidates/do_add'); ?>
+	<?php echo form_open_multipart('admin/candidates/add'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/candidates/do_edit/' . $candidate['id']); ?>
+	<?php echo form_open_multipart('admin/candidates/edit/' . $candidate['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_candidate_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td class="w30" align="right">
-			<label for="last_name"><?php echo e('admin_candidate_last_name'); ?>:</label>
+			<?php echo form_label(e('admin_candidate_last_name') . ':', 'last_name'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$candidate['last_name'], 'maxlength'=>31, 'class'=>'text')); ?>
+			<?php echo form_input('last_name', set_value('last_name', $candidate['last_name']), 'id="last_name" maxlength="31" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="first_name"><?php echo e('admin_candidate_first_name'); ?>:</label>
+			<?php echo form_label(e('admin_candidate_first_name') . ':', 'first_name'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$candidate['first_name'], 'maxlength'=>63, 'class'=>'text')); ?>
+			<?php echo form_input('first_name', set_value('first_name', $candidate['first_name']), 'id="first_name" maxlength="31" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="alias"><?php echo e('admin_candidate_alias'); ?>:</label>
+			<?php echo form_label(e('admin_candidate_alias') . ':', 'alias'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'alias', 'name'=>'alias', 'value'=>$candidate['alias'], 'maxlength'=>15, 'class'=>'text')); ?>
+			<?php echo form_input('alias', set_value('alias', $candidate['alias']), 'id="alias" maxlength="15" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="description"><?php echo e('admin_candidate_description'); ?>:</label>
+			<?php echo form_label(e('admin_candidate_description') . ':', 'description'); ?>
 		</td>
 		<td>
-			<?php echo form_textarea(array('id'=>'description', 'name'=>'description', 'value'=>$candidate['description'])); ?>
+			<?php echo form_textarea('description', set_value('description', $candidate['description']), 'id="description"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="party_id"><?php echo e('admin_candidate_party'); ?>:</label>
+			<?php echo form_label(e('admin_candidate_party') . ':' , 'party_id'); ?>
 		</td>
 		<td>
-			<?php echo form_dropdown('party_id', $parties, $candidate['party_id'], 'id="party_id"'); ?>
+			<!-- form_dropdown and set_select don't work together :( -->
+			<select name="party_id" id="party_id">
+				<option value="">Select Party</option>
+				<?php foreach ($parties as $party): ?>
+				<?php
+					echo '<option value="' . $party['id'] . '"';
+					echo set_select('party_id', $party['id'], $candidate['party_id'] == $party['id'] ? TRUE : FALSE);
+					echo '>' . $party['party'] . '</option>';
+				?>
+				<?php endforeach; ?>
+			</select>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="position_id"><?php echo e('admin_candidate_position'); ?>:</label>
+			<?php echo form_label(e('admin_candidate_position') . ':' , 'position_id'); ?>
 		</td>
 		<td>
-			<?php echo form_dropdown('position_id', $positions, $candidate['position_id'], 'id="position_id"'); ?>
+			<!-- form_dropdown and set_select don't work together :( -->
+			<select name="position_id" id="position_id">
+				<option value="">Select Position</option>
+				<?php foreach ($positions as $position): ?>
+				<?php
+					echo '<option value="' . $position['id'] . '"';
+					echo set_select('position_id', $position['id'], $candidate['position_id'] == $position['id'] ? TRUE : FALSE);
+					echo '>' . $position['position'] . '</option>';
+				?>
+				<?php endforeach; ?>
+			</select>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<?php echo e('admin_candidate_picture'); ?>:
+			<?php echo form_label(e('admin_candidate_picture') . ':', 'picture'); ?>:
 		</td>
 		<td>
-			<?php echo form_upload(array('name'=>'picture')); ?>
+			<?php echo form_upload('picture', '', 'id="picture"'); ?>
 		</td>
 	</tr>
 </table>

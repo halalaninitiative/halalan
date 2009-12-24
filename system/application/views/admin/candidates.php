@@ -1,4 +1,4 @@
-<?php echo format_messages($messages, $message_type); ?>
+<?php echo display_messages('', $this->session->flashdata('messages')); ?>
 <?php if (empty($positions)): ?>
 <div class="content_left">
 	<h2><?php echo e('admin_candidates_label'); ?></h2>
