@@ -1,33 +1,33 @@
-<?php echo format_messages($messages, $message_type); ?>
+<?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open('admin/voters/do_add', array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/voters/add', 'class="selectChosen"'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open('admin/voters/do_edit/' . $voter['id'], array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/voters/edit/' . $voter['id'], 'class="selectChosen"'); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_voter_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
 	<tr>
 		<td class="w30" align="right">
-			<label for="username"><?php echo ($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username'); ?>:</label>
+			<?php echo form_label(($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username') . ':', 'username'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'username', 'name'=>'username', 'value'=>$voter['username'], 'maxlength'=>63, 'class'=>'text')); ?>
+			<?php echo form_input('username', set_value('username', $voter['username']), 'id="username" maxlength="63" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="last_name"><?php echo e('admin_voter_last_name'); ?>:</label>
+			<?php echo form_label(e('admin_voter_last_name') . ':', 'last_name'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'last_name', 'name'=>'last_name', 'value'=>$voter['last_name'], 'maxlength'=>31, 'class'=>'text')); ?>
+			<?php echo form_input('last_name', set_value('last_name', $voter['last_name']), 'id="last_name" maxlength="31" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w30" align="right">
-			<label for="first_name"><?php echo e('admin_voter_first_name'); ?>:</label>
+			<?php echo form_label(e('admin_voter_first_name') . ':', 'first_name'); ?>
 		</td>
 		<td>
-			<?php echo form_input(array('id'=>'first_name', 'name'=>'first_name', 'value'=>$voter['first_name'], 'maxlength'=>63, 'class'=>'text')); ?>
+			<?php echo form_input('first_name', set_value('first_name', $voter['first_name']), 'id="first_name" maxlength="63" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
@@ -54,9 +54,21 @@
 			<?php else: ?>
 				<table>
 					<tr>
-						<td><?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(''=>''), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="possible"><?php echo e('admin_voter_possible_positions'); ?></label></td>
-						<td><input type="button" class="copySelected" value="  &gt;&gt;  " /><br /><input type="button" class="copySelected" value="  &lt;&lt;  " /></td>
-						<td><?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(''=>''), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="chosen"><?php echo e('admin_voter_chosen_positions'); ?></label></td>
+						<td>
+							<?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?>
+							<br />
+							<?php echo form_label(e('admin_voter_possible_positions'), 'possible'); ?>
+						</td>
+						<td>
+							<input type="button" class="copySelected" value="  &gt;&gt;  " />
+							<br />
+							<input type="button" class="copySelected" value="  &lt;&lt;  " />
+						</td>
+						<td>
+							<?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?>
+							<br />
+							<?php echo form_label(e('admin_voter_chosen_positions'), 'chosen'); ?>
+						</td>
 					</tr>
 				</table>
 			<?php endif; ?>

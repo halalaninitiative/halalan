@@ -115,6 +115,4 @@ $(document).ready(function () {
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();
-	/* Remove blank select option */
-	$('#possible, #chosen').children('[value=""]').remove();
 });

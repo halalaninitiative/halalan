@@ -29,10 +29,6 @@ class Voters extends Controller {
 	
 	function index($offset = null)
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		$this->load->model('Boter');
 		$voters = $this->Boter->select_all();
 		$config['base_url'] = site_url('admin/voters');
 		$config['total_rows'] = count($voters);
@@ -61,259 +57,172 @@ class Voters extends Controller {
 
 	function add()
 	{
-		$admin = $this->_voter('add');
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	function do_add()
-	{
-		$this->_do_voter('add');
+		$this->_voter('add');
 	}
 
 	function edit($id)
 	{
-		$admin = $this->_voter('edit', $id);
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	function do_edit($id = null)
-	{
-		$this->_do_voter('edit', $id);
+		$this->_voter('edit', $id);
 	}
 
 	function delete($id) 
 	{
 		if (!$id)
 			redirect('admin/voters');
-		$this->load->model('Boter');
 		$voter = $this->Boter->select($id);
 		if (!$voter)
 			redirect('admin/voters');
 		if ($voter['voted'] == 1)
 		{
-			$this->session->set_flashdata('error', array(e('admin_delete_voter_already_voted')));
+			$this->session->set_flashdata('messages', array('negative', e('admin_delete_voter_already_voted')));
 		}
 		else
 		{
 			$this->Boter->delete($id);
-			$this->session->set_flashdata('success', array(e('admin_delete_voter_success')));
+			$this->session->set_flashdata('messages', array('positive', e('admin_delete_voter_success')));
 		}
 		redirect('admin/voters');
 	}
 
-	function _voter($case = null, $id = null)
+	function _voter($case, $id = null)
 	{
-		if ($case == 'add' || $case == 'edit')
+		$chosen = array();
+		if ($case == 'add')
 		{
-			if ($case == 'add')
+			$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
+		}
+		else if ($case == 'edit')
+		{
+			if (!$id)
+				redirect('admin/voters');
+			$data['voter'] = $this->Boter->select($id);
+			if (!$data['voter'])
+				redirect('admin/voters');
+			$tmp = $this->Position_Voter->select_all_by_voter_id($id);
+			foreach ($tmp as $t)
 			{
-				$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
-				$chosen = array();
+				$chosen[] = $t['position_id'];
 			}
-			else if ($case == 'edit')
-			{
-				if (!$id)
-					redirect('admin/voters');
-				$this->load->model('Boter');
-				$data['voter'] = $this->Boter->select($id);
-				if (!$data['voter'])
-					redirect('admin/voters');
-				$this->load->model('Position_Voter');
-				$tmp = $this->Position_Voter->select_all_by_voter_id($id);
-				$chosen = array();
-				foreach ($tmp as $t)
-				{
-					$chosen[] = $t['position_id'];
-				}
-			}
-			$messages = $this->_get_messages();
-			$data['messages'] = $messages['messages'];
-			$data['message_type'] = $messages['message_type'];
-			$this->load->model('Position');
-			$data['general'] = $this->Position->select_all_non_units();
-			$data['specific'] = $this->Position->select_all_units();
-			$data['possible'] = array();
-			$data['chosen'] = array();
-			if ($voter = $this->session->flashdata('voter'))
-			{
-				if (empty($voter['chosen']))
-				{
-					$chosen = array();
-				}
-				else
-				{
-					$chosen = $voter['chosen'];
-					unset($voter['chosen']);
-				}
-				$data['voter'] = $voter;
-			}
-			foreach ($data['specific'] as $s)
-			{
-				if (in_array($s['id'], $chosen))
-				{
-					$data['chosen'][$s['id']] = $s['position'];
-				}
-				else
-				{
-					$data['possible'][$s['id']] = $s['position'];
-				}
-			}
-			$data['action'] = $case;
-			$data['settings'] = $this->settings;
-			$admin['title'] = e('admin_' . $case . '_voter_title');
-			$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
-			return $admin;
+			$this->session->set_flashdata('voter', $data['voter']); // used in callback rules
+		}
+		if ($this->settings['password_pin_generation'] == 'email')
+		{
+			$this->form_validation->set_rules('username', e('admin_voter_email'), 'required|valid_email|callback__rule_voter_exists');
 		}
 		else
 		{
-			redirect('admin/voters');
+			$this->form_validation->set_rules('username', e('admin_voter_username'), 'required|callback__rule_voter_exists');
 		}
-	}
-
-	function _do_voter($case = null, $id = null)
-	{
-		if ($case == 'add' || $case == 'edit')
+		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
+		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
+		if ($this->form_validation->run())
 		{
-			$this->load->model('Boter');
-			if ($case == 'edit')
-			{
-				if (!$id)
-					redirect('admin/voters');
-				$voter = $this->Boter->select($id);
-				if (!$voter)
-					redirect('admin/voters');
-			}
-			$error = array();
 			$voter['username'] = $this->input->post('username', TRUE);
 			$voter['last_name'] = $this->input->post('last_name', TRUE);
 			$voter['first_name'] = $this->input->post('first_name', TRUE);
 			$voter['chosen'] = $this->input->post('chosen', TRUE);
-			if (!$voter['username'])
+			if ($case == 'add' || $this->input->post('password'))
 			{
-				if ($this->settings['password_pin_generation'] == 'web')
-					$error[] = e('admin_voter_no_username');
-				else if ($this->settings['password_pin_generation'] == 'email')
-					$error[] = e('admin_voter_no_email');
+				$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
+				$voter['password'] = sha1($password);
 			}
-			else
+			if ($this->settings['pin'])
 			{
-				if ($test = $this->Boter->select_by_username($voter['username']))
+				if ($case == 'add' || $this->input->post('pin'))
 				{
-					if ($case == 'add')
-					{
-						$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
-					}
-					else if ($case == 'edit')
-					{
-						if ($test['id'] != $id)
-							$error[] = e('admin_voter_exists') . ' (' . $test['username'] . ')';
-					}
-				}
-				if ($this->settings['password_pin_generation'] == 'email')
-				{
-					if (!$this->_valid_email($voter['username']))
-					{
-						$error[] = e('admin_voter_invalid_email');
-					}
+					$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
+					$voter['pin'] = sha1($pin);
 				}
 			}
-			if (!$voter['last_name'])
+			$messages = array('positve');
+			if ($case == 'add')
 			{
-				$error[] = e('admin_voter_no_last_name');
+				$voter['voted'] = 0;
+				$this->Boter->insert($voter);
+				$messages[] = e('admin_add_voter_success');
 			}
-			if (!$voter['first_name'])
+			else if ($case == 'edit')
 			{
-				$error[] = e('admin_voter_no_first_name');
+				$this->Boter->update($voter, $id);
+				$messages[] = e('admin_edit_voter_success');
 			}
-			if (empty($error))
+			if ($this->settings['password_pin_generation'] == 'web')
 			{
+				$messages[] = 'Username: '. $voter['username'];
 				if ($case == 'add' || $this->input->post('password'))
 				{
-					$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
-					$voter['password'] = sha1($password);
+					$messages[] = 'Password: '. $password;
 				}
 				if ($this->settings['pin'])
 				{
 					if ($case == 'add' || $this->input->post('pin'))
 					{
-						$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
-						$voter['pin'] = sha1($pin);
+						$messages[] = 'PIN: '. $pin;
 					}
 				}
-				if ($case == 'add')
-				{
-					$voter['voted'] = 0;
-					$this->Boter->insert($voter);
-				}
-				else if ($case == 'edit')
-				{
-					$this->Boter->update($voter, $id);
-				}
-				$success = array();
-				$success[] = e('admin_' . $case . '_voter_success');
-				if ($this->settings['password_pin_generation'] == 'web')
-				{
-					$success[] = 'Username: '. $voter['username'];
-					if ($case == 'add' || $this->input->post('password'))
-					{
-						$success[] = 'Password: '. $password;
-					}
-					if ($this->settings['pin'])
-					{
-						if ($case == 'add' || $this->input->post('pin'))
-						{
-							$success[] = 'PIN: '. $pin;
-						}
-					}
-				}
-				else if ($this->settings['password_pin_generation'] == 'email')
-				{
-					$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
-					$this->email->to($voter['username']);
-					$this->email->subject($this->settings['name'] . ' Login Credentials');
-					$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
-					if ($case == 'add' || $this->input->post('password'))
-					{
-						$message .= "Password: $password\n";
-					}
-					if ($this->settings['pin'])
-					{
-						if ($case == 'add' || $this->input->post('pin'))
-						{
-							$message .= "PIN: $pin\n";
-						}
-					}
-					$message .= "\n";
-					$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
-					$message .= "\n";
-					$message .= $this->settings['name'] . ' Administrator';
-					$this->email->message($message);
-					$this->email->send();
-					//echo $this->email->print_debugger();
-					$success[] = e('admin_voter_email_success');
-				}
-				$this->session->set_flashdata('success', $success);
 			}
-			else
+			else if ($this->settings['password_pin_generation'] == 'email')
 			{
-				$this->session->set_flashdata('voter', $voter);
-				$this->session->set_flashdata('error', $error);
+				$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
+				$this->email->to($voter['username']);
+				$this->email->subject($this->settings['name'] . ' Login Credentials');
+				$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
+				if ($case == 'add' || $this->input->post('password'))
+				{
+					$message .= "Password: $password\n";
+				}
+				if ($this->settings['pin'])
+				{
+					if ($case == 'add' || $this->input->post('pin'))
+					{
+						$message .= "PIN: $pin\n";
+					}
+				}
+				$message .= "\n";
+				$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
+				$message .= "\n";
+				$message .= $this->settings['name'] . ' Administrator';
+				$this->email->message($message);
+				$this->email->send();
+				//echo $this->email->print_debugger();
+				$messages[] = e('admin_voter_email_success');
 			}
 			if ($case == 'add')
 			{
+				$this->session->set_flashdata('messages', $messages);
 				redirect('admin/voters/add');
 			}
 			else if ($case == 'edit')
 			{
+				$this->session->set_flashdata('messages', $messages);
 				redirect('admin/voters/edit/' . $id);
 			}
 		}
-		else
+		if ($this->input->post('chosen'))
 		{
-			redirect('admin/voters');
+			$chosen = $this->input->post('chosen');
 		}
+		$data['general'] = $this->Position->select_all_non_units();
+		$data['specific'] = $this->Position->select_all_units();
+		$data['possible'] = array();
+		$data['chosen'] = array();
+		foreach ($data['specific'] as $s)
+		{
+			if (in_array($s['id'], $chosen))
+			{
+				$data['chosen'][$s['id']] = $s['position'];
+			}
+			else
+			{
+				$data['possible'][$s['id']] = $s['position'];
+			}
+		}
+		$data['action'] = $case;
+		$data['settings'] = $this->settings;
+		$admin['title'] = e('admin_' . $case . '_voter_title');
+		$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
+		$admin['username'] = $this->admin['username'];
+		$this->load->view('admin', $admin);
 	}
 
 	function import()
@@ -527,27 +436,33 @@ class Voters extends Controller {
 		force_download('voters.csv', $data);
 	}
 
-	// taken from CodeIgniter Validation Library
-	function _valid_email($str)
+	function _rule_voter_exists()
 	{
-		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
-	}
-
-	function _get_messages()
-	{
-		$messages = '';
-		$message_type = '';
-		if($error = $this->session->flashdata('error'))
+		$username = trim($this->input->post('username', TRUE));
+		if ($test = $this->Boter->select_by_username($username))
 		{
-			$messages = $error;
-			$message_type = 'negative';
+			$error = FALSE;
+			if ($voter = $this->session->flashdata('voter')) // edit
+			{
+				if ($test['id'] != $voter['id'])
+				{
+					$error = TRUE;
+				}
+			}
+			else {
+				$error = TRUE;
+			}
+			if ($error)
+			{
+				$message = e('admin_voter_exists') . ' (' . $test['username'] . ')';
+				$this->form_validation->set_message('_rule_voter_exists', $message);
+				return FALSE;
+			}
 		}
-		else if($success = $this->session->flashdata('success'))
+		else
 		{
-			$messages = $success;
-			$message_type = 'positive';
+			return TRUE;
 		}
-		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }
