@@ -20,9 +20,6 @@ class Home extends Controller {
 	
 	function index()
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
 		$this->load->model('Option');
 		$data['option'] = $this->Option->select(1);
 		$data['settings'] = $this->settings;
@@ -42,16 +39,13 @@ class Home extends Controller {
 			redirect('admin/home');
 		$option['status'] = $this->input->post('status', TRUE);
 		$option['result'] = $this->input->post('result', TRUE);
-		$this->load->model('Option');
 		$this->Option->update($option, $id);
-		$success[] = e('admin_edit_option_success');
-		$this->session->set_flashdata('success', $success);
+		$this->session->set_flashdata('messages', array('positive', e('admin_edit_option_success')));
 		redirect('admin/home');
 	}
 
 	function do_regenerate()
 	{
-		$this->load->model('Boter');
 		$error = array();
 		if (!$this->input->post('username'))
 		{
@@ -69,7 +63,7 @@ class Home extends Controller {
 		}
 		if ($this->settings['password_pin_generation'] == 'email')
 		{
-			if (!$this->_valid_email($this->input->post('username')))
+			if (!$this->form_validation->valid_email($this->input->post('username')))
 			{
 				$error[] = e('admin_regenerate_invalid_email');
 			}
@@ -124,36 +118,13 @@ class Home extends Controller {
 				//echo $this->email->print_debugger();
 				$success[] = e('admin_regenerate_email_success');
 			}
-			$this->session->set_flashdata('success', $success);
+			$this->session->set_flashdata('messages', array_merge(array('positive'), $success));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $error);
+			$this->session->set_flashdata('messages', array_merge(array('negative'), $error));
 		}
 		redirect('admin/home');
-	}
-
-	// taken from CodeIgniter Validation Library
-	function _valid_email($str)
-	{
-		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
-	}
-
-	function _get_messages()
-	{
-		$messages = '';
-		$message_type = '';
-		if($error = $this->session->flashdata('error'))
-		{
-			$messages = $error;
-			$message_type = 'negative';
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$messages = $success;
-			$message_type = 'positive';
-		}
-		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }
