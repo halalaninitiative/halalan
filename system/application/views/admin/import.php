@@ -1,4 +1,4 @@
-<?php echo format_messages($messages, $message_type); ?>
+<?php echo display_messages('', $this->session->flashdata('messages')); ?>
 <?php echo form_open_multipart('admin/voters/do_import', array('class'=>'selectChosen')); ?>
 <h2><?php echo e('admin_import_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table">
@@ -26,9 +26,9 @@
 			<?php else: ?>
 				<table>
 					<tr>
-						<td><?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(''=>''), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="possible"><?php echo e('admin_voter_possible_positions'); ?></label></td>
+						<td><?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(), '', 'id="possible" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="possible"><?php echo e('admin_voter_possible_positions'); ?></label></td>
 						<td><input type="button" class="copySelected" value="  &gt;&gt;  " /><br /><input type="button" class="copySelected" value="  &lt;&lt;  " /></td>
-						<td><?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(''=>''), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="chosen"><?php echo e('admin_voter_chosen_positions'); ?></label></td>
+						<td><?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(), '', 'id="chosen" multiple="multiple" size="5" style="width : 150px;"'); ?><br /><label for="chosen"><?php echo e('admin_voter_chosen_positions'); ?></label></td>
 					</tr>
 				</table>
 			<?php endif; ?>
@@ -71,7 +71,9 @@
 			Email
 			<?php endif; ?>
 			must be unique.<br />
-			Incomplete data will be disregarded.
+			Incomplete data will be disregarded.<br />
+			Passwords <?php echo $settings['pin'] ? 'and pins ' : ''; ?>are not yet generated.<br />
+			Use <?php echo anchor('admin/voters/export', 'Export Voters'); ?> to generate passwords<?php echo $settings['pin'] ? ' and pins' : ''; ?>.
 		</td>
 	</tr>
 </table>

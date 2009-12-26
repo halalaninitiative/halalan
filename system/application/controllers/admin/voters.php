@@ -227,10 +227,6 @@ class Voters extends Controller {
 
 	function import()
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		$this->load->model('Position');
 		$data['general'] = $this->Position->select_all_non_units();
 		$data['specific'] = $this->Position->select_all_units();
 		$tmp = array();
@@ -281,7 +277,7 @@ class Voters extends Controller {
 		$this->upload->initialize($config);
 		if (!$this->upload->do_upload('csv'))
 		{
-			$error[] = $this->upload->display_errors();
+			$error[] = $this->upload->display_errors('', '');
 		}
 		else
 		{
@@ -290,7 +286,6 @@ class Voters extends Controller {
 		}
 		if (empty($error))
 		{
-			$this->load->model('Boter');
 			$count = 0;
 			unset($data[0]); // remove header
 			foreach ($data as $datum)
@@ -311,7 +306,7 @@ class Voters extends Controller {
 					}
 					else if ($this->settings['password_pin_generation'] == 'email')
 					{
-						if ($this->_valid_email($voter['username']))
+						if ($this->form_validation->valid_email($voter['username']))
 						{
 							$this->Boter->insert($voter);
 							$count++;
@@ -334,12 +329,12 @@ class Voters extends Controller {
 				$reminder .= e('admin_import_reminder_too');
 			}
 			$success[] = $reminder;
-			$this->session->set_flashdata('success', $success);
+			$this->session->set_flashdata('messages', array_merge(array('positive'), $success));
 		}
 		else
 		{
 			$this->session->set_flashdata('import', $import);
-			$this->session->set_flashdata('error', $error);
+			$this->session->set_flashdata('messages', array_merge(array('negative'), $error));
 		}
 		unlink($upload_data['full_path']);
 		redirect('admin/voters/import');
@@ -386,8 +381,6 @@ class Voters extends Controller {
 			$header .= ',Voted';
 		}
 		$data[] = $header;
-		$this->load->model('Boter');
-		$this->load->model('Vote');
 		$voters = $this->Boter->select_all();
 		foreach ($voters as $voter)
 		{
