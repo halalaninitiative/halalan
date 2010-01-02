@@ -96,97 +96,66 @@ $lang['halalan_voter_logout_message'] = '<p>Your ballot has been recorded. Thank
 $lang['halalan_voter_votes_no_candidates'] = 'No candidates found.';
 $lang['halalan_voter_votes_submit_button'] = 'Generate Page for Printing';
 
-// controllers/admin.php
-// commont to all functions
+// controllers/admin/
 $lang['halalan_admin_common_running_one'] = 'The election is already running.';
 $lang['halalan_admin_common_running_two'] = 'You cannot manage the election at this time.';
-// index
-// home
+
+// controllers/admin/home.php
 $lang['halalan_admin_home_title'] = 'Home';
-// do_edit_option
 $lang['halalan_admin_edit_option_success'] = 'The option has been successfully edited';
-// do_regenerate
 $lang['halalan_admin_regenerate_no_username'] = 'Username is required.';
 $lang['halalan_admin_regenerate_no_email'] = 'Email is required.';
 $lang['halalan_admin_regenerate_not_exists'] = 'The voter does not exist.';
 $lang['halalan_admin_regenerate_invalid_email'] = 'Email is invalid.';
 $lang['halalan_admin_regenerate_success'] = 'Regeneration successful.';
 $lang['halalan_admin_regenerate_email_success'] = 'The new login credentials was successfully emailed.';
-// voters
+
+// controllers/admin/voters.php
 $lang['halalan_admin_voters_title'] = 'Manage Voters';
-// parties
-$lang['halalan_admin_parties_title'] = 'Manage Parties';
-// positions
-$lang['halalan_admin_positions_title'] = 'Manage Positions';
-// candidates
-$lang['halalan_admin_candidates_title'] = 'Manage Candidates';
-// delete
 $lang['halalan_admin_delete_voter_already_voted'] = 'A voter who has already voted cannot be deleted.';
 $lang['halalan_admin_delete_voter_success'] = 'The voter has been successfully deleted.';
-$lang['halalan_admin_delete_party_in_use'] = 'A party which is in use cannot be deleted.';
-$lang['halalan_admin_delete_party_success'] = 'The party has been successfully deleted.';
-$lang['halalan_admin_delete_position_in_use'] = 'A position which is in use cannot be deleted.';
-$lang['halalan_admin_delete_position_success'] = 'The position has been successfully deleted.';
-$lang['halalan_admin_delete_candidate_already_has_votes'] = 'The candidate who already has votes cannot be deleted.';
-$lang['halalan_admin_delete_candidate_success'] = 'The candidate has been successfully deleted.';
-// edit
 $lang['halalan_admin_edit_voter_title'] = 'Edit Voter';
-$lang['halalan_admin_edit_party_title'] = 'Edit Party';
-$lang['halalan_admin_edit_position_title'] = 'Edit Position';
-$lang['halalan_admin_edit_candidate_title'] = 'Edit Candidate';
-// add
 $lang['halalan_admin_add_voter_title'] = 'Add Voter';
-$lang['halalan_admin_add_party_title'] = 'Add Party';
-$lang['halalan_admin_add_position_title'] = 'Add Position';
-$lang['halalan_admin_add_candidate_title'] = 'Add Candidate';
-// common to do_add_voter and do_edit_voter
-$lang['halalan_admin_voter_no_username'] = 'Username is required';
-$lang['halalan_admin_voter_no_email'] = 'Email is required';
 $lang['halalan_admin_voter_exists'] = 'Voter already exists';
-$lang['halalan_admin_voter_invalid_email'] = 'Email is invalid';
-$lang['halalan_admin_voter_no_last_name'] = 'Last name is required';
-$lang['halalan_admin_voter_no_first_name'] = 'First name is required';
 $lang['halalan_admin_voter_email_success'] = 'The login credentials was successfully emailed.';
-// do_add_voter
 $lang['halalan_admin_add_voter_success'] = 'The voter has been successfully added.';
-// do_edit_voter
 $lang['halalan_admin_edit_voter_success'] = 'The voter has been successfully edited.';
-// common to do_add_party and do_edit_party
-$lang['halalan_admin_party_no_party'] = 'Party is required';
-$lang['halalan_admin_party_exists'] = 'Party already exists';
-// do_add_party
-$lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
-// do_edit_party
-$lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
-// common to do_add_position and do_edit_position
-$lang['halalan_admin_position_no_position'] = 'Position is required';
-$lang['halalan_admin_position_no_maximum'] = 'Maximum is required';
-$lang['halalan_admin_position_exists'] = 'Position already exists';
-$lang['halalan_admin_position_maximum_not_digit'] = 'Maximum should be a digit';
-$lang['halalan_admin_position_no_ordinality'] = 'Ordinality is required';
-$lang['halalan_admin_position_ordinality_not_digit'] = 'Ordinality should be a digit';
-// do_add_position
-$lang['halalan_admin_add_position_success'] = 'The position has been successfully added.';
-// do_edit_position
-$lang['halalan_admin_edit_position_success'] = 'The position has been successfully edited.';
-// common to do_add_candidate and do_edit_candidate
-$lang['halalan_admin_candidate_no_first_name'] = 'First name is required';
-$lang['halalan_admin_candidate_no_last_name'] = 'Last name is required';
-$lang['halalan_admin_candidate_no_position'] = 'Position is required';
-$lang['halalan_admin_candidate_exists'] = 'Candidate already exists';
-// do_add_candidate
-$lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
-// do_edit_candidate
-$lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
-// import
 $lang['halalan_admin_import_title'] = 'Import Voters';
-// do_import
 $lang['halalan_admin_import_success_singular'] = ' voter has been successfully imported.';
 $lang['halalan_admin_import_success_plural'] = ' voters have been successfully imported.';
 $lang['halalan_admin_import_reminder'] = 'You can use the Export Voters option to do batch generation of passwords.';
 $lang['halalan_admin_import_reminder_too'] = ' and PINs.';
-// export
 $lang['halalan_admin_export_title'] = 'Export Voters';
+
+// controllers/admin/parties.php
+$lang['halalan_admin_parties_title'] = 'Manage Parties';
+$lang['halalan_admin_delete_party_in_use'] = 'A party which is in use cannot be deleted.';
+$lang['halalan_admin_delete_party_success'] = 'The party has been successfully deleted.';
+$lang['halalan_admin_edit_party_title'] = 'Edit Party';
+$lang['halalan_admin_add_party_title'] = 'Add Party';
+$lang['halalan_admin_party_exists'] = 'Party already exists';
+$lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
+$lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
+
+// controllers/admin/positions.php
+$lang['halalan_admin_positions_title'] = 'Manage Positions';
+$lang['halalan_admin_delete_position_in_use'] = 'A position which is in use cannot be deleted.';
+$lang['halalan_admin_delete_position_success'] = 'The position has been successfully deleted.';
+$lang['halalan_admin_edit_position_title'] = 'Edit Position';
+$lang['halalan_admin_add_position_title'] = 'Add Position';
+$lang['halalan_admin_position_exists'] = 'Position already exists';
+$lang['halalan_admin_add_position_success'] = 'The position has been successfully added.';
+$lang['halalan_admin_edit_position_success'] = 'The position has been successfully edited.';
+
+// controllers/admin/candidates.php
+$lang['halalan_admin_candidates_title'] = 'Manage Candidates';
+$lang['halalan_admin_delete_candidate_already_has_votes'] = 'The candidate who already has votes cannot be deleted.';
+$lang['halalan_admin_delete_candidate_success'] = 'The candidate has been successfully deleted.';
+$lang['halalan_admin_edit_candidate_title'] = 'Edit Candidate';
+$lang['halalan_admin_add_candidate_title'] = 'Add Candidate';
+$lang['halalan_admin_candidate_exists'] = 'Candidate already exists';
+$lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
+$lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
 
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
