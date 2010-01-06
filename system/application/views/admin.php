@@ -45,6 +45,7 @@
 		<ul>
 			<li><?php echo anchor('admin/home', 'HOME', array('title'=>'Home')); ?></li>
 			<li><?php echo anchor('admin/candidates', 'CANDIDATES', array('title'=>'Manage Candidates')); ?></li>
+			<li><?php echo anchor('admin/elections', 'ELECTIONS', array('title'=>'Manage Elections')); ?></li>
 			<li><?php echo anchor('admin/parties', 'PARTIES', array('title'=>'Manage Parties')); ?></li>
 			<li><?php echo anchor('admin/positions', 'POSITIONS', array('title'=>'Manage Positions')); ?></li>
 			<li><?php echo anchor('admin/voters', 'VOTERS', array('title'=>'Manage Voters')); ?></li>

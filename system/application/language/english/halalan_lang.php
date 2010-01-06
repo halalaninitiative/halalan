@@ -8,6 +8,7 @@ $lang['halalan_common_message_box'] = 'Halalan Message Box';
 $lang['halalan_common_edit'] = 'Edit';
 $lang['halalan_common_delete'] = 'Delete';
 $lang['halalan_common_action'] = 'Action';
+$lang['halalan_common_id'] = 'ID';
 
 // controllers/gate.php
 // common to voter_login and admin_login
@@ -157,6 +158,17 @@ $lang['halalan_admin_candidate_exists'] = 'Candidate already exists';
 $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
 $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
 
+// controllers/admin/elections.php
+$lang['halalan_admin_elections_title'] = 'Manage Elections';
+$lang['halalan_admin_delete_election_running'] = 'An election which is running cannot be deleted.';
+$lang['halalan_admin_delete_election_success'] = 'The election has been successfully deleted.';
+$lang['halalan_admin_edit_election_title'] = 'Edit Election';
+$lang['halalan_admin_add_election_title'] = 'Add Election';
+//$lang['halalan_admin_party_exists'] = 'Party already exists';
+$lang['halalan_admin_add_election_success'] = 'The election has been successfully added.';
+$lang['halalan_admin_edit_election_success'] = 'The election has been successfully edited.';
+$lang['halalan_admin_options_election_success'] = 'The election options has been successfully changed.';
+
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
 $lang['halalan_admin_home_manage_question'] = 'What do you want to do?';
@@ -286,5 +298,22 @@ $lang['halalan_admin_export_votes_description'] = 'used for manual counting of v
 $lang['halalan_admin_export_status'] = 'Include status?';
 $lang['halalan_admin_export_status_description'] = 'used for determining who voted or not';
 $lang['halalan_admin_export_submit'] = 'Export';
+
+// views/admin/elections.php
+$lang['halalan_admin_elections_label'] = 'Manage Elections';
+$lang['halalan_admin_elections_election'] = 'Election';
+$lang['halalan_admin_elections_status'] = 'Status';
+$lang['halalan_admin_elections_results'] = 'Results';
+$lang['halalan_admin_elections_no_elections'] = 'No elections found.';
+$lang['halalan_admin_elections_add'] = 'Add Election';
+
+// views/admin/election.php
+$lang['halalan_admin_add_election_label'] = 'Add Election Details';
+$lang['halalan_admin_edit_election_label'] = 'Edit Election Details';
+$lang['halalan_admin_election_election'] = 'Election';
+$lang['halalan_admin_election_parent'] = 'Parent';
+$lang['halalan_admin_election_notes'] = 'Notes';
+$lang['halalan_admin_add_election_submit'] = 'Add Election';
+$lang['halalan_admin_edit_election_submit'] = 'Edit Election';
 
 ?>

@@ -97,6 +97,7 @@ $(document).ready(function () {
 	var menu_map = {};
 	menu_map['home'] = "HOME";
 	menu_map['candidates'] = "CANDIDATES";
+	menu_map['elections'] = "ELECTIONS";
 	menu_map['parties'] = "PARTIES";
 	menu_map['positions'] = "POSITIONS";
 	menu_map['voters'] = "VOTERS";
