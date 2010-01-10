@@ -5,9 +5,10 @@ $lang['halalan_common_unauthorized'] = 'You must be logged in to view this page.
 
 // common to views
 $lang['halalan_common_message_box'] = 'Halalan Message Box';
+$lang['halalan_common_view'] = 'View';
 $lang['halalan_common_edit'] = 'Edit';
 $lang['halalan_common_delete'] = 'Delete';
-$lang['halalan_common_action'] = 'Action';
+$lang['halalan_common_actions'] = 'Actions';
 $lang['halalan_common_id'] = 'ID';
 
 // controllers/gate.php
@@ -251,6 +252,8 @@ $lang['halalan_admin_position_maximum'] = 'Maximum';
 $lang['halalan_admin_position_ordinality'] = 'Ordinality';
 $lang['halalan_admin_position_abstain'] = 'Abstain';
 $lang['halalan_admin_position_unit'] = 'Type';
+$lang['halalan_admin_position_possible_elections'] = 'Possible Elections';
+$lang['halalan_admin_position_chosen_elections'] = 'Chosen Elections';
 $lang['halalan_admin_add_position_submit'] = 'Add Position';
 $lang['halalan_admin_edit_position_submit'] = 'Edit Position';
 

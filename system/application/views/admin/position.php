@@ -1,13 +1,13 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/positions/add'); ?>
+	<?php echo form_open_multipart('admin/positions/add', array('class'=>'selectChosen')); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/positions/edit/' . $position['id']); ?>
+	<?php echo form_open_multipart('admin/positions/edit/' . $position['id'], array('class'=>'selectChosen')); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_position_label'); ?></h2>
-<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+<table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_position_position') . ':', 'position'); ?>
 		</td>
 		<td>
@@ -15,7 +15,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_position_description') . ':', 'description'); ?>
 		</td>
 		<td>
@@ -23,7 +23,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_position_maximum') . ':', 'maximum'); ?>
 		</td>
 		<td>
@@ -31,7 +31,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_position_ordinality') . ':', 'ordinality'); ?>
 		</td>
 		<td>
@@ -39,7 +39,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo e('admin_position_abstain'); ?>:
 		</td>
 		<td>
@@ -50,7 +50,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo e('admin_position_unit'); ?>:
 		</td>
 		<td>
@@ -58,6 +58,36 @@
 			<?php echo form_label('General', 'general'); ?>
 			<?php echo form_radio('unit', '1', $position['unit'] ? TRUE : FALSE, 'id="specific"'); ?>
 			<?php echo form_label('Specific', 'specific'); ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="w20" align="right">
+			<?php //echo e('admin_voter_specific_positions'); ?>Elections:
+		</td>
+		<td>
+			<?php if (empty($elections)): ?>
+			<em><?php //echo e('admin_voter_no_specific_positions'); ?>No elections found.</em>
+			<?php else: ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(), '', 'id="possible" multiple="multiple" size="7" style="width : 170px;"'); ?>
+							<br />
+							<?php echo form_label(e('admin_position_possible_elections'), 'possible'); ?>
+						</td>
+						<td>
+							<input type="button" class="copySelected" value="  &gt;&gt;  " />
+							<br />
+							<input type="button" class="copySelected" value="  &lt;&lt;  " />
+						</td>
+						<td>
+							<?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(), '', 'id="chosen" multiple="multiple" size="7" style="width : 170px;"'); ?>
+							<br />
+							<?php echo form_label(e('admin_position_chosen_elections'), 'chosen'); ?>
+						</td>
+					</tr>
+				</table>
+			<?php endif; ?>
 		</td>
 	</tr>
 </table>

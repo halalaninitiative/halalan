@@ -64,6 +64,7 @@ class Positions extends Controller {
 
 	function _position($case, $id = null)
 	{
+		$chosen = array();
 		if ($case == 'add')
 		{
 			$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>'1', 'unit'=>'0');
@@ -75,6 +76,11 @@ class Positions extends Controller {
 			$data['position'] = $this->Position->select($id);
 			if (!$data['position'])
 				redirect('admin/positions');
+			$tmp = $this->Election_Position->select_all_by_position_id($id);
+			foreach ($tmp as $t)
+			{
+				$chosen[] = $t['election_id'];
+			}
 			$this->session->set_flashdata('position', $data['position']); // used in callback rules
 		}
 		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists');
@@ -83,6 +89,7 @@ class Positions extends Controller {
 		$this->form_validation->set_rules('ordinality', e('admin_position_ordinality'), 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('abstain', e('admin_position_abstain'));
 		$this->form_validation->set_rules('unit', e('admin_position_unit'));
+		$this->form_validation->set_rules('chosen[]', e('admin_position_chosen_elections'), 'required');
 		if ($this->form_validation->run())
 		{
 			$position['position'] = $this->input->post('position', TRUE);
@@ -91,6 +98,7 @@ class Positions extends Controller {
 			$position['ordinality'] = $this->input->post('ordinality', TRUE);
 			$position['abstain'] = $this->input->post('abstain', TRUE);
 			$position['unit'] = $this->input->post('unit', TRUE);
+			$position['chosen'] = $this->input->post('chosen', TRUE);
 			if ($case == 'add')
 			{
 				$this->Position->insert($position);
@@ -102,6 +110,28 @@ class Positions extends Controller {
 				$this->Position->update($position, $id);
 				$this->session->set_flashdata('messages', array('positive', e('admin_edit_position_success')));
 				redirect('admin/positions/edit/' . $id);
+			}
+		}
+		if (!empty($_POST))
+		{
+			$chosen = array();
+			if ($this->input->post('chosen'))
+			{
+				$chosen = $this->input->post('chosen');
+			}
+		}
+		$data['elections'] = $this->Election->select_all();
+		$data['possible'] = array();
+		$data['chosen'] = array();
+		foreach ($data['elections'] as $e)
+		{
+			if (in_array($e['id'], $chosen))
+			{
+				$data['chosen'][$e['id']] = $e['election'];
+			}
+			else
+			{
+				$data['possible'][$e['id']] = $e['election'];
 			}
 		}
 		$data['action'] = $case;
@@ -134,10 +164,7 @@ class Positions extends Controller {
 				return FALSE;
 			}
 		}
-		else
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 }

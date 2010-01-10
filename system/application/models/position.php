@@ -9,17 +9,43 @@ class Position extends Model {
 
 	function insert($position)
 	{
-		return $this->db->insert('positions', $position);
+		$chosen = $position['chosen'];
+		unset($position['chosen']);
+		$this->db->insert('positions', $position);
+		if (!empty($chosen))
+		{
+			$position_id = $this->db->insert_id();
+			foreach ($chosen as $election_id)
+			{
+				$this->db->insert('elections_positions', compact('election_id', 'position_id'));
+			}
+		}
+		return true;
 	}
 
 	function update($position, $id)
 	{
-		return $this->db->update('positions', $position, compact('id'));
+		$chosen = $position['chosen'];
+		unset($position['chosen']);
+		$this->db->update('positions', $position, compact('id'));
+		if (!empty($chosen))
+		{
+			$this->db->where('position_id', $id);
+			$this->db->delete('elections_positions');
+			$position_id = $id;
+			foreach ($chosen as $election_id)
+			{
+				$this->db->insert('elections_positions', compact('election_id', 'position_id'));
+			}
+		}
+		return true;
 	}
 
 	function delete($id)
 	{
-		$this->db->where(array('position_id'=>$id));
+		$this->db->where('position_id', $id);
+		$this->db->delete('elections_positions');
+		$this->db->where('position_id', $id);
 		$this->db->delete('positions_voters');
 		$this->db->where(compact('id'));
 		return $this->db->delete('positions');
