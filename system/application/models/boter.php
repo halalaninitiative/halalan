@@ -17,8 +17,11 @@ class Boter extends Model {
 
 	function insert($voter)
 	{
-		$extra = $voter['extra'];
-		unset($voter['extra']);
+		if (isset($voter['extra']))
+		{
+			$extra = $voter['extra'];
+			unset($voter['extra']);
+		}
 		$this->db->insert('voters', $voter);
 		if (!empty($extra))
 		{
@@ -35,8 +38,11 @@ class Boter extends Model {
 
 	function update($voter, $id)
 	{
-		$extra = $voter['extra'];
-		unset($voter['extra']);
+		if (isset($voter['extra']))
+		{
+			$extra = $voter['extra'];
+			unset($voter['extra']);
+		}
 		$this->db->where('voter_id', $id);
 		$this->db->delete('elections_positions_voters');
 		$this->db->update('voters', $voter, compact('id'));
