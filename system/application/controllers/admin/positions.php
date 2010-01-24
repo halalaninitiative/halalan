@@ -76,10 +76,13 @@ class Positions extends Controller {
 			$data['position'] = $this->Position->select($id);
 			if (!$data['position'])
 				redirect('admin/positions');
-			$tmp = $this->Election_Position->select_all_by_position_id($id);
-			foreach ($tmp as $t)
+			if (empty($_POST))
 			{
-				$chosen[] = $t['election_id'];
+				$tmp = $this->Election_Position->select_all_by_position_id($id);
+				foreach ($tmp as $t)
+				{
+					$chosen[] = $t['election_id'];
+				}
 			}
 			$this->session->set_flashdata('position', $data['position']); // used in callback rules
 		}
@@ -112,13 +115,9 @@ class Positions extends Controller {
 				redirect('admin/positions/edit/' . $id);
 			}
 		}
-		if (!empty($_POST))
+		if ($this->input->post('chosen'))
 		{
-			$chosen = array();
-			if ($this->input->post('chosen'))
-			{
-				$chosen = $this->input->post('chosen');
-			}
+			$chosen = $this->input->post('chosen');
 		}
 		$data['elections'] = $this->Election->select_all();
 		$data['possible'] = array();
@@ -154,7 +153,8 @@ class Positions extends Controller {
 					$error = TRUE;
 				}
 			}
-			else {
+			else
+			{
 				$error = TRUE;
 			}
 			if ($error)
