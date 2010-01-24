@@ -281,10 +281,12 @@ $lang['halalan_admin_edit_candidate_submit'] = 'Edit Candidate';
 
 // views/admin/import.php
 $lang['halalan_admin_import_label'] = 'Import Voters';
+$lang['halalan_admin_import_elections'] = 'Elections';
+$lang['halalan_admin_import_no_elections'] = 'No elections found.  Create one in the Elections page.';
+$lang['halalan_admin_import_possible_elections'] = 'Possible Elections';
+$lang['halalan_admin_import_chosen_elections'] = 'Chosen Elections';
 $lang['halalan_admin_import_general_positions'] = 'General Positions';
-$lang['halalan_admin_import_no_general_positions'] = 'No general positions found.';
 $lang['halalan_admin_import_specific_positions'] = 'Specific Positions';
-$lang['halalan_admin_import_no_specific_positions'] = 'No specific positions found.';
 $lang['halalan_admin_import_possible_positions'] = 'Possible Positions';
 $lang['halalan_admin_import_chosen_positions'] = 'Chosen Positions';
 $lang['halalan_admin_import_csv'] = 'CSV';

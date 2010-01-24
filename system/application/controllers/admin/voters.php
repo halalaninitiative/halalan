@@ -321,45 +321,129 @@ class Voters extends Controller {
 
 	function import()
 	{
-		$data['general'] = $this->Position->select_all_non_units();
-		$data['specific'] = $this->Position->select_all_units();
-		$tmp = array();
-		foreach ($data['specific'] as $s)
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 		{
-			$tmp[$s['id']] = $s['position'];
-		}
-		$data['possible'] = $tmp;
-		if ($import = $this->session->flashdata('import'))
-		{
-			if (empty($import['chosen']))
-			{
-				$data['chosen'] = array();
-			}
-			else
-			{
-				$chosen = $import['chosen'];
-				unset($import['chosen']);
-				$tmp = array();
-				foreach ($data['possible'] as $key=>$value)
-				{
-					if (in_array($key, $chosen))
-					{
-						unset($data['possible'][$key]);
-						$tmp[$key] = $value;
-					}
-				}
-				$data['chosen'] = $tmp;
-			}
+			$election_ids = json_decode($this->input->post('election_ids', TRUE));
+			$this->_fill_positions($election_ids, TRUE);
 		}
 		else
 		{
-			$data['chosen'] = array();
+			$chosen_elections = array();
+			$chosen_positions = array();
+			if ($this->input->post('chosen_elections'))
+			{
+				$chosen_elections = $this->input->post('chosen_elections');
+			}
+			if ($this->input->post('chosen_positions'))
+			{
+				$chosen_positions = $this->input->post('chosen_positions');
+			}
+			$this->form_validation->set_rules('chosen_elections', e('admin_import_chosen_elections'), 'required');
+			$this->form_validation->set_rules('csv', e('admin_import_csv'), 'callback__rule_csv');
+			if ($this->form_validation->run())
+			{
+				$voter['password'] = '';
+				$voter['voted'] = 0;
+				// chosen elections are also in the ids of the positions
+				//$voter['chosen_elections'] = $this->input->post('chosen_elections', TRUE);
+				$general_positions = $this->input->post('general_positions', TRUE);
+				$chosen_positions = $this->input->post('chosen_positions', TRUE);
+				if (!$chosen_positions)
+				{
+					// if no chosen positions, its value is FALSE so convert to array
+					$chosen_positions = array();
+				}
+				$extra = array();
+				foreach (array_merge($general_positions, $chosen_positions) as $p)
+				{
+					list($election_id, $position_id) = explode('|', $p);
+					$extra[] = array('election_id'=>$election_id, 'position_id'=>$position_id);
+				}
+				$voter['extra'] = $extra;
+				$data = $this->session->userdata('voter_csv');
+				$count = 0;
+				unset($data[0]); // remove header
+				foreach ($data as $datum)
+				{
+					$tmp = explode(',', $datum);
+					$voter['username'] = trim(strip_quotes($tmp[0]));
+					$voter['last_name'] = trim(strip_quotes($tmp[1]));
+					$voter['first_name'] = trim(strip_quotes($tmp[2]));
+					if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
+					{
+						if ($this->settings['password_pin_generation'] == 'web')
+						{
+							$this->Boter->insert($voter);
+							$count++;
+						}
+						else if ($this->settings['password_pin_generation'] == 'email')
+						{
+							if ($this->form_validation->valid_email($voter['username']))
+							{
+								$this->Boter->insert($voter);
+								$count++;
+							}
+						}
+					}
+				}
+				if ($count == 1)
+				{
+					$success[] = $count . e('admin_import_success_singular');
+				}
+				else
+				{
+					$success[] = $count . e('admin_import_success_plural');
+				}
+				$reminder = e('admin_import_reminder');
+				if ($this->settings['pin'])
+				{
+					$reminder = trim($reminder, '.'); // remove period
+					$reminder .= e('admin_import_reminder_too');
+				}
+				$success[] = $reminder;
+				$this->session->set_flashdata('messages', array_merge(array('positive'), $success));
+				redirect('admin/voters/import');
+			}
+			$data['elections'] = $this->Election->select_all_with_positions();
+			$data['possible_elections'] = array();
+			$data['chosen_elections'] = array();
+			foreach ($data['elections'] as $e)
+			{
+				if (in_array($e['id'], $chosen_elections))
+				{
+					$data['chosen_elections'][$e['id']] = '(' . $e['id'] . ') ' . $e['election'];
+				}
+				else
+				{
+					$data['possible_elections'][$e['id']] = '(' . $e['id'] . ') ' . $e['election'];
+				}
+			}
+			$fill = $this->_fill_positions($chosen_elections, FALSE);
+			$data['general_positions'] = array();
+			for ($i = 0; $i < count($fill[1]); $i++)
+			{
+				$data['general_positions'][$fill[0][$i]] = $fill[1][$i];
+			}
+			$data['possible_positions'] = array();
+			for ($i = 0; $i < count($fill[3]); $i++)
+			{
+				$data['possible_positions'][$fill[2][$i]] = $fill[3][$i];
+			}
+			$data['chosen_positions'] = array();
+			foreach ($data['possible_positions'] as $key=>$value)
+			{
+				if (in_array($key, $chosen_positions))
+				{
+					$data['chosen_positions'][$key] = $value;
+					unset($data['possible_positions'][$key]);
+				}
+			}
+			$data['settings'] = $this->settings;
+			$admin['username'] = $this->admin['username'];
+			$admin['title'] = e('admin_import_title');
+			$admin['body'] = $this->load->view('admin/import', $data, TRUE);
+			$this->load->view('admin', $admin);
 		}
-		$data['settings'] = $this->settings;
-		$admin['username'] = $this->admin['username'];
-		$admin['title'] = e('admin_import_title');
-		$admin['body'] = $this->load->view('admin/import', $data, TRUE);
-		$this->load->view('admin', $admin);
 	}
 
 	function do_import()
@@ -549,6 +633,28 @@ class Voters extends Controller {
 			}
 		}
 		return TRUE;
+	}
+
+	function _rule_csv()
+	{
+		$config['upload_path'] = HALALAN_UPLOAD_PATH . 'csvs/';
+		$config['allowed_types'] = 'csv';
+		$this->upload->initialize($config);
+		if (!$this->upload->do_upload('csv'))
+		{
+			$message = $this->upload->display_errors('', '');
+			$this->form_validation->set_message('_rule_csv', $message);
+			return FALSE;
+		}
+		else
+		{
+			$upload_data = $this->upload->data();
+			$data = file($upload_data['full_path']);
+			unlink($upload_data['full_path']);
+			// flashdata doesn't work I don't know why
+			$this->session->set_userdata('voter_csv', $data);
+			return TRUE;
+		}
 	}
 
 }
