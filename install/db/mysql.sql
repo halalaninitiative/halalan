@@ -27,6 +27,28 @@ CREATE TABLE candidates (
   PRIMARY KEY  (id)
 );
 
+CREATE TABLE elections (
+  id integer NOT NULL auto_increment,
+  election varchar(63) NOT NULL,
+  parent_id integer NOT NULL,
+  status boolean NOT NULL,
+  results boolean NOT NULL,
+  PRIMARY KEY  (id)
+);
+
+CREATE TABLE elections_positions (
+  election_id integer NOT NULL,
+  position_id integer NOT NULL,
+  PRIMARY KEY  (election_id,position_id)
+);
+
+CREATE TABLE elections_positions_voters (
+  election_id integer NOT NULL,
+  position_id integer NOT NULL,
+  voter_id integer NOT NULL,
+  PRIMARY KEY  (election_id,position_id,voter_id)
+);
+
 CREATE TABLE parties (
   id integer NOT NULL auto_increment,
   party varchar(63) NOT NULL,
