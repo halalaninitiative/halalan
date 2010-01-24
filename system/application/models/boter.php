@@ -17,15 +17,17 @@ class Boter extends Model {
 
 	function insert($voter)
 	{
-		$chosen = $voter['chosen'];
-		unset($voter['chosen']);
+		$extra = $voter['extra'];
+		unset($voter['extra']);
 		$this->db->insert('voters', $voter);
-		if (!empty($chosen))
+		if (!empty($extra))
 		{
 			$voter_id = $this->db->insert_id();
-			foreach ($chosen as $position_id)
+			foreach ($extra as $e)
 			{
-				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+				$election_id = $e['election_id'];
+				$position_id = $e['position_id'];
+				$this->db->insert('elections_positions_voters', compact('election_id', 'position_id', 'voter_id'));
 			}
 		}
 		return true;
@@ -33,21 +35,19 @@ class Boter extends Model {
 
 	function update($voter, $id)
 	{
-		if (isset($voter['chosen']))
-		{
-			$chosen = $voter['chosen'];
-			unset($voter['chosen']);
-			$voter_id = $id;
-			$this->db->where(compact('voter_id'));
-			$this->db->delete('positions_voters');
-		}
+		$extra = $voter['extra'];
+		unset($voter['extra']);
+		$this->db->where('voter_id', $id);
+		$this->db->delete('elections_positions_voters');
 		$this->db->update('voters', $voter, compact('id'));
-
-		if (!empty($chosen))
+		if (!empty($extra))
 		{
-			foreach ($chosen as $position_id)
+			$voter_id = $id;
+			foreach ($extra as $e)
 			{
-				$this->db->insert('positions_voters', compact('voter_id', 'position_id'));
+				$election_id = $e['election_id'];
+				$position_id = $e['position_id'];
+				$this->db->insert('elections_positions_voters', compact('election_id', 'position_id', 'voter_id'));
 			}
 		}
 		return true;

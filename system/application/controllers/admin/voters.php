@@ -57,12 +57,28 @@ class Voters extends Controller {
 
 	function add()
 	{
-		$this->_voter('add');
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+		{
+			$election_ids = json_decode($this->input->post('election_ids', TRUE));
+			$this->_fill_positions($election_ids, TRUE);
+		}
+		else
+		{
+			$this->_voter('add');
+		}
 	}
 
 	function edit($id)
 	{
-		$this->_voter('edit', $id);
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+		{
+			$election_ids = json_decode($this->input->post('election_ids', TRUE));
+			$this->_fill_positions($election_ids, TRUE);
+		}
+		else
+		{
+			$this->_voter('edit', $id);
+		}
 	}
 
 	function delete($id) 
@@ -86,7 +102,8 @@ class Voters extends Controller {
 
 	function _voter($case, $id = null)
 	{
-		$chosen = array();
+		$chosen_elections = array();
+		$chosen_positions = array();
 		if ($case == 'add')
 		{
 			$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
@@ -98,12 +115,16 @@ class Voters extends Controller {
 			$data['voter'] = $this->Boter->select($id);
 			if (!$data['voter'])
 				redirect('admin/voters');
-			$tmp = $this->Position_Voter->select_all_by_voter_id($id);
-			foreach ($tmp as $t)
+			if (empty($_POST))
 			{
-				$chosen[] = $t['position_id'];
+				$tmp = $this->Election_Position_Voter->select_all_by_voter_id($id);
+				foreach ($tmp as $t)
+				{
+					$chosen_elections[] = $t['election_id'];
+					$chosen_positions[] = $t['election_id'] . '|' . $t['position_id'];
+				}
 			}
-			$this->session->set_flashdata('voter', $data['voter']); // used in callback rules
+			$this->session->set_userdata('voter', $data['voter']); // used in callback rules
 		}
 		if ($this->settings['password_pin_generation'] == 'email')
 		{
@@ -115,12 +136,28 @@ class Voters extends Controller {
 		}
 		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
 		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
+		$this->form_validation->set_rules('chosen_elections', e('admin_voter_chosen_elections'), 'required');
 		if ($this->form_validation->run())
 		{
 			$voter['username'] = $this->input->post('username', TRUE);
 			$voter['last_name'] = $this->input->post('last_name', TRUE);
 			$voter['first_name'] = $this->input->post('first_name', TRUE);
-			$voter['chosen'] = $this->input->post('chosen', TRUE);
+			// chosen elections are also in the ids of the positions
+			//$voter['chosen_elections'] = $this->input->post('chosen_elections', TRUE);
+			$general_positions = $this->input->post('general_positions', TRUE);
+			$chosen_positions = $this->input->post('chosen_positions', TRUE);
+			if (!$chosen_positions)
+			{
+				// if no chosen positions, its value is FALSE so convert to array
+				$chosen_positions = array();
+			}
+			$extra = array();
+			foreach (array_merge($general_positions, $chosen_positions) as $p)
+			{
+				list($election_id, $position_id) = explode('|', $p);
+				$extra[] = array('election_id'=>$election_id, 'position_id'=>$position_id);
+			}
+			$voter['extra'] = $extra;
 			if ($case == 'add' || $this->input->post('password'))
 			{
 				$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
@@ -198,23 +235,46 @@ class Voters extends Controller {
 				redirect('admin/voters/edit/' . $id);
 			}
 		}
-		if ($this->input->post('chosen'))
+		if ($this->input->post('chosen_elections'))
 		{
-			$chosen = $this->input->post('chosen');
+			$chosen_elections = $this->input->post('chosen_elections');
 		}
-		$data['general'] = $this->Position->select_all_non_units();
-		$data['specific'] = $this->Position->select_all_units();
-		$data['possible'] = array();
-		$data['chosen'] = array();
-		foreach ($data['specific'] as $s)
+		if ($this->input->post('chosen_positions'))
 		{
-			if (in_array($s['id'], $chosen))
+			$chosen_positions = $this->input->post('chosen_positions');
+		}
+		$data['elections'] = $this->Election->select_all_with_positions();
+		$data['possible_elections'] = array();
+		$data['chosen_elections'] = array();
+		foreach ($data['elections'] as $e)
+		{
+			if (in_array($e['id'], $chosen_elections))
 			{
-				$data['chosen'][$s['id']] = $s['position'];
+				$data['chosen_elections'][$e['id']] = '(' . $e['id'] . ') ' . $e['election'];
 			}
 			else
 			{
-				$data['possible'][$s['id']] = $s['position'];
+				$data['possible_elections'][$e['id']] = '(' . $e['id'] . ') ' . $e['election'];
+			}
+		}
+		$fill = $this->_fill_positions($chosen_elections, FALSE);
+		$data['general_positions'] = array();
+		for ($i = 0; $i < count($fill[1]); $i++)
+		{
+			$data['general_positions'][$fill[0][$i]] = $fill[1][$i];
+		}
+		$data['possible_positions'] = array();
+		for ($i = 0; $i < count($fill[3]); $i++)
+		{
+			$data['possible_positions'][$fill[2][$i]] = $fill[3][$i];
+		}
+		$data['chosen_positions'] = array();
+		foreach ($data['possible_positions'] as $key=>$value)
+		{
+			if (in_array($key, $chosen_positions))
+			{
+				$data['chosen_positions'][$key] = $value;
+				unset($data['possible_positions'][$key]);
 			}
 		}
 		$data['action'] = $case;
@@ -223,6 +283,40 @@ class Voters extends Controller {
 		$admin['body'] = $this->load->view('admin/voter', $data, TRUE);
 		$admin['username'] = $this->admin['username'];
 		$this->load->view('admin', $admin);
+	}
+
+	function _fill_positions($election_ids, $json)
+	{
+		$general_values = array();
+		$general_texts = array();
+		$specific_values = array();
+		$specific_texts = array();
+		foreach ($election_ids as $election_id)
+		{
+			$positions = $this->Position->select_all_by_election_id($election_id);
+			foreach ($positions as $position)
+			{
+				if ($position['unit'])
+				{
+					$specific_values[] = $election_id . '|' . $position['id'];
+					$specific_texts[] = $position['position'] . ' (' . $election_id . ')';
+				}
+				else
+				{
+					$general_values[] = $election_id . '|' . $position['id'];
+					$general_texts[] = $position['position'] . ' (' . $election_id . ')';
+				}
+			}
+		}
+		$return = array($general_values, $general_texts, $specific_values, $specific_texts);
+		if ($json)
+		{
+			echo json_encode($return);
+		}
+		else
+		{
+			return $return;
+		}
 	}
 
 	function import()
@@ -435,14 +529,16 @@ class Voters extends Controller {
 		if ($test = $this->Boter->select_by_username($username))
 		{
 			$error = FALSE;
-			if ($voter = $this->session->flashdata('voter')) // edit
+			if ($voter = $this->session->userdata('voter')) // edit
 			{
+				$this->session->unset_userdata('voter');
 				if ($test['id'] != $voter['id'])
 				{
 					$error = TRUE;
 				}
 			}
-			else {
+			else
+			{
 				$error = TRUE;
 			}
 			if ($error)
@@ -452,10 +548,7 @@ class Voters extends Controller {
 				return FALSE;
 			}
 		}
-		else
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 }

@@ -22,6 +22,68 @@ function confirmDelete() {
 
 function selectChosen() {
 	$('#chosen').children().attr('selected', true);
+	$('#chosen_elections').children().attr('selected', true);
+	$('#general_positions').attr('disabled', false);
+	$('#general_positions').children().attr('selected', true);
+}
+
+function copySelectedWithAjax() {
+	var from;
+	var to;
+	var selected;
+	var array = new Array();
+	var direction = $(this).val();
+	
+	if (direction === "  >>  ") {
+		from = $('#possible_elections');
+		to = $('#chosen_elections');
+	} else {
+		from = $('#chosen_elections');
+		to = $('#possible_elections');
+	}
+	
+	selected = from.children(':selected');
+
+	if (!selected.length) {
+		alert("No items selected.");
+	} else {
+		to.append(selected);
+		selected.removeAttr('selected');
+		selected.each(function(i){ array[i] = this.value; });
+		$.ajax({
+			type: "POST",
+			url: window.location.href,
+			data: "election_ids=" + JSON.stringify(array),
+			success: function(msg){
+				var msg = JSON.parse(msg);
+				var general_values = msg[0];
+				var general_texts = msg[1];
+				var specific_values = msg[2];
+				var specific_texts = msg[3];
+				$('#notice').hide();
+				for (i = 0; i < general_texts.length; i++) {
+					if (direction === "  >>  ") {
+						var general = new Option();
+						general.value = general_values[i];
+						general.text = general_texts[i];
+						$('#general_positions').append(general);
+					} else {
+						$('option[value=' + general_values[i] + ']').remove();
+					}
+				}
+				for (i = 0; i < specific_texts.length; i++) {
+					if (direction === "  >>  ") {
+						var specific = new Option();
+						specific.value = specific_values[i];
+						specific.text = specific_texts[i];
+						$('#possible').append(specific);
+					} else {
+						$('option[value=' + specific_values[i] + ']').remove();
+					}
+				}
+			}
+		});
+	}
 }
 
 function copySelected() {
@@ -40,7 +102,7 @@ function copySelected() {
 	selected = from.children(':selected');
 
 	if (!selected.length) {
-		alert("No positions selected.");
+		alert("No items selected.");
 	} else {
 		to.append(selected);
 		selected.removeAttr('selected');
@@ -107,6 +169,7 @@ $(document).ready(function () {
 	$('a.manipulateAllPositions').click(manipulateAllPositions);
 	$('img.togglePosition').click(togglePosition);
 	$(':radio.changeElectionStatus').click(changeElectionStatus);
+	$(':button.copySelectedWithAjax').click(copySelectedWithAjax);
 	$(':button.copySelected').click(copySelected);
 	$('form.selectChosen').submit(selectChosen);
 	/* Disable Result radio buttons if election is already running */

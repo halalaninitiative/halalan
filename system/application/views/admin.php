@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/admin.css" />
   <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/json2.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/common.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/admin.js"></script>
 </head>

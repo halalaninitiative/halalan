@@ -74,6 +74,14 @@ class Election extends Model {
 		return $query->result_array();
 	}
 
+	function select_all_with_positions()
+	{
+		$this->db->from('elections');
+		$this->db->where('id in (select distinct election_id from elections_positions)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 }
 
 ?>

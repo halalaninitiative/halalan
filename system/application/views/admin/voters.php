@@ -11,7 +11,7 @@
 		<th scope="col" class="w5">#</th>
 		<th scope="col"><?php echo e('admin_voters_name'); ?></th>
 		<th scope="col" class="w5"><?php echo e('admin_voters_voted'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_action'); ?></th>
+		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
 	<?php if (empty($voters)): ?>
 	<tr>
