@@ -81,7 +81,6 @@ class Parties extends Controller {
 		$this->form_validation->set_rules('alias', e('admin_party_alias'));
 		$this->form_validation->set_rules('description', e('admin_party_description'));
 		$this->form_validation->set_rules('logo', e('admin_party_logo'), 'callback__rule_logo');
-		$this->session->unset_userdata('party');
 		if ($this->form_validation->run())
 		{
 			$party['party'] = $this->input->post('party', TRUE);

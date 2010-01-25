@@ -93,7 +93,6 @@ class Positions extends Controller {
 		$this->form_validation->set_rules('abstain', e('admin_position_abstain'));
 		$this->form_validation->set_rules('unit', e('admin_position_unit'));
 		$this->form_validation->set_rules('chosen[]', e('admin_position_chosen_elections'), 'required');
-		$this->session->unset_userdata('position');
 		if ($this->form_validation->run())
 		{
 			$position['position'] = $this->input->post('position', TRUE);

@@ -137,7 +137,6 @@ class Voters extends Controller {
 		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
 		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
 		$this->form_validation->set_rules('chosen_elections', e('admin_voter_chosen_elections'), 'required');
-		$this->session->unset_userdata('voter');
 		if ($this->form_validation->run())
 		{
 			$voter['username'] = $this->input->post('username', TRUE);
@@ -172,7 +171,7 @@ class Voters extends Controller {
 					$voter['pin'] = sha1($pin);
 				}
 			}
-			$messages = array('positve');
+			$messages[] = 'positive';
 			if ($case == 'add')
 			{
 				$voter['voted'] = 0;
