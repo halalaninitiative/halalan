@@ -5,9 +5,9 @@
 	<?php echo form_open_multipart('admin/candidates/edit/' . $candidate['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_candidate_label'); ?></h2>
-<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+<table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_last_name') . ':', 'last_name'); ?>
 		</td>
 		<td>
@@ -15,7 +15,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_first_name') . ':', 'first_name'); ?>
 		</td>
 		<td>
@@ -23,7 +23,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_alias') . ':', 'alias'); ?>
 		</td>
 		<td>
@@ -31,7 +31,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_description') . ':', 'description'); ?>
 		</td>
 		<td>
@@ -39,7 +39,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_party') . ':' , 'party_id'); ?>
 		</td>
 		<td>
@@ -57,7 +57,25 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
+			<?php echo form_label(e('admin_candidate_election') . ':' , 'election_id'); ?>
+		</td>
+		<td>
+			<!-- form_dropdown and set_select don't work together :( -->
+			<select name="election_id" id="election_id" class="fillPositions">
+				<option value="">Select Election</option>
+				<?php foreach ($elections as $election): ?>
+				<?php
+					echo '<option value="' . $election['id'] . '"';
+					echo set_select('election_id', $election['id'], $candidate['election_id'] == $election['id'] ? TRUE : FALSE);
+					echo '>' . $election['election'] . '</option>';
+				?>
+				<?php endforeach; ?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_position') . ':' , 'position_id'); ?>
 		</td>
 		<td>
@@ -75,7 +93,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_picture') . ':', 'picture'); ?>:
 		</td>
 		<td>

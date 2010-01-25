@@ -154,6 +154,28 @@ function togglePosition() {
 	return false;
 }
 
+function fillPositions() {
+	$.ajax({
+		type: "POST",
+		url: window.location.href,
+		data: $(this).serialize(),
+		success: function(msg){
+			var msg = JSON.parse(msg);
+			var option = new Option();
+			$('#position_id').children().remove();
+			option.value = '';
+			option.text = 'Select Position';
+			$('#position_id').append(option);
+			for (i = 0; i < msg.length; i++) {
+				option = new Option();
+				option.value = msg[i].position_id;
+				option.text = msg[i].position;
+				$('#position_id').append(option);
+			}
+		}
+	});
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -172,6 +194,8 @@ $(document).ready(function () {
 	$(':button.copySelectedWithAjax').click(copySelectedWithAjax);
 	$(':button.copySelected').click(copySelected);
 	$('form.selectChosen').submit(selectChosen);
+	/* used in add/edit candidates */
+	$('select.fillPositions').change(fillPositions);
 	/* Disable Result radio buttons if election is already running */
 	$(':radio.changeElectionStatus[value=1]:checked').click();
 	/* Collapse all */

@@ -21,6 +21,7 @@ CREATE TABLE candidates (
   last_name varchar(31) NOT NULL,
   alias varchar(15),
   party_id integer,
+  election_id integer NOT NULL,
   position_id integer NOT NULL,
   description text,
   picture char(40),

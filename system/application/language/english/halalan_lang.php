@@ -274,6 +274,7 @@ $lang['halalan_admin_candidate_last_name'] = 'Last Name';
 $lang['halalan_admin_candidate_alias'] = 'Alias';
 $lang['halalan_admin_candidate_description'] = 'Description';
 $lang['halalan_admin_candidate_party'] = 'Party';
+$lang['halalan_admin_candidate_election'] = 'Election';
 $lang['halalan_admin_candidate_position'] = 'Position';
 $lang['halalan_admin_candidate_picture'] = 'Picture';
 $lang['halalan_admin_add_candidate_submit'] = 'Add Candidate';
