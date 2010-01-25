@@ -56,29 +56,27 @@ function copySelectedWithAjax() {
 			data: "election_ids=" + JSON.stringify(array),
 			success: function(msg){
 				var msg = JSON.parse(msg);
-				var general_values = msg[0];
-				var general_texts = msg[1];
-				var specific_values = msg[2];
-				var specific_texts = msg[3];
+				var general = msg[0];
+				var specific = msg[1];
 				$('#notice').hide();
-				for (i = 0; i < general_texts.length; i++) {
+				for (i = 0; i < general.length; i++) {
 					if (direction === "  >>  ") {
-						var general = new Option();
-						general.value = general_values[i];
-						general.text = general_texts[i];
-						$('#general_positions').append(general);
+						var gen = new Option();
+						gen.value = general[i].value;
+						gen.text = general[i].text;
+						$('#general_positions').append(gen);
 					} else {
-						$('option[value=' + general_values[i] + ']').remove();
+						$('option[value=' + general[i].value + ']').remove();
 					}
 				}
-				for (i = 0; i < specific_texts.length; i++) {
+				for (i = 0; i < specific.length; i++) {
 					if (direction === "  >>  ") {
-						var specific = new Option();
-						specific.value = specific_values[i];
-						specific.text = specific_texts[i];
-						$('#possible').append(specific);
+						var spe = new Option();
+						spe.value = specific[i].value;
+						spe.text = specific[i].text;
+						$('#possible').append(spe);
 					} else {
-						$('option[value=' + specific_values[i] + ']').remove();
+						$('option[value=' + specific[i].value + ']').remove();
 					}
 				}
 			}

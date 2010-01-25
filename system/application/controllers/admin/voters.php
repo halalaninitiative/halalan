@@ -260,14 +260,14 @@ class Voters extends Controller {
 		}
 		$fill = $this->_fill_positions($chosen_elections, FALSE);
 		$data['general_positions'] = array();
-		for ($i = 0; $i < count($fill[1]); $i++)
+		foreach ($fill[0] as $f)
 		{
-			$data['general_positions'][$fill[0][$i]] = $fill[1][$i];
+			$data['general_positions'][$f['value']] = $f['text'];
 		}
 		$data['possible_positions'] = array();
-		for ($i = 0; $i < count($fill[3]); $i++)
+		foreach ($fill[1] as $f)
 		{
-			$data['possible_positions'][$fill[2][$i]] = $fill[3][$i];
+			$data['possible_positions'][$f['value']] = $f['text'];
 		}
 		$data['chosen_positions'] = array();
 		foreach ($data['possible_positions'] as $key=>$value)
@@ -288,28 +288,26 @@ class Voters extends Controller {
 
 	function _fill_positions($election_ids, $json)
 	{
-		$general_values = array();
-		$general_texts = array();
-		$specific_values = array();
-		$specific_texts = array();
+		$general = array();
+		$specific = array();
 		foreach ($election_ids as $election_id)
 		{
 			$positions = $this->Position->select_all_by_election_id($election_id);
 			foreach ($positions as $position)
 			{
+				$value = $election_id . '|' . $position['id'];
+				$text = $position['position'] . ' (' . $election_id . ')';
 				if ($position['unit'])
 				{
-					$specific_values[] = $election_id . '|' . $position['id'];
-					$specific_texts[] = $position['position'] . ' (' . $election_id . ')';
+					$specific[] = array('value'=>$value, 'text'=>$text);
 				}
 				else
 				{
-					$general_values[] = $election_id . '|' . $position['id'];
-					$general_texts[] = $position['position'] . ' (' . $election_id . ')';
+					$general[] = array('value'=>$value, 'text'=>$text);
 				}
 			}
 		}
-		$return = array($general_values, $general_texts, $specific_values, $specific_texts);
+		$return = array($general, $specific);
 		if ($json)
 		{
 			echo json_encode($return);
