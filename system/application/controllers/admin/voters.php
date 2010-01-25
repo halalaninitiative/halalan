@@ -137,6 +137,7 @@ class Voters extends Controller {
 		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
 		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
 		$this->form_validation->set_rules('chosen_elections', e('admin_voter_chosen_elections'), 'required');
+		$this->session->unset_userdata('voter');
 		if ($this->form_validation->run())
 		{
 			$voter['username'] = $this->input->post('username', TRUE);
@@ -543,7 +544,6 @@ class Voters extends Controller {
 			$error = FALSE;
 			if ($voter = $this->session->userdata('voter')) // edit
 			{
-				$this->session->unset_userdata('voter');
 				if ($test['id'] != $voter['id'])
 				{
 					$error = TRUE;

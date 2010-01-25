@@ -75,12 +75,13 @@ class Parties extends Controller {
 			$data['party'] = $this->Party->select($id);
 			if (!$data['party'])
 				redirect('admin/parties');
-			$this->session->set_flashdata('party', $data['party']); // used in callback rules
+			$this->session->set_userdata('party', $data['party']); // used in callback rules
 		}
 		$this->form_validation->set_rules('party', e('admin_party_party'), 'required|callback__rule_party_exists');
 		$this->form_validation->set_rules('alias', e('admin_party_alias'));
 		$this->form_validation->set_rules('description', e('admin_party_description'));
 		$this->form_validation->set_rules('logo', e('admin_party_logo'), 'callback__rule_logo');
+		$this->session->unset_userdata('party');
 		if ($this->form_validation->run())
 		{
 			$party['party'] = $this->input->post('party', TRUE);
@@ -117,7 +118,7 @@ class Parties extends Controller {
 		if ($test = $this->Party->select_by_party($party))
 		{
 			$error = FALSE;
-			if ($party = $this->session->flashdata('party')) // edit
+			if ($party = $this->session->userdata('party')) // edit
 			{
 				if ($test['id'] != $party['id'])
 				{
@@ -147,7 +148,7 @@ class Parties extends Controller {
 			$config['upload_path'] = HALALAN_UPLOAD_PATH . 'logos/';
 			$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
 			$this->upload->initialize($config);
-			if ($party = $this->session->flashdata('party')) // edit
+			if ($party = $this->session->userdata('party')) // edit
 			{
 				// delete old logo first
 				unlink($config['upload_path'] . $party['logo']);

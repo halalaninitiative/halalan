@@ -84,7 +84,7 @@ class Positions extends Controller {
 					$chosen[] = $t['election_id'];
 				}
 			}
-			$this->session->set_flashdata('position', $data['position']); // used in callback rules
+			$this->session->set_userdata('position', $data['position']); // used in callback rules
 		}
 		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists');
 		$this->form_validation->set_rules('description', e('admin_position_description'));
@@ -93,6 +93,7 @@ class Positions extends Controller {
 		$this->form_validation->set_rules('abstain', e('admin_position_abstain'));
 		$this->form_validation->set_rules('unit', e('admin_position_unit'));
 		$this->form_validation->set_rules('chosen[]', e('admin_position_chosen_elections'), 'required');
+		$this->session->unset_userdata('position');
 		if ($this->form_validation->run())
 		{
 			$position['position'] = $this->input->post('position', TRUE);
@@ -146,7 +147,7 @@ class Positions extends Controller {
 		if ($test = $this->Position->select_by_position($position))
 		{
 			$error = FALSE;
-			if ($position = $this->session->flashdata('position')) // edit
+			if ($position = $this->session->userdata('position')) // edit
 			{
 				if ($test['id'] != $position['id'])
 				{

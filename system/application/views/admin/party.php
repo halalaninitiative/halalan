@@ -5,9 +5,9 @@
 	<?php echo form_open_multipart('admin/parties/edit/' . $party['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_party_label'); ?></h2>
-<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+<table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_party_party') . ':', 'party'); ?>
 		</td>
 		<td>
@@ -15,7 +15,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_party_alias') . ':', 'alias'); ?>
 		</td>
 		<td>
@@ -23,7 +23,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_party_description') . ':', 'description'); ?>
 		</td>
 		<td>
@@ -31,7 +31,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="w30" align="right">
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_party_logo') . ':', 'logo'); ?>
 		</td>
 		<td>

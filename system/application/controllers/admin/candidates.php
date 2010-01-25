@@ -111,6 +111,7 @@ class Candidates extends Controller {
 		$this->form_validation->set_rules('election_id', e('admin_candidate_election'), 'required');
 		$this->form_validation->set_rules('position_id', e('admin_candidate_position'), 'required');
 		$this->form_validation->set_rules('picture', e('admin_candidate_picture'), 'callback__rule_picture');
+		$this->session->unset_userdata('candidate');
 		if ($this->form_validation->run())
 		{
 			$candidate['first_name'] = $this->input->post('first_name', TRUE);
@@ -133,7 +134,6 @@ class Candidates extends Controller {
 			}
 			else if ($case == 'edit')
 			{
-				$this->session->unset_userdata('candidate');
 				$this->Candidate->update($candidate, $id);
 				$this->session->set_flashdata('messages', array('positive', e('admin_edit_candidate_success')));
 				redirect('admin/candidates/edit/' . $id);
