@@ -134,13 +134,13 @@ $config['halalan']['password_pin_generation'] = "<?php echo $_POST['password_pin
 $config['halalan']['password_pin_characters'] = "<?php echo $_POST['password_pin_characters']; ?>";
 $config['halalan']['password_length'] = <?php echo $_POST['password_length']; ?>;
 $config['halalan']['pin_length'] = <?php echo $_POST['pin_length']; ?>;
-$config['halalan']['captcha'] = <?php echo ($_POST['captcha']) ? $_POST['captcha'] : 'FALSE'; ?>;
+$config['halalan']['captcha'] = <?php echo isset($_POST['captcha']) ? $_POST['captcha'] : 'FALSE'; ?>;
 $config['halalan']['captcha_length'] = <?php echo $_POST['captcha_length']; ?>;
 $config['halalan']['show_candidate_details'] = <?php echo ($_POST['details']) ? $_POST['details'] : 'FALSE'; ?>;
-$config['halalan']['random_order'] = <?php echo ($_POST['random']) ? $_POST['random'] : 'FALSE'; ?>;
-$config['halalan']['generate_image_trail'] = <?php echo ($_POST['image_trail']) ? $_POST['image_trail'] : 'FALSE'; ?>;
+$config['halalan']['random_order'] = <?php echo isset($_POST['random']) ? $_POST['random'] : 'FALSE'; ?>;
+$config['halalan']['generate_image_trail'] = <?php echo isset($_POST['image_trail']) ? $_POST['image_trail'] : 'FALSE'; ?>;
 $config['halalan']['image_trail_path'] = "<?php echo $_POST['image_trail_path']; ?>";
-$config['halalan']['realtime_results'] = <?php echo ($_POST['realtime_results']) ? $_POST['realtime_results'] : 'FALSE'; ?>;
+$config['halalan']['realtime_results'] = <?php echo isset($_POST['realtime_results']) ? $_POST['realtime_results'] : 'FALSE'; ?>;
 
 $config['base_url'] = "<?php echo $_POST['url']; ?>";
 $config['language'] = "<?php echo $_POST['language']; ?>";
