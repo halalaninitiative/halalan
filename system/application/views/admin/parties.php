@@ -8,11 +8,11 @@
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
 	<tr>
-		<th scope="col" class="w5">#</th>
+		<th scope="col" class="w5"><?php echo e('common_id'); ?></th>
 		<th scope="col"><?php echo e('admin_parties_party'); ?></th>
 		<th scope="col" class="w15"><?php echo e('admin_parties_alias'); ?></th>
 		<th scope="col" class="w45"><?php echo e('admin_parties_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_action'); ?></th>
+		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
 	<?php if (empty($parties)): ?>
 	<tr>
@@ -23,7 +23,7 @@
 	<?php foreach ($parties as $party): ?>
 	<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even'  ?>">
 		<td align="center">
-			<?php echo ($i+1); ?>
+			<?php echo $party['id']; ?>
 		</td>
 		<td>
 			<?php echo anchor('admin/parties/edit/' . $party['id'], $party['party']); ?>
