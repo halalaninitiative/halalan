@@ -4,7 +4,12 @@
 	<h2><?php echo e('admin_candidates_label'); ?></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?></p>
+	<p class="align_right">
+		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
+		| View:
+		<?php echo form_dropdown('election_id', array(''=>'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('position_id', array(''=>'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
+	</p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -12,7 +17,7 @@
 		<th scope="col" class="w5">#</th>
 		<th scope="col"><?php echo e('admin_candidates_candidate'); ?></th>
 		<th scope="col" class="w45"><?php echo e('admin_candidates_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_action'); ?></th>
+		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
 	<tr>
 		<td colspan="4" align="center"><em><?php echo e('admin_candidates_no_candidates'); ?></em></td>
@@ -27,7 +32,12 @@
 	<h2><?php echo img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition pointer', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?></p>
+	<p class="align_right">
+		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
+		| View:
+		<?php echo form_dropdown('election_id', array(''=>'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('position_id', array(''=>'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
+	</p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -35,7 +45,7 @@
 		<th scope="col" class="w5">#</th>
 		<th scope="col"><?php echo e('admin_candidates_candidate'); ?></th>
 		<th scope="col" class="w45"><?php echo e('admin_candidates_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_action'); ?></th>
+		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
 	<?php if (empty($position['candidates'])): ?>
 	<tr>

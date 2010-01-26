@@ -174,6 +174,24 @@ function fillPositions() {
 	});
 }
 
+function changeElections() {
+	var url = SITE_URL;
+	if (url.length - 1 != url.lastIndexOf('/')) {
+		url += '/';
+	}
+	url += 'admin/candidates/index/' + $(this).val();
+	window.location.href = url;
+}
+
+function changePositions() {
+	var url = SITE_URL;
+	if (url.length - 1 != url.lastIndexOf('/')) {
+		url += '/';
+	}
+	url += 'admin/candidates/index/' + $('select.changeElections').val() + '/' + $(this).val();
+	window.location.href = url;
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -192,6 +210,8 @@ $(document).ready(function () {
 	$(':button.copySelectedWithAjax').click(copySelectedWithAjax);
 	$(':button.copySelected').click(copySelected);
 	$('form.selectChosen').submit(selectChosen);
+	$('select.changeElections').change(changeElections);
+	$('select.changePositions').change(changePositions);
 	/* used in add/edit candidates */
 	$('select.fillPositions').change(fillPositions);
 	/* Disable Result radio buttons if election is already running */

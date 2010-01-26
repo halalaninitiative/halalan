@@ -27,13 +27,42 @@ class Candidates extends Controller {
 		}
 	}
 	
-	function index()
+	function index($election_id = 0, $position_id = 0)
 	{
-		$positions = $this->Position->select_all();
+		$elections = $this->Election->select_all_with_positions();
+		$tmp = array();
+		foreach ($elections as $election)
+		{
+			$tmp[$election['id']] = $election['election'];
+		}
+		$elections = $tmp;
+		$pos = $this->Position->select_all_by_election_id($election_id);
+		$tmp = array();
+		foreach ($pos as $p)
+		{
+			$tmp[$p['id']] = $p['position'];
+		}
+		$pos = $tmp;
+		$positions = $this->Position->select_all_by_election_id($election_id);
 		foreach ($positions as $key=>$value)
 		{
-			$positions[$key]['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
+			if ($position_id > 0 && $value['id'] == $position_id)
+			{
+				$tmp = $positions[$key];
+				$tmp['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
+				$positions = array(); // clear other data since only one position will be displayed
+				$positions[] = $tmp; 
+				break;
+			}
+			else
+			{
+				$positions[$key]['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
+			}
 		}
+		$data['election_id'] = $election_id;
+		$data['position_id'] = $position_id;
+		$data['elections'] = $elections;
+		$data['pos'] = $pos;
 		$data['positions'] = $positions;
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_candidates_title');
