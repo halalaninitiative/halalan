@@ -184,6 +184,7 @@ function changeElections() {
 	// example expected values: candidates, positions, etc
 	url += window.location.href.substring(url.length).split('/')[0];
 	url += '/index/' + $(this).val();
+	$.cookie('selected_election', $(this).val(), {path: '/'});
 	window.location.href = url;
 }
 

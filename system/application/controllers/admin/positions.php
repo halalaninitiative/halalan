@@ -27,9 +27,23 @@ class Positions extends Controller {
 		}
 	}
 	
-	function index()
+	function index($election_id = 0)
 	{
-		$data['positions'] = $this->Position->select_all();
+		$this->load->helper('cookie');
+		if (get_cookie('selected_election'))
+		{
+			$election_id = get_cookie('selected_election');
+		}
+		$elections = $this->Election->select_all_with_positions();
+		$tmp = array();
+		foreach ($elections as $election)
+		{
+			$tmp[$election['id']] = $election['election'];
+		}
+		$elections = $tmp;
+		$data['election_id'] = $election_id;
+		$data['elections'] = $elections;
+		$data['positions'] = $this->Position->select_all_by_election_id($election_id);
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_positions_title');
 		$admin['body'] = $this->load->view('admin/positions', $data, TRUE);
