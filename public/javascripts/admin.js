@@ -179,7 +179,11 @@ function changeElections() {
 	if (url.length - 1 != url.lastIndexOf('/')) {
 		url += '/';
 	}
-	url += 'admin/candidates/index/' + $(this).val();
+	url += 'admin/';
+	// get string after SITE_URL + admin and before the next /
+	// example expected values: candidates, positions, etc
+	url += window.location.href.substring(url.length).split('/')[0];
+	url += '/index/' + $(this).val();
 	window.location.href = url;
 }
 
