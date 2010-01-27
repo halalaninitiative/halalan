@@ -46,17 +46,14 @@ class Candidates extends Controller {
 		$positions = $this->Position->select_all_by_election_id($election_id);
 		foreach ($positions as $key=>$value)
 		{
+			$positions[$key]['candidates'] = $this->Candidate->select_all_by_election_id_and_position_id($election_id, $value['id']);
 			if ($position_id > 0 && $value['id'] == $position_id)
 			{
 				$tmp = $positions[$key];
-				$tmp['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
-				$positions = array(); // clear other data since only one position will be displayed
+				// clear data since only one position will be displayed
+				$positions = array();
 				$positions[] = $tmp; 
 				break;
-			}
-			else
-			{
-				$positions[$key]['candidates'] = $this->Candidate->select_all_by_position_id($value['id']);
 			}
 		}
 		$data['election_id'] = $election_id;
