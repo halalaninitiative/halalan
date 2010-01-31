@@ -123,6 +123,7 @@ class Voters extends Controller {
 					$chosen_elections[] = $t['election_id'];
 					$chosen_positions[] = $t['election_id'] . '|' . $t['position_id'];
 				}
+				$chosen_elections = array_unique($chosen_elections);
 			}
 			$this->session->set_userdata('voter', $data['voter']); // used in callback rules
 		}
