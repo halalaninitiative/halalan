@@ -42,9 +42,9 @@ class Boter extends Model {
 		{
 			$extra = $voter['extra'];
 			unset($voter['extra']);
+			$this->db->where('voter_id', $id);
+			$this->db->delete('elections_positions_voters');
 		}
-		$this->db->where('voter_id', $id);
-		$this->db->delete('elections_positions_voters');
 		$this->db->update('voters', $voter, compact('id'));
 		if (!empty($extra))
 		{
