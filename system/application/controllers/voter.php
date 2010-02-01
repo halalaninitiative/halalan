@@ -48,59 +48,40 @@ class Voter extends Controller {
 
 	function vote()
 	{
-		$no_random_order = false;
-		if ($this->settings['random_order'])
+		$rules = array('position_count'=>0, 'candidate_count'=>array()); // used in checking in do_vote
+		$array = array();
+		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		foreach ($chosen as $c)
 		{
-			$this->load->model('Random_Order');
-			$random_order = $this->Random_Order->select_by_voter_id($this->voter['id']);
-			if (empty($random_order))
-			{
-				$no_random_order = true;
-			}
-			else
-			{
-				$positions = unserialize($random_order['random_order']);
-			}
+			$array[$c['election_id']][] = $c['position_id'];
 		}
-		if (!$this->settings['random_order'] || $no_random_order)
+		$elections = $this->Election->select_all_by_ids(array_keys($array));
+		foreach ($elections as $key1=>$election)
 		{
-			$this->load->model('Candidate');
-			$this->load->model('Party');
-			$this->load->model('Position');
-			$positions = $this->Position->select_all_with_units($this->voter['id']);
-			foreach ($positions as $key=>$position)
+			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
+			foreach ($positions as $key2=>$position)
 			{
-				$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-				foreach ($candidates as $candidate_id=>$candidate)
+				$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
+				foreach ($candidates as $key3=>$candidate)
 				{
-					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+					$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
 				}
-				if ($no_random_order)
+				$positions[$key2]['candidates'] = $candidates;
+				if (!empty($candidates))
 				{
-					shuffle($candidates);
+					$rules['position_count']++;
+					$rules['candidate_max'][$election['id'] . '|' . $position['id']] = $position['maximum'];
 				}
-				$positions[$key]['candidates'] = $candidates;
 			}
-			if ($no_random_order)
-			{
-				$random_order['voter_id'] = $this->voter['id'];
-				$random_order['random_order'] = serialize($positions);
-				$this->Random_Order->insert($random_order);
-			}
+			$elections[$key1]['positions'] = $positions;
 		}
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		if (count($positions) == 0)
-		{
-			$data['none'] = e('voter_vote_no_candidates');
-		}
+		$this->session->set_userdata('rules', $rules);
+		$data['elections'] = $elections;
 		if ($votes = $this->session->userdata('votes'))
 		{
 			$data['votes'] = $votes;
 		}
 		$data['settings'] = $this->settings;
-		$data['positions'] = $positions;
 		$voter['username'] = $this->voter['username'];
 		$voter['title'] = e('voter_vote_title');
 		$voter['body'] = $this->load->view('voter/vote', $data, TRUE);
@@ -118,35 +99,35 @@ class Voter extends Controller {
 		}
 		else
 		{
+			$rules = $this->session->userdata('rules');
 			// check if all positions have selected candidates
-			$this->load->model('Position');
-			$positions = $this->Position->select_all_with_units($this->voter['id']);
-			$in_use = 0;
-			foreach ($positions as $position)
+			$count = 0;
+			foreach ($votes as $election_id=>$positions)
 			{
-				if ($this->Position->in_use($position['id']))
-					$in_use++;
+				$count += count(array_values($positions));
 			}
-			if ($in_use != count($votes))
+			if ($rules['position_count'] != $count)
 			{
 				$error[] = e('voter_vote_not_all_selected');
 			}
 			else
 			{
-				foreach ($votes as $position_id => $candidate_ids)
+				foreach ($votes as $election_id=>$positions)
 				{
 					// check if the number of selected candidates does not exceed the maximum allowed for each position
-					$position = $this->Position->select($position_id);
-					if ($position['maximum'] < count($candidate_ids))
+					foreach ($positions as $position_id=>$candidate_ids)
 					{
-						$error[] = e('voter_vote_maximum');
-					}
-					else
-					{
-						// check if abstain is selected with other candidates
-						if (in_array('', $candidate_ids) && count($candidate_ids) > 1)
+						if ($rules['candidate_max'][$election_id . '|' . $position_id] < count($candidate_ids))
 						{
-							$error[] = e('voter_vote_abstain_and_others');
+							$error[] = e('voter_vote_maximum');
+						}
+						else
+						{
+							// check if abstain is selected with other candidates
+							if (in_array('abstain', $candidate_ids) && count($candidate_ids) > 1)
+							{
+								$error[] = e('voter_vote_abstain_and_others');
+							}
 						}
 					}
 				}
@@ -160,7 +141,7 @@ class Voter extends Controller {
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $error);
+			$this->session->set_flashdata('messages', array_merge(array('negative'), $error));
 			redirect('voter/vote');
 		}
 	}
@@ -173,31 +154,28 @@ class Voter extends Controller {
 			redirect('voter/vote');
 		}
 		$data['votes'] = $votes;
-		if ($this->settings['random_order'])
+		$array = array();
+		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		foreach ($chosen as $c)
 		{
-			$this->load->model('Random_Order');
-			$random_order = $this->Random_Order->select_by_voter_id($this->voter['id']);
-			$positions = unserialize($random_order['random_order']);
+			$array[$c['election_id']][] = $c['position_id'];
 		}
-		else
+		$elections = $this->Election->select_all_by_ids(array_keys($array));
+		foreach ($elections as $key1=>$election)
 		{
-			$this->load->model('Candidate');
-			$this->load->model('Party');
-			$this->load->model('Position');
-			$positions = $this->Position->select_all_with_units($this->voter['id']);
-			foreach ($positions as $key=>$position)
+			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
+			foreach ($positions as $key2=>$position)
 			{
-				$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-				foreach ($candidates as $candidate_id=>$candidate)
+				$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
+				foreach ($candidates as $key3=>$candidate)
 				{
-					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+					$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
 				}
-				$positions[$key]['candidates'] = $candidates;
+				$positions[$key2]['candidates'] = $candidates;
 			}
+			$elections[$key1]['positions'] = $positions;
 		}
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
+		$data['elections'] = $elections;
 		if ($this->settings['captcha'])
 		{
 			$this->load->plugin('captcha');
@@ -246,29 +224,29 @@ class Voter extends Controller {
 		}
 		if (empty($error))
 		{
-			$this->load->model('Abstain');
-			$this->load->model('Boter');
-			$this->load->model('Vote');
 			$voter_id = $this->voter['id'];
 			$timestamp = date("Y-m-d H:i:s");
 			$votes = $this->session->userdata('votes');
-			foreach ($votes as $position_id=>$candidate_ids)
+			foreach ($votes as $election_id=>$positions)
 			{
-				$abstain = FALSE;
-				foreach ($candidate_ids as $candidate_id)
+				foreach ($positions as $position_id=>$candidate_ids)
 				{
-					if (empty($candidate_id))
+					$abstain = FALSE;
+					foreach ($candidate_ids as $candidate_id)
 					{
-						$abstain = TRUE;
+						if ($candidate_id == 'abstain')
+						{
+							$abstain = TRUE;
+						}
+						else
+						{
+							$this->Vote->insert(compact('candidate_id', 'voter_id', 'timestamp'));
+						}
 					}
-					else
+					if ($abstain)
 					{
-						$this->Vote->insert(compact('candidate_id', 'voter_id', 'timestamp'));
+						$this->Abstain->insert(compact('election_id', 'position_id', 'voter_id', 'timestamp'));
 					}
-				}
-				if ($abstain)
-				{
-					$this->Abstain->insert(compact('position_id', 'voter_id', 'timestamp'));
 				}
 			}
 			$this->Boter->update(array('voted'=>1), $voter_id);
@@ -281,14 +259,13 @@ class Voter extends Controller {
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $error);
+			$this->session->set_flashdata('messages', array_merge(array('negative'), $error));
 			redirect('voter/verify');
 		}
 	}
 
 	function logout()
 	{
-		$this->load->model('Boter');
 		$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $this->voter['id']);
 		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
 		$this->session->sess_destroy();

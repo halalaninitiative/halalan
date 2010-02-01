@@ -1,8 +1,9 @@
 CREATE TABLE abstains (
+  election_id integer NOT NULL,
   position_id integer NOT NULL,
   voter_id integer NOT NULL,
   timestamp datetime NOT NULL,
-  PRIMARY KEY  (position_id,voter_id)
+  PRIMARY KEY  (election_id,position_id,voter_id)
 );
 
 CREATE TABLE admins (

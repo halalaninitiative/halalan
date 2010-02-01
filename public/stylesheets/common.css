@@ -305,6 +305,16 @@ div.reminder {
     text-align:center;
   }
 
+/* election notices */
+div.election {
+    border: 1px solid #AAFFAA;
+    background-color: #E5FFE5;
+    padding: 5px;
+    margin: 0px 0px 15px;
+    font-size: small;
+    text-align:center;
+  }
+
 /* Widths */
 
 .w5 {

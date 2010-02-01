@@ -38,6 +38,14 @@ class Election extends Model {
 		return $query->result_array();
 	}
 
+	function select_all_by_ids($ids)
+	{
+		$this->db->from('elections');
+		$this->db->where_in('id', $ids);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function select_all_by_level()
 	{
 		$this->db->from('elections');

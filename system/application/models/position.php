@@ -76,6 +76,15 @@ class Position extends Model {
 		return $query->result_array();
 	}
 
+	function select_all_by_ids($ids)
+	{
+		$this->db->from('positions');
+		$this->db->where_in('id', $ids);
+		$this->db->order_by('ordinality ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function select_all_by_election_id($election_id)
 	{
 		$this->db->from('positions');
