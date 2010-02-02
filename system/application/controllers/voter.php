@@ -43,7 +43,7 @@ class Voter extends Controller {
 
 	function index()
 	{
-		redirect('voter/vote');
+		echo 'wala lang';
 	}
 
 	function vote()
@@ -56,6 +56,11 @@ class Voter extends Controller {
 			$array[$c['election_id']][] = $c['position_id'];
 		}
 		$elections = $this->Election->select_all_by_ids(array_keys($array));
+		$elections = $this->_filter($elections);
+		if (empty($elections))
+		{
+			redirect('voter/index');
+		}
 		foreach ($elections as $key1=>$election)
 		{
 			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
@@ -161,6 +166,11 @@ class Voter extends Controller {
 			$array[$c['election_id']][] = $c['position_id'];
 		}
 		$elections = $this->Election->select_all_by_ids(array_keys($array));
+		$elections = $this->_filter($elections);
+		if (empty($elections))
+		{
+			redirect('voter/index');
+		}
 		foreach ($elections as $key1=>$election)
 		{
 			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
@@ -472,21 +482,55 @@ class Voter extends Controller {
 		return TRUE;
 	}
 
-	function _get_messages()
+	// get only running elections
+	function _filter($elections)
 	{
-		$messages = '';
-		$message_type = '';
-		if($error = $this->session->flashdata('error'))
+		$parents = array();
+		$children = array();
+		$running = array();
+		foreach ($elections as $election)
 		{
-			$messages = $error;
-			$message_type = 'negative';
+			if ($election['parent_id'] == 0)
+			{
+				$parents[] = $election;
+			}
+			else
+			{
+				$children[] = $election;
+			}
 		}
-		else if($success = $this->session->flashdata('success'))
+		foreach ($parents as $parent)
 		{
-			$messages = $success;
-			$message_type = 'positive';
+			if ($parent['status'])
+			{
+				$running[$parent['id']]['parent'] = $parent;
+			}
 		}
-		return array('messages'=>$messages, 'message_type'=>$message_type);
+		foreach ($children as $child)
+		{
+			if ($child['status'])
+			{
+				$running[$child['parent_id']][] = $child;
+			}
+			else
+			{
+				// don't show the parent election if the child election is not running
+				unset($running[$child['parent_id']]);
+			}
+		}
+		// flatten the array
+		// the format of the array is like that so we can put the children elections after their parents
+		$tmp = array();
+		foreach ($running as $r)
+		{
+			if (isset($r['parent']))
+			{
+				$tmp[] = $r['parent'];
+				unset($r['parent']);
+			}
+			$tmp = array_merge($tmp, $r);
+		}
+		return $tmp;
 	}
 
 }
