@@ -41,34 +41,6 @@ function e($line)
 }
 
 /**
- * Return formatted messages
- *
- * @access	public
- * @param	string
- * @param	string
- * @return	string
- */
-function format_messages($messages, $type)
-{
-	if (empty($messages))
-	{
-		$return = '';
-	}
-	else
-	{
-		$return = '<div class="' . $type . '">';
-		$return .= '<ul>';
-		foreach ($messages as $message)
-		{
-			$return .= '<li>' . $message . '</li>';
-		}
-		$return .= '</ul>';
-		$return .= '</div>';
-	}
-	return $return;
-}
-
-/**
  * Return formatted validation errors or custom messages
  *
  * @access	public

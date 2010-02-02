@@ -1,7 +1,7 @@
-<?php echo format_messages($messages, $message_type); ?>
+<?php echo display_messages('', $this->session->flashdata('messages')); ?>
 <?php echo form_open('gate/admin_login', array('class'=>'hashPassword')); ?>
 <div class="content_center">
-	<h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_admin_login_label'); ?></h2>
+	<h2><?php echo 'HALALAN ' . e('gate_admin_login_label'); ?></h2>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<tr>
 			<td align="right"><label for="username"><?php echo e('gate_admin_username'); ?>:</label></td>

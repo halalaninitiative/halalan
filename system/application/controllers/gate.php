@@ -26,11 +26,6 @@ class Gate extends Controller {
 
 	function voter()
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		$this->load->model('Option');
-		$data['option'] = $this->Option->select(1);
 		$data['settings'] = $this->config->item('halalan');
 		$gate['login'] = 'voter';
 		$gate['title'] = e('gate_voter_title');
@@ -42,32 +37,23 @@ class Gate extends Controller {
 	{
 		if (!$this->input->post('username') || !$this->input->post('password'))
 		{
-			$error[] = e('gate_common_login_failure');
-			$this->session->set_flashdata('error', $error);
+			$messages = array('negative', e('gate_common_login_failure'));
+			$this->session->set_flashdata('messages', $messages);
 			redirect('gate/voter');
 		}
-		$this->load->model('Boter');
 		$username = $this->input->post('username');
-		if (strlen($this->input->post('password')) == 40)
-			$password = $this->input->post('password');
-		else
-			$password = sha1($this->input->post('password'));
+		$password = $this->input->post('password');
+		if (strlen($password) != 40)
+		{
+			$password = sha1($password);
+		}
 		if ($voter = $this->Boter->authenticate($username, $password))
 		{
 			if (strtotime($voter['login']) > strtotime($voter['logout']))
 			{
-				$error[] = e('gate_voter_currently_logged_in');
-				$this->session->set_flashdata('error', $error);
+				$messages = array('negative', e('gate_voter_currently_logged_in'));
+				$this->session->set_flashdata('messages', $messages);
 				redirect('gate/voter');
-			}
-
-			if ($voter['voted'] == 1)
-			{
-				//$error[] = e('gate_voter_already_voted');
-				//$this->session->set_flashdata('error', $error);
-				//redirect('gate/voter');
-				$this->session->set_userdata('voter_id', $voter['id']);
-				redirect('voter/votes');
 			}
 			else
 			{
@@ -77,25 +63,20 @@ class Gate extends Controller {
 				$this->session->set_userdata('voter', $voter);
 				redirect('voter/vote');
 			}
-			
 		}
 		else
 		{
-			$error[] = e('gate_common_login_failure');
-			$this->session->set_flashdata('error', $error);
+			$messages = array('negative', e('gate_common_login_failure'));
+			$this->session->set_flashdata('messages', $messages);
 			redirect('gate/voter');
 		}
 	}
 	
 	function admin()
 	{
-		$messages = $this->_get_messages();
-		$data['messages'] = $messages['messages'];
-		$data['message_type'] = $messages['message_type'];
-		$data['settings'] = $this->config->item('halalan');
 		$gate['login'] = 'admin';
 		$gate['title'] = e('gate_admin_title');
-		$gate['body'] = $this->load->view('gate/admin', $data, TRUE);
+		$gate['body'] = $this->load->view('gate/admin', '', TRUE);
 		$this->load->view('gate', $gate);
 	}
 
@@ -103,16 +84,16 @@ class Gate extends Controller {
 	{
 		if (!$this->input->post('username') || !$this->input->post('password'))
 		{
-			$error[] = e('gate_common_login_failure');
-			$this->session->set_flashdata('error', $error);
+			$messages = array('negative', e('gate_common_login_failure'));
+			$this->session->set_flashdata('messages', $messages);
 			redirect('gate/admin');
 		}
-		$this->load->model('Abmin');
 		$username = $this->input->post('username');
-		if (strlen($this->input->post('password')) == 40)
-			$password = $this->input->post('password');
-		else
-			$password = sha1($this->input->post('password'));
+		$password = $this->input->post('password');
+		if (strlen($password) != 40)
+		{
+			$password = sha1($password);
+		}
 		if ($admin = $this->Abmin->authenticate($username, $password))
 		{
 			// don't save password to session
@@ -122,8 +103,8 @@ class Gate extends Controller {
 		}
 		else
 		{
-			$error[] = e('gate_common_login_failure');
-			$this->session->set_flashdata('error', $error);
+			$messages = array('negative', e('gate_common_login_failure'));
+			$this->session->set_flashdata('messages', $messages);
 			redirect('gate/admin');
 		}
 	}
@@ -137,7 +118,6 @@ class Gate extends Controller {
 		else if($voter = $this->session->userdata('voter'))
 		{
 			// voter has not yet voted
-			$this->load->model('Boter');
 			$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $voter['id']);
 			$gate = 'voter';
 		}
@@ -225,23 +205,6 @@ class Gate extends Controller {
 			$this->session->set_flashdata('error', array(e('gate_result_unavailable')));
 			redirect('gate/voter');
 		}
-	}
-
-	function _get_messages()
-	{
-		$messages = '';
-		$message_type = '';
-		if($error = $this->session->flashdata('error'))
-		{
-			$messages = $error;
-			$message_type = 'negative';
-		}
-		else if($success = $this->session->flashdata('success'))
-		{
-			$messages = $success;
-			$message_type = 'positive';
-		}
-		return array('messages'=>$messages, 'message_type'=>$message_type);
 	}
 
 }
