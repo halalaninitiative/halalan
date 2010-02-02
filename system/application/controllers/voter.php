@@ -258,12 +258,12 @@ class Voter extends Controller {
 						$this->Abstain->insert(compact('election_id', 'position_id', 'voter_id', 'timestamp'));
 					}
 				}
+				$this->Voted->insert(compact('election_id', 'voter_id', 'timestamp'));
 			}
-			$this->Boter->update(array('voted'=>1), $voter_id);
 			$this->session->unset_userdata('votes');
 			if ($this->settings['generate_image_trail'])
 			{
-				$this->_generate_image_trail();
+				//$this->_generate_image_trail();
 			}
 			redirect('voter/logout');
 		}
@@ -518,17 +518,32 @@ class Voter extends Controller {
 				unset($running[$child['parent_id']]);
 			}
 		}
-		// flatten the array
-		// the format of the array is like that so we can put the children elections after their parents
+		// flatten the array and remove elections that have been voted in by the voter
+		// the format of $running is like that so we can put the children elections after their parents
+		$voted = $this->Voted->select_all_by_voter_id($this->voter['id']);
+		$election_ids = array();
+		foreach ($voted as $v)
+		{
+			$election_ids[] = $v['election_id'];
+		}
 		$tmp = array();
 		foreach ($running as $r)
 		{
 			if (isset($r['parent']))
 			{
-				$tmp[] = $r['parent'];
+				if (!in_array($r['parent']['id'], $election_ids))
+				{
+					$tmp[] = $r['parent'];
+				}
 				unset($r['parent']);
 			}
-			$tmp = array_merge($tmp, $r);
+			foreach ($r as $value)
+			{
+				if (!in_array($value['id'], $election_ids))
+				{
+					$tmp[] = $value;
+				}
+			}
 		}
 		return $tmp;
 	}

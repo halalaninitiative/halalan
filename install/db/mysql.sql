@@ -71,6 +71,13 @@ CREATE TABLE positions (
   PRIMARY KEY  (id)
 );
 
+CREATE TABLE voted (
+  election_id integer NOT NULL,
+  voter_id integer NOT NULL,
+  timestamp datetime NOT NULL,
+  PRIMARY KEY  (election_id,voter_id)
+);
+
 CREATE TABLE voters (
   id integer NOT NULL auto_increment,
   username varchar(63) NOT NULL,

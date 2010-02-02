@@ -45,8 +45,8 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "root";
-$db['default']['password'] = "asdfgh";
-$db['default']['database'] = "kappa";
+$db['default']['password'] = "";
+$db['default']['database'] = "botohan";
 $db['default']['dbdriver'] = "mysql"; // mysql or postgre
 $db['default']['port'] = "5432"; // used only in postgre
 
