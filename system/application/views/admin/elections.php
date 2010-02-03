@@ -12,7 +12,7 @@
 		<th scope="col"><?php echo e('admin_elections_election'); ?></th>
 		<th scope="col" class="w20"><?php echo e('admin_elections_status'); ?></th>
 		<th scope="col" class="w20"><?php echo e('admin_elections_results'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_action'); ?></th>
+		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
 	<?php if (empty($elections)): ?>
 	<tr>
