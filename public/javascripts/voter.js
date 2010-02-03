@@ -14,7 +14,8 @@ function checkNumber() {
 		return;
 	}
 
-	var limit = $(this).parents('table').siblings('h2').text().split('(')[1].replace(')', '');
+	var l = $(this).parents('table').siblings('h2').text().split('(');
+	var limit = l[l.length-1].replace(')', '');
 	var inputs = $(this).parents('tr').siblings().find(':checked');
 
 	if (inputs.length >= limit) {
@@ -46,7 +47,6 @@ $(document).ready(function () {
 	menu_map['vote'] = "VOTE";
 	menu_map['verify'] = "VERIFY";
 	menu_map['logout'] = "LOG OUT";
-	menu_map['votes'] = "VOTES";
 
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);
