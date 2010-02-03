@@ -8,42 +8,38 @@ class Voter extends Controller {
 	function Voter()
 	{
 		parent::Controller();
-		if (in_array($this->uri->segment(2), array('votes', 'print_votes')))
+		$this->voter = $this->session->userdata('voter');
+		if (!$this->voter)
 		{
-			if (!$this->session->userdata('voter_id'))
-			{
-				$error[] = e('common_unauthorized');
-				$this->session->set_flashdata('error', $error);
-				redirect('gate/voter');
-			}
-		}
-		else
-		{
-			$this->voter = $this->session->userdata('voter');
-			if (!$this->voter)
-			{
-				$error[] = e('common_unauthorized');
-				$this->session->set_flashdata('error', $error);
-				redirect('gate/voter');
-			}
+			$error[] = e('common_unauthorized');
+			$this->session->set_flashdata('error', $error);
+			redirect('gate/voter');
 		}
 		$this->settings = $this->config->item('halalan');
-		$this->load->model('Option');
-		$option = $this->Option->select(1);
-		if (!$option['status'])
-		{
-			//$error[] = e('voter_common_not_running_one');
-			//$error[] = e('voter_common_not_running_two');
-			//$this->session->set_flashdata('error', $error);
-			//redirect('gate/voter');
-			//force logout
-			redirect('gate/logout');
-		}
 	}
 
 	function index()
 	{
-		echo 'wala lang';
+		$election_ids = array();
+		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		foreach ($chosen as $c)
+		{
+			$election_ids[] = $c['election_id'];
+		}
+		$voted = array();
+		$tmp = $this->Voted->select_all_by_voter_id($this->voter['id']);
+		foreach ($tmp as $t)
+		{
+			$voted[] = $t['election_id'];
+		}
+		$data['election_ids'] = $election_ids;
+		$data['elections'] = $this->Election->select_all_by_level();
+		$data['voted'] = $voted;
+		$voter['index'] = TRUE; // flag to determine what to show in the main voter template
+		$voter['username'] = $this->voter['username'];
+		$voter['title'] = e('voter_index_title');
+		$voter['body'] = $this->load->view('voter/index', $data, TRUE);
+		$this->load->view('voter', $voter);
 	}
 
 	function vote()
@@ -195,7 +191,6 @@ class Voter extends Controller {
 			$this->session->set_userdata('word', $captcha['word']);
 		}
 		$data['settings'] = $this->settings;
-		$data['positions'] = $positions;
 		$voter['username'] = $this->voter['username'];
 		$voter['title'] = e('voter_confirm_vote_title');
 		$voter['body'] = $this->load->view('voter/confirm_vote', $data, TRUE);
@@ -285,55 +280,79 @@ class Voter extends Controller {
 		$this->load->view('voter', $voter);
 	}
 
-	function votes()
+	function view_votes($election_id = 0)
 	{
-		$voter_id = $this->session->userdata('voter_id');
-		$this->load->model('Abstain');
-		$this->load->model('Boter');
-		$this->load->model('Candidate');
-		$this->load->model('Party');
-		$this->load->model('Position');
-		$this->load->model('Vote');
-		$votes = $this->Vote->select_all_by_voter_id($voter_id);
+		// get all elections and positions assigned to the voter
+		$array = array();
+		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		foreach ($chosen as $c)
+		{
+			$array[$c['election_id']][] = $c['position_id'];
+		}
+		// check if election id is assigned to the voter
+		if (!array_key_exists($election_id, $array))
+		{
+			redirect('voter/index');
+		}
+		// get all elections voted in by the voter
+		$voted = array();
+		$tmp = $this->Voted->select_all_by_voter_id($this->voter['id']);
+		foreach ($tmp as $t)
+		{
+			$voted[] = $t['election_id'];
+		}
+		// check if election id has been voted in
+		if (!in_array($election_id, $voted))
+		{
+			redirect('voter/index');
+		}
+		$election = $this->Election->select($election_id);
+		// check if election id exists
+		if (empty($election))
+		{
+			redirect('voter/index');
+		}
+		// get all voted candidate ids
+		$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
 		$candidate_ids = array();
 		foreach ($votes as $vote)
 		{
 			$candidate_ids[] = $vote['candidate_id'];
 		}
-		$positions = $this->Position->select_all_with_units($voter_id);
-		foreach ($positions as $key=>$position)
+		// get the positions assigned to the voter for the selected election
+		$positions = $this->Position->select_all_by_ids($array[$election['id']]);
+		foreach ($positions as $key2=>$position)
 		{
 			$count = 0;
-			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-			foreach ($candidates as $k=>$candidate)
+			$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
+			foreach ($candidates as $key3=>$candidate)
 			{
 				if (in_array($candidate['id'], $candidate_ids))
 				{
-					$candidates[$k]['voted'] = TRUE;
+					$candidates[$key3]['voted'] = TRUE;
 				}
 				else
 				{
-					$candidates[$k]['voted'] = FALSE;
+					$candidates[$key3]['voted'] = FALSE;
 					$count++;
 				}
-				$candidates[$k]['party'] = $this->Party->select($candidate['party_id']);
+				$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
 			}
 			if ($count == count($candidates))
 			{
-				$positions[$key]['abstains'] = TRUE;
+				$positions[$key2]['abstains'] = TRUE;
 			}
 			else
 			{
-				$positions[$key]['abstains'] = FALSE;
+				$positions[$key2]['abstains'] = FALSE;
 			}
-			$positions[$key]['candidates'] = $candidates;
+			$positions[$key2]['candidates'] = $candidates;
 		}
-		$boter = $this->Boter->select($voter_id);
+		$election['positions'] = $positions;
+		$data['election'] = $election;
 		$data['settings'] = $this->settings;
-		$data['positions'] = $positions;
-		// used for marking that this action is being used
-		$voter['voter_id'] = $voter_id;
-		$voter['username'] = $boter['username'];
+		$voter['view_votes'] = TRUE; // flag to determine what to show in the main voter template
+		$voter['username'] = $this->voter['username'];
 		$voter['title'] = e('voter_votes_title');
 		$voter['body'] = $this->load->view('voter/votes', $data, TRUE);
 		$this->load->view('voter', $voter);

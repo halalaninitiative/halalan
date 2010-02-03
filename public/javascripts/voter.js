@@ -44,9 +44,10 @@ function confirmLogout() {
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
-	menu_map['vote'] = "VOTE";
 	menu_map['verify'] = "VERIFY";
 	menu_map['logout'] = "LOG OUT";
+	/* always last since this can match with anything since the url has a 'vote' string */
+	menu_map['vote'] = "VOTE";
 
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);

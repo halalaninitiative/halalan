@@ -212,6 +212,42 @@ img {
   }
 
 
+#content .table {
+    margin-bottom: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+  }
+
+
+#content .table th {
+    background: url('../images/tableheader_bg.png') no-repeat center top;
+    padding: 5px 10px;
+    color: rgb(70,122,167);
+    border: 1px solid #CBD6DE;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+
+#content .table td {
+    padding: 5px 10px;
+    color: #666666;
+    border: 1px solid #CBD6DE;
+  }
+
+
+#content .table .odd {
+    background: #ffffff;
+  }
+
+
+#content .table .even {
+    background: #eeeeee;
+  }
+
+
 #content .positive {
     background: #CAEA99;
     border: 1px solid #70A522;
@@ -315,10 +351,26 @@ div.election {
     text-align:center;
   }
 
+
 /* Widths */
 
 .w5 {
     width: 5%;
+  }
+
+
+.w10 {
+    width: 10%;
+  }
+
+
+.w15 {
+    width: 15%;
+  }
+
+
+.w20 {
+    width: 20%;
   }
 
 
@@ -329,6 +381,11 @@ div.election {
 
 .w35 {
     width: 35%;
+  }
+
+
+.w45 {
+    width: 45%;
   }
 
 

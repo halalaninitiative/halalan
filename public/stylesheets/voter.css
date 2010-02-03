@@ -2,17 +2,6 @@
 @import url("common.css");
 
 
-#menu ul li {
-    color: #FFFFFF;
-    display: block;
-    text-decoration: none;
-    float: left;
-    line-height: 25px;
-    padding: 0 16px;
-    border-right: 1px solid #ffffff;
-  }
-
-
 /* selected candidates */
 .selected {
     background-color: #c7d5f3;

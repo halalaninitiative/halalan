@@ -57,6 +57,7 @@ $lang['halalan_gate_statistics_label'] = 'STATISTICS';
 $lang['halalan_voter_common_not_running_one'] = 'The election is not running.';
 $lang['halalan_voter_common_not_running_two'] = 'You cannot login at this time.';
 // index
+$lang['halalan_voter_index_title'] = 'Home';
 // vote
 $lang['halalan_voter_vote_title'] = 'Vote';
 $lang['halalan_voter_vote_no_candidates'] = 'No candidates found.';
@@ -76,6 +77,14 @@ $lang['halalan_voter_confirm_vote_not_pin'] = 'Incorrect PIN';
 $lang['halalan_voter_logout_title'] = 'Logout';
 // votes
 $lang['halalan_voter_votes_title'] = 'Votes';
+
+// views/voter/index.php
+$lang['halalan_voter_index_label'] = 'List of Elections';
+$lang['halalan_voter_index_election'] = 'Election';
+$lang['halalan_voter_index_voted'] = 'Voted';
+$lang['halalan_voter_index_status'] = 'Status';
+$lang['halalan_voter_index_results'] = 'Results';
+$lang['halalan_voter_index_no_elections'] = 'No elections found.';
 
 // views/voter/vote.php
 $lang['halalan_voter_vote_reminder'] = 'You still need to verify and confirm your votes in the next page.';
