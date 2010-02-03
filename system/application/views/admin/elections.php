@@ -16,7 +16,7 @@
 	</tr>
 	<?php if (empty($elections)): ?>
 	<tr>
-		<td colspan="6" align="center"><em><?php echo e('admin_elections_no_elections'); ?></em></td>
+		<td colspan="5" align="center"><em><?php echo e('admin_elections_no_elections'); ?></em></td>
 	</tr>
 	<?php else: ?>
 	<?php $i = 0; ?>
