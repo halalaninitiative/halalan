@@ -280,8 +280,13 @@ class Voter extends Controller {
 		$this->load->view('voter', $voter);
 	}
 
-	function view_votes($election_id = 0)
+	function votes($case, $election_id = 0)
 	{
+		// if url is not votes/view or votes/print
+		if (!in_array($case, array('view', 'print')))
+		{
+			redirect('voter/index');
+		}
 		// get all elections and positions assigned to the voter
 		$array = array();
 		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
@@ -350,63 +355,20 @@ class Voter extends Controller {
 		}
 		$election['positions'] = $positions;
 		$data['election'] = $election;
-		$data['settings'] = $this->settings;
-		$voter['view_votes'] = TRUE; // flag to determine what to show in the main voter template
-		$voter['username'] = $this->voter['username'];
-		$voter['title'] = e('voter_votes_title');
-		$voter['body'] = $this->load->view('voter/votes', $data, TRUE);
-		$this->load->view('voter', $voter);
-	}
-
-	function print_votes()
-	{
-		$voter_id = $this->session->userdata('voter_id');
-		$this->load->model('Abstain');
-		$this->load->model('Boter');
-		$this->load->model('Candidate');
-		$this->load->model('Party');
-		$this->load->model('Position');
-		$this->load->model('Vote');
-		$votes = $this->Vote->select_all_by_voter_id($voter_id);
-		$candidate_ids = array();
-		foreach ($votes as $vote)
+		if ($case == 'view')
 		{
-			$candidate_ids[] = $vote['candidate_id'];
+			$data['settings'] = $this->settings;
+			$voter['view_votes'] = TRUE; // flag to determine what to show in the main voter template
+			$voter['username'] = $this->voter['username'];
+			$voter['title'] = e('voter_votes_title');
+			$voter['body'] = $this->load->view('voter/votes', $data, TRUE);
+			$this->load->view('voter', $voter);
 		}
-		$positions = $this->Position->select_all_with_units($voter_id);
-		foreach ($positions as $key=>$position)
+		else if ($case == 'print')
 		{
-			$count = 0;
-			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-			foreach ($candidates as $k=>$candidate)
-			{
-				if (in_array($candidate['id'], $candidate_ids))
-				{
-					$candidates[$k]['voted'] = TRUE;
-				}
-				else
-				{
-					$candidates[$k]['voted'] = FALSE;
-					$count++;
-				}
-				$candidates[$k]['party'] = $this->Party->select($candidate['party_id']);
-			}
-			if ($count == count($candidates))
-			{
-				$positions[$key]['abstains'] = TRUE;
-			}
-			else
-			{
-				$positions[$key]['abstains'] = FALSE;
-			}
-			$positions[$key]['candidates'] = $candidates;
+			$data['voter'] = $this->voter;
+			$this->load->view('voter/print_votes', $data);
 		}
-		$voter = $this->Boter->select($voter_id);
-		$data['settings'] = $this->settings;
-		$data['positions'] = $positions;
-		$data['voter'] = $voter;
-		$data['settings'] = $this->settings;
-		$this->load->view('voter/print_votes', $data);
 	}
 
 	function _generate_image_trail()

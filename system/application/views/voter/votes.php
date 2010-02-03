@@ -119,5 +119,6 @@
 	<div class="clear"></div>
 <?php endif; ?>
 <div class="paging">
+	<input type="hidden" name="election_id" value="<?php echo $election['id']; ?>" id="election_id" />
 	<input type="button" class="printVotes" value="<?php echo e('voter_votes_submit_button'); ?>" />
 </div>

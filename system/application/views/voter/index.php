@@ -55,7 +55,7 @@
 			<?php endif; ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('voter/view_votes/' . $election['id'], 'view votes'); ?>
+			<?php echo anchor('voter/votes/view/' . $election['id'], 'view votes'); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

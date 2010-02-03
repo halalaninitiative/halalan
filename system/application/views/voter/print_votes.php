@@ -9,21 +9,21 @@
   <meta http-equiv="Pragma" content="no-cache" />
 </head>
 <body>
-	<h2><?php echo $settings['name']; ?></h2>
+	<h2><?php echo $election['election']; ?></h2>
 	<p>Voted as <?php echo $voter['username']; ?></p>
 	<h3>Votes</h3>
 	<table cellspacing="2" cellpadding="2" border="0" style="width: 75%">
-		<?php for ($i = 0; $i < count($positions); $i++): ?>
-		<?php if ($i % 2 == 0): ?>
+		<?php foreach ($election['positions'] as $key=>$position): ?>
+		<?php if ($key % 2 == 0): ?>
 		<tr>
 		<?php endif; ?>
 			<td valign="top">
-				<strong><?php echo $positions[$i]['position']; ?> (<?php echo $positions[$i]['maximum']; ?>)</strong>
+				<strong><?php echo $position['position']; ?> (<?php echo $position['maximum']; ?>)</strong>
 				<ul>
-					<?php if (empty($positions[$i]['candidates'])): ?>
+					<?php if (empty($position['candidates'])): ?>
 					<li>No candidates found.</li>
 					<?php else: ?>
-					<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>
+					<?php foreach ($position['candidates'] as $candidate): ?>
 					<?php if ($candidate['voted']): ?>
 					<?php
 						$name = $candidate['first_name'];
@@ -41,24 +41,29 @@
 							{
 								$party = $candidate['party']['alias'];
 							}
+							$party = ', ' . $party;
+						}
+						else
+						{
+							$party = '';
 						}
 					?>
-					<li><?php echo $name; ?>, <?php echo $party; ?></li>
+					<li><?php echo $name; ?><?php echo $party; ?></li>
 					<?php endif; ?>
 					<?php endforeach; ?>
-					<?php if ($positions[$i]['abstain'] == TRUE): ?>
-					<?php if ($positions[$i]['abstains']): ?>
+					<?php if ($position['abstain'] == TRUE): ?>
+					<?php if ($position['abstains']): ?>
 					<li>ABSTAIN</li>
 					<?php endif; ?>
 					<?php endif; ?>
 					<?php endif; ?>
 				</ul>
 			</td>
-		<?php if ($i % 2 == 1): ?>
+		<?php if ($key % 2 == 1): ?>
 		</tr>
 		<?php endif; ?>
-		<?php endfor; ?>
-		<?php if (count($positions) % 2 == 1): ?>
+		<?php endforeach; ?>
+		<?php if (count($election['positions']) % 2 == 1): ?>
 			<td>&nbsp;</td>
 		</tr>
 		<?php endif; ?>

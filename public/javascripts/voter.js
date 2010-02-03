@@ -31,7 +31,12 @@ function modifyBallot() {
 }
 
 function printVotes() {
-	window.open("print_votes");
+	var url = SITE_URL;
+	if (url.length - 1 != url.lastIndexOf('/')) {
+		url += '/';
+	}
+	url += 'voter/votes/print/' + $('#election_id').val();
+	window.open(url);
 }
 
 function confirmLogout() {
