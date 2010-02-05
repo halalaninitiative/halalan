@@ -16,7 +16,7 @@ function toggleOptions() {
 	return false;
 }
 
-function toggeAllPositions() {
+function toggleAllElections() {
 	var cboxes = $('form').find(':checkbox');
 	cboxes.attr('checked', ($(this).text() === "select all"));
 	return false;
@@ -31,7 +31,7 @@ $(document).ready(function () {
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);
 	$('.toggleOptions').click(toggleOptions);
-	$('.toggeAllPositions').click(toggeAllPositions);
+	$('.toggleAllElections').click(toggleAllElections);
 	$('form.hashPassword').submit(hashPassword);
 	/* Trigger events on load */
 	$('.toggleOptions').click();

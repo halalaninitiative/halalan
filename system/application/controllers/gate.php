@@ -133,55 +133,41 @@ class Gate extends Controller {
 
 	function results()
 	{
-		$this->load->model('Option');
-		$option = $this->Option->select(1);
-		$settings = $this->config->item('halalan');
-		if (($option['result'] && !$option['status']) || ($settings['realtime_results'] && $this->session->userdata('admin')))
+		$selected = $this->input->post('elections', TRUE);
+		$all_elections = $this->Election->select_all_with_results();
+		$elections = $this->Election->select_all_by_ids($selected);
+		foreach ($elections as $key1=>$election)
 		{
-			$selected = array_keys($this->input->post('positions', TRUE));
-			if (!empty($selected))
-			{
-				$this->load->model('Abstain');
-				$this->load->model('Candidate');
-				$this->load->model('Party');
-				$this->load->model('Vote');
-			}
-			else
-			{
-				$selected = FALSE;
-			}
-			$this->load->model('Position');
-			$all_positions = $this->Position->select_all();
-			$positions = $this->Position->select_multiple($selected);
-			foreach ($positions as $key=>$position)
+			$positions = $this->Position->select_all_by_election_id($election['id']);
+			foreach ($positions as $key2=>$position)
 			{
 				$candidates = array();
-				$votes = $this->Vote->count_all_by_position_id($position['id']);
+				$votes = $this->Vote->count_all_by_election_id_and_position_id($election['id'], $position['id']);
 				foreach ($votes as $vote)
 				{
-					$candidate_id = $vote['candidate_id'];
-					$candidate = $this->Candidate->select($candidate_id);
-					$candidates[$candidate_id] = $candidate;
-					$candidates[$candidate_id]['votes'] = $vote['votes'];
-					$candidates[$candidate_id]['party'] = $this->Party->select($candidate['party_id']);
+					$candidate = $this->Candidate->select($vote['candidate_id']);
+					$candidate['votes'] = $vote['votes'];
+					$candidate['party'] = $this->Party->select($candidate['party_id']);
+					$candidates[] = $candidate;
 				}
-				$positions[$key]['candidates'] = $candidates;
-				$positions[$key]['abstains'] = $this->Abstain->count_all_by_position_id($position['id']);
+				$positions[$key2]['candidates'] = $candidates;
+				$positions[$key2]['abstains'] = $this->Abstain->count_all_by_election_id_and_position_id($election['id'], $position['id']);
 			}
-			$data['settings'] = $this->config->item('halalan');
-			$data['all_positions'] = $all_positions;
-			$data['selected'] = $selected;
-			$data['positions'] = $positions;
-			$gate['login'] = 'results';
-			$gate['title'] = e('gate_results_title');
-			$gate['body'] = $this->load->view('gate/results', $data, TRUE);
-			$this->load->view('gate', $gate);
+			$elections[$key1]['positions'] = $positions;
 		}
-		else
+		// $this->input->post returns FALSE so make it an array to avoid in_array errors
+		if ($selected == FALSE)
 		{
-			$this->session->set_flashdata('error', array(e('gate_result_unavailable')));
-			redirect('gate/voter');
+			$selected = array();
 		}
+		$data['selected'] = $selected;
+		$data['all_elections'] = $all_elections;
+		$data['elections'] = $elections;
+		$data['settings'] = $this->config->item('halalan');
+		$gate['login'] = 'results';
+		$gate['title'] = e('gate_results_title');
+		$gate['body'] = $this->load->view('gate/results', $data, TRUE);
+		$this->load->view('gate', $gate);
 	}
 
 	function statistics()

@@ -82,10 +82,21 @@ class Election extends Model {
 		return $query->result_array();
 	}
 
+	// all elections that have positions assigned to them
 	function select_all_with_positions()
 	{
 		$this->db->from('elections');
 		$this->db->where('id in (select distinct election_id from elections_positions)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	// elections with results should not be running
+	function select_all_with_results()
+	{
+		$this->db->from('elections');
+		$this->db->where('results', TRUE);
+		$this->db->where('status', FALSE); // not running
 		$query = $this->db->get();
 		return $query->result_array();
 	}
