@@ -17,7 +17,7 @@
 		<div id="header_bg">
 			<div id="header_left">
 				<?php echo img(array('src'=>'public/images/logo_small.png', 'alt'=>'login logo')); ?>
-				<?php if ($login != 'result' && $login != 'statistics'): ?>
+				<?php if ($login != 'results' && $login != 'statistics'): ?>
 				<span>login</span>
 				<?php endif; ?>
 <!--
@@ -39,7 +39,7 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-	<?php if ($login == 'result' || $login == 'statistics'): ?>
+	<?php if ($login == 'results' || $login == 'statistics'): ?>
 	<div id="menu">
 		<ul>
 			<li><?php echo anchor('gate/results', 'RESULTS', array('title'=>'Results')); ?></li>

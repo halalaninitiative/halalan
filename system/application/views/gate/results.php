@@ -1,9 +1,9 @@
 <div class="content_center">
-<h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_result_label'); ?></h2>
+<h2><?php echo strtoupper($settings['name']) . ' ' . e('gate_results_label'); ?></h2>
 </div>
 
 <?php if (empty($positions)): ?>
-<div class="reminder"><?php echo e('gate_result_reminder'); ?></div>
+<div class="reminder"><?php echo e('gate_results_reminder'); ?></div>
 <?php endif; ?>
 
 <div class="paging">
@@ -36,7 +36,7 @@
 </div>
 <?php endfor; ?>
 <div class="notes">
-	<?php echo form_submit(array('value'=>e('gate_result_submit_button'))); ?>
+	<?php echo form_submit(array('value'=>e('gate_results_submit_button'))); ?>
 	<br /><br />
 	<a href="#" class="toggeAllPositions">select all</a> | <a href="#" class="toggeAllPositions">deselect all</a>
 </div>
@@ -53,7 +53,7 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<?php if (empty($positions[$i]['candidates'])): ?>
 		<tr>
-			<td><em><?php echo e('gate_result_no_candidates'); ?></em></td>
+			<td><em><?php echo e('gate_results_no_candidates'); ?></em></td>
 		</tr>
 		<?php else: ?>
 		<?php foreach ($positions[$i]['candidates'] as $key=>$candidate): ?>

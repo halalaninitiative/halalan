@@ -172,9 +172,9 @@ class Gate extends Controller {
 			$data['all_positions'] = $all_positions;
 			$data['selected'] = $selected;
 			$data['positions'] = $positions;
-			$gate['login'] = 'result';
-			$gate['title'] = e('gate_result_title');
-			$gate['body'] = $this->load->view('gate/result', $data, TRUE);
+			$gate['login'] = 'results';
+			$gate['title'] = e('gate_results_title');
+			$gate['body'] = $this->load->view('gate/results', $data, TRUE);
 			$this->load->view('gate', $gate);
 		}
 		else

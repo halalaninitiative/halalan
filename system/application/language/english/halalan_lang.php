@@ -25,8 +25,8 @@ $lang['halalan_gate_admin_title'] = 'Admin Login';
 // admin_login
 // logout
 // results
-$lang['halalan_gate_result_title'] = 'Results';
-$lang['halalan_gate_result_unavailable'] = 'The results are not yet available.';
+$lang['halalan_gate_results_title'] = 'Results';
+$lang['halalan_gate_results_unavailable'] = 'The results are not yet available.';
 // statistics
 $lang['halalan_gate_statistics_title'] = 'Statistics';
 
@@ -45,10 +45,10 @@ $lang['halalan_gate_admin_password'] = 'Password';
 $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // views/gate/result.php
-$lang['halalan_gate_result_label'] = 'RESULTS';
-$lang['halalan_gate_result_no_candidates'] = 'No candidates found.';
-$lang['halalan_gate_result_submit_button'] = 'Update Page';
-$lang['halalan_gate_result_reminder'] = 'Select at least one position then press <em>Update Page</em>.';
+$lang['halalan_gate_results_label'] = 'RESULTS';
+$lang['halalan_gate_results_no_candidates'] = 'No candidates found.';
+$lang['halalan_gate_results_submit_button'] = 'Update Page';
+$lang['halalan_gate_results_reminder'] = 'Select at least one position then press <em>Update Page</em>.';
 // views/gate/statistics.php
 $lang['halalan_gate_statistics_label'] = 'STATISTICS';
 
