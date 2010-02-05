@@ -46,6 +46,7 @@ $lang['halalan_gate_admin_login_button'] = 'Login';
 
 // views/gate/result.php
 $lang['halalan_gate_results_label'] = 'RESULTS';
+$lang['halalan_gate_results_no_elections'] = 'There are no available election results yet.';
 $lang['halalan_gate_results_no_candidates'] = 'No candidates found.';
 $lang['halalan_gate_results_submit_button'] = 'Update Page';
 $lang['halalan_gate_results_reminder'] = 'Select at least one election then press <em>Update Page</em>.';
