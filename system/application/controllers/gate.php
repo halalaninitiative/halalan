@@ -172,25 +172,32 @@ class Gate extends Controller {
 
 	function statistics()
 	{
-		$this->load->model('Option');
-		$option = $this->Option->select(1);
-		$settings = $this->config->item('halalan');
-		if (($option['result'] && !$option['status']) || ($settings['realtime_results'] && $this->session->userdata('admin')))
+		$this->load->model('Statistics');
+		$selected = $this->input->post('elections', TRUE);
+		$all_elections = $this->Election->select_all_with_results();
+		$elections = $this->Election->select_all_by_ids($selected);
+		foreach ($elections as $key=>$election)
 		{
-			$this->load->model('Statistics');
-			$data['voter_count'] = $this->Statistics->count_all_voters();
-			$data['voted_count'] = $this->Statistics->count_voted();
-			$data['settings'] = $this->config->item('halalan');
-			$gate['login'] = 'statistics';
-			$gate['title'] = e('gate_statistics_title');
-			$gate['body'] = $this->load->view('gate/statistics', $data, TRUE);
-			$this->load->view('gate', $gate);
+			$elections[$key]['voter_count'] = $this->Statistics->count_all_voters($election['id']);
+			$elections[$key]['voted_count'] = $this->Statistics->count_all_voted($election['id']);
+
+			$elections[$key]['lt_one'] = $this->Statistics->count_all_by_duration($election['id'], '00:00:00', '00:01:00');
+			$elections[$key]['lt_two_gte_one'] = $this->Statistics->count_all_by_duration($election['id'], '00:01:00', '00:02:00');
+			$elections[$key]['lt_three_gte_two'] = $this->Statistics->count_all_by_duration($election['id'], '00:02:00', '00:03:00');
+			$elections[$key]['gt_three'] = $this->Statistics->count_all_by_duration($election['id'], '00:03:00', FALSE);
 		}
-		else
+		// $this->input->post returns FALSE so make it an array to avoid in_array errors
+		if ($selected == FALSE)
 		{
-			$this->session->set_flashdata('error', array(e('gate_result_unavailable')));
-			redirect('gate/voter');
+			$selected = array();
 		}
+		$data['selected'] = $selected;
+		$data['all_elections'] = $all_elections;
+		$data['elections'] = $elections;
+		$gate['login'] = 'statistics';
+		$gate['title'] = e('gate_statistics_title');
+		$gate['body'] = $this->load->view('gate/statistics', $data, TRUE);
+		$this->load->view('gate', $gate);
 	}
 
 }
