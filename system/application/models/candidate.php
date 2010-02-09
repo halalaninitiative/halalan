@@ -90,6 +90,38 @@ class Candidate extends Model {
         }
     }
 
+	function select_all_by_election_id($election_id)
+	{
+		$this->db->from('candidates');
+		$this->db->where(compact('election_id'));
+		$this->db->order_by('party_id', 'asc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+    function select_party_ids_by_election_id($election_id)
+	{
+		$this->db->from('candidates');
+		$this->db->select('party_id');
+		$this->db->distinct();
+		$this->db->where(compact('election_id'));
+		$this->db->order_by('party_id', 'asc');
+		$query = $this->db->get();
+        $result = $query->result_array();
+
+		foreach ($result as $party_id)
+		{
+		    $this->db->flush_cache();
+    		$this->db->from('parties');
+		    $this->db->where('id',$party_id['party_id']);
+		    $temp = $this->db->get();
+		    $return[] = $temp->row_array();
+		}
+
+        return $return;
+
+	}
+
 }
 
 ?>
