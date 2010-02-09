@@ -2,6 +2,161 @@
 <?php echo display_messages('', $this->session->flashdata('messages')); ?>
 <?php echo form_open('voter/do_vote'); ?>
 <?php foreach ($elections as $election): ?>
+    <?php if ($election['id']==1): 
+        $generated_abstain = 1;
+    ?>
+	<div class="election"><?php echo $election['election']; ?></div>
+    <?php 
+    // If parent election
+    foreach($parent_parties as $parent_party): 
+    ?>
+        <div class='w23 party_div notes'> 
+        <h1> <?= $parent_party['party']; ?> </h1>
+
+
+        <?php foreach($parent_positions as $position): 
+        ?>
+            <div class="h25">
+            <h2><?php echo $position['position']; ?> (<?php echo $position['maximum']; ?>)</h2>
+            
+    		<table cellpadding="0" cellspacing="0" border="0" class="form_table highlight">
+			<?php if (empty($parent_candidates[$position['id']])): ?>
+				<tr>
+					<td><em><?php echo e('voter_vote_no_candidates'); ?></em></td>
+				</tr>
+			<?php else: ?>
+
+			
+				<?php foreach ($parent_candidates[$position['id']] as $candidate): ?>
+				
+				    <?php if ($candidate['party_id'] == $parent_party['id']): ?>
+				
+					<?php
+						// used to populate the form
+						if (isset($votes[1][$position['id']]) && in_array(1, $votes[$election['id']][$position['id']]))
+							$checked = TRUE;
+						else
+							$checked = FALSE;
+						$name = $candidate['first_name'];
+						if (!empty($candidate['alias']))
+							$name .= ' "' . $candidate['alias'] . '"';
+						$name .= ' ' . $candidate['last_name'];
+						$name = quotes_to_entities($name);
+					?>
+					
+					<tr>
+						<td class="w5">
+							<?php
+								echo form_checkbox(
+								'votes[1][' . $position['id'] . '][]',
+								$candidate['id'],
+								$checked,
+								'id="cb_1_' . $position['id'] . '_' . $candidate['id'] . '" class="pos'.$position['id'].'"'
+								);
+							?>
+						</td>
+						<td class="w60">
+							<label for="<?php echo 'cb' . $position['id'] . '_' . $candidate['id']; ?>"><?php echo $name; ?></label>
+						</td>
+						<?php if ($settings['show_candidate_details']): ?>
+							<td class="w5">
+								<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
+							</td>
+						<?php endif; ?>
+					</tr>
+					<tr class="details">
+						<td colspan="4">
+						<?php if ($settings['show_candidate_details']): ?>
+							<div style="display:none;" class="details">
+							<?php if (!empty($candidate['picture'])): ?>
+								<div style="float:left;padding-right:5px;">
+									<?php echo img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
+								</div>
+							<?php endif; ?>
+							<div style="float:left;">
+								Name: <?php echo $name; ?><br />
+							</div>
+							<div class="clear"></div>
+							<?php if (!empty($candidate['description'])): ?>
+								<div><br />
+									<?php echo nl2br($candidate['description']); ?>
+								</div>
+							<?php endif; ?>
+							</div>
+						<?php endif; ?>
+						</td>
+					</tr>
+				    <?php 
+				    //if ($candidate['party_id'] == $parent_party['id']): 
+				    endif;
+				    ?>
+				<?php 
+				//foreach parent_candidates as candidate
+				endforeach; 
+				?>
+				               
+				<?php
+				// if empty
+				 endif; 
+				 ?>
+				 
+				 			
+    			<?php
+					// same as above but for abstain
+					if (isset($votes[1][$position['id']]) && in_array('abstain', $votes[1][$position['id']]))
+						$checked = TRUE;
+					else
+						$checked = FALSE;
+				?>
+				<?php if ($position['abstain'] == TRUE and $generated_abstain< 4): ?>
+					<tr>
+						<td class="w5">
+							<?php
+								echo form_checkbox(
+								'votes[1][' . $position['id'] . '][]',
+								'abstain',
+								$checked,
+								'id="cb_1_' . $position['id'] . '_abstain" class="abstainPosition abs_pos'.$position['id'].'"'
+								);
+							?>
+						</td>
+						<td class="w60">
+							<label for="<?php echo 'cb' . $position['id'] . '_abstain'; ?>">ABSTAIN</label>
+						</td>
+						<?php if ($settings['show_candidate_details']): ?>
+							<td class="w5"></td>
+						<?php else: ?>
+							<td class="w35"></td>
+						<?php endif; 
+						$generated_abstain++;
+						?>
+					</tr>
+				<?php endif; ?>
+
+
+			</table>
+
+		</div>
+        <?php
+        //foreach parent_positions as position
+         endforeach; 
+         ?>
+    	<div class="clear"></div>
+        </div>
+
+    <?php
+    // parent parties as party
+     endforeach; 
+     ?>
+	<div class="clear"></div>
+
+
+
+
+    <?php else: ?>
+    
+    
+    
 	<div class="election"><?php echo $election['election']; ?></div>
 	<?php foreach ($election['positions'] as $key=>$position): ?>
 		<?php if ($key % 2 == 0): ?>
@@ -131,6 +286,7 @@
 	<?php if (count($election['positions']) % 2 == 1): ?>
 		<div class="content_right"></div>
 		<div class="clear"></div>
+	<?php endif; ?>
 	<?php endif; ?>
 <?php endforeach; ?>
 

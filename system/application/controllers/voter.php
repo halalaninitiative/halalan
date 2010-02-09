@@ -76,6 +76,19 @@ class Voter extends Controller {
 			}
 			$elections[$key1]['positions'] = $positions;
 		}
+		
+
+        $parties_in_parent_election = $this->Candidate->select_party_ids_by_election_id(1);
+        $parent_positions = $this->Position->select_all_by_election_id(1);
+        foreach ($parent_positions as $parent_position)
+        {
+            $parent_candidates[$parent_position['id']] = $this->Candidate->select_all_by_election_id_and_position_id(1, $parent_position['id']);
+        }
+        
+        $data['parent_parties'] = $parties_in_parent_election;
+        $data['parent_candidates'] = $parent_candidates;
+        $data['parent_positions'] = $parent_positions;
+        
 		$this->session->set_userdata('rules', $rules);
 		$data['elections'] = $elections;
 		if ($votes = $this->session->userdata('votes'))

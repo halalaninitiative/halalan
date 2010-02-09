@@ -7,3 +7,17 @@
     background-color: #c7d5f3;
   }
 
+.party_div {
+    float: left;
+    text-align: center;
+  }
+  
+.party_div h1 {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.disabled {
+    background: #555555;
+}
+
