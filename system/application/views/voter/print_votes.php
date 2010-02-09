@@ -67,6 +67,9 @@
 			<td>&nbsp;</td>
 		</tr>
 		<?php endif; ?>
+		<tr colspan="2">
+			<td>Generated on <?php echo date('Y-m-d H:i:s'); ?></td>
+		</tr>
 	</table>
 </body>
 </html>
