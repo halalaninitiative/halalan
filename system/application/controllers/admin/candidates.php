@@ -294,6 +294,14 @@ class Candidates extends Controller {
 			return $error;
 	}
 
+    function update_candidates()
+    {
+        $this->load->Model('candidate');
+        $this->Candidate->update_candidates_election_id();
+        $this->session->set_flashdata('messages', array('positive', 'Candidates updated.'));
+		redirect('admin/candidates/');
+    }
+
 }
 
 /* End of file candidates.php */
