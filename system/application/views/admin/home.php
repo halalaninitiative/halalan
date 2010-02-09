@@ -50,6 +50,7 @@
 </div>
 <div class="content_right">
 	<h2><?php echo e('admin_home_right_label'); ?></h2>
+	<!--
 	<?php echo form_open('admin/home/do_edit_option/1'); ?>
 	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
 		<tr>
@@ -88,5 +89,6 @@
 		</tr>
 	</table>
 	<?php echo form_close(); ?>
+	-->
 </div>
 <div style="clear:both;"></div>
