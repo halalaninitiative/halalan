@@ -9,8 +9,6 @@ if (empty($_POST['email']))
 	$error = TRUE;
 if (empty($_POST['url']))
 	$error = TRUE;
-if (empty($_POST['name']))
-	$error = TRUE;
 if (empty($_POST['image_trail_path']))
 	$error = TRUE;
 if ($_POST['captcha'] || $_POST['image_trail'])
@@ -33,22 +31,13 @@ define('BASEPATH', '');
 require_once('../system/application/config/database.php');
 require_once('../system/application/config/config.php');
 extract($db['default']);
-if ($dbdriver == 'mysql')
+$link = mysql_connect($hostname, $username, $password);
+mysql_select_db($database, $link);
+$queries = explode(";", file_get_contents("db/mysql.sql"));
+foreach ($queries as $query)
 {
-	$link = mysql_connect($hostname, $username, $password);
-	mysql_select_db($database, $link);
-	$queries = explode(";", file_get_contents("db/mysql.sql"));
-	foreach ($queries as $query)
-	{
-		if (!empty($query))
-			mysql_query($query);
-	}
-}
-else if ($dbdriver == 'postgre')
-{
-	pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
-	$query = file_get_contents("db/postgresql.sql");
-	pg_query($query);
+	if (!empty($query))
+		mysql_query($query);
 }
 
 $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -60,14 +49,7 @@ for ($i=0; $i < $_POST['password_length']; $i++)
 
 $query = "INSERT INTO admins (email, username, password, first_name, last_name) VALUES('$_POST[email]', 'admin', '" . sha1($password) . "', '$_POST[first_name]', '$_POST[last_name]')";
 
-if ($dbdriver == 'mysql')
-{
-	mysql_query($query);
-}
-else if ($dbdriver == 'postgre')
-{
-	pg_query($query);
-}
+mysql_query($query);
 
 $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $encryption_key = '';
@@ -128,7 +110,6 @@ for ($i=0; $i < 32; $i++)
 <?php echo "<?php"; ?> if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // don't change if you already entered some data
-$config['halalan']['name'] = "<?php echo $_POST['name']; ?>";
 $config['halalan']['pin'] = <?php echo ($_POST['pin']) ? $_POST['pin'] : 'FALSE'; ?>;
 $config['halalan']['password_pin_generation'] = "<?php echo $_POST['password_pin_generation']; ?>";
 $config['halalan']['password_pin_characters'] = "<?php echo $_POST['password_pin_characters']; ?>";
@@ -137,13 +118,10 @@ $config['halalan']['pin_length'] = <?php echo $_POST['pin_length']; ?>;
 $config['halalan']['captcha'] = <?php echo isset($_POST['captcha']) ? $_POST['captcha'] : 'FALSE'; ?>;
 $config['halalan']['captcha_length'] = <?php echo $_POST['captcha_length']; ?>;
 $config['halalan']['show_candidate_details'] = <?php echo ($_POST['details']) ? $_POST['details'] : 'FALSE'; ?>;
-$config['halalan']['random_order'] = <?php echo isset($_POST['random']) ? $_POST['random'] : 'FALSE'; ?>;
 $config['halalan']['generate_image_trail'] = <?php echo isset($_POST['image_trail']) ? $_POST['image_trail'] : 'FALSE'; ?>;
 $config['halalan']['image_trail_path'] = "<?php echo $_POST['image_trail_path']; ?>";
-$config['halalan']['realtime_results'] = <?php echo isset($_POST['realtime_results']) ? $_POST['realtime_results'] : 'FALSE'; ?>;
 
 $config['base_url'] = "<?php echo $_POST['url']; ?>";
-$config['language'] = "<?php echo $_POST['language']; ?>";
 $config['encryption_key'] = "<?php echo $encryption_key; ?>";
 
 <?php echo "?>"; ?>

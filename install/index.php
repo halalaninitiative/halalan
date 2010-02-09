@@ -10,61 +10,31 @@ require_once('../system/application/config/database.php');
 extract($db['default']);
 
 $missing_driver = false;
-if (empty($dbdriver) || ($dbdriver != 'mysql' && $dbdriver != 'postgre'))
+if (empty($dbdriver) || $dbdriver != 'mysql')
 {
 	$missing_driver = true;
 }
 else
 {
 	$misconfigured_settings = false;
-	if ($dbdriver == 'mysql')
+	$link = @mysql_connect($hostname, $username, $password);
+	if (!$link)
 	{
-		$link = @mysql_connect($hostname, $username, $password);
-		if (!$link)
-		{
-			$misconfigured_settings = true;
-		}
-		else
-		{
-			$db_selected = @mysql_select_db($database, $link);
-			if (!$db_selected)
-			{
-				$misconfigured_settings = true;
-			}
-			else
-			{
-				$query = "SELECT * FROM admins";
-				$result = @mysql_query($query);
-				$test = FALSE;
-				while ($row = @mysql_fetch_array($result))
-				{
-					if (!empty($row))
-					{
-						$test = TRUE;
-						break;
-					}
-				}
-				if ($test)
-				{
-					echo "Halalan is already installed.";
-					exit;
-				}
-			}
-		}
+		$misconfigured_settings = true;
 	}
-	else if ($dbdriver == 'postgre')
+	else
 	{
-		$link = @pg_connect("host='$hostname' port='$port' dbname='$database' user='$username' password='$password'");
-		if (!$link)
+		$db_selected = @mysql_select_db($database, $link);
+		if (!$db_selected)
 		{
 			$misconfigured_settings = true;
 		}
 		else
 		{
 			$query = "SELECT * FROM admins";
-			$result = @pg_query($query);
+			$result = @mysql_query($query);
 			$test = FALSE;
-			while ($row = @pg_fetch_array($result))
+			while ($row = @mysql_fetch_array($result))
 			{
 				if (!empty($row))
 				{
@@ -151,11 +121,7 @@ else
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
 						<td class="w35">URL</td>
-						<td><input type="text" name="url" value="http://localhost/" /> with trailing slash</td>
-					</tr>
-					<tr>
-						<td class="w35">Name</td>
-						<td><input type="text" name="name" value="Election Name" /></td>
+						<td><input type="text" name="url" value="http://localhost/halalan/" /> with trailing slash</td>
 					</tr>
 					<tr>
 						<td class="w35">PIN</td>
@@ -197,18 +163,18 @@ else
 						<?php } ?>
 						</select></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td class="w35">Language</td>
 						<td><select name="language"><option value="english">English</option><option value="filipino">Filipino</option></select></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td class="w35">Candidate Details</td>
 						<td><label><input type="checkbox" name="details" value="TRUE" /> show in ballot?</label></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td class="w35">Candidate Order</td>
 						<td><label><input type="checkbox" name="random" value="TRUE" /> randomize order in ballot?</label></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td class="w35">Virtual Paper Trail</td>
 						<td><label><input type="checkbox" name="image_trail" value="TRUE" /> generate virtual paper trail (image file)?</label></td>
@@ -217,10 +183,10 @@ else
 						<td class="w35">Virtual Paper Trail Path</td>
 						<td><input type="text" name="image_trail_path" size="40" value="/var/www/html/w/" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td class="w35">Real-time Results</td>
 						<td><label><input type="checkbox" name="realtime_results" value="TRUE" /> enable real-time results (for admins only)?</label></td>
-					</tr>
+					</tr>-->
 				</table>
 			</fieldset>
 			<fieldset>
