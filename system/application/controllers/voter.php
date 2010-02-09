@@ -317,11 +317,6 @@ class Voter extends Controller {
 		{
 			redirect('voter/index');
 		}
-		// check if election is not running and has results
-		if ($election['status'] || !$election['results'])
-		{
-			redirect('voter/index');
-		}
 		// get all voted candidate ids
 		$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
 		$candidate_ids = array();
