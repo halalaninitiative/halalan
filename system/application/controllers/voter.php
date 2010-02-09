@@ -258,7 +258,7 @@ class Voter extends Controller {
 			$this->session->unset_userdata('votes');
 			if ($this->settings['generate_image_trail'])
 			{
-				//$this->_generate_image_trail();
+				$this->_generate_image_trail($votes);
 			}
 			redirect('voter/logout');
 		}
@@ -376,96 +376,146 @@ class Voter extends Controller {
 		}
 	}
 
-	function _generate_image_trail()
+	// some code taken from CI's captcha plugin
+	function _generate_image_trail($votes)
 	{
-		$this->load->model('Boter');
-		$this->load->model('Candidate');
-		$this->load->model('Position');
-		$this->load->model('Vote');
-		$voter = $this->Boter->select($this->voter['id']);
-		$count = 0;
-		$positions = $this->Position->select_all_with_units($this->voter['id']);
-		foreach ($positions as $position)
+		$font = './public/fonts/Vera.ttf';
+		foreach ($votes as $election_id=>$positions)
 		{
-			// maximum + name
-			$count += $position['maximum'] + 1;
-		}
-		$y_size = 95 + ($count * 20) + 35;
-		$image = imagecreate(500, $y_size);
-		$bg = imagecolorallocate($image, 255, 255, 255);
-		$text = imagecolorallocate($image, 0, 0, 0);
-		imagestring($image, 5, 5, 5, $this->settings['name'], $text);
-		imagestring($image, 5, 5, 15, '', $text);
-		imagestring($image, 5, 5, 25, '', $text);
-		imagestring($image, 5, 5, 35, 'Username: ' . $this->voter['username'], $text);
-		imagestring($image, 5, 5, 45, '', $text);
-		imagestring($image, 5, 5, 55, 'Hash: ' . $voter['password'], $text);
-		imagestring($image, 5, 5, 65, '', $text);
-		$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
-		$candidate_ids = array();
-		foreach ($votes as $vote)
-		{
-			$candidate_ids[] = $vote['candidate_id'];
-		}
-		$y = 75;
-		foreach ($positions as $position)
-		{
-			imagestring($image, 5, 5, $y += 10, $position['position'], $text);
-			imagestring($image, 5, 5, $y += 10, '', $text);
-			$count = 0;
-			$candidates = $this->Candidate->select_all_by_position_id($position['id']);
-			foreach ($candidates as $candidate)
+			$text = array();
+			$election = $this->Election->select($election_id);
+			$text[] = array('type'=>'break');
+			$text[] = array('type'=>'election', 'text'=>$election['election']);
+			$text[] = array('type'=>'break');
+			$position_max = '';
+			$candidate_max = '';
+			$height = 10 + 16 + 10; // break + 16 for election + break
+			foreach ($positions as $position_id=>$candidate_ids)
 			{
-				if (in_array($candidate['id'], $candidate_ids))
+				$position = $this->Position->select($position_id);
+				$text[] = array('type'=>'break');
+				$text[] = array('type'=>'break');
+				$text[] = array('type'=>'position', 'text'=>$position['position'] . ' (' . $position['maximum'] . ')');
+				$text[] = array('type'=>'break');
+				$height += 10 + 10 + 14 + 10; // break + break + position + break
+				if (strlen($position['position'] . ' (' . $position['maximum'] . ')') > strlen($position_max))
 				{
-					$name = $candidate['first_name'];
-					if (!empty($candidate['alias']))
-						$name .= ' "' . $candidate['alias'] . '"';
-					$name .= ' ' . $candidate['last_name'];
-					imagestring($image, 5, 5, $y += 10, ' - ' . $name, $text);
-					imagestring($image, 5, 5, $y += 10, '', $text);
+					$position_max = $position['position'] . ' (' . $position['maximum'] . ')';
+				}
+				$abstain = FALSE;
+				foreach ($candidate_ids as $candidate_id)
+				{
+					if ($candidate_id == 'abstain')
+					{
+						$abstain = TRUE;
+					}
+					else
+					{
+						$candidate = $this->Candidate->select($candidate_id);
+						$name = $candidate['first_name'];
+						if (!empty($candidate['alias']))
+							$name .= ' "' . $candidate['alias'] . '"';
+						$name .= ' ' . $candidate['last_name'];
+						$name = quotes_to_entities($name);
+						$party = $this->Party->select($candidate['party_id']);
+						if (!empty($party))
+						{
+							$name .= ', ';
+							if (empty($party['alias']))
+							{
+								$name .= $party['party'];
+							}
+							else
+							{
+								$name .= $party['alias'];
+							}
+						}
+						$text[] = array('type'=>'candidate', 'text'=>$name);
+						$text[] = array('type'=>'break');
+						$height += 12 + 10; // 12 for candidate + break
+						if (strlen($name) > strlen($candidate_max))
+						{
+							$candidate_max = $name;
+						}
+					}
+				}
+				if ($abstain)
+				{
+					$text[] = array('type'=>'candidate', 'text'=>'ABSTAIN');
+					$text[] = array('type'=>'break');
+					$height += 12 + 10; // 12 for candidate + break
+				}
+			}
+			$bbox1 = imagettfbbox(16, 0, $font, $election['election']);
+			$bbox2 = imagettfbbox(14, 0, $font, $position_max);
+			$bbox3 = imagettfbbox(12, 0, $font, $candidate_max);
+			$img_width = 20 + max($bbox1[2], $bbox2[2], $bbox3[2]); // lower right corner, X position
+			if ($img_width < 500)
+			{
+				$img_width = 500;
+			}
+			$img_height = 20 + $height;
+			if ($img_height < 500)
+			{
+				$img_height = 500;
+			}
+			// PHP.net recommends imagecreatetruecolor(), but it isn't always available
+			if (function_exists('imagecreatetruecolor'))
+			{
+				$im = imagecreatetruecolor($img_width, $img_height);
+			}
+			else
+			{
+				$im = imagecreate($img_width, $img_height);
+			}
+			$bg_color = imagecolorallocate ($im, 255, 255, 255);
+			$border_color = imagecolorallocate ($im, 0, 0, 0);
+			$text_color = imagecolorallocate ($im, 0, 0, 0);
+			imagefilledrectangle($im, 0, 0, $img_width, $img_height, $bg_color);
+			$y = 0;
+			foreach ($text as $t)
+			{
+				if ($t['type'] == 'election')
+				{
+					$y += 16;
+					imagettftext($im, 16, 0, 10, $y, $text_color, $font, $t['text']);
+				}
+				else if ($t['type'] == 'position')
+				{
+					$y += 14;
+					imagettftext($im, 14, 0, 10, $y, $text_color, $font, $t['text']);
+				}
+				else if ($t['type'] == 'candidate')
+				{
+					$y += 12;
+					imagettftext($im, 12, 0, 10, $y, $text_color, $font, $t['text']);
 				}
 				else
 				{
-					$count++;
+					$y += 10;
+					imagettftext($im, 10, 0, 10, $y, $text_color, $font, '');
 				}
 			}
-			if (empty($candidates))
-			{
-				imagestring($image, 5, 5, $y += 10, '', $text);
-				imagestring($image, 5, 5, $y += 10, '', $text);
-			}
-			else if ($count == count($candidates))
-			{
-				imagestring($image, 5, 5, $y += 10, ' - ABSTAIN', $text);
-				imagestring($image, 5, 5, $y += 10, '', $text);
-			}
+			imagettftext($im, 5, 0, 10, $img_height - 10, $text_color, $font, 'Generated on ' . date('Y-m-d H:i:s'));
+			imagerectangle($im, 0, 0, $img_width-1, $img_height-1, $border_color);
+			$path = $this->settings['image_trail_path'] . $election_id . '/';
+			mkdir($path);
+			$name = $election_id . '_' . $this->voter['id'] . '.png';
+			imagepng($im, $path . $name);
+			imagedestroy($im);
+			$config['source_image'] = $path . $name;
+			$config['wm_overlay_path'] = './public/images/logo_small.png';
+			$config['wm_type'] = 'overlay';
+			$config['wm_vrt_alignment'] = 'bottom';
+			$config['wm_hor_alignment'] = 'right';
+			$config['wm_opacity'] = 25;
+			$this->image_lib->initialize($config);
+			$this->image_lib->watermark();
+			$hash = sha1_file($path . $name);
+			$voted['image_trail_hash'] = $hash;
+			$this->Voted->update($voted, $election_id, $this->voter['id']);
+			rename($path . $name, $path . $election_id . '_' . $hash . '_' . $this->voter['id'] . '.png');
 		}
-		imagestring($image, 2, 5, $y_size - 15, 'Generated on ' . date('Y-m-d H:i:s'), $text);
-		$image_trail_path = $this->settings['image_trail_path'];
-		imagepng($image, $image_trail_path . $this->voter['id'] . '.png', 0, PNG_NO_FILTER);
-		imagedestroy($image);
-		$config['source_image'] = $image_trail_path . $this->voter['id'] . '.png';
-		$config['wm_overlay_path'] = './public/images/logo_small.png';
-		$config['wm_type'] = 'overlay';
-		$config['wm_vrt_alignment'] = 'top';
-		$config['wm_hor_alignment'] = 'left';
-		$config['wm_opacity'] = 25;
-		$this->image_lib->initialize($config);
-		$this->image_lib->watermark();
-		$config['wm_vrt_alignment'] = 'top';
-		$config['wm_hor_alignment'] = 'right';
-		$this->image_lib->initialize($config);
-		$this->image_lib->watermark();
-		$config['wm_vrt_alignment'] = 'bottom';
-		$config['wm_hor_alignment'] = 'left';
-		$this->image_lib->initialize($config);
-		$this->image_lib->watermark();
-		$config['wm_vrt_alignment'] = 'bottom';
-		$config['wm_hor_alignment'] = 'right';
-		$this->image_lib->initialize($config);
-		$this->image_lib->watermark();
-		return TRUE;
 	}
 
 	// get only running elections

@@ -74,6 +74,7 @@ CREATE TABLE positions (
 CREATE TABLE voted (
   election_id integer NOT NULL,
   voter_id integer NOT NULL,
+  image_trail_hash char(40),
   timestamp datetime NOT NULL,
   PRIMARY KEY  (election_id,voter_id)
 );

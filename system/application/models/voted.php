@@ -12,6 +12,11 @@ class Voted extends Model {
 		return $this->db->insert('voted', $voted);
 	}
 
+	function update($voted, $election_id, $voter_id)
+	{
+		return $this->db->update('voted', $voted, compact('election_id', 'voter_id'));
+	}
+
 	function select_all_by_voter_id($voter_id)
 	{
 		$this->db->from('voted');
