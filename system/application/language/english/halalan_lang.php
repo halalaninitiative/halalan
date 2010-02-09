@@ -78,6 +78,8 @@ $lang['halalan_voter_confirm_vote_not_pin'] = 'Incorrect PIN';
 $lang['halalan_voter_logout_title'] = 'Logout';
 // votes
 $lang['halalan_voter_votes_title'] = 'Votes';
+$lang['halalan_voter_votes_image_trail_disabled'] = 'Generation of image trail is disabled.';
+$lang['halalan_voter_votes_image_trail_not_found'] = 'Image trail is not found.';
 
 // views/voter/index.php
 $lang['halalan_voter_index_label'] = 'List of Elections';
@@ -106,7 +108,8 @@ $lang['halalan_voter_logout_message'] = '<p>Your ballot has been recorded. Thank
 
 // views/voter/votes.php
 $lang['halalan_voter_votes_no_candidates'] = 'No candidates found.';
-$lang['halalan_voter_votes_submit_button'] = 'Generate Page for Printing';
+$lang['halalan_voter_votes_print_button'] = 'Generate Page for Printing';
+$lang['halalan_voter_votes_download_button'] = 'Download Generated Image Trail';
 
 // controllers/admin/
 $lang['halalan_admin_common_running_one'] = 'The election is already running.';

@@ -283,7 +283,7 @@ class Voter extends Controller {
 	function votes($case, $election_id = 0)
 	{
 		// if url is not votes/view or votes/print
-		if (!in_array($case, array('view', 'print')))
+		if (!in_array($case, array('view', 'print', 'download')))
 		{
 			redirect('voter/index');
 		}
@@ -317,44 +317,48 @@ class Voter extends Controller {
 		{
 			redirect('voter/index');
 		}
-		// get all voted candidate ids
-		$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
-		$candidate_ids = array();
-		foreach ($votes as $vote)
+		// get votes for viewing and printing
+		if (in_array($case, array('view', 'print')))
 		{
-			$candidate_ids[] = $vote['candidate_id'];
-		}
-		// get the positions assigned to the voter for the selected election
-		$positions = $this->Position->select_all_by_ids($array[$election['id']]);
-		foreach ($positions as $key2=>$position)
-		{
-			$count = 0;
-			$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
-			foreach ($candidates as $key3=>$candidate)
+			// get all voted candidate ids
+			$votes = $this->Vote->select_all_by_voter_id($this->voter['id']);
+			$candidate_ids = array();
+			foreach ($votes as $vote)
 			{
-				if (in_array($candidate['id'], $candidate_ids))
+				$candidate_ids[] = $vote['candidate_id'];
+			}
+			// get the positions assigned to the voter for the selected election
+			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
+			foreach ($positions as $key2=>$position)
+			{
+				$count = 0;
+				$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
+				foreach ($candidates as $key3=>$candidate)
 				{
-					$candidates[$key3]['voted'] = TRUE;
+					if (in_array($candidate['id'], $candidate_ids))
+					{
+						$candidates[$key3]['voted'] = TRUE;
+					}
+					else
+					{
+						$candidates[$key3]['voted'] = FALSE;
+						$count++;
+					}
+					$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
+				}
+				if ($count == count($candidates))
+				{
+					$positions[$key2]['abstains'] = TRUE;
 				}
 				else
 				{
-					$candidates[$key3]['voted'] = FALSE;
-					$count++;
+					$positions[$key2]['abstains'] = FALSE;
 				}
-				$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
+				$positions[$key2]['candidates'] = $candidates;
 			}
-			if ($count == count($candidates))
-			{
-				$positions[$key2]['abstains'] = TRUE;
-			}
-			else
-			{
-				$positions[$key2]['abstains'] = FALSE;
-			}
-			$positions[$key2]['candidates'] = $candidates;
+			$election['positions'] = $positions;
+			$data['election'] = $election;
 		}
-		$election['positions'] = $positions;
-		$data['election'] = $election;
 		if ($case == 'view')
 		{
 			$data['settings'] = $this->settings;
@@ -368,6 +372,24 @@ class Voter extends Controller {
 		{
 			$data['voter'] = $this->voter;
 			$this->load->view('voter/print_votes', $data);
+		}
+		else if ($case == 'download')
+		{
+			if (!$this->settings['generate_image_trail'])
+			{
+				$this->session->set_flashdata('messages', array('negative', e('voter_votes_image_trail_disabled')));
+				redirect('voter/index');
+			}
+			$voted = $this->Voted->select($election_id, $this->voter['id']);
+			$path = $this->settings['image_trail_path'] . $election_id . '/';
+			$name = $election_id . '_' . $voted['image_trail_hash'] . '_' . $this->voter['id'] . '.png';
+			$contents = file_get_contents($path . $name);
+			if ($contents == FALSE)
+			{
+				$this->session->set_flashdata('messages', array('negative', e('voter_votes_image_trail_not_found')));
+				redirect('voter/index');
+			}
+			force_download($name, $contents);
 		}
 	}
 

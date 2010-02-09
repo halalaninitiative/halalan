@@ -17,6 +17,14 @@ class Voted extends Model {
 		return $this->db->update('voted', $voted, compact('election_id', 'voter_id'));
 	}
 
+	function select($election_id, $voter_id)
+	{
+		$this->db->from('voted');
+		$this->db->where(compact('election_id', 'voter_id'));
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+
 	function select_all_by_voter_id($voter_id)
 	{
 		$this->db->from('voted');

@@ -39,6 +39,15 @@ function printVotes() {
 	window.open(url);
 }
 
+function downloadVotes() {
+	var url = SITE_URL;
+	if (url.length - 1 != url.lastIndexOf('/')) {
+		url += '/';
+	}
+	url += 'voter/votes/download/' + $('#election_id').val();
+	window.location = url;
+}
+
 function confirmLogout() {
 	var page = window.location.href.split('/').pop();
 	if ('vote' == page || 'verify' == page) {
@@ -60,6 +69,7 @@ $(document).ready(function () {
 	$(':checkbox.abstainPosition').click(abstainPosition);
 	$(':button.modifyBallot').click(modifyBallot);
 	$(':button.printVotes').click(printVotes);
+	$(':button.downloadVotes').click(downloadVotes);
 	$('.confirmLogout').click(confirmLogout);
 	/* Restore the state of abstained positions */
 	$(':checkbox.abstainPosition:checked').click().attr('checked', true);
