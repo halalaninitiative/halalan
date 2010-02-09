@@ -1,11 +1,21 @@
 Halalan
-Version 1.4.1
+Version 1.5.0-alpha
 http://halalan.uplug.org
 http://halalan.googlecode.com
-Copyright (C) 2006-2008 UP Linux Users' Group
+Copyright (C) 2006-2010 UP Linux Users' Group
 
 
 Halalan Changelog
+
+1.5.0-alpha  20100209
+-----------------------
+--- Added a voter page wherein viewing/printing/downloading of votes by the voter is possible
+--- Added json.js
+--- Added support for multiple election instances
+--- Fixed minor bugs
+--- Refactored admin controller to use CI's validation library
+--- Removed PostgreSQL support (lack of manpower)
+--- Updated system requirements (PHP 5.x.x, MySQL 5.x.x)
 
 1.4.1  20091213
 -----------------------

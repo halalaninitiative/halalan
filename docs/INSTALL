@@ -1,15 +1,15 @@
 Halalan
-Version 1.4.1
+Version 1.5.0-alpha
 http://halalan.uplug.org
 http://halalan.googlecode.com
-Copyright (C) 2006-2008 UP Linux Users' Group
+Copyright (C) 2006-2010 UP Linux Users' Group
 
 
 REQUIREMENTS:
 
---- PHP 4.4.x or higher
+--- PHP 5.x.x or higher
 --- GD 2.x.x or higher
---- MySQL 4.1.x or higher
+--- MySQL 5.x.x or higher
 --- Webserver with the rewrite module turned on
 --- Javascript-enabled web browser
 
