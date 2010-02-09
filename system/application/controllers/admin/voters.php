@@ -517,14 +517,14 @@ class Voters extends Controller {
 			}
 			if ($this->input->post('status'))
 			{
-				if ($voter['voted'])
+				$voted = $this->Voted->select_all_by_voter_id($voter['id']);
+				$tmp = array();
+				foreach ($voted as $v)
 				{
-					$row .= ',yes';
+					$election = $this->Election->select($v['election_id']);
+					$tmp[] = $election['election'];
 				}
-				else
-				{
-					$row .= ',no';
-				}
+				$row .= ',' . implode(' | ', $tmp);
 			}
 			$data[] = $row;
 		}
