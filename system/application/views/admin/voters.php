@@ -10,12 +10,11 @@
 	<tr>
 		<th scope="col" class="w5">#</th>
 		<th scope="col"><?php echo e('admin_voters_name'); ?></th>
-		<th scope="col" class="w5"><?php echo e('admin_voters_voted'); ?></th>
 		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
 	<?php if (empty($voters)): ?>
 	<tr>
-		<td colspan="4" align="center"><em><?php echo e('admin_voters_no_voters'); ?></em></td>
+		<td colspan="3" align="center"><em><?php echo e('admin_voters_no_voters'); ?></em></td>
 	</tr>
 	<?php else: ?>
 	<?php $i = 0; ?>
@@ -27,13 +26,6 @@
 		</td>
 		<td>
 			<?php echo anchor('admin/voters/edit/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
-		</td>
-		<td align="center">
-			<?php if ($voter['voted'] == TRUE): ?>
-			<?php echo img(array('src'=>'public/images/ok.png', 'alt'=>'yes')); ?>
-			<?php else: ?>
-			<?php echo img(array('src'=>'public/images/x.png', 'alt'=>'no')); ?>
-			<?php endif; ?>
 		</td>
 		<td align="center">
 			<?php echo anchor('admin/voters/edit/' . $voter['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |

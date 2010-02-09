@@ -86,7 +86,6 @@ CREATE TABLE voters (
   pin char(40),
   first_name varchar(63) NOT NULL,
   last_name varchar(31) NOT NULL,
-  voted varchar(1) NOT NULL,
   login datetime,
   logout datetime,
   ip_address integer,

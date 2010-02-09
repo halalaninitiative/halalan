@@ -175,7 +175,6 @@ class Voters extends Controller {
 			$messages[] = 'positive';
 			if ($case == 'add')
 			{
-				$voter['voted'] = 0;
 				$this->Boter->insert($voter);
 				$messages[] = e('admin_add_voter_success');
 			}
@@ -342,7 +341,6 @@ class Voters extends Controller {
 			if ($this->form_validation->run())
 			{
 				$voter['password'] = '';
-				$voter['voted'] = 0;
 				// chosen elections are also in the ids of the positions
 				//$voter['chosen_elections'] = $this->input->post('chosen_elections', TRUE);
 				$general_positions = $this->input->post('general_positions', TRUE);
