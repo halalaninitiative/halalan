@@ -1,5 +1,6 @@
 <?php
 
+$error = FALSE;
 // error checking
 if (empty($_POST['first_name']))
 	$error = TRUE;
@@ -11,7 +12,7 @@ if (empty($_POST['url']))
 	$error = TRUE;
 if (empty($_POST['image_trail_path']))
 	$error = TRUE;
-if ($_POST['captcha'] || $_POST['image_trail'])
+if (isset($_POST['captcha']) || isset($_POST['image_trail']))
 {
 	if (!extension_loaded('gd') || !function_exists('gd_info'))
 	{
@@ -110,14 +111,14 @@ for ($i=0; $i < 32; $i++)
 <?php echo "<?php"; ?> if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 // don't change if you already entered some data
-$config['halalan']['pin'] = <?php echo ($_POST['pin']) ? $_POST['pin'] : 'FALSE'; ?>;
+$config['halalan']['pin'] = <?php echo isset($_POST['pin']) ? $_POST['pin'] : 'FALSE'; ?>;
 $config['halalan']['password_pin_generation'] = "<?php echo $_POST['password_pin_generation']; ?>";
 $config['halalan']['password_pin_characters'] = "<?php echo $_POST['password_pin_characters']; ?>";
 $config['halalan']['password_length'] = <?php echo $_POST['password_length']; ?>;
 $config['halalan']['pin_length'] = <?php echo $_POST['pin_length']; ?>;
 $config['halalan']['captcha'] = <?php echo isset($_POST['captcha']) ? $_POST['captcha'] : 'FALSE'; ?>;
 $config['halalan']['captcha_length'] = <?php echo $_POST['captcha_length']; ?>;
-$config['halalan']['show_candidate_details'] = <?php echo ($_POST['details']) ? $_POST['details'] : 'FALSE'; ?>;
+$config['halalan']['show_candidate_details'] = <?php echo isset($_POST['details']) ? $_POST['details'] : 'FALSE'; ?>;
 $config['halalan']['generate_image_trail'] = <?php echo isset($_POST['image_trail']) ? $_POST['image_trail'] : 'FALSE'; ?>;
 $config['halalan']['image_trail_path'] = "<?php echo $_POST['image_trail_path']; ?>";
 

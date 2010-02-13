@@ -121,7 +121,15 @@ else
 				<table cellspacing="2" cellpadding="2" width="100%">
 					<tr>
 						<td class="w35">URL</td>
-						<td><input type="text" name="url" value="http://localhost/halalan/" /> with trailing slash</td>
+						<td>
+							<?php
+								// simple URL autodetection; cannot cover all use cases so give the user freedom to edit
+								$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http';
+								$url = $protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+								$url = substr($url, 0, mb_strrpos($url, 'install'));
+							?>
+							<input type="text" name="url" size="40" value="<?php echo $url; ?>" /><br />with trailing slash
+						</td>
 					</tr>
 					<tr>
 						<td class="w35">PIN</td>
@@ -181,7 +189,7 @@ else
 					</tr>
 					<tr>
 						<td class="w35">Virtual Paper Trail Path</td>
-						<td><input type="text" name="image_trail_path" size="40" value="/var/www/html/w/" /></td>
+						<td><input type="text" name="image_trail_path" size="40" value="/var/www/html/w/" /><br />with trailing slash</td>
 					</tr>
 					<!--<tr>
 						<td class="w35">Real-time Results</td>
