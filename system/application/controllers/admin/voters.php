@@ -33,6 +33,7 @@ class Voters extends Controller {
 		$config['base_url'] = site_url('admin/voters/index');
 		$config['total_rows'] = count($voters);
 		$config['per_page'] = HALALAN_PER_PAGE;
+		$config['uri_segment'] = 4;
 		$config['num_links'] = 5;
 		$config['first_link'] = img('public/images/go-first.png');
 		$config['last_link'] = img('public/images/go-last.png');
