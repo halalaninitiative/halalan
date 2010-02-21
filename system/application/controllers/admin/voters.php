@@ -30,7 +30,7 @@ class Voters extends Controller {
 	function index($offset = null)
 	{
 		$voters = $this->Boter->select_all();
-		$config['base_url'] = site_url('admin/voters');
+		$config['base_url'] = site_url('admin/voters/index');
 		$config['total_rows'] = count($voters);
 		$config['per_page'] = HALALAN_PER_PAGE;
 		$config['num_links'] = 5;
