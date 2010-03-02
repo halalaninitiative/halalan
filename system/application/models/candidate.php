@@ -71,57 +71,6 @@ class Candidate extends Model {
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
 
-    function update_candidates_election_id()
-    {
-        $this->db->from('candidates');
-        $this->db->select('id, position_id');
-        $query = $this->db->get();
-        $candidates = $query->result_array();
-        foreach ($candidates as $candidate)
-        {
-            $this->db->flush_cache();
-            $this->db->from('elections_positions');
-            $this->db->where('position_id',$candidate['position_id']);
-            $this->db->select('election_id');
-            $result = $this->db->get();
-            $election_id = $result->row_array();
-            $this->db->where('id',$candidate['id']);
-            $this->db->update('candidates',$election_id);
-        }
-    }
-
-	function select_all_by_election_id($election_id)
-	{
-		$this->db->from('candidates');
-		$this->db->where(compact('election_id'));
-		$this->db->order_by('party_id', 'asc');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-    function select_party_ids_by_election_id($election_id)
-	{
-		$this->db->from('candidates');
-		$this->db->select('party_id');
-		$this->db->distinct();
-		$this->db->where(compact('election_id'));
-		$this->db->order_by('party_id', 'asc');
-		$query = $this->db->get();
-        $result = $query->result_array();
-
-		foreach ($result as $party_id)
-		{
-		    $this->db->flush_cache();
-    		$this->db->from('parties');
-		    $this->db->where('id',$party_id['party_id']);
-		    $temp = $this->db->get();
-		    $return[] = $temp->row_array();
-		}
-
-        return $return;
-
-	}
-
 }
 
 ?>

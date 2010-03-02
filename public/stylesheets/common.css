@@ -373,9 +373,6 @@ div.election {
     width: 20%;
   }
 
-.w23 {
-    max-width: 23%;
-  }
 
 .w30 {
     width: 30%;
@@ -396,6 +393,3 @@ div.election {
     width: 60%;
   }
 
-.h25 {
-    min-height: 200px;
-}
