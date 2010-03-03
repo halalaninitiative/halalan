@@ -433,7 +433,6 @@ class Voter extends Controller {
 						if (!empty($candidate['alias']))
 							$name .= ' "' . $candidate['alias'] . '"';
 						$name .= ' ' . $candidate['last_name'];
-						$name = quotes_to_entities($name);
 						$party = $this->Party->select($candidate['party_id']);
 						if (!empty($party))
 						{
