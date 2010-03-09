@@ -418,14 +418,14 @@ class Voters extends Controller {
 			}
 			$fill = $this->_fill_positions($chosen_elections, FALSE);
 			$data['general_positions'] = array();
-			for ($i = 0; $i < count($fill[1]); $i++)
+			foreach ($fill[0] as $f)
 			{
-				$data['general_positions'][$fill[0][$i]] = $fill[1][$i];
+				$data['general_positions'][$f['value']] = $f['text'];
 			}
 			$data['possible_positions'] = array();
-			for ($i = 0; $i < count($fill[3]); $i++)
+			foreach ($fill[1] as $f)
 			{
-				$data['possible_positions'][$fill[2][$i]] = $fill[3][$i];
+				$data['possible_positions'][$f['value']] = $f['text'];
 			}
 			$data['chosen_positions'] = array();
 			foreach ($data['possible_positions'] as $key=>$value)
