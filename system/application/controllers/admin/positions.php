@@ -100,7 +100,7 @@ class Positions extends Controller {
 			}
 			$this->session->set_userdata('position', $data['position']); // used in callback rules
 		}
-		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists');
+		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists|callback__rule_dependencies');
 		$this->form_validation->set_rules('description', e('admin_position_description'));
 		$this->form_validation->set_rules('maximum', e('admin_position_maximum'), 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('ordinality', e('admin_position_ordinality'), 'required|is_natural_no_zero');
@@ -176,6 +176,33 @@ class Positions extends Controller {
 				$message = e('admin_position_exists') . ' (' . $test['position'] . ')';
 				$this->form_validation->set_message('_rule_position_exists', $message);
 				return FALSE;
+			}
+		}
+		return TRUE;
+	}
+
+	// placed in position so it come up on top
+	function _rule_dependencies()
+	{
+		if ($position = $this->session->userdata('position')) // edit
+		{
+			// don't check if chosen is empty
+			if ($this->input->post('chosen') == FALSE)
+			{
+				return TRUE;
+			}
+			if ($this->Position->in_use($position['id']))
+			{
+				$tmp = $this->Election_Position->select_all_by_position_id($position['id']);
+				foreach ($tmp as $t)
+				{
+					$chosen[] = $t['election_id'];
+				}
+				if ($chosen != $this->input->post('chosen'))
+				{
+					$this->form_validation->set_message('_rule_dependencies', e('admin_position_dependencies'));
+					return FALSE;
+				}
 			}
 		}
 		return TRUE;

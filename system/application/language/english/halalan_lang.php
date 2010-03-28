@@ -159,6 +159,7 @@ $lang['halalan_admin_delete_position_success'] = 'The position has been successf
 $lang['halalan_admin_edit_position_title'] = 'Edit Position';
 $lang['halalan_admin_add_position_title'] = 'Add Position';
 $lang['halalan_admin_position_exists'] = 'Position already exists';
+$lang['halalan_admin_position_dependencies'] = 'The position is in use.  The Chosen Elections field cannot be edited.';
 $lang['halalan_admin_add_position_success'] = 'The position has been successfully added.';
 $lang['halalan_admin_edit_position_success'] = 'The position has been successfully edited.';
 

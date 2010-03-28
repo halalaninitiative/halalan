@@ -136,7 +136,11 @@ class Position extends Model {
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('position_id'));
-		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+		$has_candidates = $this->db->count_all_results() > 0 ? TRUE : FALSE;
+		$this->db->from('elections_positions_voters');
+		$this->db->where(compact('position_id'));
+		$has_voters = $this->db->count_all_results() > 0 ? TRUE : FALSE;
+		return $has_candidates || $has_voters ? TRUE : FALSE;
 	}
 
 }
