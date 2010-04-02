@@ -64,7 +64,7 @@ class Candidate extends Model {
 		return $query->row_array();
 	}
 
-	function has_votes($candidate_id)
+	function in_use($candidate_id)
 	{
 		$this->db->from('votes');
 		$this->db->where(compact('candidate_id'));

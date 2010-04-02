@@ -170,6 +170,7 @@ $lang['halalan_admin_delete_candidate_success'] = 'The candidate has been succes
 $lang['halalan_admin_edit_candidate_title'] = 'Edit Candidate';
 $lang['halalan_admin_add_candidate_title'] = 'Add Candidate';
 $lang['halalan_admin_candidate_exists'] = 'Candidate already exists';
+$lang['halalan_admin_candidate_dependencies'] = 'The candidate is in use.  The Election and Position fields cannot be edited.';
 $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
 $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
 

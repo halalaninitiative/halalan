@@ -120,6 +120,7 @@ class Candidates extends Controller {
 		if ($case == 'add')
 		{
 			$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'', 'election_id'=>'', 'position_id'=>'');
+			$this->session->unset_userdata('candidate'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{
@@ -134,7 +135,7 @@ class Candidates extends Controller {
 			}
 			$this->session->set_userdata('candidate', $data['candidate']); // used in callback rules
 		}
-		$this->form_validation->set_rules('first_name', e('admin_candidate_first_name'), 'required');
+		$this->form_validation->set_rules('first_name', e('admin_candidate_first_name'), 'required|callback__rule_dependencies');
 		$this->form_validation->set_rules('last_name', e('admin_candidate_last_name'), 'required|callback__rule_candidate_exists');
 		$this->form_validation->set_rules('alias', e('admin_candidate_alias'));
 		$this->form_validation->set_rules('description', e('admin_candidate_description'));
@@ -202,7 +203,8 @@ class Candidates extends Controller {
 					$error = TRUE;
 				}
 			}
-			else {
+			else
+			{
 				$error = TRUE;
 			}
 			if ($error)
@@ -217,10 +219,7 @@ class Candidates extends Controller {
 				return FALSE;
 			}
 		}
-		else
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	function _rule_picture()
@@ -289,9 +288,35 @@ class Candidates extends Controller {
 			$name = $upload_data['file_name'];
 		}
 		if (empty($error))
+		{
 			return $name;
+		}
 		else
+		{
 			return $error;
+		}
+	}
+
+	// placed in first name so it comes up on top
+	function _rule_dependencies()
+	{
+		if ($candidate = $this->session->userdata('candidate')) // edit
+		{
+			// don't check if election_id or position_id is empty
+			if ($this->input->post('election_id') == FALSE || $this->input->post('position_id') == FALSE)
+			{
+				return TRUE;
+			}
+			if ($this->Candidate->in_use($candidate['id']))
+			{
+				if ($candidate['election_id'] != $this->input->post('election_id') || $candidate['position_id'] != $this->input->post('position_id'))
+				{
+					$this->form_validation->set_message('_rule_dependencies', e('admin_candidate_dependencies'));
+					return FALSE;
+				}
+			}
+		}
+		return TRUE;
 	}
 
 }
