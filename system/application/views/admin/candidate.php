@@ -94,7 +94,7 @@
 	</tr>
 	<tr>
 		<td class="w20" align="right">
-			<?php echo form_label(e('admin_candidate_picture') . ':', 'picture'); ?>:
+			<?php echo form_label(e('admin_candidate_picture') . ':', 'picture'); ?>
 		</td>
 		<td>
 			<?php echo form_upload('picture', '', 'id="picture"'); ?>
