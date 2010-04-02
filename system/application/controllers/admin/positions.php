@@ -181,7 +181,7 @@ class Positions extends Controller {
 		return TRUE;
 	}
 
-	// placed in position so it come up on top
+	// placed in position so it comes up on top
 	function _rule_dependencies()
 	{
 		if ($position = $this->session->userdata('position')) // edit
