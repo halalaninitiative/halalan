@@ -48,6 +48,10 @@ class Elections extends Controller {
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_election_running')));
 		}
+		else if ($this->Election->in_use($id))
+		{
+			$this->session->set_flashdata('messages', array('negative', e('admin_delete_election_in_use')));
+		}
 		else
 		{
 			$this->Election->delete($id);

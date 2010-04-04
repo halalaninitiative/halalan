@@ -89,7 +89,7 @@ class Voters extends Controller {
 		$voter = $this->Boter->select($id);
 		if (!$voter)
 			redirect('admin/voters');
-		if ($voter['voted'] == 1)
+		if ($this->Boter->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_voter_already_voted')));
 		}

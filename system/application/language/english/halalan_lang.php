@@ -177,6 +177,7 @@ $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successf
 
 // controllers/admin/elections.php
 $lang['halalan_admin_elections_title'] = 'Manage Elections';
+$lang['halalan_admin_delete_election_in_use'] = 'An election which is in use cannot be deleted.';
 $lang['halalan_admin_delete_election_running'] = 'An election which is running cannot be deleted.';
 $lang['halalan_admin_delete_election_success'] = 'The election has been successfully deleted.';
 $lang['halalan_admin_edit_election_title'] = 'Edit Election';

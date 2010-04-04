@@ -62,7 +62,7 @@ class Boter extends Model {
 	function delete($id)
 	{
 		$this->db->where(array('voter_id'=>$id));
-		$this->db->delete('positions_voters');
+		$this->db->delete('elections_positions_voters');
 		$this->db->where(compact('id'));
 		return $this->db->delete('voters');
 	}

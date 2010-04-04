@@ -102,7 +102,7 @@ class Candidates extends Controller {
 	{
 		if (!$id)
 			redirect('admin/candidates');
-		if ($this->Candidate->has_votes($id))
+		if ($this->Candidate->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_candidate_already_has_votes')));
 		}

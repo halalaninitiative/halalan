@@ -101,6 +101,13 @@ class Election extends Model {
 		return $query->result_array();
 	}
 
+	function in_use($election_id)
+	{
+		$this->db->from('elections_positions');
+		$this->db->where(compact('election_id'));
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+	}
+
 }
 
 ?>
