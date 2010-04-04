@@ -46,7 +46,7 @@ class Position extends Model {
 		$this->db->where('position_id', $id);
 		$this->db->delete('elections_positions');
 		$this->db->where('position_id', $id);
-		$this->db->delete('positions_voters');
+		$this->db->delete('elections_positions_voters');
 		$this->db->where(compact('id'));
 		return $this->db->delete('positions');
 	}
