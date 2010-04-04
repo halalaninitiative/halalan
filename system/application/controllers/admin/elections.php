@@ -104,6 +104,7 @@ class Elections extends Controller {
 		if ($case == 'add')
 		{
 			$data['election'] = array('election'=>'', 'parent_id'=>'');
+			$this->session->unset_userdata('election'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{

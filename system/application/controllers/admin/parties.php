@@ -67,6 +67,7 @@ class Parties extends Controller {
 		if ($case == 'add')
 		{
 			$data['party'] = array('party'=>'', 'alias'=>'', 'description'=>'');
+			$this->session->unset_userdata('party'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{

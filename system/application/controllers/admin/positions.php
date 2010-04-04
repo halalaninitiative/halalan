@@ -82,6 +82,7 @@ class Positions extends Controller {
 		if ($case == 'add')
 		{
 			$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>'1', 'unit'=>'0');
+			$this->session->unset_userdata('position'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{
