@@ -108,6 +108,7 @@ class Voters extends Controller {
 		if ($case == 'add')
 		{
 			$data['voter'] = array('username'=>'', 'first_name'=>'', 'last_name'=>'');
+			$this->session->unset_userdata('voter'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{
@@ -130,11 +131,11 @@ class Voters extends Controller {
 		}
 		if ($this->settings['password_pin_generation'] == 'email')
 		{
-			$this->form_validation->set_rules('username', e('admin_voter_email'), 'required|valid_email|callback__rule_voter_exists');
+			$this->form_validation->set_rules('username', e('admin_voter_email'), 'required|valid_email|callback__rule_voter_exists|callback__rule_dependencies');
 		}
 		else
 		{
-			$this->form_validation->set_rules('username', e('admin_voter_username'), 'required|callback__rule_voter_exists');
+			$this->form_validation->set_rules('username', e('admin_voter_username'), 'required|callback__rule_voter_exists|callback__rule_dependencies');
 		}
 		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
 		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
@@ -580,6 +581,51 @@ class Voters extends Controller {
 			$this->session->set_userdata('voter_csv', $data);
 			return TRUE;
 		}
+	}
+
+	// placed in username so it comes up on top
+	function _rule_dependencies()
+	{
+		if ($voter = $this->session->userdata('voter')) // edit
+		{
+			// don't check if election_id or position_id is empty
+			if ($this->input->post('chosen_elections') == FALSE)
+			{
+				return TRUE;
+			}
+			if ($this->Boter->in_use($voter['id']))
+			{
+				$tmp = $this->Election_Position_Voter->select_all_by_voter_id($voter['id']);
+				foreach ($tmp as $t)
+				{
+					$chosen_elections[] = $t['election_id'];
+					$chosen_positions[] = $t['election_id'] . '|' . $t['position_id'];
+				}
+				$chosen_elections = array_unique($chosen_elections);
+				$fill = $this->_fill_positions($chosen_elections, FALSE);
+				$general_positions = array();
+				foreach ($fill[0] as $f)
+				{
+					$general_positions[] = $f['value'];
+				}
+				$tmp = FALSE; // not array() since $this->input->post returns FALSE when empty
+				foreach ($chosen_positions as $c)
+				{
+					// remove from $chosen_positions the general positions
+					if (!in_array($c, $general_positions))
+					{
+						$tmp[] = $c;
+					}
+				}
+				$chosen_positions = $tmp;
+				if ($chosen_elections != $this->input->post('chosen_elections') || $general_positions != $this->input->post('general_positions') || $chosen_positions != $this->input->post('chosen_positions'))
+				{
+					$this->form_validation->set_message('_rule_dependencies', e('admin_voter_dependencies'));
+					return FALSE;
+				}
+			}
+		}
+		return TRUE;
 	}
 
 }

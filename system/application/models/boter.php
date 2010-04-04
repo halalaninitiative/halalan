@@ -111,6 +111,13 @@ class Boter extends Model {
 		return $results->result_array();
 	}
 
+	function in_use($voter_id)
+	{
+		$this->db->from('voted');
+		$this->db->where(compact('voter_id'));
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+	}
+
 }
 
 ?>

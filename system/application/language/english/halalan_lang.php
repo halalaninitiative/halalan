@@ -132,6 +132,7 @@ $lang['halalan_admin_delete_voter_success'] = 'The voter has been successfully d
 $lang['halalan_admin_edit_voter_title'] = 'Edit Voter';
 $lang['halalan_admin_add_voter_title'] = 'Add Voter';
 $lang['halalan_admin_voter_exists'] = 'Voter already exists';
+$lang['halalan_admin_voter_dependencies'] = 'The voter is in use.  The Elections and Positions fields cannot be edited.';
 $lang['halalan_admin_voter_email_success'] = 'The login credentials was successfully emailed.';
 $lang['halalan_admin_add_voter_success'] = 'The voter has been successfully added.';
 $lang['halalan_admin_edit_voter_success'] = 'The voter has been successfully edited.';
