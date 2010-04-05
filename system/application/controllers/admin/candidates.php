@@ -226,7 +226,7 @@ class Candidates extends Controller {
 	{
 		if ($_FILES['picture']['error'] != UPLOAD_ERR_NO_FILE)
 		{
-			$config['upload_path'] = HALALAN_UPLOAD_PATH . 'logos/';
+			$config['upload_path'] = HALALAN_UPLOAD_PATH . 'pictures/';
 			$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
 			$this->upload->initialize($config);
 			if ($candidate = $this->session->userdata('candidate')) // edit
