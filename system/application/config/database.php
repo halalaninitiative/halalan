@@ -46,9 +46,7 @@ $active_record = TRUE;
 $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "root";
 $db['default']['password'] = "";
-$db['default']['database'] = "botohan";
-$db['default']['dbdriver'] = "mysql"; // mysql or postgre
-$db['default']['port'] = "5432"; // used only in postgre
+$db['default']['database'] = "halalan";
 
 /*
 |===============================================================
@@ -56,6 +54,7 @@ $db['default']['port'] = "5432"; // used only in postgre
 |===============================================================
 */
 
+$db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
