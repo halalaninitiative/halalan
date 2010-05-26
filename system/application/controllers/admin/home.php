@@ -11,8 +11,7 @@ class Home extends Controller {
 		$this->admin = $this->session->userdata('admin');
 		if (!$this->admin)
 		{
-			$error[] = e('common_unauthorized');
-			$this->session->set_flashdata('error', $error);
+			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
 		}
 		$this->settings = $this->config->item('halalan');
