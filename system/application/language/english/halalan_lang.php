@@ -191,23 +191,16 @@ $lang['halalan_admin_options_election_success'] = 'The election options has been
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
 $lang['halalan_admin_home_manage_question'] = 'What do you want to do?';
 $lang['halalan_admin_home_manage_candidates'] = 'Manage Candidates';
+$lang['halalan_admin_home_manage_elections'] = 'Manage Elections';
 $lang['halalan_admin_home_manage_parties'] = 'Manage Parties';
 $lang['halalan_admin_home_manage_positions'] = 'Manage Positions';
 $lang['halalan_admin_home_manage_voters'] = 'Manage Voters';
-$lang['halalan_admin_home_left_label_too'] = 'Regeneration Box';
+$lang['halalan_admin_home_right_label'] = 'Regeneration Box';
 $lang['halalan_admin_home_email'] = 'Email';
 $lang['halalan_admin_home_username'] = 'Username';
 $lang['halalan_admin_home_pin'] = 'Regenerate PIN too?';
 $lang['halalan_admin_home_login'] = 'Reset login time? (for "logged in another session" errors)';
-$lang['halalan_admin_home_submit_too'] = 'Regenerate';
-$lang['halalan_admin_home_right_label'] = 'Options';
-$lang['halalan_admin_home_status'] = 'Status';
-$lang['halalan_admin_home_running'] = 'Running';
-$lang['halalan_admin_home_not_running'] = 'Not Running';
-$lang['halalan_admin_home_results'] = 'Results';
-$lang['halalan_admin_home_publish'] = 'Publish results? (for all; election must not be running)';
-$lang['halalan_admin_home_realtime'] = 'View in Realtime (administrator only)';
-$lang['halalan_admin_home_submit'] = 'Save';
+$lang['halalan_admin_home_submit'] = 'Regenerate';
 
 // views/admin/voters.php
 $lang['halalan_admin_voters_label'] = 'Manage Voters';

@@ -19,28 +19,11 @@ class Home extends Controller {
 	
 	function index()
 	{
-		$this->load->model('Option');
-		$data['option'] = $this->Option->select(1);
 		$data['settings'] = $this->settings;
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_home_title');
 		$admin['body'] = $this->load->view('admin/home', $data, TRUE);
 		$this->load->view('admin', $admin);
-	}
-
-	function do_edit_option($id)
-	{
-		if (!$id)
-			redirect('admin/home');
-		$this->load->model('Option');
-		$option = $this->Option->select($id);
-		if (!$option)
-			redirect('admin/home');
-		$option['status'] = $this->input->post('status', TRUE);
-		$option['result'] = $this->input->post('result', TRUE);
-		$this->Option->update($option, $id);
-		$this->session->set_flashdata('messages', array('positive', e('admin_edit_option_success')));
-		redirect('admin/home');
 	}
 
 	function do_regenerate()
