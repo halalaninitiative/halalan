@@ -143,6 +143,14 @@ class Position extends Model {
 		return $has_candidates || $has_voters ? TRUE : FALSE;
 	}
 
+	function in_running_election($position_id)
+	{
+		$this->db->from('elections_positions');
+		$this->db->where(compact('position_id'));
+		$this->db->where('election_id IN (SELECT id FROM elections WHERE status = 1)');
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+	}
+
 }
 
 ?>

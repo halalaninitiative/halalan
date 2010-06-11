@@ -40,7 +40,11 @@ class Parties extends Controller {
 	{
 		if (!$id)
 			redirect('admin/parties');
-		if ($this->Party->in_use($id))
+		if ($this->Party->in_running_election($id))
+		{
+			$this->session->set_flashdata('messages', array('negative', e('admin_party_in_running_election')));
+		}
+		else if ($this->Party->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_party_in_use')));
 		}
@@ -66,6 +70,11 @@ class Parties extends Controller {
 			$data['party'] = $this->Party->select($id);
 			if (!$data['party'])
 				redirect('admin/parties');
+			if ($this->Party->in_running_election($id))
+			{
+				$this->session->set_flashdata('messages', array('negative', e('admin_party_in_running_election')));
+				redirect('admin/parties');			
+			}
 			$this->session->set_userdata('party', $data['party']); // used in callback rules
 		}
 		$this->form_validation->set_rules('party', e('admin_party_party'), 'required|callback__rule_party_exists');

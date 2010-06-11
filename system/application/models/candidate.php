@@ -71,6 +71,14 @@ class Candidate extends Model {
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
 
+	function in_running_election($candidate_id)
+	{
+		$this->db->from('candidates');
+		$this->db->where('id', $candidate_id);
+		$this->db->where('election_id IN (SELECT id FROM elections WHERE status = 1)');
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+	}
+
 }
 
 ?>

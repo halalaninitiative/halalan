@@ -54,7 +54,11 @@ class Positions extends Controller {
 	{
 		if (!$id)
 			redirect('admin/positions');
-		if ($this->Position->in_use($id))
+		if ($this->Position->in_running_election($id))
+		{
+			$this->session->set_flashdata('messages', array('negative', e('admin_position_in_running_election')));
+		}
+		else if ($this->Position->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_position_in_use')));
 		}
@@ -81,6 +85,11 @@ class Positions extends Controller {
 			$data['position'] = $this->Position->select($id);
 			if (!$data['position'])
 				redirect('admin/positions');
+			if ($this->Position->in_running_election($id))
+			{
+				$this->session->set_flashdata('messages', array('negative', e('admin_position_in_running_election')));
+				redirect('admin/positions');
+			}
 			if (empty($_POST))
 			{
 				$tmp = $this->Election_Position->select_all_by_position_id($id);
@@ -97,7 +106,7 @@ class Positions extends Controller {
 		$this->form_validation->set_rules('ordinality', e('admin_position_ordinality'), 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('abstain', e('admin_position_abstain'));
 		$this->form_validation->set_rules('unit', e('admin_position_unit'));
-		$this->form_validation->set_rules('chosen[]', e('admin_position_chosen_elections'), 'required');
+		$this->form_validation->set_rules('chosen[]', e('admin_position_chosen_elections'), 'required|callback__rule_running_election');
 		if ($this->form_validation->run())
 		{
 			$position['position'] = $this->input->post('position', TRUE);
@@ -197,6 +206,19 @@ class Positions extends Controller {
 			}
 		}
 		return TRUE;
+	}
+
+	function _rule_running_election()
+	{
+		if ($this->Election->is_running($this->input->post('chosen')))
+		{
+			$this->form_validation->set_message('_rule_running_election', e('admin_position_running_election'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 
 }

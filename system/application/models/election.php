@@ -108,6 +108,14 @@ class Election extends Model {
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
 
+	function is_running($ids)
+	{
+		$this->db->from('elections');
+		$this->db->where('status', TRUE);
+		$this->db->where_in('id', $ids);
+		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+	}
+
 }
 
 ?>

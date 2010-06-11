@@ -116,6 +116,11 @@ class Elections extends Controller {
 			$data['election'] = $this->Election->select($id);
 			if (!$data['election'])
 				redirect('admin/elections');
+			if ($data['election']['status'])
+			{
+				$this->session->set_flashdata('messages', array('negative', e('admin_edit_election_running')));
+				redirect('admin/elections');
+			}
 			$this->session->set_flashdata('election', $data['election']); // used in callback rules
 		}
 		$this->form_validation->set_rules('election', e('admin_election_election'), 'required');

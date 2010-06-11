@@ -79,7 +79,11 @@ class Voters extends Controller {
 		$voter = $this->Boter->select($id);
 		if (!$voter)
 			redirect('admin/voters');
-		if ($this->Boter->in_use($id))
+		if ($this->Boter->in_running_election($id))
+		{
+			$this->session->set_flashdata('messages', array('negative', e('admin_voter_in_running_election')));
+		}
+		else if ($this->Boter->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_voter_already_voted')));
 		}
@@ -107,6 +111,11 @@ class Voters extends Controller {
 			$data['voter'] = $this->Boter->select($id);
 			if (!$data['voter'])
 				redirect('admin/voters');
+			if ($this->Boter->in_running_election($id))
+			{
+				$this->session->set_flashdata('messages', array('negative', e('admin_voter_in_running_election')));
+				redirect('admin/voters');
+			}
 			if (empty($_POST))
 			{
 				$tmp = $this->Election_Position_Voter->select_all_by_voter_id($id);
@@ -129,7 +138,7 @@ class Voters extends Controller {
 		}
 		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
 		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
-		$this->form_validation->set_rules('chosen_elections', e('admin_voter_chosen_elections'), 'required');
+		$this->form_validation->set_rules('chosen_elections', e('admin_voter_chosen_elections'), 'required|callback__rule_running_election');
 		if ($this->form_validation->run())
 		{
 			$voter['username'] = $this->input->post('username', TRUE);
@@ -616,6 +625,19 @@ class Voters extends Controller {
 			}
 		}
 		return TRUE;
+	}
+
+	function _rule_running_election()
+	{
+		if ($this->Election->is_running($this->input->post('chosen_elections')))
+		{
+			$this->form_validation->set_message('_rule_running_election', e('admin_voter_running_election'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 
 }

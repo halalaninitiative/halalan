@@ -142,6 +142,8 @@ $lang['halalan_admin_import_success_plural'] = ' voters have been successfully i
 $lang['halalan_admin_import_reminder'] = 'You can use the Export Voters option to do batch generation of passwords.';
 $lang['halalan_admin_import_reminder_too'] = ' and PINs.';
 $lang['halalan_admin_export_title'] = 'Export Voters';
+$lang['halalan_admin_voter_in_running_election'] = 'A voter in a running election cannot be modifed.';
+$lang['halalan_admin_voter_running_election'] = 'A voter cannot be added to a running election.';
 
 // controllers/admin/parties.php
 $lang['halalan_admin_parties_title'] = 'Manage Parties';
@@ -152,6 +154,7 @@ $lang['halalan_admin_add_party_title'] = 'Add Party';
 $lang['halalan_admin_party_exists'] = 'Party already exists';
 $lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
 $lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
+$lang['halalan_admin_party_in_running_election'] = 'A party in a running election cannot be modifed.';
 
 // controllers/admin/positions.php
 $lang['halalan_admin_positions_title'] = 'Manage Positions';
@@ -163,6 +166,8 @@ $lang['halalan_admin_position_exists'] = 'Position already exists';
 $lang['halalan_admin_position_dependencies'] = 'The position is in use.  The Chosen Elections field cannot be edited.';
 $lang['halalan_admin_add_position_success'] = 'The position has been successfully added.';
 $lang['halalan_admin_edit_position_success'] = 'The position has been successfully edited.';
+$lang['halalan_admin_position_in_running_election'] = 'A position in a running election cannot be modifed.';
+$lang['halalan_admin_position_running_election'] = 'A position cannot be added to a running election.';
 
 // controllers/admin/candidates.php
 $lang['halalan_admin_candidates_title'] = 'Manage Candidates';
@@ -174,6 +179,8 @@ $lang['halalan_admin_candidate_exists'] = 'Candidate already exists';
 $lang['halalan_admin_candidate_dependencies'] = 'The candidate is in use.  The Election and Position fields cannot be edited.';
 $lang['halalan_admin_add_candidate_success'] = 'The candidate has been successfully added.';
 $lang['halalan_admin_edit_candidate_success'] = 'The candidate has been successfully edited.';
+$lang['halalan_admin_candidate_in_running_election'] = 'A candidate in a running election cannot be modifed.';
+$lang['halalan_admin_candidate_running_election'] = 'A candidate cannot be added to a running election.';
 
 // controllers/admin/elections.php
 $lang['halalan_admin_elections_title'] = 'Manage Elections';
@@ -184,6 +191,7 @@ $lang['halalan_admin_edit_election_title'] = 'Edit Election';
 $lang['halalan_admin_add_election_title'] = 'Add Election';
 //$lang['halalan_admin_party_exists'] = 'Party already exists';
 $lang['halalan_admin_add_election_success'] = 'The election has been successfully added.';
+$lang['halalan_admin_edit_election_running'] = 'An election which is running cannot be edited.';
 $lang['halalan_admin_edit_election_success'] = 'The election has been successfully edited.';
 $lang['halalan_admin_options_election_success'] = 'The election options has been successfully changed.';
 

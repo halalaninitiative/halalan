@@ -92,7 +92,11 @@ class Candidates extends Controller {
 	{
 		if (!$id)
 			redirect('admin/candidates');
-		if ($this->Candidate->in_use($id))
+		if ($this->Candidate->in_running_election($id))
+		{
+			$this->session->set_flashdata('messages', array('negative', e('admin_candidate_in_running_election')));
+		}
+		else if ($this->Candidate->in_use($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_candidate_already_has_votes')));
 		}
@@ -119,6 +123,11 @@ class Candidates extends Controller {
 			$data['candidate'] = $this->Candidate->select($id);
 			if (!$data['candidate'])
 				redirect('admin/candidates');
+			if ($this->Candidate->in_running_election($id))
+			{
+				$this->session->set_flashdata('messages', array('negative', e('admin_candidate_in_running_election')));
+				redirect('admin/candidates');
+			}
 			if (empty($_POST))
 			{
 				$election_id = $data['candidate']['election_id'];
@@ -130,7 +139,7 @@ class Candidates extends Controller {
 		$this->form_validation->set_rules('alias', e('admin_candidate_alias'));
 		$this->form_validation->set_rules('description', e('admin_candidate_description'));
 		$this->form_validation->set_rules('party_id', e('admin_candidate_party'));
-		$this->form_validation->set_rules('election_id', e('admin_candidate_election'), 'required');
+		$this->form_validation->set_rules('election_id', e('admin_candidate_election'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('position_id', e('admin_candidate_position'), 'required');
 		$this->form_validation->set_rules('picture', e('admin_candidate_picture'), 'callback__rule_picture');
 		if ($this->form_validation->run())
@@ -307,6 +316,19 @@ class Candidates extends Controller {
 			}
 		}
 		return TRUE;
+	}
+
+	function _rule_running_election()
+	{
+		if ($this->Election->is_running(array($this->input->post('election_id'))))
+		{
+			$this->form_validation->set_message('_rule_running_election', e('admin_candidate_running_election'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 
 }
