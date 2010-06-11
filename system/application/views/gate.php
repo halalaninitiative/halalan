@@ -53,10 +53,10 @@
 	<div id="footer">
 		<div id="footer_bg">
 			<div id="footer_left">
-				<p>&copy; University of the Philippines Linux Users' Group (UnPLUG)</p>
+				<p><a href="http://uplug.org">&copy; University of the Philippines Linux Users' Group (UnPLUG)</a></p>
 			</div>
 			<div id="footer_right">
-				<p>Powered by Halalan <?php echo HALALAN_VERSION; ?></p>
+				<p><a href="http://halalan.uplug.org">Powered by Halalan <?php echo HALALAN_VERSION; ?></a></p>
 			</div>
 			<div class="clear"></div>
 		</div>

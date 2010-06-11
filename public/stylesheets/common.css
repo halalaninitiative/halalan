@@ -281,6 +281,10 @@ img {
     color: white;
   }
 
+#footer a {
+    color: white;
+  }
+
 
 #footer_bg {
     background: black url('../images/footer_bg.png') repeat-x bottom center;
