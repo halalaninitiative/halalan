@@ -14,6 +14,9 @@
 		<tr>
 			<td colspan="2" align="center"><?php echo form_submit(array('value'=>e('gate_admin_login_button'))); ?></td>
 		</tr>
+		<tr>
+			<td colspan="2" align="center"><?php echo anchor('gate/results', 'results'); ?> | <?php echo anchor('gate/statistics', 'statistics'); ?></td>
+		</tr>
 	</table>
 </div>
 </form>
