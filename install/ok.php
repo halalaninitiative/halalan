@@ -34,7 +34,7 @@ require_once('../system/application/config/config.php');
 extract($db['default']);
 $link = mysql_connect($hostname, $username, $password);
 mysql_select_db($database, $link);
-$queries = explode(";", file_get_contents("db/mysql.sql"));
+$queries = explode(";", file_get_contents("mysql.sql"));
 foreach ($queries as $query)
 {
 	if (!empty($query))
@@ -48,7 +48,7 @@ for ($i=0; $i < $_POST['password_length']; $i++)
 	$password .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
 }
 
-$query = "INSERT INTO admins (email, username, password, first_name, last_name) VALUES('$_POST[email]', 'admin', '" . sha1($password) . "', '$_POST[first_name]', '$_POST[last_name]')";
+$query = "INSERT INTO admins (username, password, email, admin) VALUES('admin', '" . sha1($password) . "', '$_POST[email]', '$_POST[first_name] $_POST[last_name]')";
 
 mysql_query($query);
 
