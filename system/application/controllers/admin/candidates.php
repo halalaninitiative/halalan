@@ -20,11 +20,16 @@ class Candidates extends Controller {
 	function index($election_id = 0, $position_id = 0)
 	{
 		$this->load->helper('cookie');
-		if (get_cookie('selected_election'))
+		$elections = $this->Election->select_all_with_positions();
+		// If only one election exists, show it by default.
+		if (count($elections) == 1)
+		{
+			$election_id = $elections[0]['id'];
+		}
+		else if (get_cookie('selected_election'))
 		{
 			$election_id = get_cookie('selected_election');
 		}
-		$elections = $this->Election->select_all_with_positions();
 		$tmp = array();
 		foreach ($elections as $election)
 		{
