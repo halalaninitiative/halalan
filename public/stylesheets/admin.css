@@ -2,6 +2,11 @@
 @import url("common.css");
 
 
+.content_left h2 span {
+    display: none;
+  }
+
+
 #content .align_right {
     text-align: right;
   }
