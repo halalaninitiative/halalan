@@ -1,19 +1,6 @@
 
 /* jQuery event handlers */
 
-function changeElectionStatus() {
-	var result = $('tr.results');
-	var checkbox = $('tr.results :checkbox');
-
-	if ($(this).val() === "1") {
-		result.fadeTo(250, 0.5);
-		checkbox.attr('disabled', true);
-	} else {
-		result.fadeTo(250, 1.0);
-		checkbox.removeAttr('disabled');
-	}
-}
-
 function confirmDelete() {
 	var name = $(this).parent().siblings().eq(1).children().text();
 
@@ -211,7 +198,6 @@ $(document).ready(function () {
 	$('a.confirmDelete').click(confirmDelete);
 	$('a.manipulateAllPositions').click(manipulateAllPositions);
 	$('img.togglePosition').click(togglePosition);
-	$(':radio.changeElectionStatus').click(changeElectionStatus);
 	$(':button.copySelectedWithAjax').click(copySelectedWithAjax);
 	$(':button.copySelected').click(copySelected);
 	$('form.selectChosen').submit(selectChosen);
@@ -219,10 +205,6 @@ $(document).ready(function () {
 	$('select.changePositions').change(changePositions);
 	/* used in add/edit candidates */
 	$('select.fillPositions').change(fillPositions);
-	/* Disable Result radio buttons if election is already running */
-	$(':radio.changeElectionStatus[value=1]:checked').click();
-	/* Collapse all */
-	$('a.manipulateAllPositions[text="collapse all"]').click();
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();
