@@ -42,7 +42,7 @@ function copySelectedWithAjax() {
 			url: window.location.href,
 			data: "election_ids=" + JSON.stringify(array),
 			success: function(msg){
-				var msg = JSON.parse(msg);
+				var msg = $.parseJSON(msg);
 				var general = msg[0];
 				var specific = msg[1];
 				$('#notice').hide();
@@ -145,7 +145,7 @@ function fillPositions() {
 		url: window.location.href,
 		data: $(this).serialize(),
 		success: function(msg){
-			var msg = JSON.parse(msg);
+			var msg = $.parseJSON(msg);
 			var option = new Option();
 			$('#position_id').children().remove();
 			option.value = '';
