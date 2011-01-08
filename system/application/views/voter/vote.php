@@ -43,7 +43,7 @@
 							?>
 						</td>
 						<td class="w60">
-							<label for="<?php echo 'cb' . $position['id'] . '_' . $candidate['id']; ?>"><?php echo $name; ?></label>
+							<label for="<?php echo 'cb_' . $election['id'] . '_' . $position['id'] . '_' . $candidate['id']; ?>"><?php echo $name; ?></label>
 						</td>
 						<?php if ($settings['show_candidate_details']): ?>
 							<td class="w30">
@@ -108,7 +108,7 @@
 							?>
 						</td>
 						<td class="w60">
-							<label for="<?php echo 'cb' . $position['id'] . '_abstain'; ?>">ABSTAIN</label>
+							<label for="<?php echo 'cb_' . $election['id'] . '_' . $position['id'] . '_abstain'; ?>">ABSTAIN</label>
 						</td>
 						<?php if ($settings['show_candidate_details']): ?>
 							<td class="w30"></td>
