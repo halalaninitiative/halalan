@@ -99,7 +99,7 @@ img {
   }
 
 
-#menu ul li a {
+#menu ul li a, .header_item {
     color: #FFFFFF;
     display: block;
     text-decoration: none;

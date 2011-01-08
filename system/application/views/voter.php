@@ -50,9 +50,9 @@
 			<?php elseif (isset($view_votes)): ?>
 			<li><?php echo anchor('voter/index', 'HOME', array('title'=>'Home')); ?></li>
 			<?php else: ?>
-			<li><a href="#">VOTE</a></li>
-			<li><a href="#">VERIFY</a></li>
-			<li><a href="#">LOG OUT</a></li>
+			<li class="header_item">VOTE</li>
+			<li class="header_item">VERIFY</li>
+			<li class="header_item">LOG OUT</li>
 			<?php endif; ?>
 		</ul>
 	</div>
