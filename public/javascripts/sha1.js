@@ -1,50 +1,18 @@
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
- * in FIPS PUB 180-1
- * Version 2.1a Copyright Paul Johnston 2000 - 2002.
+ * in FIPS 180-1
+ * Version 2.2 Copyright Paul Johnston 2000 - 2009.
  * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
  * Distributed under the BSD License
  * See http://pajhome.org.uk/crypt/md5 for details.
  */
-var hexcase=0;var b64pad="";var chrsz=8;function hex_sha1(s){return binb2hex(core_sha1(str2binb(s),s.length*chrsz));}
-function b64_sha1(s){return binb2b64(core_sha1(str2binb(s),s.length*chrsz));}
-function str_sha1(s){return binb2str(core_sha1(str2binb(s),s.length*chrsz));}
-function hex_hmac_sha1(key,data){return binb2hex(core_hmac_sha1(key,data));}
-function b64_hmac_sha1(key,data){return binb2b64(core_hmac_sha1(key,data));}
-function str_hmac_sha1(key,data){return binb2str(core_hmac_sha1(key,data));}
-function sha1_vm_test()
-{return hex_sha1("abc")=="a9993e364706816aba3e25717850c26c9cd0d89d";}
-function core_sha1(x,len)
-{x[len>>5]|=0x80<<(24-len%32);x[((len+64>>9)<<4)+15]=len;var w=Array(80);var a=1732584193;var b=-271733879;var c=-1732584194;var d=271733878;var e=-1009589776;for(var i=0;i<x.length;i+=16)
-{var olda=a;var oldb=b;var oldc=c;var oldd=d;var olde=e;for(var j=0;j<80;j++)
-{if(j<16)w[j]=x[i+j];else w[j]=rol(w[j-3]^w[j-8]^w[j-14]^w[j-16],1);var t=safe_add(safe_add(rol(a,5),sha1_ft(j,b,c,d)),safe_add(safe_add(e,w[j]),sha1_kt(j)));e=d;d=c;c=rol(b,30);b=a;a=t;}
-a=safe_add(a,olda);b=safe_add(b,oldb);c=safe_add(c,oldc);d=safe_add(d,oldd);e=safe_add(e,olde);}
-return Array(a,b,c,d,e);}
-function sha1_ft(t,b,c,d)
-{if(t<20)return(b&c)|((~b)&d);if(t<40)return b^c^d;if(t<60)return(b&c)|(b&d)|(c&d);return b^c^d;}
-function sha1_kt(t)
-{return(t<20)?1518500249:(t<40)?1859775393:(t<60)?-1894007588:-899497514;}
-function core_hmac_sha1(key,data)
-{var bkey=str2binb(key);if(bkey.length>16)bkey=core_sha1(bkey,key.length*chrsz);var ipad=Array(16),opad=Array(16);for(var i=0;i<16;i++)
-{ipad[i]=bkey[i]^0x36363636;opad[i]=bkey[i]^0x5C5C5C5C;}
-var hash=core_sha1(ipad.concat(str2binb(data)),512+data.length*chrsz);return core_sha1(opad.concat(hash),512+160);}
-function safe_add(x,y)
-{var lsw=(x&0xFFFF)+(y&0xFFFF);var msw=(x>>16)+(y>>16)+(lsw>>16);return(msw<<16)|(lsw&0xFFFF);}
-function rol(num,cnt)
-{return(num<<cnt)|(num>>>(32-cnt));}
-function str2binb(str)
-{var bin=Array();var mask=(1<<chrsz)-1;for(var i=0;i<str.length*chrsz;i+=chrsz)
-bin[i>>5]|=(str.charCodeAt(i/chrsz)&mask)<<(32-chrsz-i%32);return bin;}
-function binb2str(bin)
-{var str="";var mask=(1<<chrsz)-1;for(var i=0;i<bin.length*32;i+=chrsz)
-str+=String.fromCharCode((bin[i>>5]>>>(32-chrsz-i%32))&mask);return str;}
-function binb2hex(binarray)
-{var hex_tab=hexcase?"0123456789ABCDEF":"0123456789abcdef";var str="";for(var i=0;i<binarray.length*4;i++)
-{str+=hex_tab.charAt((binarray[i>>2]>>((3-i%4)*8+4))&0xF)+
-hex_tab.charAt((binarray[i>>2]>>((3-i%4)*8))&0xF);}
-return str;}
-function binb2b64(binarray)
-{var tab="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";var str="";for(var i=0;i<binarray.length*4;i+=3)
-{var triplet=(((binarray[i>>2]>>8*(3-i%4))&0xFF)<<16)|(((binarray[i+1>>2]>>8*(3-(i+1)%4))&0xFF)<<8)|((binarray[i+2>>2]>>8*(3-(i+2)%4))&0xFF);for(var j=0;j<4;j++)
-{if(i*8+j*6>binarray.length*32)str+=b64pad;else str+=tab.charAt((triplet>>6*(3-j))&0x3F);}}
-return str;}
+var hexcase=0,b64pad="";function hex_sha1(b){return rstr2hex(rstr_sha1(str2rstr_utf8(b)))}function b64_sha1(b){return rstr2b64(rstr_sha1(str2rstr_utf8(b)))}function any_sha1(b,c){return rstr2any(rstr_sha1(str2rstr_utf8(b)),c)}function hex_hmac_sha1(b,c){return rstr2hex(rstr_hmac_sha1(str2rstr_utf8(b),str2rstr_utf8(c)))}function b64_hmac_sha1(b,c){return rstr2b64(rstr_hmac_sha1(str2rstr_utf8(b),str2rstr_utf8(c)))}
+function any_hmac_sha1(b,c,a){return rstr2any(rstr_hmac_sha1(str2rstr_utf8(b),str2rstr_utf8(c)),a)}function sha1_vm_test(){return hex_sha1("abc").toLowerCase()=="a9993e364706816aba3e25717850c26c9cd0d89d"}function rstr_sha1(b){return binb2rstr(binb_sha1(rstr2binb(b),b.length*8))}
+function rstr_hmac_sha1(b,c){var a=rstr2binb(b);if(a.length>16)a=binb_sha1(a,b.length*8);for(var d=Array(16),e=Array(16),f=0;f<16;f++){d[f]=a[f]^909522486;e[f]=a[f]^1549556828}a=binb_sha1(d.concat(rstr2binb(c)),512+c.length*8);return binb2rstr(binb_sha1(e.concat(a),672))}function rstr2hex(b){for(var c=hexcase?"0123456789ABCDEF":"0123456789abcdef",a="",d,e=0;e<b.length;e++){d=b.charCodeAt(e);a+=c.charAt(d>>>4&15)+c.charAt(d&15)}return a}
+function rstr2b64(b){for(var c="",a=b.length,d=0;d<a;d+=3)for(var e=b.charCodeAt(d)<<16|(d+1<a?b.charCodeAt(d+1)<<8:0)|(d+2<a?b.charCodeAt(d+2):0),f=0;f<4;f++)c+=d*8+f*6>b.length*8?b64pad:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".charAt(e>>>6*(3-f)&63);return c}
+function rstr2any(b,c){var a=c.length,d=[],e,f,g,h,j=Array(Math.ceil(b.length/2));for(e=0;e<j.length;e++)j[e]=b.charCodeAt(e*2)<<8|b.charCodeAt(e*2+1);for(;j.length>0;){h=[];for(e=g=0;e<j.length;e++){g=(g<<16)+j[e];f=Math.floor(g/a);g-=f*a;if(h.length>0||f>0)h[h.length]=f}d[d.length]=g;j=h}a="";for(e=d.length-1;e>=0;e--)a+=c.charAt(d[e]);d=Math.ceil(b.length*8/(Math.log(c.length)/Math.log(2)));for(e=a.length;e<d;e++)a=c[0]+a;return a}
+function str2rstr_utf8(b){for(var c="",a=-1,d,e;++a<b.length;){d=b.charCodeAt(a);e=a+1<b.length?b.charCodeAt(a+1):0;if(55296<=d&&d<=56319&&56320<=e&&e<=57343){d=65536+((d&1023)<<10)+(e&1023);a++}if(d<=127)c+=String.fromCharCode(d);else if(d<=2047)c+=String.fromCharCode(192|d>>>6&31,128|d&63);else if(d<=65535)c+=String.fromCharCode(224|d>>>12&15,128|d>>>6&63,128|d&63);else if(d<=2097151)c+=String.fromCharCode(240|d>>>18&7,128|d>>>12&63,128|d>>>6&63,128|d&63)}return c}
+function str2rstr_utf16le(b){for(var c="",a=0;a<b.length;a++)c+=String.fromCharCode(b.charCodeAt(a)&255,b.charCodeAt(a)>>>8&255);return c}function str2rstr_utf16be(b){for(var c="",a=0;a<b.length;a++)c+=String.fromCharCode(b.charCodeAt(a)>>>8&255,b.charCodeAt(a)&255);return c}function rstr2binb(b){for(var c=Array(b.length>>2),a=0;a<c.length;a++)c[a]=0;for(a=0;a<b.length*8;a+=8)c[a>>5]|=(b.charCodeAt(a/8)&255)<<24-a%32;return c}
+function binb2rstr(b){for(var c="",a=0;a<b.length*32;a+=8)c+=String.fromCharCode(b[a>>5]>>>24-a%32&255);return c}
+function binb_sha1(b,c){b[c>>5]|=128<<24-c%32;b[(c+64>>9<<4)+15]=c;for(var a=Array(80),d=1732584193,e=-271733879,f=-1732584194,g=271733878,h=-1009589776,j=0;j<b.length;j+=16){for(var k=d,l=e,m=f,n=g,o=h,i=0;i<80;i++){a[i]=i<16?b[j+i]:bit_rol(a[i-3]^a[i-8]^a[i-14]^a[i-16],1);var p=safe_add(safe_add(bit_rol(d,5),sha1_ft(i,e,f,g)),safe_add(safe_add(h,a[i]),sha1_kt(i)));h=g;g=f;f=bit_rol(e,30);e=d;d=p}d=safe_add(d,k);e=safe_add(e,l);f=safe_add(f,m);g=safe_add(g,n);h=safe_add(h,o)}return[d,e,f,g,h]}
+function sha1_ft(b,c,a,d){if(b<20)return c&a|~c&d;if(b<40)return c^a^d;if(b<60)return c&a|c&d|a&d;return c^a^d}function sha1_kt(b){return b<20?1518500249:b<40?1859775393:b<60?-1894007588:-899497514}function safe_add(b,c){var a=(b&65535)+(c&65535);return(b>>16)+(c>>16)+(a>>16)<<16|a&65535}function bit_rol(b,c){return b<<c|b>>>32-c};
