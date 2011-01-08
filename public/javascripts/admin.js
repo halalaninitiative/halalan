@@ -104,13 +104,11 @@ function manipulateAllPositions() {
 		src = src.replace("plus", "minus");
 		img.siblings('span').hide();
 		$('table.table').show();
-		$('div.content_right').show();
 	} else {
 		alt = "Expand";
 		src = src.replace("minus", "plus");
 		img.siblings('span').show();
 		$('table.table').hide();
-		$('div.content_right').hide();
 	}
 
 	img.attr('src', src).attr('alt', alt).attr('title', alt);
@@ -133,7 +131,6 @@ function togglePosition() {
 
 	$(this).siblings('span').toggle();
 	$('table.table').eq(idx).toggle();
-	$('div.content_right').eq(idx).toggle();
 	$(this).attr('src', src).attr('alt', alt).attr('title', alt);
 
 	return false;

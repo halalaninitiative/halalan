@@ -25,12 +25,6 @@
 </table>
 <?php else: ?>
 <a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
-<br />
-<br />
-<?php foreach ($positions as $position): ?>
-<div class="content_left">
-	<h2><?php echo img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition pointer', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
-</div>
 <div class="content_right">
 	<p class="align_right">
 		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
@@ -38,6 +32,11 @@
 		<?php echo form_dropdown('election_id', array(''=>'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
 		<?php echo form_dropdown('position_id', array(''=>'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
 	</p>
+</div>
+<div class="clear"></div>
+<?php foreach ($positions as $position): ?>
+<div class="content_left">
+	<h2><?php echo img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition pointer', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -78,4 +77,6 @@
 </table>
 <?php endforeach; ?>
 <a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
+<br/>
+<br/>
 <?php endif; ?>
