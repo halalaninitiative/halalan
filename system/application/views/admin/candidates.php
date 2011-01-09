@@ -24,7 +24,11 @@
 	</tr>
 </table>
 <?php else: ?>
-<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
+<div class="content_left">
+	<p>
+		<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
+	</p>
+</div>
 <div class="content_right">
 	<p class="align_right">
 		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
@@ -76,7 +80,10 @@
 	<?php endif; ?>
 </table>
 <?php endforeach; ?>
-<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
-<br/>
-<br/>
+<div class="content_left">
+	<p>
+		<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
+	</p>
+</div>
+<div class="clear"></div>
 <?php endif; ?>
