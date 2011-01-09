@@ -15,7 +15,7 @@ function checkNumber() {
 	}
 
 	var l = $(this).parents('table').siblings('h2').text().split('(');
-	var limit = l[l.length-1].replace(')', '');
+	var limit = l[l.length - 1].replace(')', '');
 	var inputs = $(this).parents('tr').siblings().find(':checked');
 
 	if (inputs.length >= limit) {
@@ -55,6 +55,23 @@ function confirmLogout() {
 	}
 }
 
+function triggerCheckbox(e) {
+	/* Trigger for all TDs except for the one containing the toggle image */
+	if (e.target.nodeName == 'TD' && !$(e.target).children('img').length) {
+		var cb = $(this).find(':checkbox');
+		/*
+		 * Looks hackish but this is the "only" way as of now because "clicking"
+		 * a checkbox by triggering its 'click' event first executes the bound
+		 * handler, i.e. checkNumber(), before toggling the 'checked' state.
+		 * In the case of clicking a checkbox directly, its 'checked' state is
+		 * toggled first before checkNumber() is called.
+		 */
+		cb.attr('checked', !cb.attr('checked'));
+		cb.click();
+		cb.attr('checked', !cb.attr('checked'));
+	}
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -71,6 +88,7 @@ $(document).ready(function () {
 	$(':button.printVotes').click(printVotes);
 	$(':button.downloadVotes').click(downloadVotes);
 	$('.confirmLogout').click(confirmLogout);
+	$('tr.triggerCheckbox').click(triggerCheckbox);
 	/* Restore the state of abstained positions */
 	$(':checkbox.abstainPosition:checked').click().attr('checked', true);
 	$(':checked').parents('tr').addClass('selected');

@@ -31,7 +31,7 @@
 						$name .= ' ' . $candidate['last_name'];
 						$name = quotes_to_entities($name);
 					?>
-					<tr>
+					<tr class="triggerCheckbox">
 						<td class="w5">
 							<?php
 								echo form_checkbox(
@@ -96,7 +96,7 @@
 						$checked = FALSE;
 				?>
 				<?php if ($position['abstain'] == TRUE): ?>
-					<tr>
+					<tr class="triggerCheckbox">
 						<td class="w5">
 							<?php
 								echo form_checkbox(
