@@ -8,7 +8,7 @@
 
 	<!-- start -->
 	<h2><?php echo $position['position']; ?> (<?php echo $position['maximum']; ?>)</h2>
-	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
+	<table cellpadding="0" cellspacing="0" border="0" class="form_table delegateEvents">
 		<?php if (empty($position['candidates'])): ?>
 			<tr>
 				<td><em><?php echo e('voter_votes_no_candidates'); ?></em></td>
@@ -52,7 +52,7 @@
 					</td>
 					<?php if ($settings['show_candidate_details']): ?>
 						<td class="w5">
-							<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
+							<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'pointer', 'title'=>'More info')); ?>
 						</td>
 					<?php endif; ?>
 				</tr>

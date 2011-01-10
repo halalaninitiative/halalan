@@ -12,7 +12,7 @@
 
 		<!-- start -->
 		<h2><?php echo $position['position']; ?> (<?php echo $position['maximum']; ?>)</h2>
-		<table cellpadding="0" cellspacing="0" border="0" class="form_table highlight">
+		<table cellpadding="0" cellspacing="0" border="0" class="form_table highlight delegateEvents">
 			<?php if (empty($position['candidates'])): ?>
 				<tr>
 					<td><em><?php echo e('voter_vote_no_candidates'); ?></em></td>
@@ -31,14 +31,14 @@
 						$name .= ' ' . $candidate['last_name'];
 						$name = quotes_to_entities($name);
 					?>
-					<tr class="triggerCheckbox">
+					<tr>
 						<td class="w5">
 							<?php
 								echo form_checkbox(
 								'votes[' . $election['id'] . '][' . $position['id'] . '][]',
 								$candidate['id'],
 								$checked,
-								'id="cb_' . $election['id'] . '_' . $position['id'] . '_' . $candidate['id'] . '" class="checkNumber"'
+								'id="cb_' . $election['id'] . '_' . $position['id'] . '_' . $candidate['id'] . '"'
 								);
 							?>
 						</td>
@@ -60,7 +60,7 @@
 						</td>
 						<?php if ($settings['show_candidate_details']): ?>
 							<td class="w5">
-								<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'toggleDetails pointer', 'title'=>'More info')); ?>
+								<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'pointer', 'title'=>'More info')); ?>
 							</td>
 						<?php endif; ?>
 					</tr>
@@ -96,7 +96,7 @@
 						$checked = FALSE;
 				?>
 				<?php if ($position['abstain'] == TRUE): ?>
-					<tr class="triggerCheckbox">
+					<tr>
 						<td class="w5">
 							<?php
 								echo form_checkbox(

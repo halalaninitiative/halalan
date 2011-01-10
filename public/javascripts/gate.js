@@ -32,7 +32,10 @@ $(document).ready(function () {
 	menu_map['statistics'] = "STATISTICS";
 
 	/* Bind handlers to events */
-	$('img.toggleDetails').click(toggleDetails);
+	$('table.delegateEvents').click(function(e) {
+		if (e.target.nodeName == 'IMG')
+			toggleDetails(e.target);
+	});
 	$('a.toggleOptions').click(toggleOptions);
 	$('a.toggleAllElections').click(toggleAllElections);
 	$('form.hashPassword').submit(hashPassword);

@@ -22,7 +22,7 @@ function animateFlashMessage() {
 
 /* jQuery event handlers */
 
-function toggleDetails() {
+function toggleDetails(target) {
 	/*
 		<tr> parent
 		<td> parent
@@ -35,5 +35,5 @@ function toggleDetails() {
 		</td>
 		</tr>
 	*/
-	$(this).parents('tr').next().find('div.details').slideToggle("normal");
+	$(target).parents('tr').next().find('div.details').slideToggle("normal");
 }

@@ -1,28 +1,28 @@
 
 /* jQuery event handlers */
 
-function abstainPosition() {
-	var tr = $(this).parents('tr');
+function abstainPosition(target) {
+	var tr = $(target).parents('tr');
 
-	tr.siblings().find('input:checkbox').attr('disabled', this.checked);
-	tr.toggleClass('selected', this.checked);
-	tr.siblings().has('input:checked').toggleClass('selected', !this.checked);
+	tr.siblings().find('input:checkbox').attr('disabled', target.checked);
+	tr.toggleClass('selected', target.checked);
+	tr.siblings().has('input:checked').toggleClass('selected', !target.checked);
 }
 
-function checkNumber() {
-	if (this.disabled) {
+function checkNumber(target) {
+	if (target.disabled) {
 		return;
 	}
 
-	var l = $(this).parents('table').siblings('h2').text().split('(');
+	var l = $(target).parents('table').siblings('h2').text().split('(');
 	var limit = l[l.length - 1].replace(')', '');
-	var inputs = $(this).parents('tr').siblings().find('input:checked');
+	var inputs = $(target).parents('tr').siblings().find('input:checked');
 
 	if (inputs.length >= limit) {
-		this.checked = false;
+		target.checked = false;
 		alert("You have already selected the maximum\nnumber of candidates for this position.");
 	} else {
-		$(this).parents('tr').toggleClass('selected', this.checked);
+		$(target).parents('tr').toggleClass('selected', target.checked);
 	}
 }
 
@@ -55,10 +55,10 @@ function confirmLogout() {
 	}
 }
 
-function triggerCheckbox(e) {
+function triggerCheckbox(target) {
 	/* Trigger for all TDs except for the one containing the toggle image */
-	if (e.target.nodeName == 'TD' && !$(e.target).children('img').length) {
-		var cb = $(this).find('input:checkbox');
+	if (target.nodeName == 'TD' && !$(target).children('img').length) {
+		var cb = $(target).siblings().find('input:checkbox');
 		/*
 		 * Looks hackish but this is the "only" way as of now because "clicking"
 		 * a checkbox by triggering its 'click' event first executes the bound
@@ -81,14 +81,26 @@ $(document).ready(function () {
 	menu_map['vote'] = "VOTE";
 
 	/* Bind handlers to events */
-	$('img.toggleDetails').click(toggleDetails);
-	$('input:checkbox.checkNumber').click(checkNumber);
-	$('input:checkbox.abstainPosition').click(abstainPosition);
+	$('table.delegateEvents').click(function(e) {
+		switch (e.target.nodeName)
+		{
+		case 'INPUT':
+			if (!$(e.target).hasClass('abstainPosition'))
+				checkNumber(e.target);
+			else
+				abstainPosition(e.target);
+			break;
+		case 'TD':
+			triggerCheckbox(e.target);
+			break;
+		case 'IMG':
+			toggleDetails(e.target);
+		}
+	});
 	$('input:button.modifyBallot').click(modifyBallot);
 	$('input:button.printVotes').click(printVotes);
 	$('input:button.downloadVotes').click(downloadVotes);
 	$('a.confirmLogout').click(confirmLogout);
-	$('tr.triggerCheckbox').click(triggerCheckbox);
 	/* Restore the state of abstained positions */
 	$('input:checked.abstainPosition').click().attr('checked', true);
 	$('input:checked').parents('tr').addClass('selected');
