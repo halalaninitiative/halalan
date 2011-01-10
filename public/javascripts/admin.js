@@ -20,7 +20,7 @@ function copySelectedWithAjax() {
 	var selected;
 	var array = new Array();
 	var direction = $(this).val();
-	
+
 	if (direction === "  >>  ") {
 		from = $('#possible_elections');
 		to = $('#chosen_elections');
@@ -28,7 +28,7 @@ function copySelectedWithAjax() {
 		from = $('#chosen_elections');
 		to = $('#possible_elections');
 	}
-	
+
 	selected = from.children(':selected');
 
 	if (!selected.length) {
@@ -75,7 +75,7 @@ function copySelected() {
 	var from;
 	var to;
 	var selected;
-	
+
 	if ($(this).val() === "  >>  ") {
 		from = $('#possible');
 		to = $('#chosen');
@@ -83,7 +83,7 @@ function copySelected() {
 		from = $('#chosen');
 		to = $('#possible');
 	}
-	
+
 	selected = from.children(':selected');
 
 	if (!selected.length) {
@@ -195,8 +195,8 @@ $(document).ready(function () {
 	$('a.confirmDelete').click(confirmDelete);
 	$('a.manipulateAllPositions').click(manipulateAllPositions);
 	$('img.togglePosition').click(togglePosition);
-	$(':button.copySelectedWithAjax').click(copySelectedWithAjax);
-	$(':button.copySelected').click(copySelected);
+	$('input:button.copySelectedWithAjax').click(copySelectedWithAjax);
+	$('input:button.copySelected').click(copySelected);
 	$('form.selectChosen').submit(selectChosen);
 	$('select.changeElections').change(changeElections);
 	$('select.changePositions').change(changePositions);

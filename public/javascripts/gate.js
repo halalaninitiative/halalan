@@ -17,7 +17,7 @@ function toggleOptions() {
 }
 
 function toggleAllElections() {
-	var cboxes = $('form').find(':checkbox');
+	var cboxes = $('form').find('input:checkbox');
 	cboxes.attr('checked', ($(this).text() === "select all"));
 	return false;
 }
@@ -30,11 +30,11 @@ $(document).ready(function () {
 
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);
-	$('.toggleOptions').click(toggleOptions);
-	$('.toggleAllElections').click(toggleAllElections);
+	$('a.toggleOptions').click(toggleOptions);
+	$('a.toggleAllElections').click(toggleAllElections);
 	$('form.hashPassword').submit(hashPassword);
 	/* Trigger events on load */
-	$('.toggleOptions').click();
+	$('a.toggleOptions').click();
 	/* Code that aren't bound to events */
 	animateFlashMessage();
 	highlightMenuItem(menu_map);

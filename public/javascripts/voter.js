@@ -4,9 +4,9 @@
 function abstainPosition() {
 	var tr = $(this).parents('tr');
 
-	tr.siblings().find(':checkbox').attr('disabled', this.checked);
+	tr.siblings().find('input:checkbox').attr('disabled', this.checked);
 	tr.toggleClass('selected', this.checked);
-	tr.siblings().find(':checked').parents('tr').toggleClass('selected', !this.checked);
+	tr.siblings().find('input:checked').parents('tr').toggleClass('selected', !this.checked);
 }
 
 function checkNumber() {
@@ -16,7 +16,7 @@ function checkNumber() {
 
 	var l = $(this).parents('table').siblings('h2').text().split('(');
 	var limit = l[l.length - 1].replace(')', '');
-	var inputs = $(this).parents('tr').siblings().find(':checked');
+	var inputs = $(this).parents('tr').siblings().find('input:checked');
 
 	if (inputs.length >= limit) {
 		this.checked = false;
@@ -58,7 +58,7 @@ function confirmLogout() {
 function triggerCheckbox(e) {
 	/* Trigger for all TDs except for the one containing the toggle image */
 	if (e.target.nodeName == 'TD' && !$(e.target).children('img').length) {
-		var cb = $(this).find(':checkbox');
+		var cb = $(this).find('input:checkbox');
 		/*
 		 * Looks hackish but this is the "only" way as of now because "clicking"
 		 * a checkbox by triggering its 'click' event first executes the bound
@@ -82,16 +82,16 @@ $(document).ready(function () {
 
 	/* Bind handlers to events */
 	$('img.toggleDetails').click(toggleDetails);
-	$(':checkbox.checkNumber').click(checkNumber);
-	$(':checkbox.abstainPosition').click(abstainPosition);
-	$(':button.modifyBallot').click(modifyBallot);
-	$(':button.printVotes').click(printVotes);
-	$(':button.downloadVotes').click(downloadVotes);
-	$('.confirmLogout').click(confirmLogout);
+	$('input:checkbox.checkNumber').click(checkNumber);
+	$('input:checkbox.abstainPosition').click(abstainPosition);
+	$('input:button.modifyBallot').click(modifyBallot);
+	$('input:button.printVotes').click(printVotes);
+	$('input:button.downloadVotes').click(downloadVotes);
+	$('a.confirmLogout').click(confirmLogout);
 	$('tr.triggerCheckbox').click(triggerCheckbox);
 	/* Restore the state of abstained positions */
-	$(':checkbox.abstainPosition:checked').click().attr('checked', true);
-	$(':checked').parents('tr').addClass('selected');
+	$('input:checked.abstainPosition').click().attr('checked', true);
+	$('input:checked').parents('tr').addClass('selected');
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();
