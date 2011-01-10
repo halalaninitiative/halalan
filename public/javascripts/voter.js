@@ -6,7 +6,7 @@ function abstainPosition() {
 
 	tr.siblings().find('input:checkbox').attr('disabled', this.checked);
 	tr.toggleClass('selected', this.checked);
-	tr.siblings().find('input:checked').parents('tr').toggleClass('selected', !this.checked);
+	tr.siblings().has('input:checked').toggleClass('selected', !this.checked);
 }
 
 function checkNumber() {

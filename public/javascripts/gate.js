@@ -1,7 +1,10 @@
 function hashPassword() {
-	if ($('#password').attr('value').length > 0) {
-		$('#password').attr('maxlength', '40');
-		$('#password').attr('value', hex_sha1($('#password').attr('value')));
+	var passwd = $('#password');
+	if (passwd.attr('value').length > 0) {
+		passwd.attr({
+			'maxlength': '40',
+			'value': hex_sha1(passwd.attr('value'))
+		});
 	}
 }
 

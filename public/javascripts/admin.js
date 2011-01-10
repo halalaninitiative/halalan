@@ -35,8 +35,8 @@ function copySelectedWithAjax() {
 		alert("No items selected.");
 	} else {
 		to.append(selected);
-		selected.removeAttr('selected');
-		selected.each(function(i){ array[i] = this.value; });
+		selected.removeAttr('selected')
+			.each(function(i){ array[i] = this.value; });
 		$.ajax({
 			type: "POST",
 			url: window.location.href,
@@ -111,7 +111,11 @@ function manipulateAllPositions() {
 		$('table.table').hide();
 	}
 
-	img.attr('src', src).attr('alt', alt).attr('title', alt);
+	img.attr({
+		'src': src,
+		'alt': alt,
+		'title': alt
+	});
 
 	return false;
 }
@@ -131,7 +135,11 @@ function togglePosition() {
 
 	$(this).siblings('span').toggle();
 	$('table.table').eq(idx).toggle();
-	$(this).attr('src', src).attr('alt', alt).attr('title', alt);
+	$(this).attr({
+		'src': src,
+		'alt': alt,
+		'title': alt
+	});
 
 	return false;
 }
