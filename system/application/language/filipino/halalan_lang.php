@@ -78,7 +78,7 @@ $lang['halalan_voter_votes_title'] = 'Mga Boto';
 
 // views/voter/vote.php
 $lang['halalan_voter_vote_reminder'] = 'Kailangan pang kumpirmahin ang iyong mga boto sa susunod na pahina.';
-$lang['halalan_voter_vote_reminder_too'] = 'Isumite ang iyong mga boto sa pamamagitan ng pagpindot ng Isumite sa ' . anchor('voter/vote#bottom', 'baba') . '.';
+$lang['halalan_voter_vote_reminder_too'] = 'Isumite ang iyong mga boto sa pamamagitan ng pagpindot ng Isumite sa ' . anchor('voter/vote#bottom', 'baba', array('class'=>'scrollToBottom')) . '.';
 $lang['halalan_voter_vote_submit_button'] = 'Isumite';
 
 // views/voter/confirm_vote.php
@@ -88,7 +88,7 @@ $lang['halalan_voter_confirm_vote_pin_label'] = 'Ilagay ang PIN dito:';
 $lang['halalan_voter_confirm_vote_modify_button'] = 'Baguhin';
 $lang['halalan_voter_confirm_vote_submit_button'] = 'Kumpirmahin';
 $lang['halalan_voter_confirm_vote_reminder'] = 'Hindi na maaaring baguhin ang boto matapos pindutin ang <em>Kumpirmahin</em>.';
-$lang['halalan_voter_confirm_vote_reminder_too'] = '<strong>Hindi pa naitatala ang iyong balota.</strong><br />Tingnan muli ang mga boto at pindutin ang <em>Kumpirmahin</em> sa ' . anchor('voter/verify#bottom', 'baba') . ' kung sigurado na sa iyong mga boto.';
+$lang['halalan_voter_confirm_vote_reminder_too'] = '<strong>Hindi pa naitatala ang iyong balota.</strong><br />Tingnan muli ang mga boto at pindutin ang <em>Kumpirmahin</em> sa ' . anchor('voter/verify#bottom', 'baba', array('class'=>'scrollToBottom')) . ' kung sigurado na sa iyong mga boto.';
 
 // views/voter/logout.php
 $lang['halalan_voter_logout_message'] = '<p>Naitala na ang iyong balota. Salamat sa paggamit ng Halalan!</p><p>Ikaw ay na-i-log-out na.  Redirecting in 5 seconds...</p><p>Follow this ' . anchor(base_url(), 'link', 'title="Halalan - Login"') . ' if the redirection fails.</p>';

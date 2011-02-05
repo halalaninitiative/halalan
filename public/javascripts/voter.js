@@ -14,15 +14,18 @@ function checkNumber(target) {
 		return;
 	}
 
-	var l = $(target).parents('table').siblings('h2').text().split('(');
-	var limit = l[l.length - 1].replace(')', '');
-	var inputs = $(target).parents('tr').siblings().find('input:checked');
+	var tr = $(target).parents('tr');
+	// Get the limit for this position
+	var s = tr.parents('table').siblings('h2').text().split('(');
+	var limit = s[s.length - 1].replace(')', '');
+	// Count the selected candidates
+	var selected = tr.siblings().find('input:checked').length;
 
-	if (inputs.length >= limit) {
+	if (selected >= limit) {
 		target.checked = false;
 		alert("You have already selected the maximum\nnumber of candidates for this position.");
 	} else {
-		$(target).parents('tr').toggleClass('selected', target.checked);
+		tr.toggleClass('selected', target.checked);
 	}
 }
 
@@ -72,6 +75,12 @@ function triggerCheckbox(target) {
 	}
 }
 
+function scrollToBottom() {
+	var scroll = document.body.clientHeight - window.innerHeight;
+	$('html, body').animate({scrollTop: scroll}, 'normal');
+	return false;
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -97,6 +106,7 @@ $(document).ready(function () {
 			toggleDetails(e.target);
 		}
 	});
+	$('a.scrollToBottom').click(scrollToBottom);
 	$('input:button.modifyBallot').click(modifyBallot);
 	$('input:button.printVotes').click(printVotes);
 	$('input:button.downloadVotes').click(downloadVotes);
