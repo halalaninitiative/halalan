@@ -26,15 +26,13 @@
 				</h1>
 -->
 			</div>
+		<?php if ($login == 'admin'): ?>
 			<div id="header_right">
 				<p>GO TO
-				<?php if ($login == 'voter'): ?>
-				<?php echo anchor('gate/admin', 'ADMIN LOGIN'); ?>
-				<?php else: ?>
 				<?php echo anchor('gate/voter', 'VOTER LOGIN'); ?>
-				<?php endif; ?>
 				</p>
 			</div>
+		<?php endif; ?>
 			<div class="clear"></div>
 		</div>
 	</div>
