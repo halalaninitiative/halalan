@@ -48,7 +48,7 @@ for ($i=0; $i < $_POST['password_length']; $i++)
 	$password .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
 }
 
-$query = "INSERT INTO admins (username, password, email, admin) VALUES('admin', '" . sha1($password) . "', '$_POST[email]', '$_POST[first_name] $_POST[last_name]')";
+$query = "INSERT INTO admins (email, username, password, first_name, last_name) VALUES('$_POST[email]', 'admin', '" . sha1($password) . "', '$_POST[first_name]', '$_POST[last_name]')";
 
 mysql_query($query);
 
