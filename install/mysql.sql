@@ -99,21 +99,6 @@ CREATE TABLE votes (
   PRIMARY KEY  (candidate_id,voter_id)
 );
 
-CREATE TABLE options (
-  id smallint NOT NULL,
-  status varchar(1) NOT NULL,
-  result varchar(1) NOT NULL,
-  PRIMARY KEY  (id)
-);
-
-INSERT INTO options (id, status, result) VALUES (1, '0', '0');
-
-CREATE TABLE random_orders (
-    voter_id integer NOT NULL,
-    random_order text NOT NULL,
-    PRIMARY KEY  (voter_id)
-);
-
 CREATE TABLE sessions (
     session_id varchar(40) DEFAULT '0' NOT NULL,
     ip_address varchar(16) DEFAULT '0' NOT NULL,
