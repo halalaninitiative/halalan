@@ -1,12 +1,17 @@
 
 /* jQuery event handlers */
 
-function abstainPosition(target) {
+function abstainPosition(target, clicked) {
 	var tr = $(target).parents('tr');
 
-	tr.siblings().find('input:checkbox').attr('disabled', target.checked);
+	tr.siblings().find('input:checkbox').attr('disabled', target.checked).toggle(!target.checked);
 	tr.toggleClass('selected', target.checked);
 	tr.siblings().has('input:checked').toggleClass('selected', !target.checked);
+
+	if (target.checked && clicked) {
+		// TODO: Simplify this message.
+		alert('You are abstaining for this POSITION, thus any votes for this position will not be considered. If you are voting for less than the required number for this position, that is perfectly fine and you need not abstain.');
+	}
 }
 
 function checkNumber(target) {
@@ -97,7 +102,7 @@ $(document).ready(function () {
 			if (!$(e.target).hasClass('abstainPosition'))
 				checkNumber(e.target);
 			else
-				abstainPosition(e.target);
+				abstainPosition(e.target, true);
 			break;
 		case 'TD':
 			triggerCheckbox(e.target);
@@ -112,7 +117,9 @@ $(document).ready(function () {
 	$('input:button.downloadVotes').click(downloadVotes);
 	$('a.confirmLogout').click(confirmLogout);
 	/* Restore the state of abstained positions */
-	$('input:checked.abstainPosition').click().attr('checked', true);
+	$('input:checked.abstainPosition').each(function () {
+		abstainPosition(this, false);
+	});
 	$('input:checked').parents('tr').addClass('selected');
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
