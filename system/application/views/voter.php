@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/voter.css" />
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.cookie.js"></script>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url(); ?>';
 		var SITE_URL = '<?php echo site_url(); ?>';

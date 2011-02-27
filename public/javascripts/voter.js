@@ -8,9 +8,18 @@ function abstainPosition(target, clicked) {
 	tr.toggleClass('selected', target.checked);
 	tr.siblings().has('input:checked').toggleClass('selected', !target.checked);
 
-	if (target.checked && clicked) {
-		// TODO: Simplify this message.
-		alert('You are abstaining for this POSITION, thus any votes for this position will not be considered. If you are voting for less than the required number for this position, that is perfectly fine and you need not abstain.');
+	var ids = new Array();
+	/* Get the checkbox ID and remove 'cb_' and '_abstain' to shorten it. */
+	var id = $(target).attr('id').slice(3, -8);
+	var alerts = $.cookie('halalan_alerts');
+	if (alerts != null) {
+		ids = alerts.split(',');
+	}
+
+	if (target.checked && clicked && $.inArray(id, ids) < 0) {
+		alert('By selecting abstain, you\'re not voting for any candidate in this position.  If that\'s not the case, then do not select abstain.');
+		ids.push(id);
+		$.cookie('halalan_alerts', ids.join(','), {'path':'/'});
 	}
 }
 
