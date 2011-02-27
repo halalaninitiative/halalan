@@ -144,7 +144,6 @@ class Gate extends Controller {
 			// voter has already voted
 			$gate = 'voter';
 		}
-		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
 		$this->session->sess_destroy();
 		redirect('gate/' . $gate);
 	}
