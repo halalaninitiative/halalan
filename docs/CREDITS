@@ -1,5 +1,5 @@
-Halalan
-Version 1.5.0
+Halalan - open-source voting system
+Version 1.5.1
 http://halalan.uplug.org
 http://halalan.googlecode.com
 Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
@@ -8,27 +8,29 @@ Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
 Halalan Credits -- Many thanks to the people listed below.
 --------------------------------------------------------------------
 Development Team
-- Ralph Justin Arce
+- Ardee Aram
 - Darwin Bautista
 - Waldemar Bautista
 - John Michael Bitanga
-- Vanessa Rose Castro
-- Rystraum Gamonez
-- Wigi Vei Oliveros
+- Rystraum Fabe Gamonez
+- Conrad Miguel Gozalo
+- Jamaica Ida Palce
 - Antonio Mari San Miguel
-- DJ Sison
 - Carlo Santos
-- Orly Tarun
 
 Former Developers
-- Ardee Aram
+- Ralph Justin Arce
+- Vanessa Rose Castro
 - Diwa del Mundo
 - Kyle Alaine Domingo
 - Mark David Dumlao
 - Jofell Gallardo
+- Wigi Vei Oliveros
 - Prem Vilas Fortan Rara
 - Marte Raphael Soliza
+- DJ Sison
 - Jennylyn Sze
+- Orly Tarun
 
 Thanks To
 - Jose Paolo Ferrer
@@ -37,3 +39,8 @@ Thanks To
 - Jesse Nikko Ramos
 - Adrian Raposas
 - Lew Arvin Sibal
+
+Donors
+- Kyle Alaine Domingo
+- Conrad Miguel Gozalo
+- Wigi Vei Oliveros

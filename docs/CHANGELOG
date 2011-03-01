@@ -1,11 +1,22 @@
-Halalan
-Version 1.5.0
+Halalan - open-source voting system
+Version 1.5.1
 http://halalan.uplug.org
 http://halalan.googlecode.com
 Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
 
 
 Halalan Changelog
+
+1.5.1 20110301
+-----------------------
+--- Added alert message when choosing abstain
+--- Minor code cleanup
+--- Minor DB changes
+--- Minor UI enhancements
+--- Session, by default, is now saved in the DB
+--- Upgraded to CodeIgniter 1.7.3
+--- Upgraded to jQuery 1.4.4
+--- Upgraded other JavaScript libraries
 
 1.5.0  20100614
 -----------------------
