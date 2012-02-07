@@ -376,15 +376,23 @@ class Voters extends Controller {
 					$extra[] = array('election_id'=>$election_id, 'position_id'=>$position_id);
 				}
 				$voter['extra'] = $extra;
-				$data = $this->session->userdata('voter_csv');
-				$count = 0;
-				unset($data[0]); // remove header
-				foreach ($data as $datum)
+				$upload_data = $this->session->userdata('csv_upload_data');
+				$csv = array();
+				if ($handle = fopen($upload_data['full_path'], 'r'))
 				{
-					$tmp = explode(',', $datum);
-					$voter['username'] = trim(strip_quotes($tmp[0]));
-					$voter['last_name'] = trim(strip_quotes($tmp[1]));
-					$voter['first_name'] = trim(strip_quotes($tmp[2]));
+					while ($data = fgetcsv($handle, 1000))
+					{
+						$csv[] = $data;
+					}
+					fclose($handle);
+				}
+				unset($csv[0]); // remove header
+				$count = 0;
+				foreach ($csv as $value)
+				{
+					$voter['username'] = $value[0];
+					$voter['last_name'] = $value[1];
+					$voter['first_name'] = $value[2];
 					if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
 					{
 						if ($this->settings['password_pin_generation'] == 'web')
@@ -417,8 +425,16 @@ class Voters extends Controller {
 					$reminder .= e('admin_import_reminder_too');
 				}
 				$success[] = $reminder;
+                                unlink($upload_data['full_path']);
+                                $this->session->unset_userdata('csv_upload_data');
 				$this->session->set_flashdata('messages', array_merge(array('positive'), $success));
 				redirect('admin/voters/import');
+			}
+			if ($upload_data = $this->session->userdata('csv_upload_data'))
+			{
+				// delete csv file when upload is successful but other fields have problems
+				unlink($upload_data['full_path']);
+				$this->session->unset_userdata('csv_upload_data');
 			}
 			$data['elections'] = $this->Election->select_all_with_positions();
 			$data['possible_elections'] = array();
@@ -592,10 +608,7 @@ class Voters extends Controller {
 		else
 		{
 			$upload_data = $this->upload->data();
-			$data = file($upload_data['full_path']);
-			unlink($upload_data['full_path']);
-			// flashdata doesn't work I don't know why
-			$this->session->set_userdata('voter_csv', $data);
+			$this->session->set_userdata('csv_upload_data', $upload_data);
 			return TRUE;
 		}
 	}
