@@ -16,6 +16,20 @@ CREATE TABLE admins (
   PRIMARY KEY  (id)
 );
 
+CREATE TABLE blocks (
+  id integer NOT NULL auto_increment,
+  block varchar(63) NOT NULL,
+  description text,
+  PRIMARY KEY  (id)
+);
+
+CREATE TABLE blocks_elections_positions (
+  block_id integer NOT NULL,
+  election_id integer NOT NULL,
+  position_id integer NOT NULL,
+  PRIMARY KEY  (block_id,election_id,position_id)
+);
+
 CREATE TABLE candidates (
   id integer NOT NULL auto_increment,
   first_name varchar(63) NOT NULL,

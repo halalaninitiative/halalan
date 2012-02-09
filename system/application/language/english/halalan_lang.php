@@ -195,6 +195,17 @@ $lang['halalan_admin_edit_election_running'] = 'An election which is running can
 $lang['halalan_admin_edit_election_success'] = 'The election has been successfully edited.';
 $lang['halalan_admin_options_election_success'] = 'The election options has been successfully changed.';
 
+// controllers/admin/blocks.php
+$lang['halalan_admin_blocks_title'] = 'Manage Blocks';
+$lang['halalan_admin_delete_block_in_use'] = 'A block which is in use cannot be deleted.';
+$lang['halalan_admin_delete_block_success'] = 'The block has been successfully deleted.';
+$lang['halalan_admin_edit_block_title'] = 'Edit Block';
+$lang['halalan_admin_add_block_title'] = 'Add Block';
+$lang['halalan_admin_block_exists'] = 'Block already exists';
+$lang['halalan_admin_add_block_success'] = 'The block has been successfully added.';
+$lang['halalan_admin_edit_block_success'] = 'The block has been successfully edited.';
+$lang['halalan_admin_block_in_running_election'] = 'A block in a running election cannot be modifed.';
+
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
 $lang['halalan_admin_home_manage_question'] = 'What do you want to do?';
@@ -203,6 +214,7 @@ $lang['halalan_admin_home_manage_elections'] = 'Manage Elections';
 $lang['halalan_admin_home_manage_parties'] = 'Manage Parties';
 $lang['halalan_admin_home_manage_positions'] = 'Manage Positions';
 $lang['halalan_admin_home_manage_voters'] = 'Manage Voters';
+$lang['halalan_admin_home_manage_blocks'] = 'Manage Blocks';
 $lang['halalan_admin_home_right_label'] = 'Regeneration Box';
 $lang['halalan_admin_home_email'] = 'Email';
 $lang['halalan_admin_home_username'] = 'Username';
@@ -341,5 +353,27 @@ $lang['halalan_admin_election_parent'] = 'Parent';
 $lang['halalan_admin_election_notes'] = 'Notes';
 $lang['halalan_admin_add_election_submit'] = 'Add Election';
 $lang['halalan_admin_edit_election_submit'] = 'Edit Election';
+
+// views/admin/blocks.php
+$lang['halalan_admin_blocks_label'] = 'Manage Blocks';
+$lang['halalan_admin_blocks_block'] = 'Block';
+$lang['halalan_admin_blocks_description'] = 'Description';
+$lang['halalan_admin_blocks_no_blocks'] = 'No blocks found.';
+$lang['halalan_admin_blocks_add'] = 'Add Block';
+
+// views/admin/block.php
+$lang['halalan_admin_add_block_label'] = 'Add Block Details';
+$lang['halalan_admin_edit_block_label'] = 'Edit Block Details';
+$lang['halalan_admin_block_block'] = 'Block';
+$lang['halalan_admin_block_elections'] = 'Elections';
+$lang['halalan_admin_block_no_elections'] = 'No elections found.  Create one in the Elections page.';
+$lang['halalan_admin_block_possible_elections'] = 'Possible Elections';
+$lang['halalan_admin_block_chosen_elections'] = 'Chosen Elections';
+$lang['halalan_admin_block_general_positions'] = 'General Positions';
+$lang['halalan_admin_block_specific_positions'] = 'Specific Positions';
+$lang['halalan_admin_block_possible_positions'] = 'Possible Positions';
+$lang['halalan_admin_block_chosen_positions'] = 'Chosen Positions';
+$lang['halalan_admin_add_block_submit'] = 'Add Block';
+$lang['halalan_admin_edit_block_submit'] = 'Edit Block';
 
 ?>

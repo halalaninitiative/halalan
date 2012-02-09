@@ -4,10 +4,11 @@
 	<div class="notes">
 		<h2><?php echo e('admin_home_manage_question'); ?></h2>
 		<ul>
-			<li><?php echo anchor('admin/candidates', e('admin_home_manage_candidates')); ?></li>
 			<li><?php echo anchor('admin/elections', e('admin_home_manage_elections')); ?></li>
-			<li><?php echo anchor('admin/parties', e('admin_home_manage_parties')); ?></li>
 			<li><?php echo anchor('admin/positions', e('admin_home_manage_positions')); ?></li>
+			<li><?php echo anchor('admin/parties', e('admin_home_manage_parties')); ?></li>
+			<li><?php echo anchor('admin/candidates', e('admin_home_manage_candidates')); ?></li>
+			<li><?php echo anchor('admin/blocks', e('admin_home_manage_blocks')); ?></li>
 			<li><?php echo anchor('admin/voters', e('admin_home_manage_voters')); ?></li>
 		</ul>
 	</div>
