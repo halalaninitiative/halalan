@@ -43,9 +43,9 @@
 			<?php echo e('admin_position_abstain'); ?>:
 		</td>
 		<td>
-			<?php echo form_radio('abstain', '1', $position['abstain'] ? TRUE : FALSE, 'id="yes"'); ?>
+			<?php echo form_radio('abstain', '1', set_value('abstain', $position['abstain']) == 1 ? TRUE : FALSE, 'id="yes"'); ?>
 			<?php echo form_label('Yes', 'yes'); ?>
-			<?php echo form_radio('abstain', '0', $position['abstain'] ? FALSE : TRUE, 'id="no"'); ?>
+			<?php echo form_radio('abstain', '0', set_value('abstain', $position['abstain']) == 0 ? TRUE : FALSE, 'id="no"'); ?>
 			<?php echo form_label('No', 'no'); ?>
 		</td>
 	</tr>
@@ -54,9 +54,9 @@
 			<?php echo e('admin_position_unit'); ?>:
 		</td>
 		<td>
-			<?php echo form_radio('unit', '0', $position['unit'] ? FALSE : TRUE, 'id="general"'); ?>
+			<?php echo form_radio('unit', '0', set_value('unit', $position['unit']) == 0 ? TRUE : FALSE, 'id="general"'); ?>
 			<?php echo form_label('General', 'general'); ?>
-			<?php echo form_radio('unit', '1', $position['unit'] ? TRUE : FALSE, 'id="specific"'); ?>
+			<?php echo form_radio('unit', '1', set_value('unit', $position['unit']) == 1 ? TRUE : FALSE, 'id="specific"'); ?>
 			<?php echo form_label('Specific', 'specific'); ?>
 		</td>
 	</tr>
