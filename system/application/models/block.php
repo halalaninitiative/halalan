@@ -95,6 +95,8 @@ class Block extends Model {
 
 	function select_all_by_election_id($election_id)
 	{
+		$this->db->distinct();
+		$this->db->select('blocks.*');
 		$this->db->from('blocks');
 		$this->db->join('blocks_elections_positions', 'blocks.id = blocks_elections_positions.block_id');
 		$this->db->where('election_id', $election_id);
