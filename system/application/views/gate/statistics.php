@@ -43,7 +43,7 @@
 					?>
 				</td>
 				<td>
-					<label for="<?php echo 'cb_' . $all_elections[$i]['id']; ?>"><?php echo $all_elections[$i]['election']; ?></label>
+					<?php echo form_label($all_elections[$i]['election'], 'cb_' . $all_elections[$i]['id']); ?>
 				</td>
 			</tr>
 		<?php endfor; ?>
@@ -52,7 +52,7 @@
 	<?php endfor; ?>
 	<div class="clear"></div>
 	<div class="notes">
-		<?php echo form_submit(array('value'=>e('gate_results_submit_button'))); ?>
+		<?php echo form_submit('submit', e('gate_results_submit_button')); ?>
 		<br /><br />
 		<a href="#" class="toggleAllElections">select all</a> | <a href="#" class="toggleAllElections">deselect all</a>
 	</div>
@@ -78,7 +78,7 @@
 						<?php
 							if ($election['voter_count'] > 0)
 							{
-								printf("%.2f", 100*$election['voted_count']/$election['voter_count']);
+								printf("%.2f", 100 * $election['voted_count'] / $election['voter_count']);
 							}
 							else
 							{

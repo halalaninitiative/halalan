@@ -53,7 +53,7 @@ class Gate extends Controller {
 
 	function voter_login()
 	{
-		if (!$this->input->post('username') || !$this->input->post('password'))
+		if ( ! $this->input->post('username') || ! $this->input->post('password'))
 		{
 			$messages = array('negative', e('gate_common_login_failure'));
 			$this->session->set_flashdata('messages', $messages);
@@ -75,7 +75,7 @@ class Gate extends Controller {
 			}
 			else
 			{
-				$this->Boter->update(array('login'=>date("Y-m-d H:i:s"), 'ip_address'=>ip2long($this->input->ip_address())), $voter['id']);
+				$this->Boter->update(array('login' => date("Y-m-d H:i:s"), 'ip_address' => ip2long($this->input->ip_address())), $voter['id']);
 				// don't save password to session
 				unset($voter['password']);
 				$this->session->set_userdata('voter', $voter);
@@ -100,7 +100,7 @@ class Gate extends Controller {
 
 	function admin_login()
 	{
-		if (!$this->input->post('username') || !$this->input->post('password'))
+		if ( ! $this->input->post('username') || ! $this->input->post('password'))
 		{
 			$messages = array('negative', e('gate_common_login_failure'));
 			$this->session->set_flashdata('messages', $messages);
@@ -136,7 +136,7 @@ class Gate extends Controller {
 		else if($voter = $this->session->userdata('voter'))
 		{
 			// voter has not yet voted
-			$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $voter['id']);
+			$this->Boter->update(array('logout' => date("Y-m-d H:i:s")), $voter['id']);
 			$gate = 'voter';
 		}
 		else
@@ -154,10 +154,10 @@ class Gate extends Controller {
 		$selected = $this->input->post('elections', TRUE);
 		$all_elections = $this->Election->select_all_with_results();
 		$elections = $this->Election->select_all_by_ids($selected);
-		foreach ($elections as $key1=>$election)
+		foreach ($elections as $key1 => $election)
 		{
 			$positions = $this->Position->select_all_by_election_id($election['id']);
-			foreach ($positions as $key2=>$position)
+			foreach ($positions as $key2 => $position)
 			{
 				$candidates = array();
 				$votes = $this->Vote->count_all_by_election_id_and_position_id($election['id'], $position['id']);
@@ -194,7 +194,7 @@ class Gate extends Controller {
 		$selected = $this->input->post('elections', TRUE);
 		$all_elections = $this->Election->select_all_with_results();
 		$elections = $this->Election->select_all_by_ids($selected);
-		foreach ($elections as $key=>$election)
+		foreach ($elections as $key => $election)
 		{
 			$elections[$key]['voter_count'] = $this->Statistics->count_all_voters($election['id']);
 			$elections[$key]['voted_count'] = $this->Statistics->count_all_voted($election['id']);
@@ -220,4 +220,5 @@ class Gate extends Controller {
 
 }
 
-?>
+/* End of file gate.php */
+/* Location: ./system/application/controllers/gate.php */

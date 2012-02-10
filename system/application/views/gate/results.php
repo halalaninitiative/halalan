@@ -43,7 +43,7 @@
 					?>
 				</td>
 				<td>
-					<label for="<?php echo 'cb_' . $all_elections[$i]['id']; ?>"><?php echo $all_elections[$i]['election']; ?></label>
+					<?php echo form_label($all_elections[$i]['election'], 'cb_' . $all_elections[$i]['id']); ?>
 				</td>
 			</tr>
 		<?php endfor; ?>
@@ -52,7 +52,7 @@
 	<?php endfor; ?>
 	<div class="clear"></div>
 	<div class="notes">
-		<?php echo form_submit(array('value'=>e('gate_results_submit_button'))); ?>
+		<?php echo form_submit('submit', e('gate_results_submit_button')); ?>
 		<br /><br />
 		<a href="#" class="toggleAllElections">select all</a> | <a href="#" class="toggleAllElections">deselect all</a>
 	</div>
@@ -61,7 +61,7 @@
 
 	<?php foreach ($elections as $election): ?>
 		<div class="election"><?php echo $election['election']; ?></div>
-		<?php foreach ($election['positions'] as $key=>$position): ?>
+		<?php foreach ($election['positions'] as $key => $position): ?>
 			<?php if ($key % 2 == 0): ?>
 				<div class="content_left notes">
 			<?php else: ?>
@@ -79,8 +79,10 @@
 					<?php foreach ($position['candidates'] as $candidate): ?>
 						<?php
 							$name = $candidate['first_name'];
-							if (!empty($candidate['alias']))
+							if ( ! empty($candidate['alias']))
+							{
 								$name .= ' "' . $candidate['alias'] . '"';
+							}
 							$name .= ' ' . $candidate['last_name'];
 							$name = quotes_to_entities($name);
 						?>
@@ -96,7 +98,7 @@
 							<?php else: ?>
 								<td class="w35">
 							<?php endif; ?>
-							<?php if (isset($candidate['party']['party']) && !empty($candidate['party']['party'])): ?>
+							<?php if (isset($candidate['party']['party']) && ! empty($candidate['party']['party'])): ?>
 								<?php if (empty($candidate['party']['alias'])): ?>
 									<?php echo $candidate['party']['party']; ?>
 								<?php else: ?>
@@ -106,7 +108,7 @@
 							</td>
 							<?php if ($settings['show_candidate_details']): ?>
 								<td class="w5">
-									<?php echo img(array('src'=>'public/images/info.png', 'alt'=>'info', 'class'=>'pointer', 'title'=>'More info')); ?>
+									<?php echo img(array('src' => 'public/images/info.png', 'alt' => 'info', 'class' => 'pointer', 'title' => 'More info')); ?>
 								</td>
 							<?php endif; ?>
 						</tr>
@@ -114,17 +116,17 @@
 							<td colspan="4">
 							<?php if ($settings['show_candidate_details']): ?>
 								<div style="display:none;" class="details">
-								<?php if (!empty($candidate['picture'])): ?>
+								<?php if ( ! empty($candidate['picture'])): ?>
 									<div style="float:left;padding-right:5px;">
-										<?php echo img(array('src'=>'public/uploads/pictures/' . $candidate['picture'], 'alt'=>'picture')); ?>
+										<?php echo img(array('src' => 'public/uploads/pictures/' . $candidate['picture'], 'alt' => 'picture')); ?>
 									</div>
 								<?php endif; ?>
 								<div style="float:left;">
 									Name: <?php echo $name; ?><br />
-									Party: <?php echo (isset($candidate['party']['party']) && !empty($candidate['party']['party'])) ? $candidate['party']['party'] . (!empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
+									Party: <?php echo (isset($candidate['party']['party']) && ! empty($candidate['party']['party'])) ? $candidate['party']['party'] . ( ! empty($candidate['party']['alias']) ? ' (' . $candidate['party']['alias'] . ')' : '') : 'none'; ?>
 								</div>
 								<div class="clear"></div>
-								<?php if (!empty($candidate['description'])): ?>
+								<?php if ( ! empty($candidate['description'])): ?>
 									<div><br />
 										<?php echo nl2br($candidate['description']); ?>
 									</div>
