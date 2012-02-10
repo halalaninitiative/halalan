@@ -53,7 +53,7 @@ class Candidate extends Model {
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('election_id', 'position_id'));
-		$this->db->order_by('party_id', 'asc');
+		$this->db->order_by('party_id', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -62,7 +62,7 @@ class Candidate extends Model {
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('position_id'));
-		$this->db->order_by('party_id', 'asc');
+		$this->db->order_by('party_id', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -99,4 +99,5 @@ class Candidate extends Model {
 
 }
 
-?>
+/* End of file candidate.php */
+/* Location: ./system/application/models/candidate.php */

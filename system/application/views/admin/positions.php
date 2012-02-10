@@ -6,7 +6,7 @@
 	<p class="align_right">
 		<?php echo anchor('admin/positions/add', e('admin_positions_add')); ?>
 		| View:
-		<?php echo form_dropdown('election_id', array(''=>'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
 	</p>
 </div>
 <div class="clear"></div>
@@ -35,8 +35,8 @@
 			<?php echo nl2br($position['description']); ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/positions/edit/' . $position['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/positions/delete/' . $position['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/positions/edit/' . $position['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/positions/delete/' . $position['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

@@ -60,8 +60,8 @@ class Boter extends Model {
 	function select_all()
 	{
 		$this->db->from('voters');
-		$this->db->order_by('last_name', 'asc');
-		$this->db->order_by('first_name', 'asc');
+		$this->db->order_by('last_name', 'ASC');
+		$this->db->order_by('first_name', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -70,8 +70,8 @@ class Boter extends Model {
 	{
 		$this->db->where('block_id', $block_id);
 		$this->db->from('voters');
-		$this->db->order_by('last_name', 'asc');
-		$this->db->order_by('first_name', 'asc');
+		$this->db->order_by('last_name', 'ASC');
+		$this->db->order_by('first_name', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -79,8 +79,8 @@ class Boter extends Model {
 	function select_all_for_pagination($limit, $offset)
 	{
 		$this->db->from('voters');
-		$this->db->order_by('last_name', 'asc');
-		$this->db->order_by('first_name', 'asc');
+		$this->db->order_by('last_name', 'ASC');
+		$this->db->order_by('first_name', 'ASC');
 		$this->db->limit($limit, $offset);
 		$query = $this->db->get();
 		return $query->result_array();
@@ -120,4 +120,5 @@ class Boter extends Model {
 
 }
 
-?>
+/* End of file boter.php */
+/* Location: ./system/application/models/boter.php */

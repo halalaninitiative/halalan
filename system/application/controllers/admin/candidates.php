@@ -27,7 +27,7 @@ class Candidates extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -62,7 +62,7 @@ class Candidates extends Controller {
 		}
 		$pos = $tmp;
 		$positions = $this->Position->select_all_by_election_id($election_id);
-		foreach ($positions as $key=>$value)
+		foreach ($positions as $key => $value)
 		{
 			$positions[$key]['candidates'] = $this->Candidate->select_all_by_election_id_and_position_id($election_id, $value['id']);
 			if ($position_id > 0 && $value['id'] == $position_id)
@@ -90,7 +90,9 @@ class Candidates extends Controller {
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 		{
 			$election_id = $this->input->post('election_id');
-			echo json_encode($this->Position->select_all_by_election_id($election_id));
+			$positions = $this->Position->select_all_by_election_id($election_id);
+			$parties = $this->Party->select_all_by_election_id($election_id);
+			echo json_encode(array($positions, $parties));
 		}
 		else
 		{
@@ -103,7 +105,9 @@ class Candidates extends Controller {
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 		{
 			$election_id = $this->input->post('election_id');
-			echo json_encode($this->Position->select_all_by_election_id($election_id));
+			$positions = $this->Position->select_all_by_election_id($election_id);
+			$parties = $this->Party->select_all_by_election_id($election_id);
+			echo json_encode(array($positions, $parties));
 		}
 		else
 		{
@@ -113,8 +117,15 @@ class Candidates extends Controller {
 
 	function delete($id) 
 	{
-		if (!$id)
+		if ( ! $id)
+		{
 			redirect('admin/candidates');
+		}
+		$candidate = $this->Candidate->select($id);
+		if ( ! $candidate)
+		{
+			redirect('admin/candidates');
+		}
 		if ($this->Candidate->in_running_election($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_candidate_in_running_election')));
@@ -136,16 +147,20 @@ class Candidates extends Controller {
 		$election_id = 0;
 		if ($case == 'add')
 		{
-			$data['candidate'] = array('first_name'=>'', 'last_name'=>'', 'alias'=>'', 'description'=>'', 'party_id'=>'', 'election_id'=>'', 'position_id'=>'');
+			$data['candidate'] = array('first_name' => '', 'last_name' => '', 'alias' => '', 'description' => '', 'election_id' => '', 'position_id' => '', 'party_id' => '');
 			$this->session->unset_userdata('candidate'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{
-			if (!$id)
+			if ( ! $id)
+			{
 				redirect('admin/candidates');
+			}
 			$data['candidate'] = $this->Candidate->select($id);
-			if (!$data['candidate'])
+			if ( ! $data['candidate'])
+			{
 				redirect('admin/candidates');
+			}
 			if ($this->Candidate->in_running_election($id))
 			{
 				$this->session->set_flashdata('messages', array('negative', e('admin_candidate_in_running_election')));
@@ -161,9 +176,9 @@ class Candidates extends Controller {
 		$this->form_validation->set_rules('last_name', e('admin_candidate_last_name'), 'required|callback__rule_candidate_exists');
 		$this->form_validation->set_rules('alias', e('admin_candidate_alias'));
 		$this->form_validation->set_rules('description', e('admin_candidate_description'));
-		$this->form_validation->set_rules('party_id', e('admin_candidate_party'));
 		$this->form_validation->set_rules('election_id', e('admin_candidate_election'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('position_id', e('admin_candidate_position'), 'required');
+		$this->form_validation->set_rules('party_id', e('admin_candidate_party'));
 		$this->form_validation->set_rules('picture', e('admin_candidate_picture'), 'callback__rule_picture');
 		if ($this->form_validation->run())
 		{
@@ -171,9 +186,9 @@ class Candidates extends Controller {
 			$candidate['last_name'] = $this->input->post('last_name', TRUE);
 			$candidate['alias'] = $this->input->post('alias', TRUE);
 			$candidate['description'] = $this->input->post('description', TRUE);
-			$candidate['party_id'] = $this->input->post('party_id', TRUE);
 			$candidate['election_id'] = $this->input->post('election_id', TRUE);
 			$candidate['position_id'] = $this->input->post('position_id', TRUE);
+			$candidate['party_id'] = $this->input->post('party_id', TRUE);
 			if ($picture = $this->session->userdata('candidate_picture'))
 			{
 				$candidate['picture'] = $picture;
@@ -198,11 +213,12 @@ class Candidates extends Controller {
 		}
 		$data['elections'] = $this->Election->select_all_with_positions();
 		$data['positions'] = array();
+		$data['parties'] = array();
 		if ($election_id > 0)
 		{
 			$data['positions'] = $this->Position->select_all_by_election_id($election_id);
+			$data['parties'] = $this->Party->select_all_by_election_id($election_id);
 		}
-		$data['parties'] = $this->Party->select_all();
 		$data['action'] = $case;
 		$admin['title'] = e('admin_' . $case . '_candidate_title');
 		$admin['body'] = $this->load->view('admin/candidate', $data, TRUE);
@@ -232,7 +248,7 @@ class Candidates extends Controller {
 			if ($error)
 			{
 				$name = $test['last_name'] . ', ' . $test['first_name'];
-				if (!empty($test['alias']))
+				if ( ! empty($test['alias']))
 				{
 					$name .= ' "' . $test['alias'] . '"';
 				}
@@ -242,6 +258,41 @@ class Candidates extends Controller {
 			}
 		}
 		return TRUE;
+	}
+
+	// placed in first name so it comes up on top
+	function _rule_dependencies()
+	{
+		if ($candidate = $this->session->userdata('candidate')) // edit
+		{
+			// don't check if election_id or position_id is empty
+			if ($this->input->post('election_id') == FALSE || $this->input->post('position_id') == FALSE)
+			{
+				return TRUE;
+			}
+			if ($this->Candidate->in_use($candidate['id']))
+			{
+				if ($candidate['election_id'] != $this->input->post('election_id') || $candidate['position_id'] != $this->input->post('position_id'))
+				{
+					$this->form_validation->set_message('_rule_dependencies', e('admin_candidate_dependencies'));
+					return FALSE;
+				}
+			}
+		}
+		return TRUE;
+	}
+
+	function _rule_running_election()
+	{
+		if ($this->Election->is_running(array($this->input->post('election_id'))))
+		{
+			$this->form_validation->set_message('_rule_running_election', e('admin_candidate_running_election'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 
 	function _rule_picture()
@@ -256,7 +307,7 @@ class Candidates extends Controller {
 				// delete old logo first
 				unlink($config['upload_path'] . $candidate['picture']);
 			}
-			if (!$this->upload->do_upload('picture'))
+			if ( ! $this->upload->do_upload('picture'))
 			{
 				$message = $this->upload->display_errors('', '');
 				$this->form_validation->set_message('_rule_picture', $message);
@@ -296,7 +347,7 @@ class Candidates extends Controller {
 			$config['width'] = $n;
 			$config['height'] = (($n*$height)/$width);
 			$this->image_lib->initialize($config);
-			if (!$this->image_lib->resize())
+			if ( ! $this->image_lib->resize())
 			{
 				$error[] = $this->image_lib->display_errors();
 			}
@@ -316,41 +367,6 @@ class Candidates extends Controller {
 		else
 		{
 			return $error;
-		}
-	}
-
-	// placed in first name so it comes up on top
-	function _rule_dependencies()
-	{
-		if ($candidate = $this->session->userdata('candidate')) // edit
-		{
-			// don't check if election_id or position_id is empty
-			if ($this->input->post('election_id') == FALSE || $this->input->post('position_id') == FALSE)
-			{
-				return TRUE;
-			}
-			if ($this->Candidate->in_use($candidate['id']))
-			{
-				if ($candidate['election_id'] != $this->input->post('election_id') || $candidate['position_id'] != $this->input->post('position_id'))
-				{
-					$this->form_validation->set_message('_rule_dependencies', e('admin_candidate_dependencies'));
-					return FALSE;
-				}
-			}
-		}
-		return TRUE;
-	}
-
-	function _rule_running_election()
-	{
-		if ($this->Election->is_running(array($this->input->post('election_id'))))
-		{
-			$this->form_validation->set_message('_rule_running_election', e('admin_candidate_running_election'));
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
 		}
 	}
 

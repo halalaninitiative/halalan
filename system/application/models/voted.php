@@ -53,4 +53,5 @@ class Voted extends Model {
 
 }
 
-?>
+/* End of file voted.php */
+/* Location: ./system/application/models/voted.php */

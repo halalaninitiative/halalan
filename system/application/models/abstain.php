@@ -39,4 +39,5 @@ class Abstain extends Model {
 
 }
 
-?>
+/* End of file abstain.php */
+/* Location: ./system/application/models/abstain.php */

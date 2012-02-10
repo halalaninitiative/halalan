@@ -71,7 +71,7 @@ class Block extends Model {
 
 	function delete($id)
 	{
-		$this->db->where(array('block_id'=>$id));
+		$this->db->where('block_id', $id);
 		$this->db->delete('blocks_elections_positions');
 		$this->db->where(compact('id'));
 		return $this->db->delete('blocks');
@@ -88,11 +88,22 @@ class Block extends Model {
 	function select_all()
 	{
 		$this->db->from('blocks');
-		$this->db->order_by('block', 'asc');
+		$this->db->order_by('block', 'ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function select_all_by_election_id($election_id)
+	{
+		$this->db->from('blocks');
+		$this->db->join('blocks_elections_positions', 'blocks.id = blocks_elections_positions.block_id');
+		$this->db->where('election_id', $election_id);
+		$this->db->order_by('block', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
 }
 
-?>
+/* End of file block.php */
+/* Location: ./system/application/models/block.php */

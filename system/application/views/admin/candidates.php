@@ -7,8 +7,8 @@
 	<p class="align_right">
 		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
 		| View:
-		<?php echo form_dropdown('election_id', array(''=>'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-		<?php echo form_dropdown('position_id', array(''=>'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
+		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('position_id', array('' => 'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
 	</p>
 </div>
 <div class="clear"></div>
@@ -33,14 +33,14 @@
 	<p class="align_right">
 		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
 		| View:
-		<?php echo form_dropdown('election_id', array(''=>'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-		<?php echo form_dropdown('position_id', array(''=>'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
+		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('position_id', array('' => 'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
 	</p>
 </div>
 <div class="clear"></div>
 <?php foreach ($positions as $position): ?>
 <div class="content_left">
-	<h2><?php echo img(array('src'=>'public/images/minus.png', 'class'=>'togglePosition pointer', 'alt'=>'Collapse', 'title'=>'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
+	<h2><?php echo img(array('src' => 'public/images/minus.png', 'class' => 'togglePosition pointer', 'alt' => 'Collapse', 'title' => 'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -71,8 +71,8 @@
 			<?php echo nl2br($candidate['description']); ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/candidates/delete/' . $candidate['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/candidates/delete/' . $candidate['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

@@ -35,4 +35,5 @@ class Election_Position extends Model {
 
 }
 
-?>
+/* End of file election_position.php */
+/* Location: ./system/application/models/election_position.php */

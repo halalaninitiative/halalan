@@ -27,7 +27,7 @@ class Voters extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -76,11 +76,15 @@ class Voters extends Controller {
 
 	function delete($id) 
 	{
-		if (!$id)
+		if ( ! $id)
+		{
 			redirect('admin/voters');
+		}
 		$voter = $this->Boter->select($id);
-		if (!$voter)
+		if ( ! $voter)
+		{
 			redirect('admin/voters');
+		}
 		if ($this->Boter->in_running_election($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_voter_in_running_election')));
@@ -414,61 +418,19 @@ class Voters extends Controller {
 		return TRUE;
 	}
 
-	function _rule_csv()
-	{
-		$config['upload_path'] = HALALAN_UPLOAD_PATH . 'csvs/';
-		$config['allowed_types'] = 'csv';
-		$this->upload->initialize($config);
-		if (!$this->upload->do_upload('csv'))
-		{
-			$message = $this->upload->display_errors('', '');
-			$this->form_validation->set_message('_rule_csv', $message);
-			return FALSE;
-		}
-		else
-		{
-			$upload_data = $this->upload->data();
-			$this->session->set_userdata('csv_upload_data', $upload_data);
-			return TRUE;
-		}
-	}
-
 	// placed in username so it comes up on top
 	function _rule_dependencies()
 	{
 		if ($voter = $this->session->userdata('voter')) // edit
 		{
-			// don't check if election_id or position_id is empty
-			if ($this->input->post('chosen_elections') == FALSE)
+			// don't check if block_id is empty
+			if ($this->input->post('block_id') == FALSE)
 			{
 				return TRUE;
 			}
 			if ($this->Boter->in_use($voter['id']))
 			{
-				$tmp = $this->Election_Position_Voter->select_all_by_voter_id($voter['id']);
-				foreach ($tmp as $t)
-				{
-					$chosen_elections[] = $t['election_id'];
-					$chosen_positions[] = $t['election_id'] . '|' . $t['position_id'];
-				}
-				$chosen_elections = array_unique($chosen_elections);
-				$fill = $this->_fill_positions($chosen_elections, FALSE);
-				$general_positions = array();
-				foreach ($fill[0] as $f)
-				{
-					$general_positions[] = $f['value'];
-				}
-				$tmp = FALSE; // not array() since $this->input->post returns FALSE when empty
-				foreach ($chosen_positions as $c)
-				{
-					// remove from $chosen_positions the general positions
-					if (!in_array($c, $general_positions))
-					{
-						$tmp[] = $c;
-					}
-				}
-				$chosen_positions = $tmp;
-				if ($chosen_elections != $this->input->post('chosen_elections') || $general_positions != $this->input->post('general_positions') || $chosen_positions != $this->input->post('chosen_positions'))
+				if ($voter['block_id'] != $this->input->post('block_id'))
 				{
 					$this->form_validation->set_message('_rule_dependencies', e('admin_voter_dependencies'));
 					return FALSE;
@@ -487,6 +449,25 @@ class Voters extends Controller {
 		}
 		else
 		{
+			return TRUE;
+		}
+	}
+
+	function _rule_csv()
+	{
+		$config['upload_path'] = HALALAN_UPLOAD_PATH . 'csvs/';
+		$config['allowed_types'] = 'csv';
+		$this->upload->initialize($config);
+		if (!$this->upload->do_upload('csv'))
+		{
+			$message = $this->upload->display_errors('', '');
+			$this->form_validation->set_message('_rule_csv', $message);
+			return FALSE;
+		}
+		else
+		{
+			$upload_data = $this->upload->data();
+			$this->session->set_userdata('csv_upload_data', $upload_data);
 			return TRUE;
 		}
 	}

@@ -52,6 +52,12 @@ CREATE TABLE elections (
   PRIMARY KEY  (id)
 );
 
+CREATE TABLE elections_parties (
+  election_id integer NOT NULL,
+  party_id integer NOT NULL,
+  PRIMARY KEY  (election_id,party_id)
+);
+
 CREATE TABLE elections_positions (
   election_id integer NOT NULL,
   position_id integer NOT NULL,

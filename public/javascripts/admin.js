@@ -144,23 +144,36 @@ function togglePosition() {
 	return false;
 }
 
-function fillPositions() {
+function fillPositionsAndParties() {
 	$.ajax({
 		type: "POST",
 		url: window.location.href,
 		data: $(this).serialize(),
 		success: function(msg){
 			var msg = $.parseJSON(msg);
+			var positions = msg[0];
+			var parties = msg[1];
 			var option = new Option();
 			$('#position_id').children().remove();
 			option.value = '';
 			option.text = 'Select Position';
 			$('#position_id').append(option);
-			for (i = 0; i < msg.length; i++) {
+			for (i = 0; i < positions.length; i++) {
 				option = new Option();
-				option.value = msg[i].position_id;
-				option.text = msg[i].position;
+				option.value = positions[i].position_id;
+				option.text = positions[i].position;
 				$('#position_id').append(option);
+			}
+			var option = new Option();
+			$('#party_id').children().remove();
+			option.value = '';
+			option.text = 'Select Party';
+			$('#party_id').append(option);
+			for (i = 0; i < parties.length; i++) {
+				option = new Option();
+				option.value = parties[i].party_id;
+				option.text = parties[i].party;
+				$('#party_id').append(option);
 			}
 		}
 	});
@@ -210,7 +223,7 @@ $(document).ready(function () {
 	$('select.changeElections').change(changeElections);
 	$('select.changePositions').change(changePositions);
 	/* used in add/edit candidates */
-	$('select.fillPositions').change(fillPositions);
+	$('select.fillPositionsAndParties').change(fillPositionsAndParties);
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();

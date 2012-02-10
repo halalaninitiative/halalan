@@ -40,29 +40,11 @@
 	</tr>
 	<tr>
 		<td class="w20" align="right">
-			<?php echo form_label(e('admin_candidate_party') . ':' , 'party_id'); ?>
-		</td>
-		<td>
-			<!-- form_dropdown and set_select don't work together :( -->
-			<select name="party_id" id="party_id">
-				<option value="">Select Party</option>
-				<?php foreach ($parties as $party): ?>
-				<?php
-					echo '<option value="' . $party['id'] . '"';
-					echo set_select('party_id', $party['id'], $candidate['party_id'] == $party['id'] ? TRUE : FALSE);
-					echo '>' . $party['party'] . '</option>';
-				?>
-				<?php endforeach; ?>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class="w20" align="right">
 			<?php echo form_label(e('admin_candidate_election') . ':' , 'election_id'); ?>
 		</td>
 		<td>
 			<!-- form_dropdown and set_select don't work together :( -->
-			<select name="election_id" id="election_id" class="fillPositions">
+			<select name="election_id" id="election_id" class="fillPositionsAndParties">
 				<option value="">Select Election</option>
 				<?php foreach ($elections as $election): ?>
 				<?php
@@ -87,6 +69,24 @@
 					echo '<option value="' . $position['id'] . '"';
 					echo set_select('position_id', $position['id'], $candidate['position_id'] == $position['id'] ? TRUE : FALSE);
 					echo '>' . $position['position'] . '</option>';
+				?>
+				<?php endforeach; ?>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="w20" align="right">
+			<?php echo form_label(e('admin_candidate_party') . ':' , 'party_id'); ?>
+		</td>
+		<td>
+			<!-- form_dropdown and set_select don't work together :( -->
+			<select name="party_id" id="party_id">
+				<option value="">Select Party</option>
+				<?php foreach ($parties as $party): ?>
+				<?php
+					echo '<option value="' . $party['id'] . '"';
+					echo set_select('party_id', $party['id'], $candidate['party_id'] == $party['id'] ? TRUE : FALSE);
+					echo '>' . $party['party'] . '</option>';
 				?>
 				<?php endforeach; ?>
 			</select>

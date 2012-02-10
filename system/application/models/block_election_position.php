@@ -35,4 +35,5 @@ class Block_Election_Position extends Model {
 
 }
 
-?>
+/* End of file block_election_position.php */
+/* Location: ./system/application/models/block_election_position.php */

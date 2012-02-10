@@ -18,30 +18,21 @@
  * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Abmin extends Model {
-	
-	function Abmin()
+class Election_Party extends Model {
+
+	function Election_Party()
 	{
 		parent::Model();
 	}
 
-	function authenticate($username, $password)
+	function select_all_by_party_id($party_id)
 	{
-		$this->db->from('admins');
-		$this->db->where(compact('username', 'password'));
+		$this->db->from('elections_parties');
+		$this->db->where(compact('party_id'));
 		$query = $this->db->get();
-		return $query->row_array();
-	}
-
-	function select($id)
-	{
-		$this->db->from('admins');
-		$this->db->where(compact('id'));
-		$query = $this->db->get();
-		return $query->row_array();
+		return $query->result_array();
 	}
 
 }
 
-/* End of file abmin.php */
-/* Location: ./system/application/models/abmin.php */
+?>

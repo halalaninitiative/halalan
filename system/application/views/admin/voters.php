@@ -22,14 +22,14 @@
 	<?php foreach ($voters as $voter): ?>
 	<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even'  ?>">
 		<td align="center">
-			<?php echo ($j+1); ?>
+			<?php echo $j + 1; ?>
 		</td>
 		<td>
 			<?php echo anchor('admin/voters/edit/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/voters/edit/' . $voter['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/voters/delete/' . $voter['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/voters/edit/' . $voter['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/voters/delete/' . $voter['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
 		</td>
 	</tr>
 	<?php $j++; ?>
@@ -40,11 +40,11 @@
 <?php if (!empty($links)): ?>
 <div class="paging">
 	<?php echo $links; ?><br />
-	Results <?php echo ($offset+1); ?> -
-	<?php if (($offset+$limit) > $total_rows): ?>
+	Results <?php echo ($offset + 1); ?> -
+	<?php if (($offset + $limit) > $total_rows): ?>
 		<?php echo $total_rows; ?>
 	<?php else: ?>
-		<?php echo ($offset+$limit); ?>
+		<?php echo ($offset + $limit); ?>
 	<?php endif; ?>
 	of <?php echo $total_rows; ?>.
 </div>

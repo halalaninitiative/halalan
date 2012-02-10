@@ -27,7 +27,7 @@ class Home extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -47,23 +47,27 @@ class Home extends Controller {
 	function do_regenerate()
 	{
 		$error = array();
-		if (!$this->input->post('username'))
+		if ( ! $this->input->post('username'))
 		{
 			if ($this->settings['password_pin_generation'] == 'web')
+			{
 				$error[] = e('admin_regenerate_no_username');
+			}
 			else if ($this->settings['password_pin_generation'] == 'email')
+			{
 				$error[] = e('admin_regenerate_no_email');
+			}
 		}
 		else
 		{
-			if (!$voter = $this->Boter->select_by_username($this->input->post('username')))
+			if ( ! $voter = $this->Boter->select_by_username($this->input->post('username')))
 			{
 				$error[] = e('admin_regenerate_not_exists');
 			}
 		}
 		if ($this->settings['password_pin_generation'] == 'email')
 		{
-			if (!$this->form_validation->valid_email($this->input->post('username')))
+			if ( ! $this->form_validation->valid_email($this->input->post('username')))
 			{
 				$error[] = e('admin_regenerate_invalid_email');
 			}

@@ -62,4 +62,5 @@ class Statistics extends Model {
 
 }
 
-?>
+/* End of file statistics.php */
+/* Location: ./system/application/models/statistics.php */

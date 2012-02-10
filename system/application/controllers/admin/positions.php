@@ -27,7 +27,7 @@ class Positions extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -75,8 +75,15 @@ class Positions extends Controller {
 
 	function delete($id) 
 	{
-		if (!$id)
+		if ( ! $id)
+		{
 			redirect('admin/positions');
+		}
+		$position = $this->Position->select($id);
+		if ( ! $position)
+		{
+			redirect('admin/positions');
+		}
 		if ($this->Position->in_running_election($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_position_in_running_election')));
@@ -98,16 +105,20 @@ class Positions extends Controller {
 		$chosen = array();
 		if ($case == 'add')
 		{
-			$data['position'] = array('position'=>'', 'description'=>'', 'maximum'=>'', 'ordinality'=>'', 'abstain'=>'1', 'unit'=>'0');
+			$data['position'] = array('position' => '', 'description' => '', 'maximum' => '', 'ordinality' => '', 'abstain' => '1', 'unit' => '0');
 			$this->session->unset_userdata('position'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{
-			if (!$id)
+			if ( ! $id)
+			{
 				redirect('admin/positions');
+			}
 			$data['position'] = $this->Position->select($id);
-			if (!$data['position'])
+			if ( ! $data['position'])
+			{
 				redirect('admin/positions');
+			}
 			if ($this->Position->in_running_election($id))
 			{
 				$this->session->set_flashdata('messages', array('negative', e('admin_position_in_running_election')));

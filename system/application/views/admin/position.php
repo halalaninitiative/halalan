@@ -1,8 +1,8 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/positions/add', array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/positions/add', array('class' => 'selectChosen')); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/positions/edit/' . $position['id'], array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/positions/edit/' . $position['id'], array('class' => 'selectChosen')); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_position_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
@@ -62,11 +62,11 @@
 	</tr>
 	<tr>
 		<td class="w20" align="right">
-			<?php //echo e('admin_voter_specific_positions'); ?>Elections:
+			<?php echo e('admin_position_elections'); ?>:
 		</td>
 		<td>
 			<?php if (empty($elections)): ?>
-			<em><?php //echo e('admin_voter_no_specific_positions'); ?>No elections found.</em>
+			<em><?php echo e('admin_position_no_elections'); ?></em>
 			<?php else: ?>
 				<table>
 					<tr>

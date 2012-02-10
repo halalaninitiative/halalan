@@ -54,9 +54,11 @@
 			<?php echo e('admin_voter_regenerate'); ?>:
 		</td>
 		<td>
-			<label for="password"><?php echo form_checkbox(array('id'=>'password', 'name'=>'password', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?php echo e('admin_voter_password'); ?></label>
+			<?php echo form_checkbox('password', TRUE, FALSE, 'id="password"'); ?>				
+			<?php echo form_label(e('admin_voter_password'), 'password'); ?>
 			<?php if ($settings['pin']): ?>
-				<label for="pin"><?php echo form_checkbox(array('id'=>'pin', 'name'=>'pin', 'value'=>TRUE, 'checked'=>FALSE)); ?> <?php echo e('admin_voter_pin'); ?></label>
+				<?php echo form_checkbox('pin', TRUE, FALSE, 'id="pin"'); ?>				
+				<?php echo form_label(e('admin_voter_pin'), 'pin'); ?>
 			<?php endif; ?>
 		</td>
 	</tr>

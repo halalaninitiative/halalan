@@ -37,7 +37,7 @@ class Vote extends Model {
 		$this->db->join('candidates', 'candidates.id = votes.candidate_id', 'right');
 		$this->db->where(compact('election_id', 'position_id'));
 		$this->db->group_by('candidates.id');
-		$this->db->order_by('votes', 'desc');
+		$this->db->order_by('votes', 'DESC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -47,12 +47,13 @@ class Vote extends Model {
 		$this->db->from('votes');
 		$this->db->join('candidates', 'candidates.id = votes.candidate_id');
 		$this->db->where(compact('voter_id'));
-		$this->db->order_by('last_name', 'asc');
-		$this->db->order_by('first_name', 'asc');
+		$this->db->order_by('last_name', 'ASC');
+		$this->db->order_by('first_name', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
 }
 
-?>
+/* End of file vote.php */
+/* Location: ./system/application/models/vote.php */
