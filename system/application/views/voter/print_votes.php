@@ -13,7 +13,7 @@
 	<p>Voted as <?php echo $voter['username']; ?></p>
 	<h3>Votes</h3>
 	<table cellspacing="2" cellpadding="2" border="0" style="width: 75%">
-		<?php foreach ($election['positions'] as $key=>$position): ?>
+		<?php foreach ($election['positions'] as $key => $position): ?>
 		<?php if ($key % 2 == 0): ?>
 		<tr>
 		<?php endif; ?>
@@ -27,11 +27,13 @@
 					<?php if ($candidate['voted']): ?>
 					<?php
 						$name = $candidate['first_name'];
-						if (!empty($candidate['alias']))
-						$name .= ' "' . $candidate['alias'] . '"';
+						if ( ! empty($candidate['alias']))
+						{
+							$name .= ' "' . $candidate['alias'] . '"';
+						}
 						$name .= ' ' . $candidate['last_name'];
 						$name = quotes_to_entities($name);
-						if (isset($candidate['party']['party']) && !empty($candidate['party']['party']))
+						if (isset($candidate['party']['party']) && ! empty($candidate['party']['party']))
 						{
 							if (empty($candidate['party']['alias']))
 							{

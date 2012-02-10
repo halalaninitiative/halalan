@@ -30,7 +30,7 @@ class Statistics extends Model {
 		$this->db->distinct();
 		$this->db->select('id');
 		$this->db->from('voters');
-		$this->db->join('elections_positions_voters', 'elections_positions_voters.voter_id = voters.id');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = voters.block_id');
 		$this->db->where('election_id', $election_id);
 		$query = $this->db->get();
 		return count($query->result_array());
@@ -49,7 +49,7 @@ class Statistics extends Model {
 		$this->db->distinct();
 		$this->db->select('id');
 		$this->db->from('voters');
-		$this->db->join('elections_positions_voters', 'elections_positions_voters.voter_id = voters.id');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = voters.block_id');
 		$this->db->where('election_id', $election_id);
 		$this->db->where('timediff(logout, login) >= \'' . $begin . '\'');
 		if ($end)

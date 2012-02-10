@@ -74,7 +74,18 @@
 				</tr>
 				<tr>
 					<td>Voter turnout</td>
-					<td><?php printf("%.2f", 100*$election['voted_count']/$election['voter_count']); ?>%</td>
+					<td>
+						<?php
+							if ($election['voter_count'] > 0)
+							{
+								printf("%.2f", 100*$election['voted_count']/$election['voter_count']);
+							}
+							else
+							{
+								echo 0;
+							}
+						?>%
+					</td>
 				</tr>
 			</table>
 		</div>
