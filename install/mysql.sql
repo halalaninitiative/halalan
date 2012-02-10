@@ -58,13 +58,6 @@ CREATE TABLE elections_positions (
   PRIMARY KEY  (election_id,position_id)
 );
 
-CREATE TABLE elections_positions_voters (
-  election_id integer NOT NULL,
-  position_id integer NOT NULL,
-  voter_id integer NOT NULL,
-  PRIMARY KEY  (election_id,position_id,voter_id)
-);
-
 CREATE TABLE parties (
   id integer NOT NULL auto_increment,
   party varchar(63) NOT NULL,
@@ -100,6 +93,7 @@ CREATE TABLE voters (
   pin char(40),
   first_name varchar(63) NOT NULL,
   last_name varchar(31) NOT NULL,
+  block_id integer NOT NULL,
   login datetime,
   logout datetime,
   ip_address integer,

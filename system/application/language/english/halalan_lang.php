@@ -236,14 +236,7 @@ $lang['halalan_admin_voter_email'] = 'Email';
 $lang['halalan_admin_voter_username'] = 'Username';
 $lang['halalan_admin_voter_first_name'] = 'First Name';
 $lang['halalan_admin_voter_last_name'] = 'Last Name';
-$lang['halalan_admin_voter_elections'] = 'Elections';
-$lang['halalan_admin_voter_no_elections'] = 'No elections found.  Create one in the Elections page.';
-$lang['halalan_admin_voter_possible_elections'] = 'Possible Elections';
-$lang['halalan_admin_voter_chosen_elections'] = 'Chosen Elections';
-$lang['halalan_admin_voter_general_positions'] = 'General Positions';
-$lang['halalan_admin_voter_specific_positions'] = 'Specific Positions';
-$lang['halalan_admin_voter_possible_positions'] = 'Possible Positions';
-$lang['halalan_admin_voter_chosen_positions'] = 'Chosen Positions';
+$lang['halalan_admin_voter_block'] = 'Block';
 $lang['halalan_admin_voter_regenerate'] = 'Regenerate';
 $lang['halalan_admin_voter_password'] = 'Password';
 $lang['halalan_admin_voter_pin'] = 'PIN';
@@ -312,14 +305,7 @@ $lang['halalan_admin_edit_candidate_submit'] = 'Edit Candidate';
 
 // views/admin/import.php
 $lang['halalan_admin_import_label'] = 'Import Voters';
-$lang['halalan_admin_import_elections'] = 'Elections';
-$lang['halalan_admin_import_no_elections'] = 'No elections found.  Create one in the Elections page.';
-$lang['halalan_admin_import_possible_elections'] = 'Possible Elections';
-$lang['halalan_admin_import_chosen_elections'] = 'Chosen Elections';
-$lang['halalan_admin_import_general_positions'] = 'General Positions';
-$lang['halalan_admin_import_specific_positions'] = 'Specific Positions';
-$lang['halalan_admin_import_possible_positions'] = 'Possible Positions';
-$lang['halalan_admin_import_chosen_positions'] = 'Chosen Positions';
+$lang['halalan_admin_import_block'] = 'Block';
 $lang['halalan_admin_import_csv'] = 'CSV';
 $lang['halalan_admin_import_sample'] = 'Sample Format';
 $lang['halalan_admin_import_notes'] = 'Notes';
@@ -327,6 +313,7 @@ $lang['halalan_admin_import_submit'] = 'Import';
 
 // views/admin/export.php
 $lang['halalan_admin_export_label'] = 'Export Voters';
+$lang['halalan_admin_export_block'] = 'Block';
 $lang['halalan_admin_export_password'] = 'Include password?';
 $lang['halalan_admin_export_password_description'] = 'used for batch generation of password';
 $lang['halalan_admin_export_pin'] = 'Include PIN?';

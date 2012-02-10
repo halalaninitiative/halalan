@@ -35,52 +35,16 @@ class Boter extends Model {
 
 	function insert($voter)
 	{
-		if (isset($voter['extra']))
-		{
-			$extra = $voter['extra'];
-			unset($voter['extra']);
-		}
-		$this->db->insert('voters', $voter);
-		if (!empty($extra))
-		{
-			$voter_id = $this->db->insert_id();
-			foreach ($extra as $e)
-			{
-				$election_id = $e['election_id'];
-				$position_id = $e['position_id'];
-				$this->db->insert('elections_positions_voters', compact('election_id', 'position_id', 'voter_id'));
-			}
-		}
-		return true;
+		return $this->db->insert('voters', $voter);
 	}
 
 	function update($voter, $id)
 	{
-		if (isset($voter['extra']))
-		{
-			$extra = $voter['extra'];
-			unset($voter['extra']);
-			$this->db->where('voter_id', $id);
-			$this->db->delete('elections_positions_voters');
-		}
-		$this->db->update('voters', $voter, compact('id'));
-		if (!empty($extra))
-		{
-			$voter_id = $id;
-			foreach ($extra as $e)
-			{
-				$election_id = $e['election_id'];
-				$position_id = $e['position_id'];
-				$this->db->insert('elections_positions_voters', compact('election_id', 'position_id', 'voter_id'));
-			}
-		}
-		return true;
+		return $this->db->update('voters', $voter, compact('id'));
 	}
 
 	function delete($id)
 	{
-		$this->db->where(array('voter_id'=>$id));
-		$this->db->delete('elections_positions_voters');
 		$this->db->where(compact('id'));
 		return $this->db->delete('voters');
 	}
@@ -95,6 +59,16 @@ class Boter extends Model {
 
 	function select_all()
 	{
+		$this->db->from('voters');
+		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('first_name', 'asc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function select_all_by_block_id($block_id)
+	{
+		$this->db->where('block_id', $block_id);
 		$this->db->from('voters');
 		$this->db->order_by('last_name', 'asc');
 		$this->db->order_by('first_name', 'asc');
