@@ -7,6 +7,10 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/sha1.js"></script>
+	<script type="text/javascript">
+		var BASE_URL = '<?php echo base_url(); ?>';
+		var SITE_URL = '<?php echo site_url(); ?>';
+	</script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/common.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/gate.js"></script>
 </head>
@@ -16,7 +20,7 @@
 		<div id="header_bg">
 			<div id="header_left">
 				<?php echo img(array('src' => 'public/images/logo_small.png', 'alt' => 'login logo')); ?>
-				<?php if ($login != 'results' && $login != 'statistics'): ?>
+				<?php if ( ! in_array($login, array('results', 'statistics', 'ballots'))): ?>
 				<span>login</span>
 				<?php endif; ?>
 <!--
@@ -36,11 +40,12 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-	<?php if ($login == 'results' || $login == 'statistics'): ?>
+	<?php if (in_array($login, array('results', 'statistics', 'ballots'))): ?>
 	<div id="menu">
 		<ul>
 			<li><?php echo anchor('gate/results', 'RESULTS', 'title="Results"'); ?></li>
 			<li><?php echo anchor('gate/statistics', 'STATISTICS', 'title="Statistics"'); ?></li>
+			<li><?php echo anchor('gate/ballots', 'BALLOTS', 'title="Ballots"'); ?></li>
 		</ul>
 	</div>
 	<?php endif; ?>

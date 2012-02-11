@@ -603,7 +603,7 @@ class Voter extends Controller {
 		{
 			if (isset($r['parent']))
 			{
-				if (!in_array($r['parent']['id'], $election_ids))
+				if ( ! in_array($r['parent']['id'], $election_ids))
 				{
 					$tmp[] = $r['parent'];
 				}
@@ -611,7 +611,7 @@ class Voter extends Controller {
 			}
 			foreach ($r as $value)
 			{
-				if (!in_array($value['id'], $election_ids))
+				if ( ! in_array($value['id'], $election_ids))
 				{
 					$tmp[] = $value;
 				}

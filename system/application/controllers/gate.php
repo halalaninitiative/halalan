@@ -218,6 +218,49 @@ class Gate extends Controller {
 		$this->load->view('gate', $gate);
 	}
 
+	function ballots($block_id = 0)
+	{
+		$array = array();
+		$elections = array();
+		$chosen = $this->Block_Election_Position->select_all_by_block_id($block_id);
+		foreach ($chosen as $c)
+		{
+			$array[$c['election_id']][] = $c['position_id'];
+		}
+		if ( ! empty($array))
+		{
+			$elections = $this->Election->select_all_by_ids(array_keys($array));
+			foreach ($elections as $key1 => $election)
+			{
+				$positions = $this->Position->select_all_by_ids($array[$election['id']]);
+				foreach ($positions as $key2 => $position)
+				{
+					$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
+					foreach ($candidates as $key3 => $candidate)
+					{
+						$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
+					}
+					$positions[$key2]['candidates'] = $candidates;
+				}
+				$elections[$key1]['positions'] = $positions;
+			}
+		}
+		$blocks = $this->Block->select_all();
+		$tmp = array();
+		foreach ($blocks as $block)
+		{
+			$tmp[$block['id']] = $block['block'];
+		}
+		$blocks = $tmp;
+		$data['block_id'] = $block_id;
+		$data['blocks'] = $blocks;
+		$data['elections'] = $elections;
+		$gate['login'] = 'ballots';
+		$gate['title'] = e('gate_ballots_title');
+		$gate['body'] = $this->load->view('gate/ballots', $data, TRUE);
+		$this->load->view('gate', $gate);
+	}
+
 }
 
 /* End of file gate.php */

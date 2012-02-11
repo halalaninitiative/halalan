@@ -29,6 +29,8 @@ $lang['halalan_gate_results_title'] = 'Results';
 $lang['halalan_gate_results_unavailable'] = 'The results are not yet available.';
 // statistics
 $lang['halalan_gate_statistics_title'] = 'Statistics';
+// ballots
+$lang['halalan_gate_ballots_title'] = 'Ballots';
 
 // views/gate/voter.php
 $lang['halalan_gate_voter_login_label'] = 'LOGIN';
@@ -50,8 +52,14 @@ $lang['halalan_gate_results_no_elections'] = 'There are no available election re
 $lang['halalan_gate_results_no_candidates'] = 'No candidates found.';
 $lang['halalan_gate_results_submit_button'] = 'Update Page';
 $lang['halalan_gate_results_reminder'] = 'Select at least one election then press <em>Update Page</em>.';
+
 // views/gate/statistics.php
 $lang['halalan_gate_statistics_label'] = 'STATISTICS';
+
+// views/gate/ballots.php
+$lang['halalan_gate_ballots_label'] = 'BALLOTS';
+$lang['halalan_gate_ballots_reminder'] = 'Choose a block to view a ballot.';
+$lang['halalan_gate_ballots_no_candidates'] = 'No candidates found.';
 
 // controllers/voter.php
 // commont to all functions

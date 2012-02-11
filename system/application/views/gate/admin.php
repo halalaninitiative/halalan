@@ -15,7 +15,12 @@
 			<td colspan="2" align="center"><?php echo form_submit('submit', e('gate_admin_login_button')); ?></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><?php echo anchor('gate/results', 'results'); ?> | <?php echo anchor('gate/statistics', 'statistics'); ?></td>
+			<td colspan="2" align="center">
+				view:
+				<?php echo anchor('gate/results', 'results'); ?> |
+				<?php echo anchor('gate/statistics', 'statistics'); ?> |
+				<?php echo anchor('gate/ballots', 'ballots'); ?>
+			</td>
 		</tr>
 	</table>
 </div>
