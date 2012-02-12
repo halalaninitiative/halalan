@@ -23,7 +23,7 @@ class Gate extends Controller {
 	function Gate()
 	{
 		parent::Controller();
-		if ($this->uri->segment(2) != 'results' && $this->uri->segment(2) != 'statistics' && $this->uri->segment(2) != 'logout')
+		if ( ! in_array($this->uri->segment(2), array('results', 'statistics', 'ballots', 'logout')))
 		{
 			if ($this->session->userdata('admin'))
 			{
