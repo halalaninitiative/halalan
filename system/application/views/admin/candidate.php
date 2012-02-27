@@ -19,7 +19,7 @@
 			<?php echo form_label(e('admin_candidate_first_name') . ':', 'first_name'); ?>
 		</td>
 		<td>
-			<?php echo form_input('first_name', set_value('first_name', $candidate['first_name']), 'id="first_name" maxlength="31" class="text"'); ?>
+			<?php echo form_input('first_name', set_value('first_name', $candidate['first_name']), 'id="first_name" maxlength="63" class="text"'); ?>
 		</td>
 	</tr>
 	<tr>
