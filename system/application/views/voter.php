@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Halalan - <?php echo isset($index) ? 'Voter' : 'Ballot'; ?> - <?php echo $title; ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Last-Modified" content="<?php echo gmdate('D, d M Y H:i:s'); ?> GMT" />
-	<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, post-check=0, pre-check=0" />
-	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<?php if (isset($meta) && ! empty($meta)): ?>
 	<?php echo $meta; ?>
 	<?php endif; ?>

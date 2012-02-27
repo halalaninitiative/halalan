@@ -44,6 +44,7 @@ class Gate extends Controller {
 
 	function voter()
 	{
+		$this->_no_cache();
 		$data['settings'] = $this->config->item('halalan');
 		$gate['login'] = 'voter';
 		$gate['title'] = e('gate_voter_title');
@@ -145,6 +146,7 @@ class Gate extends Controller {
 			$gate = 'voter';
 		}
 		setcookie('halalan_alerts', '', time() - 3600, '/'); // used in abstain alerts
+		setcookie('selected_election', '', time() - 3600, '/'); // used in remembering selected election
 		$this->session->sess_destroy();
 		redirect('gate/' . $gate);
 	}
@@ -259,6 +261,14 @@ class Gate extends Controller {
 		$gate['title'] = e('gate_ballots_title');
 		$gate['body'] = $this->load->view('gate/ballots', $data, TRUE);
 		$this->load->view('gate', $gate);
+	}
+
+	function _no_cache()
+	{
+		// from http://stackoverflow.com/questions/49547/making-sure-a-web-page-is-not-cached-across-all-browsers
+		header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+		header('Pragma: no-cache'); // HTTP 1.0.
+		header('Expires: 0'); // Proxies.
 	}
 
 }

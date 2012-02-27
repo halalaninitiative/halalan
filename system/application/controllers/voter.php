@@ -38,6 +38,7 @@ class Voter extends Controller {
 
 	function index()
 	{
+		$this->_no_cache();
 		$election_ids = array();
 		$chosen = $this->Block_Election_Position->select_all_by_block_id($this->voter['block_id']);
 		foreach ($chosen as $c)
@@ -62,6 +63,7 @@ class Voter extends Controller {
 
 	function vote()
 	{
+		$this->_no_cache();
 		$rules = array('position_count' => 0, 'candidate_count' => array()); // used in checking in do_vote
 		$array = array();
 		$chosen = $this->Block_Election_Position->select_all_by_block_id($this->voter['block_id']);
@@ -167,6 +169,7 @@ class Voter extends Controller {
 
 	function verify()
 	{
+		$this->_no_cache();
 		$votes = $this->session->userdata('votes');
 		if (empty($votes))
 		{
@@ -289,8 +292,10 @@ class Voter extends Controller {
 
 	function logout()
 	{
-		$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $this->voter['id']);
-		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
+		$this->_no_cache();
+		$this->Boter->update(array('logout' => date('Y-m-d H:i:s')), $this->voter['id']);
+		setcookie('halalan_alerts', '', time() - 3600, '/'); // used in abstain alerts
+		setcookie('selected_election', '', time() - 3600, '/'); // used in remembering selected election
 		$this->session->sess_destroy();
 		$voter['title'] = e('voter_logout_title');
 		$voter['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';
@@ -300,6 +305,7 @@ class Voter extends Controller {
 
 	function votes($case, $election_id = 0)
 	{
+		$this->_no_cache();
 		// if url is not votes/view or votes/print
 		if ( ! in_array($case, array('view', 'print', 'download')))
 		{
@@ -618,6 +624,14 @@ class Voter extends Controller {
 			}
 		}
 		return $tmp;
+	}
+
+	function _no_cache()
+	{
+		// from http://stackoverflow.com/questions/49547/making-sure-a-web-page-is-not-cached-across-all-browsers
+		header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+		header('Pragma: no-cache'); // HTTP 1.0.
+		header('Expires: 0'); // Proxies.
 	}
 
 }

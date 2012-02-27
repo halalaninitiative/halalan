@@ -3,10 +3,7 @@
 
 <head>
   <title>Halalan - Ballot - Print Votes</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Last-Modified" content="<?php echo gmdate('D, d M Y H:i:s'); ?> GMT" />
-  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, post-check=0, pre-check=0" />
-  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
 	<h2><?php echo $election['election']; ?></h2>
