@@ -294,7 +294,7 @@ class Voter extends Controller {
 	{
 		$this->_no_cache();
 		$this->Boter->update(array('logout' => date('Y-m-d H:i:s')), $this->voter['id']);
-		setcookie('halalan_alerts', '', time() - 3600, '/'); // used in abstain alerts
+		setcookie('halalan_abstain', '', time() - 3600, '/'); // used in abstain alert
 		setcookie('selected_election', '', time() - 3600, '/'); // used in remembering selected election
 		$this->session->sess_destroy();
 		$voter['title'] = e('voter_logout_title');
