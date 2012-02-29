@@ -30,6 +30,19 @@ class Abstain extends Model {
 		return $this->db->insert('abstains', $abstain);
 	}
 
+	function breakdown($election_id, $position_id)
+	{
+		$this->db->select('block, COUNT(distinct abstains.voter_id) AS count');
+		$this->db->from('blocks');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id', 'left');
+		$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id', 'left');
+		$this->db->join('abstains', 'abstains.voter_id = voters.id AND abstains.election_id = ' . $election_id . ' AND abstains.position_id = ' . $position_id, 'left');
+		$this->db->group_by('block');
+		$this->db->order_by('block', 'ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function count_all_by_election_id_and_position_id($election_id, $position_id)
 	{
 		$this->db->from('abstains');

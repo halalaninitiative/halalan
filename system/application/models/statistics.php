@@ -25,6 +25,53 @@ class Statistics extends Model {
 		parent::Model();
 	}
 
+	function breakdown_all_voters($election_id)
+	{
+		$this->db->select('block, COUNT(distinct voters.id) AS count');
+		$this->db->from('blocks');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id', 'left');
+		$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id', 'left');
+		$this->db->where('election_id', $election_id);
+		$this->db->group_by('block');
+		$this->db->order_by('block', 'ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function breakdown_all_voted($election_id)
+	{
+		$this->db->select('block, COUNT(distinct voted.voter_id) AS count');
+		$this->db->from('blocks');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id', 'left');
+		$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id', 'left');
+		$this->db->join('voted', 'voted.voter_id = voters.id', 'left');
+		$this->db->where('blocks_elections_positions.election_id', $election_id);
+		$this->db->group_by('block');
+		$this->db->order_by('block', 'ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function breakdown_all_by_duration($election_id, $begin, $end)
+	{
+		$this->db->select('block, COUNT(distinct voters.id) AS count');
+		$this->db->from('blocks');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id', 'left');
+		if ($end)
+		{
+			$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id AND timediff(logout, login) >= \'' . $begin . '\' AND timediff(logout, login) < \'' . $end . '\'', 'left');
+		}
+		else
+		{
+			$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id AND timediff(logout, login) >= \'' . $begin . '\'', 'left');
+		}
+		$this->db->where('election_id', $election_id);
+		$this->db->group_by('block');
+		$this->db->order_by('block', 'ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function count_all_voters($election_id)
 	{
 		$this->db->distinct();

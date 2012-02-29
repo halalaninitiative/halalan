@@ -168,10 +168,12 @@ class Gate extends Controller {
 					$candidate = $this->Candidate->select($vote['candidate_id']);
 					$candidate['votes'] = $vote['votes'];
 					$candidate['party'] = $this->Party->select($candidate['party_id']);
+					$candidate['breakdown'] = $this->Vote->breakdown($candidate['id']);
 					$candidates[] = $candidate;
 				}
 				$positions[$key2]['candidates'] = $candidates;
 				$positions[$key2]['abstains'] = $this->Abstain->count_all_by_election_id_and_position_id($election['id'], $position['id']);
+				$positions[$key2]['breakdown'] = $this->Abstain->breakdown($election['id'], $position['id']);
 			}
 			$elections[$key1]['positions'] = $positions;
 		}
@@ -199,12 +201,18 @@ class Gate extends Controller {
 		foreach ($elections as $key => $election)
 		{
 			$elections[$key]['voter_count'] = $this->Statistics->count_all_voters($election['id']);
+			$elections[$key]['voter_breakdown'] = $this->Statistics->breakdown_all_voters($election['id']);
 			$elections[$key]['voted_count'] = $this->Statistics->count_all_voted($election['id']);
+			$elections[$key]['voted_breakdown'] = $this->Statistics->breakdown_all_voted($election['id']);
 
 			$elections[$key]['lt_one'] = $this->Statistics->count_all_by_duration($election['id'], '00:00:00', '00:01:00');
+			$elections[$key]['lt_one_breakdown'] = $this->Statistics->breakdown_all_by_duration($election['id'], '00:00:00', '00:01:00');
 			$elections[$key]['lt_two_gte_one'] = $this->Statistics->count_all_by_duration($election['id'], '00:01:00', '00:02:00');
+			$elections[$key]['lt_two_gte_one_breakdown'] = $this->Statistics->breakdown_all_by_duration($election['id'], '00:01:00', '00:02:00');
 			$elections[$key]['lt_three_gte_two'] = $this->Statistics->count_all_by_duration($election['id'], '00:02:00', '00:03:00');
+			$elections[$key]['lt_three_gte_two_breakdown'] = $this->Statistics->breakdown_all_by_duration($election['id'], '00:02:00', '00:03:00');
 			$elections[$key]['gt_three'] = $this->Statistics->count_all_by_duration($election['id'], '00:03:00', FALSE);
+			$elections[$key]['gt_three_breakdown'] = $this->Statistics->breakdown_all_by_duration($election['id'], '00:03:00', FALSE);
 		}
 		// $this->input->post returns FALSE so make it an array to avoid in_array errors
 		if ($selected == FALSE)

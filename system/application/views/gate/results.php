@@ -93,11 +93,7 @@
 							<td class="w60">
 								<?php echo $name; ?>
 							</td>
-							<?php if ($settings['show_candidate_details']): ?>
-								<td class="w30">
-							<?php else: ?>
-								<td class="w35">
-							<?php endif; ?>
+							<td class="w30">
 							<?php if (isset($candidate['party']['party']) && ! empty($candidate['party']['party'])): ?>
 								<?php if (empty($candidate['party']['alias'])): ?>
 									<?php echo $candidate['party']['party']; ?>
@@ -106,16 +102,14 @@
 								<?php endif; ?>
 							<?php endif; ?>
 							</td>
-							<?php if ($settings['show_candidate_details']): ?>
-								<td class="w5">
-									<?php echo img(array('src' => 'public/images/info.png', 'alt' => 'info', 'class' => 'pointer', 'title' => 'More info')); ?>
-								</td>
-							<?php endif; ?>
+							<td class="w5">
+								<?php echo img(array('src' => 'public/images/info.png', 'alt' => 'info', 'class' => 'pointer', 'title' => 'More info')); ?>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="4">
-							<?php if ($settings['show_candidate_details']): ?>
 								<div style="display:none;" class="details">
+								<?php if ($settings['show_candidate_details']): ?>
 								<?php if ( ! empty($candidate['picture'])): ?>
 									<div style="float:left;padding-right:5px;">
 										<?php echo img(array('src' => 'public/uploads/pictures/' . $candidate['picture'], 'alt' => 'picture')); ?>
@@ -131,8 +125,13 @@
 										<?php echo nl2br($candidate['description']); ?>
 									</div>
 								<?php endif; ?>
+								<?php endif; ?>
+								<ul>
+									<?php foreach ($candidate['breakdown'] as $b): ?>
+									<li><?php echo $b['block'] . ' - ' . $b['count']; ?></li>
+									<?php endforeach; ?>
+								</ul>
 								</div>
-							<?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -144,12 +143,21 @@
 							<td class="w60">
 								ABSTAIN
 							</td>
-							<?php if ($settings['show_candidate_details']): ?>
-								<td class="w30"></td>
-								<td class="w5"></td>
-							<?php else: ?>
-								<td class="w35"></td>
-							<?php endif; ?>
+							<td class="w30"></td>
+							<td class="w5">
+								<?php echo img(array('src' => 'public/images/info.png', 'alt' => 'info', 'class' => 'pointer', 'title' => 'More info')); ?>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div style="display:none;" class="details">
+								<ul>
+									<?php foreach ($position['breakdown'] as $b): ?>
+									<li><?php echo $b['block'] . ' - ' . $b['count']; ?></li>
+									<?php endforeach; ?>
+								</ul>
+								</div>
+							</td>
 						</tr>
 					<?php endif; ?>
 				<?php endif; ?>
