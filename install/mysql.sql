@@ -13,6 +13,7 @@ CREATE TABLE admins (
   password char(40) NOT NULL,
   first_name varchar(63) NOT NULL,
   last_name varchar(31) NOT NULL,
+  UNIQUE KEY (username),
   PRIMARY KEY  (id)
 );
 
@@ -27,6 +28,8 @@ CREATE TABLE blocks_elections_positions (
   block_id integer NOT NULL,
   election_id integer NOT NULL,
   position_id integer NOT NULL,
+  KEY (block_id),
+  KEY (election_id),
   PRIMARY KEY  (block_id,election_id,position_id)
 );
 
@@ -40,6 +43,9 @@ CREATE TABLE candidates (
   position_id integer NOT NULL,
   description text,
   picture char(40),
+  KEY (election_id, position_id),
+  KEY (first_name, last_name),
+  KEY (first_name, last_name, alias),
   PRIMARY KEY  (id)
 );
 
@@ -49,6 +55,7 @@ CREATE TABLE elections (
   parent_id integer NOT NULL,
   status boolean NOT NULL,
   results boolean NOT NULL,
+  KEY (parent_id),
   PRIMARY KEY  (id)
 );
 
@@ -70,6 +77,7 @@ CREATE TABLE parties (
   alias varchar(15),
   description text,
   logo char(40),
+  KEY (party),
   PRIMARY KEY  (id)
 );
 
@@ -81,6 +89,7 @@ CREATE TABLE positions (
   ordinality smallint NOT NULL,
   abstain varchar(1) NOT NULL,
   unit varchar(1) NOT NULL,
+  KEY (position),
   PRIMARY KEY  (id)
 );
 
@@ -89,6 +98,7 @@ CREATE TABLE voted (
   voter_id integer NOT NULL,
   image_trail_hash char(40),
   timestamp datetime NOT NULL,
+  KEY (voter_id),
   PRIMARY KEY  (election_id,voter_id)
 );
 
@@ -103,6 +113,9 @@ CREATE TABLE voters (
   login datetime,
   logout datetime,
   ip_address integer,
+  UNIQUE KEY (username),
+  KEY (first_name, last_name),
+  KEY (block_id),
   PRIMARY KEY  (id)
 );
 
@@ -110,6 +123,8 @@ CREATE TABLE votes (
   candidate_id integer NOT NULL,
   voter_id integer NOT NULL,
   timestamp datetime NOT NULL,
+  KEY (voter_id),
+  KEY (candidate_id),
   PRIMARY KEY  (candidate_id,voter_id)
 );
 
