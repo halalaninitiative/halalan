@@ -58,15 +58,6 @@ class Candidate extends Model {
 		return $query->result_array();
 	}
 
-	function select_all_by_position_id($position_id)
-	{
-		$this->db->from('candidates');
-		$this->db->where(compact('position_id'));
-		$this->db->order_by('party_id', 'ASC');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
 	function select_by_name_and_alias($first_name, $last_name, $alias)
 	{
 		$this->db->from('candidates');

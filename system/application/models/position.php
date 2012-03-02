@@ -77,15 +77,6 @@ class Position extends Model {
 		return $query->row_array();
 	}
 
-	function select_multiple($ids)
-	{
-		$this->db->from('positions');
-		$this->db->where_in('id', $ids);
-		$this->db->order_by('ordinality', 'ASC');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
 	function select_all()
 	{
 		$this->db->from('positions');
@@ -109,35 +100,6 @@ class Position extends Model {
 		$this->db->join('elections_positions', 'positions.id = elections_positions.position_id');
 		$this->db->where('election_id', $election_id);
 		$this->db->order_by('ordinality', 'ASC');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	function select_all_with_units($voter_id)
-	{
-		$this->db->from('positions');
-		$this->db->join('positions_voters', 'positions.id = positions_voters.position_id', 'left');
-		$this->db->where('positions.unit', '0');
-		$this->db->or_where('positions_voters.voter_id', $voter_id);
-		$this->db->order_by('ordinality', 'ASC');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	function select_all_non_units()
-	{
-		$this->db->from('positions');
-		$this->db->where('unit', '0');
-		$this->db->order_by('ordinality', 'ASC');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	function select_all_units()
-	{
-		$this->db->from('positions');
-		$this->db->where('unit', '1');
-		$this->db->order_by('ordinality ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
