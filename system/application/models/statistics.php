@@ -85,8 +85,7 @@ class Statistics extends Model {
 
 	function count_all_voted($election_id)
 	{
-		$this->db->from('voters');
-		$this->db->join('voted', 'voted.voter_id = voters.id');
+		$this->db->from('voted');
 		$this->db->where('election_id', $election_id);
 		return $this->db->count_all_results();
 	}

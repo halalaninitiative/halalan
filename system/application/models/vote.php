@@ -30,11 +30,11 @@ class Vote extends Model {
 		return $this->db->insert('votes', $vote);
 	}
 
-	function breakdown($candidate_id)
+	function breakdown($election_id, $candidate_id)
 	{
 		$this->db->select('block, COUNT(distinct votes.voter_id) AS count');
 		$this->db->from('blocks');
-		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id', 'left');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id AND blocks_elections_positions.election_id = ' . $election_id);
 		$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id', 'left');
 		$this->db->join('votes', 'votes.voter_id = voters.id AND votes.candidate_id = ' . $candidate_id, 'left');
 		$this->db->group_by('block');

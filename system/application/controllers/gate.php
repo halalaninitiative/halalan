@@ -168,7 +168,7 @@ class Gate extends Controller {
 					$candidate = $this->Candidate->select($vote['candidate_id']);
 					$candidate['votes'] = $vote['votes'];
 					$candidate['party'] = $this->Party->select($candidate['party_id']);
-					$candidate['breakdown'] = $this->Vote->breakdown($candidate['id']);
+					$candidate['breakdown'] = $this->Vote->breakdown($election['id'], $candidate['id']);
 					$candidates[] = $candidate;
 				}
 				$positions[$key2]['candidates'] = $candidates;
