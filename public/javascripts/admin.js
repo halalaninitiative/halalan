@@ -36,11 +36,11 @@ function copySelectedWithAjax() {
 	} else {
 		to.append(selected);
 		selected.removeAttr('selected')
-			.each(function(i){ array[i] = this.value; });
+			.each(function(i){ array[i] = '"' + this.value + '"'; });
 		$.ajax({
 			type: "POST",
 			url: window.location.href,
-			data: "election_ids=" + JSON.stringify(array),
+			data: "election_ids=[" + array + "]",
 			success: function(msg){
 				var msg = $.parseJSON(msg);
 				var general = msg[0];
