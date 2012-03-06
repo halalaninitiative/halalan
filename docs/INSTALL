@@ -1,8 +1,8 @@
 Halalan - open-source voting system
-Version 1.5.1
+Version 1.6.0
 http://halalan.uplug.org
 http://halalan.googlecode.com
-Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+Copyright (C) 2006-2012  University of the Philippines Linux Users' Group
 
 
 REQUIREMENTS:
@@ -10,7 +10,7 @@ REQUIREMENTS:
 --- PHP 5.x.x or higher
 --- GD 2.x.x or higher
 --- MySQL 5.x.x or higher
---- Webserver (option: rewrite module turned on)
+--- Webserver (optional: rewrite module turned on)
 --- JavaScript- and cookies-enabled web browser
 
 

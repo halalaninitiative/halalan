@@ -1,13 +1,13 @@
 Halalan - open-source voting system
-Version 1.5.1
+Version 1.6.0
 http://halalan.uplug.org
 http://halalan.googlecode.com
-Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+Copyright (C) 2006-2012  University of the Philippines Linux Users' Group
 
 
 VERSION FEATURES:
 
-Enhancements all around, library upgrades, sessions in the database, and abstain alert message.
+Voter blocks and ballot preview, fixing of long-standing bugs, upgraded JS, and some code cleanup.
 
 
 INSTALLATION:
