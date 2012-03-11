@@ -53,7 +53,7 @@ function copySelectedWithAjax() {
 						gen.text = general[i].text;
 						$('#general_positions').append(gen);
 					} else {
-						$('option[value=' + general[i].value + ']').remove();
+						$('option[value="' + general[i].value + '"]').remove();
 					}
 				}
 				for (i = 0; i < specific.length; i++) {
@@ -63,7 +63,7 @@ function copySelectedWithAjax() {
 						spe.text = specific[i].text;
 						$('#possible').append(spe);
 					} else {
-						$('option[value=' + specific[i].value + ']').remove();
+						$('option[value="' + specific[i].value + '"]').remove();
 					}
 				}
 			}
