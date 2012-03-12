@@ -112,7 +112,7 @@ class Boter extends Model {
 
 	function in_running_election($voter_id)
 	{
-		$this->db->from('elections_positions_voters');
+		$this->db->from('blocks_elections_positions');
 		$this->db->where(compact('voter_id'));
 		$this->db->where('election_id IN (SELECT id FROM elections WHERE status = 1)');
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
