@@ -183,7 +183,7 @@ class Voters extends Controller {
 			{
 				$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
 				$this->email->to($voter['username']);
-				$this->email->subject($this->settings['name'] . ' Login Credentials');
+				$this->email->subject('Halalan Login Credentials');
 				$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
 				if ($case == 'add' || $this->input->post('password'))
 				{
@@ -199,7 +199,7 @@ class Voters extends Controller {
 				$message .= "\n";
 				$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
 				$message .= "\n";
-				$message .= $this->settings['name'] . ' Administrator';
+				$message .= 'Halalan Administrator';
 				$this->email->message($message);
 				$this->email->send();
 				//echo $this->email->print_debugger();
