@@ -1,8 +1,8 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/parties/add'); ?>
+	<?php echo form_open_multipart('admin/parties/add', array('class' => 'selectChosen')); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/parties/edit/' . $party['id']); ?>
+	<?php echo form_open_multipart('admin/parties/edit/' . $party['id'], array('class' => 'selectChosen')); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_party_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
@@ -28,6 +28,36 @@
 		</td>
 		<td>
 			<?php echo form_textarea('description', set_value('description', $party['description']), 'id="description"'); ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="w20" align="right">
+			<?php echo e('admin_party_elections'); ?>:
+		</td>
+		<td>
+			<?php if (empty($elections)): ?>
+			<em><?php echo e('admin_party_no_elections'); ?></em>
+			<?php else: ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(), '', 'id="possible" multiple="multiple" size="7" style="width : 170px;"'); ?>
+							<br />
+							<?php echo form_label(e('admin_party_possible_elections'), 'possible'); ?>
+						</td>
+						<td>
+							<input type="button" class="copySelected" value="  &gt;&gt;  " />
+							<br />
+							<input type="button" class="copySelected" value="  &lt;&lt;  " />
+						</td>
+						<td>
+							<?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(), '', 'id="chosen" multiple="multiple" size="7" style="width : 170px;"'); ?>
+							<br />
+							<?php echo form_label(e('admin_party_chosen_elections'), 'chosen'); ?>
+						</td>
+					</tr>
+				</table>
+			<?php endif; ?>
 		</td>
 	</tr>
 	<tr>

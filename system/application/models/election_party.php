@@ -18,22 +18,21 @@
  * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Election_Position extends Model {
+class Election_Party extends Model {
 
-	function Election_Position()
+	function Election_Party()
 	{
 		parent::Model();
 	}
 
-	function select_all_by_position_id($position_id)
+	function select_all_by_party_id($party_id)
 	{
-		$this->db->from('elections_positions');
-		$this->db->where(compact('position_id'));
+		$this->db->from('elections_parties');
+		$this->db->where(compact('party_id'));
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
 }
 
-/* End of file election_position.php */
-/* Location: ./system/application/models/election_position.php */
+?>

@@ -46,8 +46,8 @@
 			<?php endif; ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/elections/edit/' . $election['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/elections/delete/' . $election['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/elections/edit/' . $election['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/elections/delete/' . $election['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

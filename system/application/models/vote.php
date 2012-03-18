@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -30,6 +30,19 @@ class Vote extends Model {
 		return $this->db->insert('votes', $vote);
 	}
 
+	function breakdown($election_id, $candidate_id)
+	{
+		$this->db->select('block, COUNT(distinct votes.voter_id) AS count');
+		$this->db->from('blocks');
+		$this->db->join('blocks_elections_positions', 'blocks_elections_positions.block_id = blocks.id AND blocks_elections_positions.election_id = ' . $election_id);
+		$this->db->join('voters', 'voters.block_id = blocks_elections_positions.block_id', 'left');
+		$this->db->join('votes', 'votes.voter_id = voters.id AND votes.candidate_id = ' . $candidate_id, 'left');
+		$this->db->group_by('block');
+		$this->db->order_by('block', 'ASC');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	function count_all_by_election_id_and_position_id($election_id, $position_id)
 	{
 		$this->db->select('count(votes.candidate_id) AS votes, candidates.id AS candidate_id');
@@ -37,7 +50,7 @@ class Vote extends Model {
 		$this->db->join('candidates', 'candidates.id = votes.candidate_id', 'right');
 		$this->db->where(compact('election_id', 'position_id'));
 		$this->db->group_by('candidates.id');
-		$this->db->order_by('votes', 'desc');
+		$this->db->order_by('votes', 'DESC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -47,12 +60,13 @@ class Vote extends Model {
 		$this->db->from('votes');
 		$this->db->join('candidates', 'candidates.id = votes.candidate_id');
 		$this->db->where(compact('voter_id'));
-		$this->db->order_by('last_name', 'asc');
-		$this->db->order_by('first_name', 'asc');
+		$this->db->order_by('last_name', 'ASC');
+		$this->db->order_by('first_name', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
 }
 
-?>
+/* End of file vote.php */
+/* Location: ./system/application/models/vote.php */

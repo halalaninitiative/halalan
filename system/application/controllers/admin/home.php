@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -27,7 +27,7 @@ class Home extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -47,23 +47,27 @@ class Home extends Controller {
 	function do_regenerate()
 	{
 		$error = array();
-		if (!$this->input->post('username'))
+		if ( ! $this->input->post('username'))
 		{
 			if ($this->settings['password_pin_generation'] == 'web')
+			{
 				$error[] = e('admin_regenerate_no_username');
+			}
 			else if ($this->settings['password_pin_generation'] == 'email')
+			{
 				$error[] = e('admin_regenerate_no_email');
+			}
 		}
 		else
 		{
-			if (!$voter = $this->Boter->select_by_username($this->input->post('username')))
+			if ( ! $voter = $this->Boter->select_by_username($this->input->post('username')))
 			{
 				$error[] = e('admin_regenerate_not_exists');
 			}
 		}
 		if ($this->settings['password_pin_generation'] == 'email')
 		{
-			if (!$this->form_validation->valid_email($this->input->post('username')))
+			if ( ! $this->form_validation->valid_email($this->input->post('username')))
 			{
 				$error[] = e('admin_regenerate_invalid_email');
 			}
@@ -101,7 +105,7 @@ class Home extends Controller {
 			{
 				$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
 				$this->email->to($voter['username']);
-				$this->email->subject($this->settings['name'] . ' Login Credentials');
+				$this->email->subject('Halalan Login Credentials');
 				$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
 				$message .= "Password: $password\n";
 				if ($this->settings['pin'])
@@ -112,7 +116,7 @@ class Home extends Controller {
 				$message .= "\n";
 				$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
 				$message .= "\n";
-				$message .= $this->settings['name'] . ' Administrator';
+				$message .= 'Halalan Administrator';
 				$this->email->message($message);
 				$this->email->send();
 				//echo $this->email->print_debugger();

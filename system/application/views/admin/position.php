@@ -1,8 +1,8 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/positions/add', array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/positions/add', array('class' => 'selectChosen')); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/positions/edit/' . $position['id'], array('class'=>'selectChosen')); ?>
+	<?php echo form_open('admin/positions/edit/' . $position['id'], array('class' => 'selectChosen')); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_position_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
@@ -43,9 +43,9 @@
 			<?php echo e('admin_position_abstain'); ?>:
 		</td>
 		<td>
-			<?php echo form_radio('abstain', '1', $position['abstain'] ? TRUE : FALSE, 'id="yes"'); ?>
+			<?php echo form_radio('abstain', '1', set_value('abstain', $position['abstain']) == 1 ? TRUE : FALSE, 'id="yes"'); ?>
 			<?php echo form_label('Yes', 'yes'); ?>
-			<?php echo form_radio('abstain', '0', $position['abstain'] ? FALSE : TRUE, 'id="no"'); ?>
+			<?php echo form_radio('abstain', '0', set_value('abstain', $position['abstain']) == 0 ? TRUE : FALSE, 'id="no"'); ?>
 			<?php echo form_label('No', 'no'); ?>
 		</td>
 	</tr>
@@ -54,19 +54,19 @@
 			<?php echo e('admin_position_unit'); ?>:
 		</td>
 		<td>
-			<?php echo form_radio('unit', '0', $position['unit'] ? FALSE : TRUE, 'id="general"'); ?>
+			<?php echo form_radio('unit', '0', set_value('unit', $position['unit']) == 0 ? TRUE : FALSE, 'id="general"'); ?>
 			<?php echo form_label('General', 'general'); ?>
-			<?php echo form_radio('unit', '1', $position['unit'] ? TRUE : FALSE, 'id="specific"'); ?>
+			<?php echo form_radio('unit', '1', set_value('unit', $position['unit']) == 1 ? TRUE : FALSE, 'id="specific"'); ?>
 			<?php echo form_label('Specific', 'specific'); ?>
 		</td>
 	</tr>
 	<tr>
 		<td class="w20" align="right">
-			<?php //echo e('admin_voter_specific_positions'); ?>Elections:
+			<?php echo e('admin_position_elections'); ?>:
 		</td>
 		<td>
 			<?php if (empty($elections)): ?>
-			<em><?php //echo e('admin_voter_no_specific_positions'); ?>No elections found.</em>
+			<em><?php echo e('admin_position_no_elections'); ?></em>
 			<?php else: ?>
 				<table>
 					<tr>

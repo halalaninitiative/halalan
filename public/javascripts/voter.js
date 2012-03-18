@@ -8,18 +8,11 @@ function abstainPosition(target, clicked) {
 	tr.toggleClass('selected', target.checked);
 	tr.siblings().has('input:checked').toggleClass('selected', !target.checked);
 
-	var ids = new Array();
-	/* Get the checkbox ID and remove 'cb_' and '_abstain' to shorten it. */
-	var id = $(target).attr('id').slice(3, -8);
-	var alerts = $.cookie('halalan_alerts');
-	if (alerts != null) {
-		ids = alerts.split(',');
-	}
+	var abstain = $.cookie('halalan_abstain');
 
-	if (target.checked && clicked && $.inArray(id, ids) < 0) {
-		alert('By selecting abstain, you\'re not voting for any candidate in this position.  If that\'s not the case, then do not select abstain.');
-		ids.push(id);
-		$.cookie('halalan_alerts', ids.join(','), {'path':'/'});
+	if (target.checked && clicked && abstain == null) {
+		alert('By selecting abstain, you\'re not voting for any candidate in the position.  If that\'s not the case, then do not select abstain.');
+		$.cookie('halalan_abstain', 1, {'path':'/'});
 	}
 }
 

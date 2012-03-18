@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -27,7 +27,7 @@ class Parties extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -35,9 +35,28 @@ class Parties extends Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index()
+	function index($election_id = 0)
 	{
-		$data['parties'] = $this->Party->select_all();
+		$this->load->helper('cookie');
+		$elections = $this->Election->select_all_with_positions();
+		// If only one election exists, show it by default.
+		if (count($elections) == 1)
+		{
+			$election_id = $elections[0]['id'];
+		}
+		else if (get_cookie('selected_election'))
+		{
+			$election_id = get_cookie('selected_election');
+		}
+		$tmp = array();
+		foreach ($elections as $election)
+		{
+			$tmp[$election['id']] = $election['election'];
+		}
+		$elections = $tmp;
+		$data['election_id'] = $election_id;
+		$data['elections'] = $elections;
+		$data['parties'] = $this->Party->select_all_by_election_id($election_id);
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_parties_title');
 		$admin['body'] = $this->load->view('admin/parties', $data, TRUE);
@@ -56,8 +75,15 @@ class Parties extends Controller {
 
 	function delete($id) 
 	{
-		if (!$id)
+		if ( ! $id)
+		{
 			redirect('admin/parties');
+		}
+		$party = $this->Party->select($id);
+		if ( ! $party)
+		{
+			redirect('admin/parties');
+		}
 		if ($this->Party->in_running_election($id))
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_party_in_running_election')));
@@ -76,34 +102,49 @@ class Parties extends Controller {
 
 	function _party($case, $id = null)
 	{
+		$chosen = array();
 		if ($case == 'add')
 		{
-			$data['party'] = array('party'=>'', 'alias'=>'', 'description'=>'');
+			$data['party'] = array('party' => '', 'alias' => '', 'description' => '');
 			$this->session->unset_userdata('party'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
 		{
-			if (!$id)
+			if ( ! $id)
+			{
 				redirect('admin/parties');
+			}
 			$data['party'] = $this->Party->select($id);
-			if (!$data['party'])
+			if ( ! $data['party'])
+			{
 				redirect('admin/parties');
+			}
 			if ($this->Party->in_running_election($id))
 			{
 				$this->session->set_flashdata('messages', array('negative', e('admin_party_in_running_election')));
 				redirect('admin/parties');			
 			}
+			if (empty($_POST))
+			{
+				$tmp = $this->Election_Party->select_all_by_party_id($id);
+				foreach ($tmp as $t)
+				{
+					$chosen[] = $t['election_id'];
+				}
+			}
 			$this->session->set_userdata('party', $data['party']); // used in callback rules
 		}
-		$this->form_validation->set_rules('party', e('admin_party_party'), 'required|callback__rule_party_exists');
+		$this->form_validation->set_rules('party', e('admin_party_party'), 'required|callback__rule_party_exists|callback__rule_dependencies');
 		$this->form_validation->set_rules('alias', e('admin_party_alias'));
 		$this->form_validation->set_rules('description', e('admin_party_description'));
+		$this->form_validation->set_rules('chosen[]', e('admin_party_chosen_elections'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('logo', e('admin_party_logo'), 'callback__rule_logo');
 		if ($this->form_validation->run())
 		{
 			$party['party'] = $this->input->post('party', TRUE);
 			$party['alias'] = $this->input->post('alias', TRUE);
 			$party['description'] = $this->input->post('description', TRUE);
+			$party['chosen'] = $this->input->post('chosen', TRUE);
 			if ($logo = $this->session->userdata('party_logo'))
 			{
 				$party['logo'] = $logo;
@@ -120,6 +161,24 @@ class Parties extends Controller {
 				$this->Party->update($party, $id);
 				$this->session->set_flashdata('messages', array('positive', e('admin_edit_party_success')));
 				redirect('admin/parties/edit/' . $id);
+			}
+		}
+		if ($this->input->post('chosen'))
+		{
+			$chosen = $this->input->post('chosen');
+		}
+		$data['elections'] = $this->Election->select_all();
+		$data['possible'] = array();
+		$data['chosen'] = array();
+		foreach ($data['elections'] as $e)
+		{
+			if (in_array($e['id'], $chosen))
+			{
+				$data['chosen'][$e['id']] = $e['election'];
+			}
+			else
+			{
+				$data['possible'][$e['id']] = $e['election'];
 			}
 		}
 		$data['action'] = $case;
@@ -142,7 +201,8 @@ class Parties extends Controller {
 					$error = TRUE;
 				}
 			}
-			else {
+			else
+			{
 				$error = TRUE;
 			}
 			if ($error)
@@ -151,6 +211,46 @@ class Parties extends Controller {
 				$this->form_validation->set_message('_rule_party_exists', $message);
 				return FALSE;
 			}
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+
+	// placed in position so it comes up on top
+	function _rule_dependencies()
+	{
+		if ($party = $this->session->userdata('party')) // edit
+		{
+			// don't check if chosen is empty
+			if ($this->input->post('chosen') == FALSE)
+			{
+				return TRUE;
+			}
+			if ($this->Party->in_use($party['id']))
+			{
+				$tmp = $this->Election_Party->select_all_by_party_id($party['id']);
+				foreach ($tmp as $t)
+				{
+					$chosen[] = $t['election_id'];
+				}
+				if ($chosen != $this->input->post('chosen'))
+				{
+					$this->form_validation->set_message('_rule_dependencies', e('admin_party_dependencies'));
+					return FALSE;
+				}
+			}
+		}
+		return TRUE;
+	}
+
+	function _rule_running_election()
+	{
+		if ($this->Election->is_running($this->input->post('chosen')))
+		{
+			$this->form_validation->set_message('_rule_running_election', e('admin_party_running_election'));
+			return FALSE;
 		}
 		else
 		{
@@ -170,7 +270,7 @@ class Parties extends Controller {
 				// delete old logo first
 				unlink($config['upload_path'] . $party['logo']);
 			}
-			if (!$this->upload->do_upload('logo'))
+			if ( ! $this->upload->do_upload('logo'))
 			{
 				$message = $this->upload->display_errors('', '');
 				$this->form_validation->set_message('_rule_logo', $message);
@@ -208,9 +308,9 @@ class Parties extends Controller {
 			$config['source_image'] = $upload_data['full_path'];
 			$config['quality'] = '100%';
 			$config['width'] = $n;
-			$config['height'] = (($n*$height)/$width);
+			$config['height'] = (($n * $height) / $width);
 			$this->image_lib->initialize($config);
-			if (!$this->image_lib->resize())
+			if ( ! $this->image_lib->resize())
 			{
 				$error[] = $this->image_lib->display_errors('', '');
 			}
@@ -224,9 +324,13 @@ class Parties extends Controller {
 			$name = $upload_data['file_name'];
 		}
 		if (empty($error))
+		{
 			return $name;
+		}
 		else
+		{
 			return $error;
+		}
 	}
 
 }

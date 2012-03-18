@@ -1,6 +1,12 @@
-<div class="reminder"><?php echo e('voter_vote_reminder_too'); ?></div>
-<?php echo display_messages('', $this->session->flashdata('messages')); ?>
-<?php echo form_open('voter/do_vote'); ?>
+<div class="content_center">
+	<h2>
+		<?php echo 'HALALAN ' . e('gate_ballots_label'); ?>
+		<?php echo form_dropdown('block_id', array('' => 'Choose Block') + $blocks, $block_id, 'class="changeBlocks" style="width: 130px;"'); ?>
+	</h2>
+</div>
+<?php if (empty($elections)): ?>
+<div class="reminder"><?php echo e('gate_ballots_reminder'); ?></div>
+<?php else: ?>
 <?php foreach ($elections as $election): ?>
 	<div class="election"><?php echo $election['election']; ?></div>
 	<?php foreach ($election['positions'] as $key => $position): ?>
@@ -15,20 +21,12 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="form_table highlight delegateEvents">
 			<?php if (empty($position['candidates'])): ?>
 				<tr>
-					<td><em><?php echo e('voter_vote_no_candidates'); ?></em></td>
+					<td><em><?php echo e('gate_ballots_no_candidates'); ?></em></td>
 				</tr>
 			<?php else: ?>
 				<?php foreach ($position['candidates'] as $candidate): ?>
 					<?php
 						// used to populate the form
-						if (isset($votes[$election['id']][$position['id']]) && in_array($candidate['id'], $votes[$election['id']][$position['id']]))
-						{
-							$checked = TRUE;
-						}
-						else
-						{
-							$checked = FALSE;
-						}
 						$name = $candidate['first_name'];
 						if ( ! empty($candidate['alias']))
 						{
@@ -38,24 +36,8 @@
 						$name = quotes_to_entities($name);
 					?>
 					<tr>
-						<td class="w5">
-							<?php
-								echo form_checkbox(
-								'votes[' . $election['id'] . '][' . $position['id'] . '][]',
-								$candidate['id'],
-								$checked,
-								'id="cb_' . $election['id'] . '_' . $position['id'] . '_' . $candidate['id'] . '"'
-								);
-							?>
-						</td>
-						<td class="w60">
-							<label for="<?php echo 'cb_' . $election['id'] . '_' . $position['id'] . '_' . $candidate['id']; ?>"><?php echo $name; ?></label>
-						</td>
-						<?php if ($settings['show_candidate_details']): ?>
-							<td class="w30">
-						<?php else: ?>
-							<td class="w35">
-						<?php endif; ?>
+						<td class="w60"><?php echo $name; ?></td>
+						<td class="w35">
 						<?php if (isset($candidate['party']['party']) && ! empty($candidate['party']['party'])): ?>
 							<?php if (empty($candidate['party']['alias'])): ?>
 								<?php echo $candidate['party']['party']; ?>
@@ -64,15 +46,12 @@
 							<?php endif; ?>
 						<?php endif; ?>
 						</td>
-						<?php if ($settings['show_candidate_details']): ?>
-							<td class="w5">
-								<?php echo img(array('src' => 'public/images/info.png', 'alt' => 'info', 'class' => 'pointer', 'title' => 'More info')); ?>
-							</td>
-						<?php endif; ?>
+						<td class="w5">
+							<?php echo img(array('src' => 'public/images/info.png', 'alt' => 'info', 'class' => 'pointer', 'title' => 'More info')); ?>
+						</td>
 					</tr>
 					<tr class="details">
-						<td colspan="4">
-						<?php if ($settings['show_candidate_details']): ?>
+						<td colspan="3">
 							<div style="display:none;" class="details">
 							<?php if ( ! empty($candidate['picture'])): ?>
 								<div style="float:left;padding-right:5px;">
@@ -90,42 +69,14 @@
 								</div>
 							<?php endif; ?>
 							</div>
-						<?php endif; ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
-				<?php
-					// same as above but for abstain
-					if (isset($votes[$election['id']][$position['id']]) && in_array('abstain', $votes[$election['id']][$position['id']]))
-					{
-						$checked = TRUE;
-					}
-					else
-					{
-						$checked = FALSE;
-					}
-				?>
 				<?php if ($position['abstain'] == TRUE): ?>
 					<tr>
-						<td class="w5">
-							<?php
-								echo form_checkbox(
-								'votes[' . $election['id'] . '][' . $position['id'] . '][]',
-								'abstain',
-								$checked,
-								'id="cb_' . $election['id'] . '_' . $position['id'] . '_abstain" class="abstainPosition"'
-								);
-							?>
-						</td>
-						<td class="w60">
-							<label for="<?php echo 'cb_' . $election['id'] . '_' . $position['id'] . '_abstain'; ?>">ABSTAIN</label>
-						</td>
-						<?php if ($settings['show_candidate_details']): ?>
-							<td class="w30"></td>
-							<td class="w5"></td>
-						<?php else: ?>
-							<td class="w35"></td>
-						<?php endif; ?>
+						<td class="w60">ABSTAIN</td>
+						<td class="w35"></td>
+						<td class="w5"></td>
 					</tr>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -143,14 +94,4 @@
 		<div class="clear"></div>
 	<?php endif; ?>
 <?php endforeach; ?>
-
-<div class="reminder"><?php echo e('voter_vote_reminder'); ?></div>
-<div class="paging">
-	<a name="bottom"></a>
-	<?php if (count($elections) == 0): ?>
-		<input type="submit" value="<?php echo e('voter_vote_submit_button'); ?>" disabled="disabled" />
-	<?php else: ?>
-		<input type="submit" value="<?php echo e('voter_vote_submit_button'); ?>" />
-	<?php endif; ?>
-</div>
-<?php echo form_close(); ?>
+<?php endif; ?>

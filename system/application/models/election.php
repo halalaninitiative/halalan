@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -68,7 +68,7 @@ class Election extends Model {
 	{
 		$this->db->from('elections');
 		$this->db->where('parent_id', '0');
-		$this->db->order_by('id', 'asc');
+		$this->db->order_by('id', 'ASC');
 		$query = $this->db->get();
 		$parents = $query->result_array();
 		$return = array();
@@ -77,7 +77,7 @@ class Election extends Model {
 			$return[] = $parent;
 			$this->db->from('elections');
 			$this->db->where('parent_id', $parent['id']);
-			$this->db->order_by('id', 'asc');
+			$this->db->order_by('id', 'ASC');
 			$query = $this->db->get();
 			$return = array_merge($return, $query->result_array());
 		}
@@ -104,7 +104,7 @@ class Election extends Model {
 	function select_all_with_positions()
 	{
 		$this->db->from('elections');
-		$this->db->where('id in (select distinct election_id from elections_positions)');
+		$this->db->where('id IN (SELECT DISTINCT election_id FROM elections_positions)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -136,4 +136,5 @@ class Election extends Model {
 
 }
 
-?>
+/* End of file election.php */
+/* Location: ./system/application/models/election.php */

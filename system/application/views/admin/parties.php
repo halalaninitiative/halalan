@@ -3,7 +3,11 @@
 	<h2><?php echo e('admin_parties_label'); ?></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/parties/add', e('admin_parties_add')); ?></p>
+	<p class="align_right">
+		<?php echo anchor('admin/parties/add', e('admin_parties_add')); ?>
+		| View:
+		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+	</p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -35,8 +39,8 @@
 			<?php echo nl2br($party['description']); ?>
 		</td>
 		<td align="center">
-			<?php echo anchor('admin/parties/edit/' . $party['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/parties/delete/' . $party['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
+			<?php echo anchor('admin/parties/edit/' . $party['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
+			<?php echo anchor('admin/parties/delete/' . $party['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
 		</td>
 	</tr>
 	<?php $i = $i + 1; ?>

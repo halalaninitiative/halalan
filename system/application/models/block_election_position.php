@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -18,21 +18,22 @@
  * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Election_Position_Voter extends Model {
+class Block_Election_Position extends Model {
 
-	function Election_Position_Voter()
+	function Block_Election_Position()
 	{
 		parent::Model();
 	}
 
-	function select_all_by_voter_id($voter_id)
+	function select_all_by_block_id($block_id)
 	{
-		$this->db->from('elections_positions_voters');
-		$this->db->where(compact('voter_id'));
+		$this->db->from('blocks_elections_positions');
+		$this->db->where(compact('block_id'));
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
 }
 
-?>
+/* End of file block_election_position.php */
+/* Location: ./system/application/models/block_election_position.php */

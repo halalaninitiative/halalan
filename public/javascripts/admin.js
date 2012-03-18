@@ -36,11 +36,11 @@ function copySelectedWithAjax() {
 	} else {
 		to.append(selected);
 		selected.removeAttr('selected')
-			.each(function(i){ array[i] = this.value; });
+			.each(function(i){ array[i] = '"' + this.value + '"'; });
 		$.ajax({
 			type: "POST",
 			url: window.location.href,
-			data: "election_ids=" + JSON.stringify(array),
+			data: "election_ids=[" + array + "]",
 			success: function(msg){
 				var msg = $.parseJSON(msg);
 				var general = msg[0];
@@ -53,7 +53,7 @@ function copySelectedWithAjax() {
 						gen.text = general[i].text;
 						$('#general_positions').append(gen);
 					} else {
-						$('option[value=' + general[i].value + ']').remove();
+						$('option[value="' + general[i].value + '"]').remove();
 					}
 				}
 				for (i = 0; i < specific.length; i++) {
@@ -63,7 +63,7 @@ function copySelectedWithAjax() {
 						spe.text = specific[i].text;
 						$('#possible').append(spe);
 					} else {
-						$('option[value=' + specific[i].value + ']').remove();
+						$('option[value="' + specific[i].value + '"]').remove();
 					}
 				}
 			}
@@ -144,23 +144,36 @@ function togglePosition() {
 	return false;
 }
 
-function fillPositions() {
+function fillPositionsAndParties() {
 	$.ajax({
 		type: "POST",
 		url: window.location.href,
 		data: $(this).serialize(),
 		success: function(msg){
 			var msg = $.parseJSON(msg);
+			var positions = msg[0];
+			var parties = msg[1];
 			var option = new Option();
 			$('#position_id').children().remove();
 			option.value = '';
 			option.text = 'Select Position';
 			$('#position_id').append(option);
-			for (i = 0; i < msg.length; i++) {
+			for (i = 0; i < positions.length; i++) {
 				option = new Option();
-				option.value = msg[i].position_id;
-				option.text = msg[i].position;
+				option.value = positions[i].position_id;
+				option.text = positions[i].position;
 				$('#position_id').append(option);
+			}
+			var option = new Option();
+			$('#party_id').children().remove();
+			option.value = '';
+			option.text = 'Select Party';
+			$('#party_id').append(option);
+			for (i = 0; i < parties.length; i++) {
+				option = new Option();
+				option.value = parties[i].party_id;
+				option.text = parties[i].party;
+				$('#party_id').append(option);
 			}
 		}
 	});
@@ -193,10 +206,11 @@ function changePositions() {
 $(document).ready(function () {
 	var menu_map = {};
 	menu_map['home'] = "HOME";
-	menu_map['candidates'] = "CANDIDATES";
 	menu_map['elections'] = "ELECTIONS";
-	menu_map['parties'] = "PARTIES";
 	menu_map['positions'] = "POSITIONS";
+	menu_map['parties'] = "PARTIES";
+	menu_map['candidates'] = "CANDIDATES";
+	menu_map['blocks'] = "BLOCKS";
 	menu_map['voters'] = "VOTERS";
 
 	/* Bind handlers to events */
@@ -209,7 +223,7 @@ $(document).ready(function () {
 	$('select.changeElections').change(changeElections);
 	$('select.changePositions').change(changePositions);
 	/* used in add/edit candidates */
-	$('select.fillPositions').change(fillPositions);
+	$('select.fillPositionsAndParties').change(fillPositionsAndParties);
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();

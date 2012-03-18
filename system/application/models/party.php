@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -27,16 +27,42 @@ class Party extends Model {
 
 	function insert($party)
 	{
-		return $this->db->insert('parties', $party);
+		$chosen = $party['chosen'];
+		unset($party['chosen']);
+		$this->db->insert('parties', $party);
+		if ( ! empty($chosen))
+		{
+			$party_id = $this->db->insert_id();
+			foreach ($chosen as $election_id)
+			{
+				$this->db->insert('elections_parties', compact('election_id', 'party_id'));
+			}
+		}
+		return TRUE;
 	}
 
 	function update($party, $id)
 	{
-		return $this->db->update('parties', $party, compact('id'));
+		$chosen = $party['chosen'];
+		unset($party['chosen']);
+		$this->db->update('parties', $party, compact('id'));
+		if ( ! empty($chosen))
+		{
+			$this->db->where('party_id', $id);
+			$this->db->delete('elections_parties');
+			$party_id = $id;
+			foreach ($chosen as $election_id)
+			{
+				$this->db->insert('elections_parties', compact('election_id', 'party_id'));
+			}
+		}
+		return TRUE;
 	}
 
 	function delete($id)
 	{
+		$this->db->where('party_id', $id);
+		$this->db->delete('elections_parties');
 		$this->db->where(compact('id'));
 		return $this->db->delete('parties');
 	}
@@ -52,6 +78,16 @@ class Party extends Model {
 	function select_all()
 	{
 		$this->db->from('parties');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	function select_all_by_election_id($election_id)
+	{
+		$this->db->from('parties');
+		$this->db->join('elections_parties', 'parties.id = elections_parties.party_id');
+		$this->db->where('election_id', $election_id);
+		$this->db->order_by('party', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -81,4 +117,5 @@ class Party extends Model {
 
 }
 
-?>
+/* End of file party.php */
+/* Location: ./system/application/models/party.php */

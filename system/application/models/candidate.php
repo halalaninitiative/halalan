@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -53,16 +53,7 @@ class Candidate extends Model {
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('election_id', 'position_id'));
-		$this->db->order_by('party_id', 'asc');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	function select_all_by_position_id($position_id)
-	{
-		$this->db->from('candidates');
-		$this->db->where(compact('position_id'));
-		$this->db->order_by('party_id', 'asc');
+		$this->db->order_by('party_id', 'ASC');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -99,4 +90,5 @@ class Candidate extends Model {
 
 }
 
-?>
+/* End of file candidate.php */
+/* Location: ./system/application/models/candidate.php */

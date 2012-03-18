@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -27,7 +27,7 @@ class Voter extends Controller {
 	{
 		parent::Controller();
 		$this->voter = $this->session->userdata('voter');
-		if (!$this->voter)
+		if ( ! $this->voter)
 		{
 			$error[] = e('common_unauthorized');
 			$this->session->set_flashdata('error', $error);
@@ -38,8 +38,9 @@ class Voter extends Controller {
 
 	function index()
 	{
+		$this->_no_cache();
 		$election_ids = array();
-		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		$chosen = $this->Block_Election_Position->select_all_by_block_id($this->voter['block_id']);
 		foreach ($chosen as $c)
 		{
 			$election_ids[] = $c['election_id'];
@@ -62,9 +63,10 @@ class Voter extends Controller {
 
 	function vote()
 	{
-		$rules = array('position_count'=>0, 'candidate_count'=>array()); // used in checking in do_vote
+		$this->_no_cache();
+		$rules = array('position_count' => 0, 'candidate_count' => array()); // used in checking in do_vote
 		$array = array();
-		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		$chosen = $this->Block_Election_Position->select_all_by_block_id($this->voter['block_id']);
 		foreach ($chosen as $c)
 		{
 			$array[$c['election_id']][] = $c['position_id'];
@@ -75,18 +77,18 @@ class Voter extends Controller {
 		{
 			redirect('voter/index');
 		}
-		foreach ($elections as $key1=>$election)
+		foreach ($elections as $key1 => $election)
 		{
 			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
-			foreach ($positions as $key2=>$position)
+			foreach ($positions as $key2 => $position)
 			{
 				$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
-				foreach ($candidates as $key3=>$candidate)
+				foreach ($candidates as $key3 => $candidate)
 				{
 					$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
 				}
 				$positions[$key2]['candidates'] = $candidates;
-				if (!empty($candidates))
+				if ( ! empty($candidates))
 				{
 					$rules['position_count']++;
 					$rules['candidate_max'][$election['id'] . '|' . $position['id']] = $position['maximum'];
@@ -121,7 +123,7 @@ class Voter extends Controller {
 			$rules = $this->session->userdata('rules');
 			// check if all positions have selected candidates
 			$count = 0;
-			foreach ($votes as $election_id=>$positions)
+			foreach ($votes as $election_id => $positions)
 			{
 				$count += count(array_values($positions));
 			}
@@ -131,10 +133,10 @@ class Voter extends Controller {
 			}
 			else
 			{
-				foreach ($votes as $election_id=>$positions)
+				foreach ($votes as $election_id => $positions)
 				{
 					// check if the number of selected candidates does not exceed the maximum allowed for each position
-					foreach ($positions as $position_id=>$candidate_ids)
+					foreach ($positions as $position_id => $candidate_ids)
 					{
 						if ($rules['candidate_max'][$election_id . '|' . $position_id] < count($candidate_ids))
 						{
@@ -167,6 +169,7 @@ class Voter extends Controller {
 
 	function verify()
 	{
+		$this->_no_cache();
 		$votes = $this->session->userdata('votes');
 		if (empty($votes))
 		{
@@ -174,7 +177,7 @@ class Voter extends Controller {
 		}
 		$data['votes'] = $votes;
 		$array = array();
-		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		$chosen = $this->Block_Election_Position->select_all_by_block_id($this->voter['block_id']);
 		foreach ($chosen as $c)
 		{
 			$array[$c['election_id']][] = $c['position_id'];
@@ -185,13 +188,13 @@ class Voter extends Controller {
 		{
 			redirect('voter/index');
 		}
-		foreach ($elections as $key1=>$election)
+		foreach ($elections as $key1 => $election)
 		{
 			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
-			foreach ($positions as $key2=>$position)
+			foreach ($positions as $key2 => $position)
 			{
 				$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
-				foreach ($candidates as $key3=>$candidate)
+				foreach ($candidates as $key3 => $candidate)
 				{
 					$candidates[$key3]['party'] = $this->Party->select($candidate['party_id']);
 				}
@@ -203,7 +206,7 @@ class Voter extends Controller {
 		if ($this->settings['captcha'])
 		{
 			$this->load->plugin('captcha');
-			$vals = array('img_path'=>'./public/captcha/', 'img_url'=>base_url() . 'public/captcha/', 'font_path'=>'./public/fonts/Vera.ttf', 'img_width'=>150, 'img_height'=>60, 'word_length'=> $this->settings['captcha_length']);
+			$vals = array('img_path' => './public/captcha/', 'img_url' => base_url() . 'public/captcha/', 'font_path' => './public/fonts/Vera.ttf', 'img_width' => 150, 'img_height' => 60, 'word_length' => $this->settings['captcha_length']);
 			$captcha = create_captcha($vals);
 			$data['captcha'] = $captcha;
 			$this->session->set_userdata('word', $captcha['word']);
@@ -289,8 +292,10 @@ class Voter extends Controller {
 
 	function logout()
 	{
-		$this->Boter->update(array('logout'=>date("Y-m-d H:i:s")), $this->voter['id']);
-		setcookie('halalan_cookie', '', time() - 3600, '/'); // destroy cookie
+		$this->_no_cache();
+		$this->Boter->update(array('logout' => date('Y-m-d H:i:s')), $this->voter['id']);
+		setcookie('halalan_abstain', '', time() - 3600, '/'); // used in abstain alert
+		setcookie('selected_election', '', time() - 3600, '/'); // used in remembering selected election
 		$this->session->sess_destroy();
 		$voter['title'] = e('voter_logout_title');
 		$voter['meta'] = '<meta http-equiv="refresh" content="5;URL=' . base_url() . '" />';
@@ -300,20 +305,21 @@ class Voter extends Controller {
 
 	function votes($case, $election_id = 0)
 	{
+		$this->_no_cache();
 		// if url is not votes/view or votes/print
-		if (!in_array($case, array('view', 'print', 'download')))
+		if ( ! in_array($case, array('view', 'print', 'download')))
 		{
 			redirect('voter/index');
 		}
 		// get all elections and positions assigned to the voter
 		$array = array();
-		$chosen = $this->Election_Position_Voter->select_all_by_voter_id($this->voter['id']);
+		$chosen = $this->Block_Election_Position->select_all_by_block_id($this->voter['block_id']);
 		foreach ($chosen as $c)
 		{
 			$array[$c['election_id']][] = $c['position_id'];
 		}
 		// check if election id is assigned to the voter
-		if (!array_key_exists($election_id, $array))
+		if ( ! array_key_exists($election_id, $array))
 		{
 			redirect('voter/index');
 		}
@@ -325,7 +331,7 @@ class Voter extends Controller {
 			$voted[] = $t['election_id'];
 		}
 		// check if election id has been voted in
-		if (!in_array($election_id, $voted))
+		if ( ! in_array($election_id, $voted))
 		{
 			redirect('voter/index');
 		}
@@ -347,11 +353,11 @@ class Voter extends Controller {
 			}
 			// get the positions assigned to the voter for the selected election
 			$positions = $this->Position->select_all_by_ids($array[$election['id']]);
-			foreach ($positions as $key2=>$position)
+			foreach ($positions as $key2 => $position)
 			{
 				$count = 0;
 				$candidates = $this->Candidate->select_all_by_election_id_and_position_id($election['id'], $position['id']);
-				foreach ($candidates as $key3=>$candidate)
+				foreach ($candidates as $key3 => $candidate)
 				{
 					if (in_array($candidate['id'], $candidate_ids))
 					{
@@ -393,7 +399,7 @@ class Voter extends Controller {
 		}
 		else if ($case == 'download')
 		{
-			if (!$this->settings['generate_image_trail'])
+			if ( ! $this->settings['generate_image_trail'])
 			{
 				$this->session->set_flashdata('messages', array('negative', e('voter_votes_image_trail_disabled')));
 				redirect('voter/index');
@@ -415,23 +421,23 @@ class Voter extends Controller {
 	function _generate_image_trail($votes)
 	{
 		$font = './public/fonts/Vera.ttf';
-		foreach ($votes as $election_id=>$positions)
+		foreach ($votes as $election_id => $positions)
 		{
 			$text = array();
 			$election = $this->Election->select($election_id);
-			$text[] = array('type'=>'break');
-			$text[] = array('type'=>'election', 'text'=>$election['election']);
-			$text[] = array('type'=>'break');
+			$text[] = array('type' => 'break');
+			$text[] = array('type' => 'election', 'text' => $election['election']);
+			$text[] = array('type' => 'break');
 			$position_max = '';
 			$candidate_max = '';
 			$height = 10 + 16 + 10; // break + 16 for election + break
-			foreach ($positions as $position_id=>$candidate_ids)
+			foreach ($positions as $position_id => $candidate_ids)
 			{
 				$position = $this->Position->select($position_id);
-				$text[] = array('type'=>'break');
-				$text[] = array('type'=>'break');
-				$text[] = array('type'=>'position', 'text'=>$position['position'] . ' (' . $position['maximum'] . ')');
-				$text[] = array('type'=>'break');
+				$text[] = array('type' => 'break');
+				$text[] = array('type' => 'break');
+				$text[] = array('type' => 'position', 'text' => $position['position'] . ' (' . $position['maximum'] . ')');
+				$text[] = array('type' => 'break');
 				$height += 10 + 10 + 14 + 10; // break + break + position + break
 				if (strlen($position['position'] . ' (' . $position['maximum'] . ')') > strlen($position_max))
 				{
@@ -448,11 +454,13 @@ class Voter extends Controller {
 					{
 						$candidate = $this->Candidate->select($candidate_id);
 						$name = $candidate['first_name'];
-						if (!empty($candidate['alias']))
+						if ( ! empty($candidate['alias']))
+						{
 							$name .= ' "' . $candidate['alias'] . '"';
+						}
 						$name .= ' ' . $candidate['last_name'];
 						$party = $this->Party->select($candidate['party_id']);
-						if (!empty($party))
+						if ( ! empty($party))
 						{
 							$name .= ', ';
 							if (empty($party['alias']))
@@ -464,8 +472,8 @@ class Voter extends Controller {
 								$name .= $party['alias'];
 							}
 						}
-						$text[] = array('type'=>'candidate', 'text'=>$name);
-						$text[] = array('type'=>'break');
+						$text[] = array('type' => 'candidate', 'text' => $name);
+						$text[] = array('type' => 'break');
 						$height += 12 + 10; // 12 for candidate + break
 						if (strlen($name) > strlen($candidate_max))
 						{
@@ -475,8 +483,8 @@ class Voter extends Controller {
 				}
 				if ($abstain)
 				{
-					$text[] = array('type'=>'candidate', 'text'=>'ABSTAIN');
-					$text[] = array('type'=>'break');
+					$text[] = array('type' => 'candidate', 'text' => 'ABSTAIN');
+					$text[] = array('type' => 'break');
 					$height += 12 + 10; // 12 for candidate + break
 				}
 			}
@@ -601,7 +609,7 @@ class Voter extends Controller {
 		{
 			if (isset($r['parent']))
 			{
-				if (!in_array($r['parent']['id'], $election_ids))
+				if ( ! in_array($r['parent']['id'], $election_ids))
 				{
 					$tmp[] = $r['parent'];
 				}
@@ -609,7 +617,7 @@ class Voter extends Controller {
 			}
 			foreach ($r as $value)
 			{
-				if (!in_array($value['id'], $election_ids))
+				if ( ! in_array($value['id'], $election_ids))
 				{
 					$tmp[] = $value;
 				}
@@ -618,6 +626,15 @@ class Voter extends Controller {
 		return $tmp;
 	}
 
+	function _no_cache()
+	{
+		// from http://stackoverflow.com/questions/49547/making-sure-a-web-page-is-not-cached-across-all-browsers
+		header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+		header('Pragma: no-cache'); // HTTP 1.0.
+		header('Expires: 0'); // Proxies.
+	}
+
 }
 
-?>
+/* End of file voter.php */
+/* Location: ./system/application/controllers/voter.php */

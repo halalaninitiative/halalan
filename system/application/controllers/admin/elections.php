@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2006-2011  University of the Philippines Linux Users' Group
+ * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
  * This file is part of Halalan.
  *
@@ -27,7 +27,7 @@ class Elections extends Controller {
 	{
 		parent::Controller();
 		$this->admin = $this->session->userdata('admin');
-		if (!$this->admin)
+		if ( ! $this->admin)
 		{
 			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
 			redirect('gate/admin');
@@ -56,11 +56,15 @@ class Elections extends Controller {
 
 	function delete($id) 
 	{
-		if (!$id)
+		if ( ! $id)
+		{
 			redirect('admin/elections');
+		}
 		$election = $this->Election->select($id);
-		if (!$election)
+		if ( ! $election)
+		{
 			redirect('admin/elections');
+		}
 		if ($election['status'])
 		{
 			$this->session->set_flashdata('messages', array('negative', e('admin_delete_election_running')));
@@ -87,23 +91,11 @@ class Elections extends Controller {
 				$data = array();
 				if ($case == 'status')
 				{
-					if ($election['status'])
-					{
-						$data['status'] = FALSE;
-					}
-					else {
-						$data['status'] = TRUE;
-					}
+					$data['status'] = ! $election['status'];
 				}
 				else
 				{
-					if ($election['results'])
-					{
-						$data['results'] = FALSE;
-					}
-					else {
-						$data['results'] = TRUE;
-					}
+					$data['results'] = ! $election['results'];
 				}
 				if ($election['parent_id'] == 0)
 				{
@@ -124,22 +116,24 @@ class Elections extends Controller {
 	{
 		if ($case == 'add')
 		{
-			$data['election'] = array('election'=>'', 'parent_id'=>'');
-			$this->session->unset_userdata('election'); // so callback rules know that the action is add
+			$data['election'] = array('election' => '', 'parent_id' => '');
 		}
 		else if ($case == 'edit')
 		{
-			if (!$id)
+			if ( ! $id)
+			{
 				redirect('admin/elections');
+			}
 			$data['election'] = $this->Election->select($id);
-			if (!$data['election'])
+			if ( ! $data['election'])
+			{
 				redirect('admin/elections');
+			}
 			if ($data['election']['status'])
 			{
 				$this->session->set_flashdata('messages', array('negative', e('admin_edit_election_running')));
 				redirect('admin/elections');
 			}
-			$this->session->set_flashdata('election', $data['election']); // used in callback rules
 		}
 		$this->form_validation->set_rules('election', e('admin_election_election'), 'required');
 		$this->form_validation->set_rules('parent_id', e('admin_election_parent'));

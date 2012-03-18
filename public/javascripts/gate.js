@@ -25,11 +25,21 @@ function toggleAllElections() {
 	return false;
 }
 
+function changeBlocks() {
+	var url = SITE_URL;
+	if (url.length - 1 != url.lastIndexOf('/')) {
+		url += '/';
+	}
+	url += 'gate/ballots/' + $(this).val();
+	window.location.href = url;
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
 	menu_map['results'] = "RESULTS";
 	menu_map['statistics'] = "STATISTICS";
+	menu_map['ballots'] = "BALLOTS";
 
 	/* Bind handlers to events */
 	$('table.delegateEvents').click(function(e) {
@@ -41,6 +51,7 @@ $(document).ready(function () {
 	$('form.hashPassword').submit(hashPassword);
 	/* Trigger events on load */
 	$('a.toggleOptions').click();
+	$('select.changeBlocks').change(changeBlocks);
 	/* Code that aren't bound to events */
 	animateFlashMessage();
 	highlightMenuItem(menu_map);

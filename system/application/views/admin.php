@@ -3,14 +3,13 @@
 <head>
 	<title>Halalan - Administration - <?php echo $title; ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<?php if (isset($meta) && !empty($meta)): ?>
+	<?php if (isset($meta) && ! empty($meta)): ?>
 	<?php echo $meta; ?>
 	<?php endif; ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/admin.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/admin.css" />
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.cookie.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/json2.js"></script>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url(); ?>';
 		var SITE_URL = '<?php echo site_url(); ?>';
@@ -28,9 +27,9 @@
 					$special = $CI->config->item('halalan');
 				?>
 				<?php if (isset($special['v']) && $special['v']): ?>
-				<?php echo img(array('src'=>'public/images/logo_admin_v.png', 'alt'=>'Halalan Logo')); ?>
+				<?php echo img(array('src' => 'public/images/logo_admin_v.png', 'alt' => 'Halalan Logo')); ?>
 				<?php else: ?>
-				<?php echo img(array('src'=>'public/images/logo_small.png', 'alt'=>'Halalan Logo')); ?>
+				<?php echo img(array('src' => 'public/images/logo_small.png', 'alt' => 'Halalan Logo')); ?>
 				<span>administration</span>
 				<?php endif; ?>
 <!--
@@ -48,12 +47,13 @@
 	</div>
 	<div id="menu">
 		<ul>
-			<li><?php echo anchor('admin/home', 'HOME', array('title'=>'Home')); ?></li>
-			<li><?php echo anchor('admin/candidates', 'CANDIDATES', array('title'=>'Manage Candidates')); ?></li>
-			<li><?php echo anchor('admin/elections', 'ELECTIONS', array('title'=>'Manage Elections')); ?></li>
-			<li><?php echo anchor('admin/parties', 'PARTIES', array('title'=>'Manage Parties')); ?></li>
-			<li><?php echo anchor('admin/positions', 'POSITIONS', array('title'=>'Manage Positions')); ?></li>
-			<li><?php echo anchor('admin/voters', 'VOTERS', array('title'=>'Manage Voters')); ?></li>
+			<li><?php echo anchor('admin/home', 'HOME', 'title="Home"'); ?></li>
+			<li><?php echo anchor('admin/elections', 'ELECTIONS', 'title="Manage Elections"'); ?></li>
+			<li><?php echo anchor('admin/positions', 'POSITIONS', 'title="Manage Positions"'); ?></li>
+			<li><?php echo anchor('admin/parties', 'PARTIES', 'title="Manage Parties"'); ?></li>
+			<li><?php echo anchor('admin/candidates', 'CANDIDATES', 'title="Manage Candidates"'); ?></li>
+			<li><?php echo anchor('admin/blocks', 'BLOCKS', 'title="Manage Blocks"'); ?></li>
+			<li><?php echo anchor('admin/voters', 'VOTERS', 'title="Manage Voters"'); ?></li>
 		</ul>
 	</div>
 	<div id="content">
