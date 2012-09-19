@@ -164,6 +164,7 @@ $lang['halalan_admin_party_dependencies'] = 'The party is in use.  The Chosen El
 $lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
 $lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
 $lang['halalan_admin_party_in_running_election'] = 'A party in a running election cannot be modifed.';
+$lang['halalan_admin_party_running_election'] = 'A party cannot be added to a running election.';
 
 // controllers/admin/positions.php
 $lang['halalan_admin_positions_title'] = 'Manage Positions';
@@ -211,9 +212,12 @@ $lang['halalan_admin_delete_block_success'] = 'The block has been successfully d
 $lang['halalan_admin_edit_block_title'] = 'Edit Block';
 $lang['halalan_admin_add_block_title'] = 'Add Block';
 $lang['halalan_admin_block_exists'] = 'Block already exists';
+$lang['halalan_admin_block_dependencies'] = 'The block is in use.  The Election and Position fields cannot be edited.';
 $lang['halalan_admin_add_block_success'] = 'The block has been successfully added.';
 $lang['halalan_admin_edit_block_success'] = 'The block has been successfully edited.';
 $lang['halalan_admin_block_in_running_election'] = 'A block in a running election cannot be modifed.';
+$lang['halalan_admin_block_running_election'] = 'A block cannot be added to a running election.';
+$lang['halalan_admin_block_no_positions'] = 'No Positions available.';
 
 // views/admin/home.php
 $lang['halalan_admin_home_left_label'] = 'Manage Halalan';
