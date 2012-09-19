@@ -164,6 +164,7 @@ $lang['halalan_admin_party_dependencies'] = 'The party is in use.  The Chosen El
 $lang['halalan_admin_add_party_success'] = 'The party has been successfully added.';
 $lang['halalan_admin_edit_party_success'] = 'The party has been successfully edited.';
 $lang['halalan_admin_party_in_running_election'] = 'A party in a running election cannot be modifed.';
+$lang['halalan_admin_party_running_election'] = 'A party cannot be added to a running election.';
 
 // controllers/admin/positions.php
 $lang['halalan_admin_positions_title'] = 'Manage Positions';
