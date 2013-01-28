@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -125,7 +125,7 @@ In it, place this code and save it to your <samp>applications/views/</samp> fold
 &lt;h3>Your file was successfully uploaded!&lt;/h3>
 
 &lt;ul>
-&lt;?php foreach($upload_data as $item => $value):?>
+&lt;?php foreach ($upload_data as $item => $value):?>
 &lt;li>&lt;?php echo $item;?>: &lt;?php echo $value;?>&lt;/li>
 &lt;?php endforeach; ?>
 &lt;/ul>
@@ -144,16 +144,16 @@ folder:</p>
 
 <textarea class="textarea" style="width:100%" cols="50" rows="43">&lt;?php
 
-class Upload extends Controller {
-	
-	function Upload()
+class Upload extends CI_Controller {
+
+	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 	}
-	
+
 	function index()
-	{	
+	{
 		$this->load->view('upload_form', array('error' => ' ' ));
 	}
 
@@ -164,22 +164,22 @@ class Upload extends Controller {
 		$config['max_size']	= '100';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
-		
+
 		$this->load->library('upload', $config);
-	
+
 		if ( ! $this->upload->do_upload())
 		{
 			$error = array('error' => $this->upload->display_errors());
-			
+
 			$this->load->view('upload_form', $error);
-		}	
+		}
 		else
 		{
 			$data = array('upload_data' => $this->upload->data());
-			
+
 			$this->load->view('upload_success', $data);
 		}
-	}	
+	}
 }
 ?&gt;</textarea>
 
@@ -420,7 +420,7 @@ Here is the array prototype:</p>
 <tr><td class="td"><strong>image_width</strong></td>
 <td class="td">Image width.</td></tr>
 
-<tr><td class="td"><strong>image_heigth</strong></td>
+<tr><td class="td"><strong>image_height</strong></td>
 <td class="td">Image height</td></tr>
 
 <tr><td class="td"><strong>image_type</strong></td>
@@ -444,7 +444,7 @@ Previous Topic:&nbsp;&nbsp;<a href="encryption.html">Encryption Helper</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="form_validation.html">Form Validation Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
 </div>
 
 </body>

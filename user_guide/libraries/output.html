@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -78,6 +78,21 @@ It is possible, however, for you to manually intervene with the output if you ne
 For example, if you build a page in one of your controller functions, don't set the output until the end.</p>
 
 
+<h2>$this->output->set_content_type();</h2>
+
+<p>Permits you to set the mime-type of your page so you can serve JSON data, JPEG's, XML, etc easily.</p>
+
+<code>$this->output<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;->set_content_type('application/json')<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;->set_output(json_encode(array('foo' => 'bar')));<br/>
+<br/>
+$this->output<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;->set_content_type('jpeg') // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;->set_output(file_get_contents('files/something.jpg'));</code>
+
+<p><strong>Important:</strong> Make sure any non-mime string you pass to this method exists in config/mimes.php or it will have no effect.</p>
+
+
 <h2>$this->output->get_output();</h2>
 
 <p>Permits you to manually retrieve any output that has been sent for storage in the output class.  Usage example:</p>
@@ -85,6 +100,14 @@ For example, if you build a page in one of your controller functions, don't set 
 
 <p>Note that data will only be retrievable from this function if it has been previously sent to the output class by one of the
 CodeIgniter functions like <var>$this->load->view()</var>.</p>
+
+
+<h2>$this->output->append_output();</h2>
+
+<p>Appends data onto the output string.  Usage example:</p>
+
+<code>$this->output->append_output($data);</code>
+
 
 
 <h2>$this->output->set_header();</h2>
@@ -122,9 +145,18 @@ at the bottom of your pages for debugging and optimization purposes.</p>
 <p>To disable the profiler you will use:</p>
 <code>$this->output->enable_profiler(FALSE);</code>
 
+<h2>$this->output->set_profiler_sections();</h2>
+
+<p>Permits you to enable/disable specific sections of the Profiler when enabled.  Please refer to the <a href="../general/profiling.html">Profiler</a> documentation for further information.</p>
 
 <h2>$this->output->cache();</h2>
 <p>The CodeIgniter output library also controls caching.  For more information, please see the <a href="../general/caching.html">caching documentation</a>.</p>
+
+<h2>Parsing Execution Variables</h2>
+
+	<p>CodeIgniter will parse the pseudo-variables <var>{elapsed_time}</var> and <var>{memory_usage}</var> in your output by default.  To disable this, set the <var>$parse_exec_vars</var> class property to <var>FALSE</var> in your controller.
+
+	<code>$this->output->parse_exec_vars = FALSE;</code>
 
 </div>
 <!-- END CONTENT -->
@@ -138,7 +170,7 @@ Previous Topic:&nbsp;&nbsp;<a href="language.html">Language Class</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="pagination.html">Pagination Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

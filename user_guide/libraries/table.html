@@ -2,10 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>HTML Table Class : CodeIgniter User Guide</title>
+<title>CodeIgniter User Guide : HTML Table Class</title>
 
-<style type='text/css' media='all'>@import url('../userguide.css');</style>
 <link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
 
 <script type="text/javascript" src="../nav/nav.js"></script>
@@ -13,6 +11,7 @@
 <script type="text/javascript" src="../nav/moo.fx.js"></script>
 <script type="text/javascript" src="../nav/user_guide_menu.js"></script>
 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
 <meta name='robots' content='all' />
@@ -24,11 +23,11 @@
 
 <!-- START NAVIGATION -->
 <div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
-<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -84,7 +83,7 @@ $data = array(<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('John', 'Green', 'Medium')	<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
 <br />
-echo $this->table->generate($data);		
+echo $this->table->generate($data);
 </code>
 
 <p>Here is an example of a table created from a database query result. The table class will automatically generate the
@@ -96,7 +95,7 @@ $this->load->library('table');<br />
 <br />
 $query = $this->db->query("SELECT * FROM my_table");<br />
 <br />
-echo $this->table->generate($query);		
+echo $this->table->generate($query);
 </code>
 
 
@@ -111,7 +110,7 @@ $this->table->add_row('Fred', 'Blue', 'Small');<br />
 $this->table->add_row('Mary', 'Red', 'Large');<br />
 $this->table->add_row('John', 'Green', 'Medium');<br />
 <br />
-echo $this->table->generate();		
+echo $this->table->generate();
 </code>
 
 <p>Here is the same example, except instead of individual parameters, arrays are used:</p>
@@ -125,7 +124,7 @@ $this->table->add_row(array('Fred', 'Blue', 'Small'));<br />
 $this->table->add_row(array('Mary', 'Red', 'Large'));<br />
 $this->table->add_row(array('John', 'Green', 'Medium'));<br />
 <br />
-echo $this->table->generate();		
+echo $this->table->generate();
 </code>
 
 
@@ -199,6 +198,14 @@ $this->table->set_template($tmpl);
 <code>$this->table->add_row('Blue', 'Red', 'Green');</code>
 <code>$this->table->add_row(array('Blue', 'Red', 'Green'));</code>
 
+<p>If you would like to set an individual cell's tag attributes, you can use an associative array for that cell.  The associative key <dfn>'data'</dfn> defines the cell's data.  Any other key =&gt; val pairs are added as <dfn>key='val'</dfn> attributes to the tag:</p>
+
+<code>$cell = array('data' => 'Blue', 'class' => 'highlight', 'colspan' => 2);<br />
+$this->table->add_row($cell, 'Red', 'Green');<br />
+<br />
+// generates<br />
+// &lt;td class='highlight' colspan='2'&gt;Blue&lt;/td&gt;&lt;td&gt;Red&lt;/td&gt;&lt;td&gt;Green&lt;/td&gt;
+</code>
 
 <h2>$this->table->make_columns()</h2>
 
@@ -274,6 +281,22 @@ $this->table->add_row('John', 'Saturday', 'Overnight');<br />
 echo $this->table->generate();
 </code>
 
+<h2>$this->table->function</h2>
+
+<p>Allows you to specify a native PHP function or a valid function array object to be applied to all cell data.</p>
+
+<code>$this->load->library('table');<br />
+<br />
+$this->table->set_heading('Name', 'Color', 'Size');<br />
+$this->table->add_row('Fred', '&lt;strong&gt;Blue&lt;/strong&gt;', 'Small');<br />
+<br />
+$this->table->function = 'htmlspecialchars';<br />
+echo $this->table->generate();<br />
+</code>
+
+<p>In the above example, all cell data would be ran through PHP's <dfn>htmlspecialchars()</dfn> function, resulting in:</p>
+
+<code>&lt;td&gt;Fred&lt;/td&gt;&lt;td&gt;&amp;lt;strong&amp;gt;Blue&amp;lt;/strong&amp;gt;&lt;/td&gt;&lt;td&gt;Small&lt;/td&gt;</code>
 </div>
 <!-- END CONTENT -->
 
@@ -285,7 +308,7 @@ Previous Topic:&nbsp;<a href="ftp.html">&nbsp;FTP Class</a>&nbsp;&nbsp;&nbsp;&mi
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="image_lib.html">Image Manipulation Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

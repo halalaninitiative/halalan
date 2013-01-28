@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -96,13 +96,8 @@ the "catalog" class and the "product_lookup" method are instead used.</p>
 
 <p>You can match literal values or you can use two wildcard types:</p>
 
-<p>
-:num<br />
-:any
-</p>
-
-<p><strong>:num</strong> will match a segment containing only numbers.<br />
-<strong>:any</strong> will match a segment containing any character.
+<p><strong>(:num)</strong> will match a segment containing only numbers.<br />
+<strong>(:any)</strong> will match a segment containing any character.
 </p>
 
 <p class="important"><strong>Note:</strong> Routes will run in the order they are defined.
@@ -118,11 +113,11 @@ Higher routes will always take precedence over lower ones.</p>
 <code>$route['blog/joe'] = "blogs/users/34";</code>
 <p>A URL containing the segments blog/joe will be remapped to the "blogs" class and the "users" method.  The ID will be set to "34".</p>
 
-<code>$route['product/:any'] = "catalog/product_lookup";</code>
+<code>$route['product/(:any)'] = "catalog/product_lookup";</code>
 <p>A URL with "product" as the first segment, and anything in the second will be remapped to the "catalog" class and the  "product_lookup" method.</p>
 
 <code>$route['product/(:num)'] = "catalog/product_lookup_by_id/$1";</code>
-<p>A URL with "product" as the first segment, and anything in the second will be remapped to the "catalog" class and the "product_lookup_by_id" method passing in the match as a variable to the function.</p>
+<p>A URL with "product" as the first segment, and a number in the second will be remapped to the "catalog" class and the "product_lookup_by_id" method passing in the match as a variable to the function.</p>
 
 <p class="important"><strong>Important:</strong> Do not use leading/trailing slashes.</p>
 
@@ -150,10 +145,10 @@ Higher routes will always take precedence over lower ones.</p>
 when people load your root URL. In the above example, the "welcome" class would be loaded.  You
 are encouraged to always have a default route otherwise a 404 page will appear by default.</p>
 
-<code>$route['scaffolding_trigger'] = 'scaffolding';</code>
+<code>$route['404_override'] = '';</code>
 
-<p>This route lets you set a secret word, which when present in the URL, triggers the scaffolding feature.
-Please read the <a href="scaffolding.html">Scaffolding</a> page for details.</p>
+<p>This route indicates which controller class should be loaded if the requested controller is not found. It will override the default 404
+error page. It won't affect to the <samp>show_404()</samp> function, which will continue loading the default <dfn>error_404.php</dfn> file at <var>application/errors/error_404.php</var>.</p>
 
 <p class="important"><strong>Important:</strong>&nbsp; The reserved routes must come before any wildcard or regular expression routes.</p>
 
@@ -163,13 +158,13 @@ Please read the <a href="scaffolding.html">Scaffolding</a> page for details.</p>
 
 <div id="footer">
 <p>
-Previous Topic:&nbsp;&nbsp;<a href="scaffolding.html">Scaffolding</a>
+Previous Topic:&nbsp;&nbsp;<a href="common_functions.html">Common Functions</a>
 &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="errors.html">Error Handling</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

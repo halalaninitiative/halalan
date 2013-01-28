@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -80,10 +80,15 @@ It DOES NOT return a database result set, nor does it set the query timer, or co
 It simply lets you submit a query. Most users will rarely use this function.</p>
 
 
-<h1>Adding Database prefixes manually</h1>
-<p>If you have configured a database prefix and would like to add it in manually for, you can use the following.</p>
+<h1>Working with Database prefixes manually</h1>
+<p>If you have configured a database prefix and would like to prepend it to a table name for use in a native SQL query for example, then you can use the following:</p>
 <p><code>$this-&gt;db-&gt;dbprefix('tablename');<br />
 // outputs prefix_tablename</code></p>
+
+<p>If for any reason you would like to change the prefix programatically without needing to create a new connection, you can use this method:</p>
+<p><code>$this-&gt;db-&gt;set_dbprefix('newprefix');<br /><br />
+$this-&gt;db-&gt;dbprefix('tablename');<br />
+// outputs newprefix_tablename</code></p>
 
 
 <h1>Protecting identifiers</h1>
@@ -113,7 +118,7 @@ Most of the time you'll use the above function rather than this one. Use the fun
 conditions so that LIKE wildcards ('%', '_') in the string are also properly escaped.
 
 <code>$search = '20% raise';<br />
-$sql = "SELECT id FROM table WHERE column LIKE '%".$this->db->escape_like_str($search)."%'";</code>
+$sql = "SELECT id FROM table WHERE column LIKE '%".$this->db->escape_like_str($search)."%'";</code></li>
 
 </ol>
 
@@ -132,7 +137,7 @@ $this->db->query($sql, array(3, 'live', 'Rick'));
 <p>The question marks in the query are automatically replaced with the values in the array in the second parameter of the query function.</p>
 <p class="important">The secondary benefit of using binds is that the values are automatically escaped, producing safer queries.  You don't have to remember to manually escape data; the engine does it automatically for you.</p>
 
-	
+
 
 </div>
 <!-- END CONTENT -->
@@ -146,7 +151,7 @@ Previous Topic:&nbsp;&nbsp;<a href="connecting.html">Connecting to your Database
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="results.html">Query Results</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

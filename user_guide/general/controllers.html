@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -96,9 +96,9 @@ Controllers
 
 <textarea class="textarea" style="width:100%" cols="50" rows="10">
 &lt;?php
-class Blog extends Controller {
+class Blog extends CI_Controller {
 
-	function index()
+	public function index()
 	{
 		echo 'Hello World!';
 	}
@@ -119,7 +119,7 @@ class Blog extends Controller {
 <p>Note: Class names must start with an uppercase letter.  In other words, this is valid:</p>
 
 <code>&lt;?php<br />
-class <var>Blog</var> extends Controller {<br />
+class <var>Blog</var> extends CI_Controller {<br />
 <br />
 }<br />
 ?&gt;</code>
@@ -127,7 +127,7 @@ class <var>Blog</var> extends Controller {<br />
 <p>This is <strong>not</strong> valid:</p>
 
 <code>&lt;?php<br />
-class <var>blog</var> extends Controller {<br />
+class <var>blog</var> extends CI_Controller {<br />
 <br />
 }<br />
 ?&gt;</code>
@@ -151,14 +151,14 @@ class <var>blog</var> extends Controller {<br />
 
 <textarea class="textarea" style="width:100%" cols="50" rows="15">
 &lt;?php
-class Blog extends Controller {
+class Blog extends CI_Controller {
 
-	function index()
+	public function index()
 	{
 		echo 'Hello World!';
 	}
 
-	function comments()
+	public function comments()
 	{
 		echo 'Look at this!';
 	}
@@ -185,9 +185,9 @@ class Blog extends Controller {
 
 <code>
 &lt;?php<br />
-class Products extends Controller {<br />
+class Products extends CI_Controller {<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;function shoes($sandals, $id)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;public function shoes($sandals, $id)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;{<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $sandals;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $id;<br />
@@ -220,7 +220,7 @@ specifying any URI segments you'll see your Hello World message by default.</p>
 <p>As noted above, the second segment of the URI typically determines which function in the controller gets called.
 CodeIgniter permits you to override this behavior through the use of the <kbd>_remap()</kbd> function:</p>
 
-<code>function _remap()<br />
+<code>public function _remap()<br />
 {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;// Some code here...<br />
 }</code>
@@ -229,9 +229,9 @@ CodeIgniter permits you to override this behavior through the use of the <kbd>_r
 get called regardless of what your URI contains.  It overrides the normal behavior in which the URI determines which function is called,
 allowing you to define your own function routing rules.</p>
 
-<p>The overridden function call (typically the second segment of the URI) will be passed as a parameter the <kbd>_remap()</kbd> function:</p>
+<p>The overridden function call (typically the second segment of the URI) will be passed as a parameter to the <kbd>_remap()</kbd> function:</p>
 
-<code>function _remap(<var>$method</var>)<br />
+<code>public function _remap(<var>$method</var>)<br />
 {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;if ($method == 'some_method')<br />
 &nbsp;&nbsp;&nbsp;&nbsp;{<br />
@@ -243,8 +243,17 @@ allowing you to define your own function routing rules.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;}<br />
 }</code>
 
+<p>Any extra segments after the method name are passed into <kbd>_remap()</kbd> as an optional second parameter. This array can be used in combination with PHP's <a href="http://php.net/call_user_func_array">call_user_func_array</a> to emulate CodeIgniter's default behavior.</p>
 
-
+<code>public function _remap($method, $params = array())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$method = 'process_'.$method;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if (method_exists($this, $method))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return call_user_func_array(array($this, $method), $params);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;show_404();<br />
+}</code>
 
 
 <a name="output"></a>
@@ -261,14 +270,23 @@ be called by the output class instead of echoing the finalized data directly. Th
 <p>Here is an example:</p>
 
 <code>
-function _output($output)<br />
+public function _output($output)<br />
 {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;echo $output;<br />
 }</code>
 
 <p class="important">Please note that your <dfn>_output()</dfn> function will receive the data in its finalized state.  Benchmark and memory usage data will be rendered,
 cache files written (if you have caching enabled), and headers will be sent (if you use that <a href="../libraries/output.html">feature</a>)
-before it is handed off to the _output() function.  If you are using this feature the page execution timer and memory usage stats might not be perfectly accurate
+before it is handed off to the _output() function.<br />
+<br />
+To have your controller's output cached properly, its <dfn>_output()</dfn> method can use:<br />
+
+<code>if ($this-&gt;output-&gt;cache_expiration &gt; 0)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;output-&gt;_write_cache($output);<br />
+}</code>
+
+If you are using this feature the page execution timer and memory usage stats might not be perfectly accurate
 since they will not take into acccount any further processing you do.  For an alternate way to control output <em>before</em> any of the final processing is done, please see
 the available methods in the <a href="../libraries/output.html">Output Class</a>.</p>
 
@@ -280,7 +298,7 @@ the available methods in the <a href="../libraries/output.html">Output Class</a>
 underscore as the name prefix and it will not be served via a URL request. For example, if you were to have a function like this:</p>
 
 <code>
-function _utility()<br />
+private function _utility()<br />
 {<br />
 &nbsp;&nbsp;// some code<br />
 }</code>
@@ -320,33 +338,18 @@ called if the URL contains only the sub-folder.  Simply name your default contro
 
 <p>If you intend to use a constructor in any of your Controllers, you <strong>MUST</strong> place the following line of code in it:</p>
 
-<code>parent::Controller();</code>
+<code>parent::__construct();</code>
 
 <p>The reason this line is necessary is because your local constructor will be overriding the one in the parent controller class so we need to manually call it.</p>
 
-
-<p>If you are not familiar with constructors, in PHP 4, a <em>constructor</em> is simply a function that has the exact same name as the class:</p>
-
 <code>
 &lt;?php<br />
-class <kbd>Blog</kbd> extends Controller {<br />
+class <kbd>Blog</kbd> extends CI_Controller {<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>Blog()</kbd><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public function <kbd>__construct()</kbd><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::Controller();</var><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-}<br />
-?&gt;</code>
-
-<p>In PHP 5, constructors use the following syntax:</p>
-
-<code>
-&lt;?php<br />
-class <kbd>Blog</kbd> extends Controller {<br />
-<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>__construct()</kbd><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::Controller();</var><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::__construct();</var><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Your own constructor code<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
 }<br />
 ?&gt;</code>
@@ -378,7 +381,7 @@ Previous Topic:&nbsp;&nbsp;<a href="urls.html">CodeIgniter URLs</a>
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="reserved_names.html">Reserved Names</a></p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

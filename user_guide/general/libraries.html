@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -63,11 +63,15 @@ In most cases, to use one of these classes involves initializing it within a <a 
 
 <code>$this->load->library('<var>class name</var>'); </code>
 
-<p>Where <var>class name</var> is the name of the class you want to invoke.  For example, to load the validation class you would do this:</p>
+<p>Where <var>class name</var> is the name of the class you want to invoke.  For example, to load the form validation class you would do this:</p>
 
-<code>$this->load->library('<var>validation</var>'); </code>
+<code>$this->load->library('<var>form_validation</var>'); </code>
 
 <p>Once initialized you can use it as indicated in the user guide page corresponding to that class.</p>
+
+<p>Additionally, multiple libraries can be loaded at the same time by passing an array of libraries to the load function.</p>
+
+<code>$this->load->library(array('<var>email</var>', '<var>table</var>'));</code>
 
 <h2>Creating Your Own Libraries</h2>
 
@@ -81,13 +85,13 @@ In most cases, to use one of these classes involves initializing it within a <a 
 
 <div id="footer">
 <p>
-Previous Topic:&nbsp;&nbsp;<a href="plugins.html">Plugins</a>
+Previous Topic:&nbsp;&nbsp;<a href="helpers.html">Helpers</a>
 &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="creating_libraries.html">Creating Libraries</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

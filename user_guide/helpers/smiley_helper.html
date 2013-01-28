@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -91,7 +91,7 @@ a publicly accessible place on your server.  This helper also assumes you have t
 
 <p>In your <dfn>application/controllers/</dfn> folder, create a file called <kbd>smileys.php</kbd> and place the code below in it.</p>
 
-<p><strong>Important:</strong> Change the URL in the <dfn>get_clickable_smileys()</dfn> function below so that it points to 
+<p><strong>Important:</strong> Change the URL in the <dfn>get_clickable_smileys()</dfn> function below so that it points to
 your <dfn>smiley</dfn> folder.</p>
 
 <p>You'll notice that in addition to the smiley helper we are using the <a href="../libraries/table.html">Table Class</a>.</p>
@@ -99,27 +99,27 @@ your <dfn>smiley</dfn> folder.</p>
 <textarea class="textarea" style="width:100%" cols="50" rows="25">
 &lt;?php
 
-class Smileys extends Controller {
+class Smileys extends CI_Controller {
 
-	function Smileys()
+	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 	}
-	
+
 	function index()
 	{
 		$this->load->helper('smiley');
 		$this->load->library('table');
-		
+
 		$image_array = get_clickable_smileys('http://example.com/images/smileys/', 'comments');
-		
+
 		$col_array = $this->table->make_columns($image_array, 8);
-		
+
 		$data['smiley_table'] = $this->table->generate($col_array);
-		
+
 		$this->load->view('smiley_view', $data);
 	}
-	
+
 }
 ?&gt;
 </textarea>
@@ -208,7 +208,7 @@ Previous Topic:&nbsp;&nbsp;<a href="security_helper.html">Security Helper</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="string_helper.html">String Helper</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

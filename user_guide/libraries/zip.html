@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -177,7 +177,7 @@ $this->zip->download('my_backup.zip');
 
 <h2>$this->zip->read_dir()</h2>
 
-<p>Permits you to compress a folder (and its contents) that already exists somewhere on your server.  Supply a file path to the 
+<p>Permits you to compress a folder (and its contents) that already exists somewhere on your server.  Supply a file path to the
 directory and the zip class will recursively read it and recreate it as a Zip archive.  All files contained within the
 supplied path will be encoded, as will any sub-folders contained within it.  Example:</p>
 
@@ -188,6 +188,16 @@ $this->zip->read_dir($path);
  // Download the file to your desktop.  Name it "my_backup.zip"<br />
 $this->zip->download('my_backup.zip');
 </code>
+
+<p>By default the Zip archive will place all directories listed in the first parameter inside the zip. If you want the tree preceding the target folder to be ignored
+you can pass <kbd>FALSE</kbd> (boolean) in the second parameter.  Example:</p>
+
+<code>
+$path = '/path/to/your/directory/';<br /><br />
+$this->zip->read_dir($path, FALSE);
+</code>
+
+<p>This will create a ZIP with the folder "directory" inside, then all sub-folders stored correctly inside that, but will not include the folders <samp>/path/to/your</samp>.</p>
 
 
 
@@ -269,9 +279,9 @@ Previous Topic:&nbsp;&nbsp;<a href="xmlrpc.html"> XML-RPC Class</a>
 &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-Next Topic:&nbsp;&nbsp;<a href="../helpers/array_helper.html">Array Helper</a>
+Next Topic:&nbsp;&nbsp;<a href="caching.html">Caching Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -115,6 +115,13 @@ part it should correctly identify characters outside the normal range (like acce
 
 <p>This function does the opposite of the previous one; it turns character entities back into ASCII.</p>
 
+<h2>convert_accented_characters()</h2>
+
+<p>Transliterates high ASCII characters to low ASCII equivalents, useful when non-English characters need to be used where only standard ASCII characters are safely used, for instance, in URLs.</p>
+
+<code>$string = convert_accented_characters($string);</code>
+
+<p>This function uses a companion config file <dfn>application/config/foreign_chars.php</dfn> to define the to and from array for transliteration.</p>
 
 <h2>word_censor()</h2>
 
@@ -170,7 +177,19 @@ of text that will help<br />
 us demonstrate this<br />
 function</code>
 
+<h2>ellipsize()</h2>
 
+<p>This function will strip tags from a string, split it at a defined maximum length, and insert an ellipsis.</p>
+<p>The first parameter is the string to ellipsize, the second is the number of characters in the final string. The third parameter is where in the string the ellipsis should appear from 0 - 1, left to right.  For example.  a value of 1 will place the ellipsis at the right of the string, .5 in the middle, and 0 at the left.</p>
+<p>An optional forth parameter is the kind of ellipsis.  By default, <samp>&amp;hellip;</samp> will be inserted.</p>
+
+<code>$str = 'this_string_is_entirely_too_long_and_might_break_my_design.jpg';<br />
+<br />
+echo ellipsize($str, 32, .5);</code>
+
+Produces:
+
+<code>this_string_is_e&hellip;ak_my_design.jpg</code>
 
 
 </div>
@@ -185,7 +204,7 @@ Previous Topic:&nbsp;&nbsp;<a href="string_helper.html">String Helper</a>
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="typography_helper.html">Typography Helper</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

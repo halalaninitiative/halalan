@@ -28,7 +28,7 @@
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.3</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.1.3</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -89,14 +89,19 @@ second the size of the heading.  Example:</p>
 <code>echo heading('Welcome!', 3);</code>
 <p>The above would produce:  &lt;h3>Welcome!&lt;/h3></p>
 
+<p>Additionally, in order to add attributes to the heading tag such as HTML classes, ids or inline styles, a third parameter is available.</p>
+<code>echo heading('Welcome!', 3, 'class="pink"')</code>
+<p>The above code produces: &lt;h3 class="pink">Welcome!<&lt;h3></p>
+
+
 <h2><a name="img"></a>img()</h2>
 <p>Lets you create HTML &lt;img /&gt; tags.  The first parameter  contains the image source. Example:</p>
 <code>echo img('images/picture.jpg');<br />
 // gives &lt;img src=&quot;http://site.com/images/picture.jpg&quot; /&gt;</code>
 <p>There is an optional second parameter that is a TRUE/FALSE value that specifics if the src should have the page specified by $config['index_page'] added to the address it creates. Presumably, this would be if you were using a media controller.</p>
 <p><code>echo img('images/picture.jpg', TRUE);<br />
-// gives &lt;img src=&quot;http://site.com/index.php/images/picture.jpg&quot; /&gt;</code></p>
-<p>Additionally, an associative array can be passed to the img() function for complete control over all attributes and values.</p>
+// gives &lt;img src=&quot;http://site.com/index.php/images/picture.jpg&quot; alt=&quot;&quot; /&gt;</code></p>
+<p>Additionally, an associative array can be passed to the img() function for complete control over all attributes and values. If an alt attribute is not provided, CodeIgniter will generate an empty string.</p>
 <p><code> $image_properties = array(<br />
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'src' =&gt; 'images/picture.jpg',<br />
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'alt' =&gt; 'Me, demonstrating how to eat 4 slices of pizza at one time',<br />
@@ -118,7 +123,7 @@ echo link_tag('css/mystyles.css');<br />
 
 <code>
 	echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');<br />
-	// &lt;link href=&quot;http://site.com/favicon.ico&quot; rel=&quot;shortcut icon&quot; type=&quot;image/ico&quot; /&gt; 
+	// &lt;link href=&quot;http://site.com/favicon.ico&quot; rel=&quot;shortcut icon&quot; type=&quot;image/ico&quot; /&gt;
 	<br />
 	<br />
 	echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');<br />
@@ -134,7 +139,7 @@ echo link_tag('css/mystyles.css');<br />
 	<br />
 	echo link_tag($link);<br />
 	// &lt;link href=&quot;http://site.com/css/printer.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;print&quot; /&gt;</code></p>
-	
+
 <h2><a name="nbs"></a>nbs()</h2>
 <p>Generates non-breaking spaces (&amp;nbsp;) based on the number you submit. Example:</p>
 <code>echo nbs(3);</code>
@@ -378,7 +383,7 @@ Previous Topic:&nbsp;&nbsp;<a href="form_helper.html">Form Helper</a>
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 Next Topic:&nbsp;&nbsp;<a href="path_helper.html"> Path Helper</a></p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>
