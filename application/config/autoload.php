@@ -80,7 +80,7 @@ $autoload['helper'] = array('download', 'form', 'halalan', 'html', 'string', 'ur
 |
 */
 
-$autoload['config'] = array('config', 'halalan');
+$autoload['config'] = array('halalan');
 
 
 /*
