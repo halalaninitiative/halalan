@@ -37,24 +37,8 @@ class Positions extends CI_Controller {
 	
 	function index($election_id = 0)
 	{
-		$this->load->helper('cookie');
-		$elections = $this->Election->select_all_with_positions();
-		// If only one election exists, show it by default.
-		if (count($elections) == 1)
-		{
-			$election_id = $elections[0]['id'];
-		}
-		else if (get_cookie('selected_election'))
-		{
-			$election_id = get_cookie('selected_election');
-		}
-		$tmp = array();
-		foreach ($elections as $election)
-		{
-			$tmp[$election['id']] = $election['election'];
-		}
-		$elections = $tmp;
-		$data['election_id'] = $election_id;
+		$elections = $this->Election->select_all();
+		$data['election_id'] = get_cookie('selected_election');
 		$data['elections'] = $elections;
 		$data['positions'] = $this->Position->select_all_by_election_id($election_id);
 		$admin['username'] = $this->admin['username'];
@@ -102,10 +86,9 @@ class Positions extends CI_Controller {
 
 	function _position($case, $id = null)
 	{
-		$chosen = array();
 		if ($case == 'add')
 		{
-			$data['position'] = array('position' => '', 'description' => '', 'maximum' => '', 'ordinality' => '', 'abstain' => '1', 'unit' => '0');
+			$data['position'] = array('election_id' => get_cookie('selected_election'), 'position' => '', 'description' => '', 'maximum' => '', 'ordinality' => '', 'abstain' => '1');
 			$this->session->unset_userdata('position'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
@@ -124,32 +107,22 @@ class Positions extends CI_Controller {
 				$this->session->set_flashdata('messages', array('negative', e('admin_position_in_running_election')));
 				redirect('admin/positions');
 			}
-			if (empty($_POST))
-			{
-				$tmp = $this->Election_Position->select_all_by_position_id($id);
-				foreach ($tmp as $t)
-				{
-					$chosen[] = $t['election_id'];
-				}
-			}
 			$this->session->set_userdata('position', $data['position']); // used in callback rules
 		}
+		$this->form_validation->set_rules('election_id', e('admin_position_election'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists|callback__rule_dependencies');
 		$this->form_validation->set_rules('description', e('admin_position_description'));
 		$this->form_validation->set_rules('maximum', e('admin_position_maximum'), 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('ordinality', e('admin_position_ordinality'), 'required|is_natural_no_zero');
 		$this->form_validation->set_rules('abstain', e('admin_position_abstain'));
-		$this->form_validation->set_rules('unit', e('admin_position_unit'));
-		$this->form_validation->set_rules('chosen[]', e('admin_position_chosen_elections'), 'required|callback__rule_running_election');
 		if ($this->form_validation->run())
 		{
+			$position['election_id'] = $this->input->post('election_id', TRUE);
 			$position['position'] = $this->input->post('position', TRUE);
 			$position['description'] = $this->input->post('description', TRUE);
 			$position['maximum'] = $this->input->post('maximum', TRUE);
 			$position['ordinality'] = $this->input->post('ordinality', TRUE);
 			$position['abstain'] = $this->input->post('abstain', TRUE);
-			$position['unit'] = $this->input->post('unit', TRUE);
-			$position['chosen'] = $this->input->post('chosen', TRUE);
 			if ($case == 'add')
 			{
 				$this->Position->insert($position);
@@ -163,24 +136,7 @@ class Positions extends CI_Controller {
 				redirect('admin/positions/edit/' . $id);
 			}
 		}
-		if ($this->input->post('chosen'))
-		{
-			$chosen = $this->input->post('chosen');
-		}
 		$data['elections'] = $this->Election->select_all();
-		$data['possible'] = array();
-		$data['chosen'] = array();
-		foreach ($data['elections'] as $e)
-		{
-			if (in_array($e['id'], $chosen))
-			{
-				$data['chosen'][$e['id']] = $e['election'];
-			}
-			else
-			{
-				$data['possible'][$e['id']] = $e['election'];
-			}
-		}
 		$data['action'] = $case;
 		$admin['title'] = e('admin_' . $case . '_position_title');
 		$admin['body'] = $this->load->view('admin/position', $data, TRUE);
@@ -227,12 +183,7 @@ class Positions extends CI_Controller {
 			}
 			if ($this->Position->in_use($position['id']))
 			{
-				$tmp = $this->Election_Position->select_all_by_position_id($position['id']);
-				foreach ($tmp as $t)
-				{
-					$chosen[] = $t['election_id'];
-				}
-				if ($chosen != $this->input->post('chosen'))
+				if ($position['election_id'] != $this->input->post('election_id'))
 				{
 					$this->form_validation->set_message('_rule_dependencies', e('admin_position_dependencies'));
 					return FALSE;
@@ -244,7 +195,7 @@ class Positions extends CI_Controller {
 
 	function _rule_running_election()
 	{
-		if ($this->Election->is_running($this->input->post('chosen')))
+		if ($this->Election->is_running($this->input->post('election_id')))
 		{
 			$this->form_validation->set_message('_rule_running_election', e('admin_position_running_election'));
 			return FALSE;

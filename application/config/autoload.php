@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'email', 'form_validation', 'image_li
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('download', 'form', 'halalan', 'html', 'string', 'url');
+$autoload['helper'] = array('cookie', 'download', 'form', 'halalan', 'html', 'string', 'url');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array('halalan');
 |
 */
 
-$autoload['model'] = array('Abmin', 'Abstain', 'Block', 'Block_Election_Position', 'Boter', 'Candidate', 'Election', 'Election_Party', 'Election_Position', 'Party', 'Position', 'Vote', 'Voted');
+$autoload['model'] = array('Abmin', 'Abstain', 'Block', 'Block_Election_Position', 'Boter', 'Candidate', 'Election', 'Election_Party', 'Party', 'Position', 'Vote', 'Voted');
 
 
 /* End of file autoload.php */

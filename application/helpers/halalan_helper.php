@@ -76,5 +76,29 @@ function display_messages($validation, $custom)
 	return $return;
 }
 
+/**
+ * Return array ready to be used for dropdown
+ *
+ * @access	public
+ * @param	array
+ * @param	string
+ * @param	string
+ * @param	boolean
+ * @return	array
+ */
+function for_dropdown($array, $key, $value, $blank = TRUE)
+{
+	$tmp = array();
+	foreach ($array as $a)
+	{
+		$tmp[$a[$key]] = $a[$value];
+	}
+	if ($blank)
+	{
+		$tmp = array('' => 'Choose ' . ucwords($value)) + $tmp;
+	}
+	return $tmp;
+}
+
 /* End of file halalan_helper.php */
 /* Location: ./application/helpers/halalan_helper.php */

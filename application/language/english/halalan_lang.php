@@ -288,16 +288,12 @@ $lang['halalan_admin_positions_add'] = 'Add Position';
 // views/admin/position.php
 $lang['halalan_admin_add_position_label'] = 'Add Position Details';
 $lang['halalan_admin_edit_position_label'] = 'Edit Position Details';
+$lang['halalan_admin_position_election'] = 'Election';
 $lang['halalan_admin_position_position'] = 'Position';
 $lang['halalan_admin_position_description'] = 'Description';
 $lang['halalan_admin_position_maximum'] = 'Maximum';
 $lang['halalan_admin_position_ordinality'] = 'Ordinality';
 $lang['halalan_admin_position_abstain'] = 'Abstain';
-$lang['halalan_admin_position_unit'] = 'Type';
-$lang['halalan_admin_position_elections'] = 'Elections';
-$lang['halalan_admin_position_no_elections'] = 'No elections found.  Create one in the Elections page.';
-$lang['halalan_admin_position_possible_elections'] = 'Possible Elections';
-$lang['halalan_admin_position_chosen_elections'] = 'Chosen Elections';
 $lang['halalan_admin_add_position_submit'] = 'Add Position';
 $lang['halalan_admin_edit_position_submit'] = 'Edit Position';
 

@@ -27,36 +27,12 @@ class Position extends CI_Model {
 
 	function insert($position)
 	{
-		$chosen = $position['chosen'];
-		unset($position['chosen']);
-		$this->db->insert('positions', $position);
-		if ( ! empty($chosen))
-		{
-			$position_id = $this->db->insert_id();
-			foreach ($chosen as $election_id)
-			{
-				$this->db->insert('elections_positions', compact('election_id', 'position_id'));
-			}
-		}
-		return TRUE;
+		return $this->db->insert('positions', $position);
 	}
 
 	function update($position, $id)
 	{
-		$chosen = $position['chosen'];
-		unset($position['chosen']);
-		$this->db->update('positions', $position, compact('id'));
-		if ( ! empty($chosen))
-		{
-			$this->db->where('position_id', $id);
-			$this->db->delete('elections_positions');
-			$position_id = $id;
-			foreach ($chosen as $election_id)
-			{
-				$this->db->insert('elections_positions', compact('election_id', 'position_id'));
-			}
-		}
-		return TRUE;
+		return $this->db->update('positions', $position, compact('id'));
 	}
 
 	function delete($id)
@@ -97,7 +73,6 @@ class Position extends CI_Model {
 	function select_all_by_election_id($election_id)
 	{
 		$this->db->from('positions');
-		$this->db->join('elections_positions', 'positions.id = elections_positions.position_id');
 		$this->db->where('election_id', $election_id);
 		$this->db->order_by('ordinality', 'ASC');
 		$query = $this->db->get();

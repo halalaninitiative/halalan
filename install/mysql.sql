@@ -63,13 +63,7 @@ CREATE TABLE elections_parties (
   election_id integer NOT NULL,
   party_id integer NOT NULL,
   PRIMARY KEY  (election_id,party_id)
-);
-
-CREATE TABLE elections_positions (
-  election_id integer NOT NULL,
-  position_id integer NOT NULL,
-  PRIMARY KEY  (election_id,position_id)
-);
+)
 
 CREATE TABLE parties (
   id integer NOT NULL auto_increment,
@@ -83,12 +77,13 @@ CREATE TABLE parties (
 
 CREATE TABLE positions (
   id integer NOT NULL auto_increment,
+  election_id integer NOT NULL,
   position varchar(63) NOT NULL,
   description text,
   maximum smallint NOT NULL,
   ordinality smallint NOT NULL,
   abstain varchar(1) NOT NULL,
-  unit varchar(1) NOT NULL,
+  KEY (election_id),
   KEY (position),
   PRIMARY KEY  (id)
 );

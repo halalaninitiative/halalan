@@ -128,6 +128,10 @@ class Election extends CI_Model {
 
 	function is_running($ids)
 	{
+		if ( ! is_array($ids))
+		{
+			$ids = array($ids);
+		}
 		$this->db->from('elections');
 		$this->db->where('status', TRUE);
 		$this->db->where_in('id', $ids);

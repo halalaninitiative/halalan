@@ -6,7 +6,7 @@
 	<p class="align_right">
 		<?php echo anchor('admin/positions/add', e('admin_positions_add')); ?>
 		| View:
-		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election', TRUE), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
 	</p>
 </div>
 <div class="clear"></div>
