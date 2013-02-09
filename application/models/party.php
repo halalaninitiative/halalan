@@ -85,7 +85,6 @@ class Party extends CI_Model {
 	function select_all_by_election_id($election_id)
 	{
 		$this->db->from('parties');
-		$this->db->join('elections_parties', 'parties.id = elections_parties.party_id');
 		$this->db->where('election_id', $election_id);
 		$this->db->order_by('party', 'ASC');
 		$query = $this->db->get();

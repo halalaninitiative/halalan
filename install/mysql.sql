@@ -59,18 +59,14 @@ CREATE TABLE elections (
   PRIMARY KEY  (id)
 );
 
-CREATE TABLE elections_parties (
-  election_id integer NOT NULL,
-  party_id integer NOT NULL,
-  PRIMARY KEY  (election_id,party_id)
-)
-
 CREATE TABLE parties (
   id integer NOT NULL auto_increment,
+  election_id integer NOT NULL,
   party varchar(63) NOT NULL,
   alias varchar(15),
   description text,
   logo char(40),
+  KEY (election_id),
   KEY (party),
   PRIMARY KEY  (id)
 );

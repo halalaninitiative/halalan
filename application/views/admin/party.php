@@ -8,6 +8,14 @@
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
 	<tr>
 		<td class="w20" align="right">
+			<?php echo form_label(e('admin_party_election') . ':' , 'election_id'); ?>
+		</td>
+		<td>
+			<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), set_value('election_id', $party['election_id']), 'id="election_id"'); ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="w20" align="right">
 			<?php echo form_label(e('admin_party_party') . ':', 'party'); ?>
 		</td>
 		<td>
@@ -28,36 +36,6 @@
 		</td>
 		<td>
 			<?php echo form_textarea('description', set_value('description', $party['description']), 'id="description"'); ?>
-		</td>
-	</tr>
-	<tr>
-		<td class="w20" align="right">
-			<?php echo e('admin_party_elections'); ?>:
-		</td>
-		<td>
-			<?php if (empty($elections)): ?>
-			<em><?php echo e('admin_party_no_elections'); ?></em>
-			<?php else: ?>
-				<table>
-					<tr>
-						<td>
-							<?php echo form_dropdown('possible[]', (count($possible)) ? $possible : array(), '', 'id="possible" multiple="multiple" size="7" style="width : 170px;"'); ?>
-							<br />
-							<?php echo form_label(e('admin_party_possible_elections'), 'possible'); ?>
-						</td>
-						<td>
-							<input type="button" class="copySelected" value="  &gt;&gt;  " />
-							<br />
-							<input type="button" class="copySelected" value="  &lt;&lt;  " />
-						</td>
-						<td>
-							<?php echo form_dropdown('chosen[]', (count($chosen)) ? $chosen : array(), '', 'id="chosen" multiple="multiple" size="7" style="width : 170px;"'); ?>
-							<br />
-							<?php echo form_label(e('admin_party_chosen_elections'), 'chosen'); ?>
-						</td>
-					</tr>
-				</table>
-			<?php endif; ?>
 		</td>
 	</tr>
 	<tr>

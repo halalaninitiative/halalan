@@ -267,13 +267,10 @@ $lang['halalan_admin_parties_add'] = 'Add Party';
 // views/admin/party.php
 $lang['halalan_admin_add_party_label'] = 'Add Party Details';
 $lang['halalan_admin_edit_party_label'] = 'Edit Party Details';
+$lang['halalan_admin_party_election'] = 'Election';
 $lang['halalan_admin_party_party'] = 'Party';
 $lang['halalan_admin_party_alias'] = 'Alias';
 $lang['halalan_admin_party_description'] = 'Description';
-$lang['halalan_admin_party_elections'] = 'Elections';
-$lang['halalan_admin_party_no_elections'] = 'No elections found.  Create one in the Elections page.';
-$lang['halalan_admin_party_possible_elections'] = 'Possible Elections';
-$lang['halalan_admin_party_chosen_elections'] = 'Chosen Elections';
 $lang['halalan_admin_party_logo'] = 'Logo';
 $lang['halalan_admin_add_party_submit'] = 'Add Party';
 $lang['halalan_admin_edit_party_submit'] = 'Edit Party';
