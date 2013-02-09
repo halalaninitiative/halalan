@@ -3,16 +3,16 @@
 <head>
 	<title>Halalan - Gate - <?php echo $title; ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/stylesheets/gate.css" />
-	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/jquery.color.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/sha1.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('public/stylesheets/gate.css'); ?>" />
+	<script type="text/javascript" src="<?php echo base_url('public/javascripts/jquery.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('public/javascripts/jquery.color.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('public/javascripts/sha1.js'); ?>"></script>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url(); ?>';
 		var SITE_URL = '<?php echo site_url(); ?>';
 	</script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/common.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>public/javascripts/gate.js"></script>
+	<script type="text/javascript" src="<?php echo base_url('public/javascripts/common.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('public/javascripts/gate.js'); ?>"></script>
 </head>
 <body>
 <div id="wrap">
