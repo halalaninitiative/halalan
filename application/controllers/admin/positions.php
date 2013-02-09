@@ -37,9 +37,9 @@ class Positions extends CI_Controller {
 	
 	function index($election_id = 0)
 	{
-		$elections = $this->Election->select_all();
-		$data['election_id'] = get_cookie('selected_election');
-		$data['elections'] = $elections;
+		$election_id = get_cookie('selected_election');
+		$data['election_id'] = $election_id;
+		$data['elections'] = $this->Election->select_all();
 		$data['positions'] = $this->Position->select_all_by_election_id($election_id);
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_positions_title');
