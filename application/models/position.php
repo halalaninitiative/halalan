@@ -98,10 +98,10 @@ class Position extends CI_Model {
 		return $has_candidates || $has_blocks ? TRUE : FALSE;
 	}
 
-	function in_running_election($position_id)
+	function in_running_election($id)
 	{
-		$this->db->from('elections_positions');
-		$this->db->where(compact('position_id'));
+		$this->db->from('positions');
+		$this->db->where(compact('id'));
 		$this->db->where('election_id IN (SELECT id FROM elections WHERE status = 1)');
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
