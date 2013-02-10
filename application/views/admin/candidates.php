@@ -7,8 +7,8 @@
 	<p class="align_right">
 		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
 		| View:
-		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-		<?php echo form_dropdown('position_id', array('' => 'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
+		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('position_id', for_dropdown($pos, 'id', 'position'), $position_id, 'class="changePositions" style="width: 110px;"'); ?>
 	</p>
 </div>
 <div class="clear"></div>
@@ -33,8 +33,8 @@
 	<p class="align_right">
 		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
 		| View:
-		<?php echo form_dropdown('election_id', array('' => 'Choose Election') + $elections, $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-		<?php echo form_dropdown('position_id', array('' => 'All Positions') + $pos, $position_id, 'class="changePositions" style="width: 100px;"'); ?>
+		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
+		<?php echo form_dropdown('position_id', for_dropdown($pos, 'id', 'position'), $position_id, 'class="changePositions" style="width: 110px;"'); ?>
 	</p>
 </div>
 <div class="clear"></div>
@@ -62,10 +62,7 @@
 			<?php echo ($i+1); ?>
 		</td>
 		<td>
-			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], $candidate['last_name'] . ', ' . $candidate['first_name']); ?>
-			<?php if (!empty($candidate['alias'])): ?>
-			<?php echo '"' . $candidate['alias'] . '"'; ?>
-			<?php endif; ?>
+			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], candidate_name($candidate)); ?>
 		</td>
 		<td>
 			<?php echo nl2br($candidate['description']); ?>

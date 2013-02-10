@@ -100,5 +100,23 @@ function for_dropdown($array, $key, $value, $blank = TRUE)
 	return $tmp;
 }
 
+/**
+ * Return formatted candidate name
+ *
+ * @access	public
+ * @param	array
+ * @return	string
+ */
+function candidate_name($candidate)
+{
+	$name = $candidate['first_name'];
+	if ( ! empty($candidate['alias']))
+	{
+		$name .= ' &quot;' . $candidate['alias'] . '&quot;';
+	}
+	$name .= ' ' . $candidate['last_name'];
+	return $name;
+}
+
 /* End of file halalan_helper.php */
 /* Location: ./application/helpers/halalan_helper.php */

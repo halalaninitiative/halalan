@@ -37,31 +37,9 @@ class Candidates extends CI_Controller {
 	
 	function index($election_id = 0, $position_id = 0)
 	{
-		$this->load->helper('cookie');
-		$elections = $this->Election->select_all_with_positions();
-		// If only one election exists, show it by default.
-		if (count($elections) == 1)
-		{
-			$election_id = $elections[0]['id'];
-		}
-		else if (get_cookie('selected_election'))
-		{
-			$election_id = get_cookie('selected_election');
-		}
-		$tmp = array();
-		foreach ($elections as $election)
-		{
-			$tmp[$election['id']] = $election['election'];
-		}
-		$elections = $tmp;
-		$pos = $this->Position->select_all_by_election_id($election_id);
-		$tmp = array();
-		foreach ($pos as $p)
-		{
-			$tmp[$p['id']] = $p['position'];
-		}
-		$pos = $tmp;
-		$positions = $this->Position->select_all_by_election_id($election_id);
+		$election_id = get_cookie('selected_election');
+		$position_id = get_cookie('selected_position');
+		$positions = $pos = $this->Position->select_all_by_election_id($election_id);
 		foreach ($positions as $key => $value)
 		{
 			$positions[$key]['candidates'] = $this->Candidate->select_all_by_election_id_and_position_id($election_id, $value['id']);
@@ -76,7 +54,7 @@ class Candidates extends CI_Controller {
 		}
 		$data['election_id'] = $election_id;
 		$data['position_id'] = $position_id;
-		$data['elections'] = $elections;
+		$data['elections'] = $this->Election->select_all();
 		$data['pos'] = $pos;
 		$data['positions'] = $positions;
 		$admin['username'] = $this->admin['username'];
@@ -87,7 +65,7 @@ class Candidates extends CI_Controller {
 
 	function add()
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+		if ($this->input->is_ajax_request())
 		{
 			$election_id = $this->input->post('election_id');
 			$positions = $this->Position->select_all_by_election_id($election_id);
@@ -102,7 +80,7 @@ class Candidates extends CI_Controller {
 
 	function edit($id)
 	{
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+		if ($this->input->is_ajax_request())
 		{
 			$election_id = $this->input->post('election_id');
 			$positions = $this->Position->select_all_by_election_id($election_id);
@@ -144,10 +122,11 @@ class Candidates extends CI_Controller {
 
 	function _candidate($case, $id = null)
 	{
-		$election_id = 0;
+		$election_id = get_cookie('selected_election');
+		$position_id = get_cookie('selected_position');
 		if ($case == 'add')
 		{
-			$data['candidate'] = array('first_name' => '', 'last_name' => '', 'alias' => '', 'description' => '', 'election_id' => '', 'position_id' => '', 'party_id' => '');
+			$data['candidate'] = array('election_id' => $election_id, 'position_id' => $position_id, 'party_id' => '', 'first_name' => '', 'last_name' => '', 'alias' => '', 'description' => '');
 			$this->session->unset_userdata('candidate'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')
@@ -182,13 +161,13 @@ class Candidates extends CI_Controller {
 		$this->form_validation->set_rules('picture', e('admin_candidate_picture'), 'callback__rule_picture');
 		if ($this->form_validation->run())
 		{
+			$candidate['election_id'] = $this->input->post('election_id', TRUE);
+			$candidate['position_id'] = $this->input->post('position_id', TRUE);
+			$candidate['party_id'] = $this->input->post('party_id', TRUE);
 			$candidate['first_name'] = $this->input->post('first_name', TRUE);
 			$candidate['last_name'] = $this->input->post('last_name', TRUE);
 			$candidate['alias'] = $this->input->post('alias', TRUE);
 			$candidate['description'] = $this->input->post('description', TRUE);
-			$candidate['election_id'] = $this->input->post('election_id', TRUE);
-			$candidate['position_id'] = $this->input->post('position_id', TRUE);
-			$candidate['party_id'] = $this->input->post('party_id', TRUE);
 			if ($picture = $this->session->userdata('candidate_picture'))
 			{
 				$candidate['picture'] = $picture;
@@ -211,7 +190,12 @@ class Candidates extends CI_Controller {
 		{
 			$election_id = $this->input->post('election_id');
 		}
-		$data['elections'] = $this->Election->select_all_with_positions();
+		if ($this->input->post('position_id'))
+		{
+			// set cookie again since the position might have changed
+			set_cookie('selected_position', $this->input->post('position_id'), 0);
+		}
+		$data['elections'] = $this->Election->select_all();
 		$data['positions'] = array();
 		$data['parties'] = array();
 		if ($election_id > 0)
@@ -284,7 +268,7 @@ class Candidates extends CI_Controller {
 
 	function _rule_running_election()
 	{
-		if ($this->Election->is_running(array($this->input->post('election_id'))))
+		if ($this->Election->is_running($this->input->post('election_id')))
 		{
 			$this->form_validation->set_message('_rule_running_election', e('admin_candidate_running_election'));
 			return FALSE;
