@@ -121,9 +121,13 @@ class Election extends CI_Model {
 
 	function in_use($election_id)
 	{
-		$this->db->from('elections_positions');
+		$this->db->from('positions');
 		$this->db->where(compact('election_id'));
-		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+		$has_positions = $this->db->count_all_results() > 0 ? TRUE : FALSE;
+		$this->db->from('parties');
+		$this->db->where(compact('election_id'));
+		$has_parties = $this->db->count_all_results() > 0 ? TRUE : FALSE;
+		return $has_positions OR $has_parties ? TRUE : FALSE;
 	}
 
 	function is_running($ids)
