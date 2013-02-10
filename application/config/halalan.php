@@ -12,7 +12,6 @@ $config['halalan']['show_candidate_details'] = TRUE;
 $config['halalan']['generate_image_trail'] = TRUE;
 $config['halalan']['image_trail_path'] = "/home/waldemar/public_html/hololon/trails/";
 
-$config['base_url'] = "http://localhost/~waldemar/hololon/";
 $config['encryption_key'] = "TZO0g7EggbHcOjxJTW1FF3JDQMObvV2H";
 
 /* End of file halalan.php */
