@@ -1,8 +1,8 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open_multipart('admin/parties/add', array('class' => 'selectChosen')); ?>
+	<?php echo form_open_multipart('admin/parties/add'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open_multipart('admin/parties/edit/' . $party['id'], array('class' => 'selectChosen')); ?>
+	<?php echo form_open_multipart('admin/parties/edit/' . $party['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_party_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">

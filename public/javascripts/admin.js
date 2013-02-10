@@ -7,93 +7,6 @@ function confirmDelete() {
 	return confirm("Are you sure you want to delete " + name + "?\nWarning: This action cannot be undone!");
 }
 
-function selectChosen() {
-	$('#chosen').children().attr('selected', true);
-	$('#chosen_elections').children().attr('selected', true);
-	$('#general_positions').attr('disabled', false);
-	$('#general_positions').children().attr('selected', true);
-}
-
-function copySelectedWithAjax() {
-	var from;
-	var to;
-	var selected;
-	var array = new Array();
-	var direction = $(this).val();
-
-	if (direction === "  >>  ") {
-		from = $('#possible_elections');
-		to = $('#chosen_elections');
-	} else {
-		from = $('#chosen_elections');
-		to = $('#possible_elections');
-	}
-
-	selected = from.children(':selected');
-
-	if (!selected.length) {
-		alert("No items selected.");
-	} else {
-		to.append(selected);
-		selected.removeAttr('selected')
-			.each(function(i){ array[i] = '"' + this.value + '"'; });
-		$.ajax({
-			type: "POST",
-			url: window.location.href,
-			data: "election_ids=[" + array + "]",
-			success: function(msg){
-				var msg = $.parseJSON(msg);
-				var general = msg[0];
-				var specific = msg[1];
-				$('#notice').hide();
-				for (i = 0; i < general.length; i++) {
-					if (direction === "  >>  ") {
-						var gen = new Option();
-						gen.value = general[i].value;
-						gen.text = general[i].text;
-						$('#general_positions').append(gen);
-					} else {
-						$('option[value="' + general[i].value + '"]').remove();
-					}
-				}
-				for (i = 0; i < specific.length; i++) {
-					if (direction === "  >>  ") {
-						var spe = new Option();
-						spe.value = specific[i].value;
-						spe.text = specific[i].text;
-						$('#possible').append(spe);
-					} else {
-						$('option[value="' + specific[i].value + '"]').remove();
-					}
-				}
-			}
-		});
-	}
-}
-
-function copySelected() {
-	var from;
-	var to;
-	var selected;
-
-	if ($(this).val() === "  >>  ") {
-		from = $('#possible');
-		to = $('#chosen');
-	} else {
-		from = $('#chosen');
-		to = $('#possible');
-	}
-
-	selected = from.children(':selected');
-
-	if (!selected.length) {
-		alert("No items selected.");
-	} else {
-		to.append(selected);
-		selected.removeAttr('selected');
-	}
-}
-
 function manipulateAllPositions() {
 	var img = $('img.togglePosition');
 	var src = img.attr('src');
@@ -219,9 +132,6 @@ $(document).ready(function () {
 	$('a.confirmDelete').click(confirmDelete);
 	$('a.manipulateAllPositions').click(manipulateAllPositions);
 	$('img.togglePosition').click(togglePosition);
-	$('input:button.copySelectedWithAjax').click(copySelectedWithAjax);
-	$('input:button.copySelected').click(copySelected);
-	$('form.selectChosen').submit(selectChosen);
 	$('select.changeElections').change(changeElections);
 	$('select.changePositions').change(changePositions);
 	/* used in add/edit candidates */

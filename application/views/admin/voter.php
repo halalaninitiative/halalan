@@ -1,8 +1,8 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
 <?php if ($action == 'add'): ?>
-	<?php echo form_open('admin/voters/add', 'class="selectChosen"'); ?>
+	<?php echo form_open('admin/voters/add'); ?>
 <?php elseif ($action == 'edit'): ?>
-	<?php echo form_open('admin/voters/edit/' . $voter['id'], 'class="selectChosen"'); ?>
+	<?php echo form_open('admin/voters/edit/' . $voter['id']); ?>
 <?php endif; ?>
 <h2><?php echo e('admin_' . $action . '_voter_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">

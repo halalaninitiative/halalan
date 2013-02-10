@@ -1,5 +1,5 @@
 <?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
-<?php echo form_open_multipart('admin/voters/import', array('class'=>'selectChosen')); ?>
+<?php echo form_open_multipart('admin/voters/import'); ?>
 <h2><?php echo e('admin_import_label'); ?></h2>
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
 	<tr>
