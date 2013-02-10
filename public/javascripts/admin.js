@@ -132,11 +132,11 @@ $(document).ready(function () {
 	$('a.confirmDelete').click(confirmDelete);
 	$('a.manipulateAllPositions').click(manipulateAllPositions);
 	$('img.togglePosition').click(togglePosition);
+	$('select.fillPositionsAndParties').change(fillPositionsAndParties);
 	$('select.changeElections').change(changeElections);
 	$('select.changePositions').change(changePositions);
-	/* used in add/edit candidates */
-	$('select.fillPositionsAndParties').change(fillPositionsAndParties);
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();
+	$('input[type="text"]:eq(0)').focus();
 });
