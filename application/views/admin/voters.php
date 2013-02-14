@@ -52,6 +52,7 @@
 <div class="notes">
 	<h2>Advanced Options</h2>
 	<ul>
+		<li><?php echo anchor('admin/voters/generate', 'Generate Passwords'); ?></li>
 		<li><?php echo anchor('admin/voters/import', 'Import Voters'); ?></li>
 		<li><?php echo anchor('admin/voters/export', 'Export Voters'); ?></li>
 	</ul>

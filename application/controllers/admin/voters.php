@@ -284,6 +284,54 @@ class Voters extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
+	function generate()
+	{
+		$this->form_validation->set_rules('block_id', e('admin_export_block'), 'required');
+		if ($this->form_validation->run())
+		{
+			$block_id = $this->input->post('block_id', TRUE);
+			$block = $this->Block->select($block_id);
+			$voters = $this->Boter->select_all_by_block_id($block_id);
+			if ($this->settings['password_pin_generation'] == 'web')
+			{
+				$data = array();
+				$header = 'Username,Last Name,First Name,Password';
+				if ($this->settings['pin'])
+				{
+					$header .= ',PIN';
+				}
+				$data[] = $header;
+				foreach ($voters as $voter)
+				{
+					$row = $voter['username'] . ',' . $voter['last_name'] . ',' . $voter['first_name'];
+					$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
+					$boter['password'] = sha1($password);
+					$row .= ',' . $password;
+					if ($this->settings['pin'])
+					{
+						$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
+						$boter['pin'] = sha1($pin);
+						$row .= ',' . $pin;
+					}
+					$this->Boter->update($boter, $voter['id']);
+					$data[] = $row;
+				}
+				$data = implode("\r\n", $data);
+				force_download('voters-' . strtolower(url_title($block['block'])) . '.csv', $data);
+			}
+			else if ($this->settings['password_pin_generation'] == 'email')
+			{
+				// TODO
+			}
+		}
+		$data['blocks'] = $this->Block->select_all();
+		$data['settings'] = $this->settings;
+		$admin['username'] = $this->admin['username'];
+		$admin['title'] = e('admin_generate_title');
+		$admin['body'] = $this->load->view('admin/generate', $data, TRUE);
+		$this->load->view('admin', $admin);
+	}
+
 	function _rule_voter_exists()
 	{
 		$username = trim($this->input->post('username', TRUE));

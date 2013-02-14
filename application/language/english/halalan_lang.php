@@ -151,6 +151,7 @@ $lang['halalan_admin_import_reminder_too'] = ' and PINs.';
 $lang['halalan_admin_export_title'] = 'Export Voters';
 $lang['halalan_admin_voter_in_running_election'] = 'A voter in a block in a running election cannot be modifed.';
 $lang['halalan_admin_voter_running_election'] = 'A voter cannot be added to a block in a running election.';
+$lang['halalan_admin_generate_title'] = 'Generate Passwords';
 
 // controllers/admin/parties.php
 $lang['halalan_admin_parties_title'] = 'Manage Parties';
@@ -324,6 +325,11 @@ $lang['halalan_admin_export_block'] = 'Block';
 $lang['halalan_admin_export_status'] = 'Include status?';
 $lang['halalan_admin_export_status_description'] = 'used for determining who voted or not';
 $lang['halalan_admin_export_submit'] = 'Export';
+
+// views/admin/generate.php
+$lang['halalan_admin_generate_label'] = 'Generate Passwords';
+$lang['halalan_admin_generate_block'] = 'Block';
+$lang['halalan_admin_generate_submit'] = 'Generate';
 
 // views/admin/elections.php
 $lang['halalan_admin_elections_label'] = 'Manage Elections';
