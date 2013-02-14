@@ -140,8 +140,7 @@ $lang['halalan_admin_delete_voter_success'] = 'The voter has been successfully d
 $lang['halalan_admin_edit_voter_title'] = 'Edit Voter';
 $lang['halalan_admin_add_voter_title'] = 'Add Voter';
 $lang['halalan_admin_voter_exists'] = 'Voter already exists';
-$lang['halalan_admin_voter_dependencies'] = 'The voter is in use.  The Elections and Positions fields cannot be edited.';
-$lang['halalan_admin_voter_email_success'] = 'The login credentials was successfully emailed.';
+$lang['halalan_admin_voter_dependencies'] = 'The voter is in use.  The Block field cannot be edited.';
 $lang['halalan_admin_add_voter_success'] = 'The voter has been successfully added.';
 $lang['halalan_admin_edit_voter_success'] = 'The voter has been successfully edited.';
 $lang['halalan_admin_import_title'] = 'Import Voters';
@@ -150,8 +149,8 @@ $lang['halalan_admin_import_success_plural'] = ' voters have been successfully i
 $lang['halalan_admin_import_reminder'] = 'You can use the Export Voters option to do batch generation of passwords.';
 $lang['halalan_admin_import_reminder_too'] = ' and PINs.';
 $lang['halalan_admin_export_title'] = 'Export Voters';
-$lang['halalan_admin_voter_in_running_election'] = 'A voter in a running election cannot be modifed.';
-$lang['halalan_admin_voter_running_election'] = 'A voter cannot be added to a running election.';
+$lang['halalan_admin_voter_in_running_election'] = 'A voter in a block in a running election cannot be modifed.';
+$lang['halalan_admin_voter_running_election'] = 'A voter cannot be added to a block in a running election.';
 
 // controllers/admin/parties.php
 $lang['halalan_admin_parties_title'] = 'Manage Parties';
@@ -249,9 +248,6 @@ $lang['halalan_admin_voter_username'] = 'Username';
 $lang['halalan_admin_voter_first_name'] = 'First Name';
 $lang['halalan_admin_voter_last_name'] = 'Last Name';
 $lang['halalan_admin_voter_block'] = 'Block';
-$lang['halalan_admin_voter_regenerate'] = 'Regenerate';
-$lang['halalan_admin_voter_password'] = 'Password';
-$lang['halalan_admin_voter_pin'] = 'PIN';
 $lang['halalan_admin_add_voter_submit'] = 'Add Voter';
 $lang['halalan_admin_edit_voter_submit'] = 'Edit Voter';
 
@@ -325,12 +321,6 @@ $lang['halalan_admin_import_submit'] = 'Import';
 // views/admin/export.php
 $lang['halalan_admin_export_label'] = 'Export Voters';
 $lang['halalan_admin_export_block'] = 'Block';
-$lang['halalan_admin_export_password'] = 'Include password?';
-$lang['halalan_admin_export_password_description'] = 'used for batch generation of password';
-$lang['halalan_admin_export_pin'] = 'Include PIN?';
-$lang['halalan_admin_export_pin_description'] = 'used for batch generation of PIN';
-$lang['halalan_admin_export_votes'] = 'Include votes?';
-$lang['halalan_admin_export_votes_description'] = 'used for manual counting of votes';
 $lang['halalan_admin_export_status'] = 'Include status?';
 $lang['halalan_admin_export_status_description'] = 'used for determining who voted or not';
 $lang['halalan_admin_export_submit'] = 'Export';

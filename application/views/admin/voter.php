@@ -35,34 +35,9 @@
 			<?php echo form_label(e('admin_voter_block') . ':' , 'block_id'); ?>
 		</td>
 		<td>
-			<!-- form_dropdown and set_select don't work together :( -->
-			<select name="block_id" id="block_id">
-				<option value="">Select Block</option>
-				<?php foreach ($blocks as $block): ?>
-				<?php
-					echo '<option value="' . $block['id'] . '"';
-					echo set_select('block_id', $block['id'], $voter['block_id'] == $block['id'] ? TRUE : FALSE);
-					echo '>' . $block['block'] . '</option>';
-				?>
-				<?php endforeach; ?>
-			</select>
+			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id', $voter['block_id']), 'id="block_id"'); ?>
 		</td>
 	</tr>
-	<?php if ($action == 'edit'): ?>
-	<tr>
-		<td class="w20" align="right">
-			<?php echo e('admin_voter_regenerate'); ?>:
-		</td>
-		<td>
-			<?php echo form_checkbox('password', TRUE, FALSE, 'id="password"'); ?>				
-			<?php echo form_label(e('admin_voter_password'), 'password'); ?>
-			<?php if ($settings['pin']): ?>
-				<?php echo form_checkbox('pin', TRUE, FALSE, 'id="pin"'); ?>				
-				<?php echo form_label(e('admin_voter_pin'), 'pin'); ?>
-			<?php endif; ?>
-		</td>
-	</tr>
-	<?php endif; ?>
 </table>
 <div class="paging">
 	<?php echo anchor('admin/voters', 'GO BACK'); ?>

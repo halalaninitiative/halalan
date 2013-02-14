@@ -7,17 +7,7 @@
 			<?php echo form_label(e('admin_import_block') . ':' , 'block_id'); ?>
 		</td>
 		<td>
-			<!-- form_dropdown and set_select don't work together :( -->
-			<select name="block_id" id="block_id">
-				<option value="">Select Block</option>
-				<?php foreach ($blocks as $block): ?>
-				<?php
-					echo '<option value="' . $block['id'] . '"';
-					echo set_select('block_id', $block['id']);
-					echo '>' . $block['block'] . '</option>';
-				?>
-				<?php endforeach; ?>
-			</select>
+			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id'), 'id="block_id"'); ?>
 		</td>
 	</tr>
 	<tr>
@@ -59,7 +49,7 @@
 			must be unique.<br />
 			Incomplete data will be disregarded.<br />
 			Passwords <?php echo $settings['pin'] ? 'and pins ' : ''; ?>are not yet generated.<br />
-			Use <?php echo anchor('admin/voters/export', 'Export Voters'); ?> to generate passwords<?php echo $settings['pin'] ? ' and pins' : ''; ?>.
+			Use <?php echo anchor('admin/voters/generate', 'Generate Passwords'); ?> to generate passwords<?php echo $settings['pin'] ? ' and pins' : ''; ?>.
 		</td>
 	</tr>
 </table>

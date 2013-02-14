@@ -7,52 +7,7 @@
 			<?php echo form_label(e('admin_export_block') . ':' , 'block_id'); ?>
 		</td>
 		<td>
-			<!-- form_dropdown and set_select don't work together :( -->
-			<select name="block_id" id="block_id">
-				<option value="">Select Block</option>
-				<?php foreach ($blocks as $block): ?>
-				<?php
-					echo '<option value="' . $block['id'] . '"';
-					echo set_select('block_id', $block['id']);
-					echo '>' . $block['block'] . '</option>';
-				?>
-				<?php endforeach; ?>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class="w45">
-			<label for="password">
-			<?php echo form_checkbox(array('id' => 'password', 'name' => 'password', 'value' => TRUE, 'checked' => FALSE)); ?>
-			<?php echo e('admin_export_password'); ?>
-			</label>
-		</td>
-		<td>
-			(<?php echo e('admin_export_password_description'); ?>)
-		</td>
-	</tr>
-	<?php if ($settings['pin']): ?>
-	<tr>
-		<td class="w45">
-			<label for="pin">
-			<?php echo form_checkbox(array('id' => 'pin', 'name' => 'pin', 'value' => TRUE, 'checked' => FALSE)); ?>
-			<?php echo e('admin_export_pin'); ?>
-			</label>
-		</td>
-		<td>
-			(<?php echo e('admin_export_pin_description'); ?>)
-		</td>
-	</tr>
-	<?php endif; ?>
-	<tr>
-		<td class="w45">
-			<label for="votes">
-			<?php echo form_checkbox(array('id' => 'votes', 'name' => 'votes', 'value' => TRUE, 'checked' => FALSE)); ?>
-			<?php echo e('admin_export_votes'); ?>
-			</label>
-		</td>
-		<td>
-			(<?php echo e('admin_export_votes_description'); ?>)
+			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id'), 'id="block_id"'); ?>
 		</td>
 	</tr>
 	<tr>

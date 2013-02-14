@@ -103,8 +103,6 @@ class Voters extends CI_Controller {
 
 	function _voter($case, $id = null)
 	{
-		$chosen_elections = array();
-		$chosen_positions = array();
 		if ($case == 'add')
 		{
 			$data['voter'] = array('username' => '', 'first_name' => '', 'last_name' => '', 'block_id' => '');
@@ -133,86 +131,23 @@ class Voters extends CI_Controller {
 		}
 		$this->form_validation->set_rules('first_name', e('admin_voter_first_name'), 'required');
 		$this->form_validation->set_rules('last_name', e('admin_voter_last_name'), 'required');
-		$this->form_validation->set_rules('block_id', e('admin_voter_block'), 'required');
+		$this->form_validation->set_rules('block_id', e('admin_voter_block'), 'required|callback__rule_running_election');
 		if ($this->form_validation->run())
 		{
 			$voter['username'] = $this->input->post('username', TRUE);
 			$voter['last_name'] = $this->input->post('last_name', TRUE);
 			$voter['first_name'] = $this->input->post('first_name', TRUE);
 			$voter['block_id'] = $this->input->post('block_id', TRUE);
-			if ($case == 'add' || $this->input->post('password'))
-			{
-				$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
-				$voter['password'] = sha1($password);
-			}
-			if ($this->settings['pin'])
-			{
-				if ($case == 'add' || $this->input->post('pin'))
-				{
-					$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
-					$voter['pin'] = sha1($pin);
-				}
-			}
-			$messages[] = 'positive';
 			if ($case == 'add')
 			{
 				$this->Boter->insert($voter);
-				$messages[] = e('admin_add_voter_success');
-			}
-			else if ($case == 'edit')
-			{
-				$this->Boter->update($voter, $id);
-				$messages[] = e('admin_edit_voter_success');
-			}
-			if ($this->settings['password_pin_generation'] == 'web')
-			{
-				$messages[] = 'Username: '. $voter['username'];
-				if ($case == 'add' || $this->input->post('password'))
-				{
-					$messages[] = 'Password: '. $password;
-				}
-				if ($this->settings['pin'])
-				{
-					if ($case == 'add' || $this->input->post('pin'))
-					{
-						$messages[] = 'PIN: '. $pin;
-					}
-				}
-			}
-			else if ($this->settings['password_pin_generation'] == 'email')
-			{
-				$this->email->from($this->admin['email'], $this->admin['first_name'] . ' ' . $this->admin['last_name']);
-				$this->email->to($voter['username']);
-				$this->email->subject('Halalan Login Credentials');
-				$message = "Hello $voter[first_name] $voter[last_name],\n\nThe following are your login credentials:\nEmail: $voter[username]\n";
-				if ($case == 'add' || $this->input->post('password'))
-				{
-					$message .= "Password: $password\n";
-				}
-				if ($this->settings['pin'])
-				{
-					if ($case == 'add' || $this->input->post('pin'))
-					{
-						$message .= "PIN: $pin\n";
-					}
-				}
-				$message .= "\n";
-				$message .= ($this->admin['first_name'] . ' ' . $this->admin['last_name']);
-				$message .= "\n";
-				$message .= 'Halalan Administrator';
-				$this->email->message($message);
-				$this->email->send();
-				//echo $this->email->print_debugger();
-				$messages[] = e('admin_voter_email_success');
-			}
-			if ($case == 'add')
-			{
-				$this->session->set_flashdata('messages', $messages);
+				$this->session->set_flashdata('messages', array('positive', e('admin_add_voter_success')));
 				redirect('admin/voters/add');
 			}
 			else if ($case == 'edit')
 			{
-				$this->session->set_flashdata('messages', $messages);
+				$this->Boter->update($voter, $id);
+				$this->session->set_flashdata('messages', array('positive', e('admin_edit_voter_success')));
 				redirect('admin/voters/edit/' . $id);
 			}
 		}
@@ -227,7 +162,7 @@ class Voters extends CI_Controller {
 
 	function import()
 	{
-		$this->form_validation->set_rules('block_id', e('admin_import_block'), 'required');
+		$this->form_validation->set_rules('block_id', e('admin_import_block'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('csv', e('admin_import_csv'), 'callback__rule_csv');
 		if ($this->form_validation->run())
 		{
@@ -250,7 +185,7 @@ class Voters extends CI_Controller {
 				$voter['username'] = $value[0];
 				$voter['last_name'] = $value[1];
 				$voter['first_name'] = $value[2];
-				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && !$this->Boter->select_by_username($voter['username']))
+				if ($voter['username'] && $voter['last_name'] && $voter['first_name'] && ! $this->Boter->select_by_username($voter['username']))
 				{
 					if ($this->settings['password_pin_generation'] == 'web')
 					{
@@ -316,21 +251,6 @@ class Voters extends CI_Controller {
 				$header = 'Email';
 			}
 			$header .= ',Last Name,First Name';
-			if ($this->input->post('password'))
-			{
-				$header .= ',Password';
-			}
-			if ($this->settings['pin'])
-			{
-				if ($this->input->post('pin'))
-				{
-					$header .= ',PIN';
-				}
-			}
-			if ($this->input->post('votes'))
-			{
-				$header .= ',Votes';
-			}
 			if ($this->input->post('status'))
 			{
 				$header .= ',Voted';
@@ -340,33 +260,6 @@ class Voters extends CI_Controller {
 			foreach ($voters as $voter)
 			{
 				$row = $voter['username'] . ',' . $voter['last_name'] . ',' . $voter['first_name'];
-				if ($this->input->post('password'))
-				{
-					$password = random_string($this->settings['password_pin_characters'], $this->settings['password_length']);
-					$boter['password'] = sha1($password);
-					$row .= ',' . $password;
-					$this->Boter->update($boter, $voter['id']);
-				}
-				if ($this->settings['pin'])
-				{
-					if ($this->input->post('pin'))
-					{
-						$pin = random_string($this->settings['password_pin_characters'], $this->settings['pin_length']);
-						$boter['pin'] = sha1($pin);
-						$row .= ',' . $pin;
-						$this->Boter->update($boter, $voter['id']);
-					}
-				}
-				if ($this->input->post('votes'))
-				{
-					$votes = $this->Vote->select_all_by_voter_id($voter['id']);
-					$tmp = array();
-					foreach ($votes as $vote)
-					{
-						$tmp[] = $vote['first_name'] . ' ' . $vote['last_name'];
-					}
-					$row .= ',' . implode(' | ', $tmp);
-				}
 				if ($this->input->post('status'))
 				{
 					$voted = $this->Voted->select_all_by_voter_id($voter['id']);
@@ -442,7 +335,15 @@ class Voters extends CI_Controller {
 
 	function _rule_running_election()
 	{
-		if ($this->Election->is_running($this->input->post('chosen_elections')))
+		$block_id = $this->input->post('block_id');
+		$blocks = $this->Block_Election_Position->select_all_by_block_id($block_id);
+		$election_ids = array();
+		foreach ($blocks as $block)
+		{
+			$election_ids[] = $block['election_id'];
+		}
+		$election_ids = array_unique($election_ids);
+		if ($this->Election->is_running($election_ids))
 		{
 			$this->form_validation->set_message('_rule_running_election', e('admin_voter_running_election'));
 			return FALSE;
