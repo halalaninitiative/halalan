@@ -91,4 +91,4 @@ class Candidate extends CI_Model {
 }
 
 /* End of file candidate.php */
-/* Location: ./system/application/models/candidate.php */
+/* Location: ./application/models/candidate.php */

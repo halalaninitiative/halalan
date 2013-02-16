@@ -69,4 +69,4 @@ class Vote extends CI_Model {
 }
 
 /* End of file vote.php */
-/* Location: ./system/application/models/vote.php */
+/* Location: ./application/models/vote.php */

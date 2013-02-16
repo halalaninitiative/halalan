@@ -27,42 +27,16 @@ class Party extends CI_Model {
 
 	function insert($party)
 	{
-		$chosen = $party['chosen'];
-		unset($party['chosen']);
-		$this->db->insert('parties', $party);
-		if ( ! empty($chosen))
-		{
-			$party_id = $this->db->insert_id();
-			foreach ($chosen as $election_id)
-			{
-				$this->db->insert('elections_parties', compact('election_id', 'party_id'));
-			}
-		}
-		return TRUE;
+		return $this->db->insert('parties', $party);
 	}
 
 	function update($party, $id)
 	{
-		$chosen = $party['chosen'];
-		unset($party['chosen']);
-		$this->db->update('parties', $party, compact('id'));
-		if ( ! empty($chosen))
-		{
-			$this->db->where('party_id', $id);
-			$this->db->delete('elections_parties');
-			$party_id = $id;
-			foreach ($chosen as $election_id)
-			{
-				$this->db->insert('elections_parties', compact('election_id', 'party_id'));
-			}
-		}
-		return TRUE;
+		return $this->db->update('parties', $party, compact('id'));
 	}
 
 	function delete($id)
 	{
-		$this->db->where('party_id', $id);
-		$this->db->delete('elections_parties');
 		$this->db->where(compact('id'));
 		return $this->db->delete('parties');
 	}
@@ -73,13 +47,6 @@ class Party extends CI_Model {
 		$this->db->where(compact('id'));
 		$query = $this->db->get();
 		return $query->row_array();
-	}
-
-	function select_all()
-	{
-		$this->db->from('parties');
-		$query = $this->db->get();
-		return $query->result_array();
 	}
 
 	function select_all_by_election_id($election_id)
@@ -117,4 +84,4 @@ class Party extends CI_Model {
 }
 
 /* End of file party.php */
-/* Location: ./system/application/models/party.php */
+/* Location: ./application/models/party.php */

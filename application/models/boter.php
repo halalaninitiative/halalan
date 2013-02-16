@@ -76,31 +76,12 @@ class Boter extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_all_for_pagination($limit, $offset)
-	{
-		$this->db->from('voters');
-		$this->db->order_by('last_name', 'ASC');
-		$this->db->order_by('first_name', 'ASC');
-		$this->db->limit($limit, $offset);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
 	function select_by_username($username)
 	{
 		$this->db->from('voters');
 		$this->db->where(compact('username'));
 		$query = $this->db->get();
 		return $query->row_array();
-	}
-
-	function select_by_match($username)
-	{
-		$match = '%'.$username.'%';
-		$this->db->from('voters');
-		$this->db->where('name', $match);
-		$results = $this->db->get();
-		return $results->result_array();
 	}
 
 	function in_use($voter_id)
@@ -122,4 +103,4 @@ class Boter extends CI_Model {
 }
 
 /* End of file boter.php */
-/* Location: ./system/application/models/boter.php */
+/* Location: ./application/models/boter.php */

@@ -37,10 +37,6 @@ class Position extends CI_Model {
 
 	function delete($id)
 	{
-		$this->db->where('position_id', $id);
-		$this->db->delete('elections_positions');
-		$this->db->where('position_id', $id);
-		$this->db->delete('blocks_elections_positions');
 		$this->db->where(compact('id'));
 		return $this->db->delete('positions');
 	}
@@ -51,14 +47,6 @@ class Position extends CI_Model {
 		$this->db->where(compact('id'));
 		$query = $this->db->get();
 		return $query->row_array();
-	}
-
-	function select_all()
-	{
-		$this->db->from('positions');
-		$this->db->order_by('ordinality', 'ASC');
-		$query = $this->db->get();
-		return $query->result_array();
 	}
 
 	function select_all_by_ids($ids)
@@ -109,4 +97,4 @@ class Position extends CI_Model {
 }
 
 /* End of file position.php */
-/* Location: ./system/application/models/position.php */
+/* Location: ./application/models/position.php */

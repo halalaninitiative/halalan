@@ -53,4 +53,4 @@ class Abstain extends CI_Model {
 }
 
 /* End of file abstain.php */
-/* Location: ./system/application/models/abstain.php */
+/* Location: ./application/models/abstain.php */

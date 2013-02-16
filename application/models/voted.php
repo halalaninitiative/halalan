@@ -54,4 +54,4 @@ class Voted extends CI_Model {
 }
 
 /* End of file voted.php */
-/* Location: ./system/application/models/voted.php */
+/* Location: ./application/models/voted.php */

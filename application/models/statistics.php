@@ -109,4 +109,4 @@ class Statistics extends CI_Model {
 }
 
 /* End of file statistics.php */
-/* Location: ./system/application/models/statistics.php */
+/* Location: ./application/models/statistics.php */

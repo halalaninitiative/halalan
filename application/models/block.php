@@ -131,4 +131,4 @@ class Block extends CI_Model {
 }
 
 /* End of file block.php */
-/* Location: ./system/application/models/block.php */
+/* Location: ./application/models/block.php */

@@ -100,15 +100,6 @@ class Election extends CI_Model {
 		return $query->result_array();
 	}
 
-	// all elections that have positions assigned to them
-	function select_all_with_positions()
-	{
-		$this->db->from('elections');
-		$this->db->where('id IN (SELECT DISTINCT election_id FROM elections_positions)');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
 	// elections with results should not be running
 	function select_all_with_results()
 	{
@@ -145,4 +136,4 @@ class Election extends CI_Model {
 }
 
 /* End of file election.php */
-/* Location: ./system/application/models/election.php */
+/* Location: ./application/models/election.php */
