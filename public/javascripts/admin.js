@@ -93,36 +93,20 @@ function fillPositionsAndParties() {
 }
 
 function changeElections() {
-	var url = SITE_URL;
-	if (url.length - 1 != url.lastIndexOf('/')) {
-		url += '/';
-	}
-	url += 'admin/';
-	// get string after SITE_URL + admin and before the next /
-	// example expected values: candidates, positions, etc
-	url += window.location.href.substring(url.length).split('/')[0];
-	url += '/index/' + $(this).val();
+	var url = window.location.href;
 	$.cookie('selected_election', $(this).val(), {path: '/'});
 	$.cookie('selected_position', '', {path: '/'});
 	window.location.href = url;
 }
 
 function changePositions() {
-	var url = SITE_URL;
-	if (url.length - 1 != url.lastIndexOf('/')) {
-		url += '/';
-	}
-	url += 'admin/candidates/index/' + $('select.changeElections').val() + '/' + $(this).val();
+	var url = window.location.href;
 	$.cookie('selected_position', $(this).val(), {path: '/'});
 	window.location.href = url;
 }
 
 function changeBlocks() {
-	var url = SITE_URL;
-	if (url.length - 1 != url.lastIndexOf('/')) {
-		url += '/';
-	}
-	url += 'admin/voters/';
+	var url = window.location.href;
 	$.cookie('selected_block', $(this).val(), {path: '/'});
 	window.location.href = url;
 }

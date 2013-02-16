@@ -35,7 +35,7 @@ class Candidates extends CI_Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index($election_id = 0, $position_id = 0)
+	function index()
 	{
 		$election_id = get_cookie('selected_election');
 		$position_id = get_cookie('selected_position');
