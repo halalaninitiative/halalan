@@ -46,7 +46,6 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 define('HALALAN_UPLOAD_PATH', './public/uploads/');
 define('HALALAN_ALLOWED_TYPES', 'gif|jpg|png');
-define('HALALAN_PER_PAGE', 50);
 define('HALALAN_VERSION', 'Dev');
 
 

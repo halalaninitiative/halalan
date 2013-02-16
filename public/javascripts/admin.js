@@ -117,6 +117,16 @@ function changePositions() {
 	window.location.href = url;
 }
 
+function changeBlocks() {
+	var url = SITE_URL;
+	if (url.length - 1 != url.lastIndexOf('/')) {
+		url += '/';
+	}
+	url += 'admin/voters/';
+	$.cookie('selected_block', $(this).val(), {path: '/'});
+	window.location.href = url;
+}
+
 /* DOM is ready */
 $(document).ready(function () {
 	var menu_map = {};
@@ -135,6 +145,7 @@ $(document).ready(function () {
 	$('select.fillPositionsAndParties').change(fillPositionsAndParties);
 	$('select.changeElections').change(changeElections);
 	$('select.changePositions').change(changePositions);
+	$('select.changeBlocks').change(changeBlocks);
 	/* Code that aren't bound to events */
 	highlightMenuItem(menu_map);
 	animateFlashMessage();

@@ -3,7 +3,11 @@
 	<h2><?php echo e('admin_voters_label'); ?></h2>
 </div>
 <div class="content_right">
-	<p class="align_right"><?php echo anchor('admin/voters/add', e('admin_voters_add')); ?></p>
+	<p class="align_right">
+		<?php echo anchor('admin/voters/add', e('admin_voters_add')); ?>
+		| View:
+		<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), $block_id, 'class="changeBlocks" style="width: 130px;"'); ?>
+	</p>
 </div>
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" class="table">
@@ -18,11 +22,10 @@
 	</tr>
 	<?php else: ?>
 	<?php $i = 0; ?>
-	<?php $j = $offset; ?>
 	<?php foreach ($voters as $voter): ?>
 	<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even'  ?>">
 		<td align="center">
-			<?php echo $j + 1; ?>
+			<?php echo $i + 1; ?>
 		</td>
 		<td>
 			<?php echo anchor('admin/voters/edit/' . $voter['id'], $voter['last_name'] . ', ' . $voter['first_name']); ?>
@@ -32,23 +35,10 @@
 			<?php echo anchor('admin/voters/delete/' . $voter['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
 		</td>
 	</tr>
-	<?php $j++; ?>
 	<?php $i = $i + 1; ?>
 	<?php endforeach; ?>
 	<?php endif; ?>
 </table>
-<?php if (!empty($links)): ?>
-<div class="paging">
-	<?php echo $links; ?><br />
-	Results <?php echo ($offset + 1); ?> -
-	<?php if (($offset + $limit) > $total_rows): ?>
-		<?php echo $total_rows; ?>
-	<?php else: ?>
-		<?php echo ($offset + $limit); ?>
-	<?php endif; ?>
-	of <?php echo $total_rows; ?>.
-</div>
-<?php endif; ?>
 <div class="notes">
 	<h2>Advanced Options</h2>
 	<ul>

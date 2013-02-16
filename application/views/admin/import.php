@@ -7,7 +7,7 @@
 			<?php echo form_label(e('admin_import_block') . ':' , 'block_id'); ?>
 		</td>
 		<td>
-			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id'), 'id="block_id"'); ?>
+			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id', get_cookie('selected_block')), 'id="block_id"'); ?>
 		</td>
 	</tr>
 	<tr>

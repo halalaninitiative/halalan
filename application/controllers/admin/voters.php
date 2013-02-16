@@ -35,29 +35,12 @@ class Voters extends CI_Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index($offset = null)
+	function index()
 	{
-		$voters = $this->Boter->select_all();
-		$config['base_url'] = site_url('admin/voters/index');
-		$config['total_rows'] = count($voters);
-		$config['per_page'] = HALALAN_PER_PAGE;
-		$config['uri_segment'] = 4;
-		$config['num_links'] = 5;
-		$config['first_link'] = img('public/images/go-first.png');
-		$config['last_link'] = img('public/images/go-last.png');
-		$config['prev_link'] = img('public/images/go-previous.png');
-		$config['next_link'] = img('public/images/go-next.png');
-		$this->pagination->initialize($config); 
-		$data['links'] = $this->pagination->create_links();
-		if ($offset == null)
-		{
-			$offset = 0;
-		}
-		$limit = $config['per_page'];
-		$data['offset'] = $offset;
-		$data['limit'] = $limit;
-		$data['total_rows'] = $config['total_rows'];
-		$data['voters'] = $this->Boter->select_all_for_pagination($limit, $offset);
+		$block_id = get_cookie('selected_block');
+		$data['block_id'] = $block_id;
+		$data['blocks'] = $this->Block->select_all();
+		$data['voters'] = $this->Boter->select_all_by_block_id($block_id);
 		$admin['username'] = $this->admin['username'];
 		$admin['title'] = e('admin_voters_title');
 		$admin['body'] = $this->load->view('admin/voters', $data, TRUE);
@@ -105,7 +88,7 @@ class Voters extends CI_Controller {
 	{
 		if ($case == 'add')
 		{
-			$data['voter'] = array('username' => '', 'first_name' => '', 'last_name' => '', 'block_id' => '');
+			$data['voter'] = array('block_id' => get_cookie('selected_block'), 'username' => '', 'first_name' => '', 'last_name' => '');
 			$this->session->unset_userdata('voter'); // so callback rules know that the action is add
 		}
 		else if ($case == 'edit')

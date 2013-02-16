@@ -148,6 +148,7 @@ class Gate extends CI_Controller {
 		setcookie('halalan_abstain', '', time() - 3600, '/'); // used in abstain alert
 		setcookie('selected_election', '', time() - 3600, '/'); // used in remembering selected election
 		setcookie('selected_position', '', time() - 3600, '/'); // used in remembering selected position
+		setcookie('selected_block', '', time() - 3600, '/'); // used in remembering selected block
 		$this->session->sess_destroy();
 		redirect('gate/' . $gate);
 	}
