@@ -151,6 +151,17 @@ class Candidates extends CI_Controller {
 			}
 			$this->session->set_userdata('candidate', $data['candidate']); // used in callback rules
 		}
+		if ($this->input->post('election_id'))
+		{
+			$election_id = $this->input->post('election_id');
+			// set cookie again since the election might have changed
+			set_cookie('selected_election', $this->input->post('election_id'), 0);
+		}
+		if ($this->input->post('position_id'))
+		{
+			// set cookie again since the position might have changed
+			set_cookie('selected_position', $this->input->post('position_id'), 0);
+		}
 		$this->form_validation->set_rules('first_name', e('admin_candidate_first_name'), 'required|callback__rule_dependencies');
 		$this->form_validation->set_rules('last_name', e('admin_candidate_last_name'), 'required|callback__rule_candidate_exists');
 		$this->form_validation->set_rules('alias', e('admin_candidate_alias'));
@@ -185,15 +196,6 @@ class Candidates extends CI_Controller {
 				$this->session->set_flashdata('messages', array('positive', e('admin_edit_candidate_success')));
 				redirect('admin/candidates/edit/' . $id);
 			}
-		}
-		if ($this->input->post('election_id'))
-		{
-			$election_id = $this->input->post('election_id');
-		}
-		if ($this->input->post('position_id'))
-		{
-			// set cookie again since the position might have changed
-			set_cookie('selected_position', $this->input->post('position_id'), 0);
 		}
 		$data['elections'] = $this->Election->select_all();
 		$data['positions'] = array();

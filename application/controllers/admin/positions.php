@@ -109,6 +109,11 @@ class Positions extends CI_Controller {
 			}
 			$this->session->set_userdata('position', $data['position']); // used in callback rules
 		}
+		if ($this->input->post('election_id'))
+		{
+			// set cookie again since the election might have changed
+			set_cookie('selected_election', $this->input->post('election_id'), 0);
+		}
 		$this->form_validation->set_rules('election_id', e('admin_position_election'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('position', e('admin_position_position'), 'required|callback__rule_position_exists|callback__rule_dependencies');
 		$this->form_validation->set_rules('description', e('admin_position_description'));

@@ -109,6 +109,11 @@ class Parties extends CI_Controller {
 			}
 			$this->session->set_userdata('party', $data['party']); // used in callback rules
 		}
+		if ($this->input->post('election_id'))
+		{
+			// set cookie again since the election might have changed
+			set_cookie('selected_election', $this->input->post('election_id'), 0);
+		}
 		$this->form_validation->set_rules('election_id', e('admin_party_election'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('party', e('admin_party_party'), 'required|callback__rule_party_exists|callback__rule_dependencies');
 		$this->form_validation->set_rules('alias', e('admin_party_alias'));
