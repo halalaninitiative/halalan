@@ -16,13 +16,7 @@
 		<?php else: ?>
 			<?php foreach ($position['candidates'] as $candidate): ?>
 				<?php
-					$name = $candidate['first_name'];
-					if ( ! empty($candidate['alias']))
-					{
-						$name .= ' "' . $candidate['alias'] . '"';
-					}
-					$name .= ' ' . $candidate['last_name'];
-					$name = quotes_to_entities($name);
+					$name = candidate_name($candidate);
 				?>
 				<?php if ($candidate['voted']): ?>
 				<tr class="selected">

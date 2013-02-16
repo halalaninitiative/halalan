@@ -23,13 +23,7 @@
 					<?php foreach ($position['candidates'] as $candidate): ?>
 					<?php if ($candidate['voted']): ?>
 					<?php
-						$name = $candidate['first_name'];
-						if ( ! empty($candidate['alias']))
-						{
-							$name .= ' "' . $candidate['alias'] . '"';
-						}
-						$name .= ' ' . $candidate['last_name'];
-						$name = quotes_to_entities($name);
+						$name = candidate_name($candidate);
 						if (isset($candidate['party']['party']) && ! empty($candidate['party']['party']))
 						{
 							if (empty($candidate['party']['alias']))

@@ -29,13 +29,7 @@
 						{
 							$checked = FALSE;
 						}
-						$name = $candidate['first_name'];
-						if ( ! empty($candidate['alias']))
-						{
-							$name .= ' "' . $candidate['alias'] . '"';
-						}
-						$name .= ' ' . $candidate['last_name'];
-						$name = quotes_to_entities($name);
+						$name = candidate_name($candidate);
 					?>
 					<tr>
 						<td class="w5">
