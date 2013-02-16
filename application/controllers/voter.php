@@ -206,10 +206,25 @@ class Voter extends CI_Controller {
 		if ($this->settings['captcha'])
 		{
 			$this->load->helper('captcha');
-			$vals = array('img_path' => './public/captcha/', 'img_url' => base_url() . 'public/captcha/', 'font_path' => './public/fonts/Vera.ttf', 'img_width' => 150, 'img_height' => 60, 'word_length' => $this->settings['captcha_length']);
+			$vals = array(
+					'word' => random_string('alnum', $this->settings['captcha_length']),
+					'img_path' => './public/captcha/',
+					'img_url' => base_url('public/captcha') . '/',
+					'font_path' => './public/fonts/Vera.ttf',
+					'img_width' => 150,
+					'img_height' => 60,
+					'expiration' => 1800
+				);
 			$captcha = create_captcha($vals);
 			$data['captcha'] = $captcha;
-			$this->session->set_userdata('word', $captcha['word']);
+			// insert into DB
+			$kaptcha = array(
+					'captcha_time' => $captcha['time'],
+					'ip_address' => $this->input->ip_address(),
+					'word' => $captcha['word']
+				);
+			$query = $this->db->insert_string('captchas', $kaptcha);
+			$this->db->query($query);
 		}
 		$data['settings'] = $this->settings;
 		$voter['username'] = $this->voter['username'];
@@ -230,9 +245,19 @@ class Voter extends CI_Controller {
 			}
 			else
 			{
-				$word = $this->session->userdata('word');
-				if ($captcha != $word)
+				// from CI doc
+				// First, delete old captchas
+				$expiration = time() - 1800; // 30-minute limit
+				$this->db->query('DELETE FROM captchas WHERE captcha_time < ' . $expiration);
+				// Then see if a captcha exists:
+				$sql = 'SELECT COUNT(*) AS count FROM captchas WHERE word = ? AND ip_address = ? AND captcha_time > ?';
+				$binds = array($captcha, $this->input->ip_address(), $expiration);
+				$query = $this->db->query($sql, $binds);
+				$row = $query->row();
+				if ($row->count == 0)
+				{
 					$error[] = e('voter_confirm_vote_not_captcha');
+				}
 			}
 		}
 		if ($this->settings['pin'])

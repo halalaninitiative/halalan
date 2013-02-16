@@ -128,3 +128,12 @@ CREATE TABLE sessions (
     PRIMARY KEY (session_id),
     KEY (last_activity)
 );
+
+CREATE TABLE captchas (
+    captcha_id bigint(13) unsigned NOT NULL auto_increment,
+    captcha_time int(10) unsigned NOT NULL,
+    ip_address varchar(45) DEFAULT '0' NOT NULL,
+    word varchar(20) NOT NULL,
+    PRIMARY KEY (captcha_id),
+    KEY (word)
+);
