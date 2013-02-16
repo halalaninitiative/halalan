@@ -146,8 +146,9 @@ class Positions extends CI_Controller {
 
 	function _rule_position_exists()
 	{
+		$election_id = $this->input->post('election_id');
 		$position = trim($this->input->post('position', TRUE));
-		if ($test = $this->Position->select_by_position($position))
+		if ($test = $this->Position->select_by_election_id_and_position($election_id, $position))
 		{
 			$error = FALSE;
 			if ($position = $this->session->userdata('position')) // edit

@@ -212,10 +212,11 @@ class Candidates extends CI_Controller {
 
 	function _rule_candidate_exists()
 	{
+		$election_id = $this->input->post('election_id');
 		$first_name = trim($this->input->post('first_name', TRUE));
 		$last_name = trim($this->input->post('last_name', TRUE));
 		$alias = trim($this->input->post('alias', TRUE));
-		if ($test = $this->Candidate->select_by_name_and_alias($first_name, $last_name, $alias))
+		if ($test = $this->Candidate->select_by_election_id_and_name_and_alias($election_id, $first_name, $last_name, $alias))
 		{
 			$error = FALSE;
 			if ($candidate = $this->session->userdata('candidate')) // edit
@@ -231,12 +232,7 @@ class Candidates extends CI_Controller {
 			}
 			if ($error)
 			{
-				$name = $test['last_name'] . ', ' . $test['first_name'];
-				if ( ! empty($test['alias']))
-				{
-					$name .= ' "' . $test['alias'] . '"';
-				}
-				$message = e('admin_candidate_exists') . ' (' . $name . ')';
+				$message = e('admin_candidate_exists') . ' (' . candidate_name($test) . ')';
 				$this->form_validation->set_message('_rule_candidate_exists', $message);
 				return FALSE;
 			}

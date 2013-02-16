@@ -58,9 +58,10 @@ class Party extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_by_party($party)
+	function select_by_election_id_and_party($election_id, $party)
 	{
 		$this->db->from('parties');
+		$this->db->where(compact('election_id'));
 		$this->db->where(compact('party'));
 		$query = $this->db->get();
 		return $query->row_array();

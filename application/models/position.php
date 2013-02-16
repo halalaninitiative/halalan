@@ -67,9 +67,10 @@ class Position extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_by_position($position)
+	function select_by_election_id_and_position($election_id, $position)
 	{
 		$this->db->from('positions');
+		$this->db->where(compact('election_id'));
 		$this->db->where(compact('position'));
 		$query = $this->db->get();
 		return $query->row_array();

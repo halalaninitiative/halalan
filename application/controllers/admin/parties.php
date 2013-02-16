@@ -148,8 +148,9 @@ class Parties extends CI_Controller {
 
 	function _rule_party_exists()
 	{
+		$election_id = $this->input->post('election_id');
 		$party = trim($this->input->post('party', TRUE));
-		if ($test = $this->Party->select_by_party($party))
+		if ($test = $this->Party->select_by_election_id_and_party($election_id, $party))
 		{
 			$error = FALSE;
 			if ($party = $this->session->userdata('party')) // edit

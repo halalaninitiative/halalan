@@ -58,9 +58,10 @@ class Candidate extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_by_name_and_alias($first_name, $last_name, $alias)
+	function select_by_election_id_and_name_and_alias($election_id, $first_name, $last_name, $alias)
 	{
 		$this->db->from('candidates');
+		$this->db->where(compact('election_id'));
 		if (empty($alias))
 		{
 			$this->db->where(compact('first_name', 'last_name'));
