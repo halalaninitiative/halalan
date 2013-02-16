@@ -61,9 +61,9 @@ function fillPositionsAndParties() {
 	$.ajax({
 		type: "POST",
 		url: window.location.href,
-                data: $(this).serialize() + '&halalan_csrf_token=' + $('input[name="halalan_csrf_token"]').val(),
+		data: $(this).serialize() + '&halalan_csrf_token=' + $('input[name="halalan_csrf_token"]').val(),
+		dataType: 'json',
 		success: function(msg){
-			var msg = $.parseJSON(msg);
 			var positions = msg[0];
 			var parties = msg[1];
 			var option = new Option();
@@ -73,7 +73,7 @@ function fillPositionsAndParties() {
 			$('#position_id').append(option);
 			for (i = 0; i < positions.length; i++) {
 				option = new Option();
-				option.value = positions[i].position_id;
+				option.value = positions[i].id;
 				option.text = positions[i].position;
 				$('#position_id').append(option);
 			}
@@ -84,7 +84,7 @@ function fillPositionsAndParties() {
 			$('#party_id').append(option);
 			for (i = 0; i < parties.length; i++) {
 				option = new Option();
-				option.value = parties[i].party_id;
+				option.value = parties[i].id;
 				option.text = parties[i].party;
 				$('#party_id').append(option);
 			}
