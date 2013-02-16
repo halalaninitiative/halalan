@@ -8,6 +8,14 @@
 <table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
 	<tr>
 		<td class="w20" align="right">
+			<?php echo form_label(e('admin_voter_block') . ':' , 'block_id'); ?>
+		</td>
+		<td>
+			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id', $voter['block_id']), 'id="block_id"'); ?>
+		</td>
+	</tr>
+	<tr>
+		<td class="w20" align="right">
 			<?php echo form_label(($settings['password_pin_generation'] == 'email') ? e('admin_voter_email') : e('admin_voter_username') . ':', 'username'); ?>
 		</td>
 		<td>
@@ -28,14 +36,6 @@
 		</td>
 		<td>
 			<?php echo form_input('first_name', set_value('first_name', $voter['first_name']), 'id="first_name" maxlength="63" class="text"'); ?>
-		</td>
-	</tr>
-	<tr>
-		<td class="w20" align="right">
-			<?php echo form_label(e('admin_voter_block') . ':' , 'block_id'); ?>
-		</td>
-		<td>
-			<?php echo form_dropdown('block_id', for_dropdown($blocks, 'id', 'block'), set_value('block_id', $voter['block_id']), 'id="block_id"'); ?>
 		</td>
 	</tr>
 </table>
