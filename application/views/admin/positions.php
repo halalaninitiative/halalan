@@ -14,6 +14,7 @@
 	<tr>
 		<th scope="col" class="w5"><?php echo e('common_id'); ?></th>
 		<th scope="col"><?php echo e('admin_positions_position'); ?></th>
+		<th scope="col" class="w5"><?php echo e('admin_positions_maximum'); ?></th>
 		<th scope="col" class="w45"><?php echo e('admin_positions_description'); ?></th>
 		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
 	</tr>
@@ -30,6 +31,9 @@
 		</td>
 		<td>
 			<?php echo anchor('admin/positions/edit/' . $position['id'], $position['position']); ?>
+		</td>
+		<td>
+			<?php echo $position['maximum']; ?>
 		</td>
 		<td>
 			<?php echo nl2br($position['description']); ?>
