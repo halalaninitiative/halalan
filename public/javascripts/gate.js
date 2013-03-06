@@ -55,4 +55,5 @@ $(document).ready(function () {
 	/* Code that aren't bound to events */
 	animateFlashMessage();
 	highlightMenuItem(menu_map);
+	$("input#username").focus();
 });
