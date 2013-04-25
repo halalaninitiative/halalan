@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,12 +20,12 @@
 
 class Abmin extends CI_Model {
 	
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function authenticate($username, $password)
+	public function authenticate($username, $password)
 	{
 		$this->db->from('admins');
 		$this->db->where(compact('username', 'password'));

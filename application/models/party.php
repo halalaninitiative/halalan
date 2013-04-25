@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,28 +20,28 @@
 
 class Party extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function insert($party)
+	public function insert($party)
 	{
 		return $this->db->insert('parties', $party);
 	}
 
-	function update($party, $id)
+	public function update($party, $id)
 	{
 		return $this->db->update('parties', $party, compact('id'));
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->db->where(compact('id'));
 		return $this->db->delete('parties');
 	}
 
-	function select($id)
+	public function select($id)
 	{
 		$this->db->from('parties');
 		$this->db->where(compact('id'));
@@ -49,7 +49,7 @@ class Party extends CI_Model {
 		return $query->row_array();
 	}
 
-	function select_all_by_election_id($election_id)
+	public function select_all_by_election_id($election_id)
 	{
 		$this->db->from('parties');
 		$this->db->where('election_id', $election_id);
@@ -58,7 +58,7 @@ class Party extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_by_election_id_and_party($election_id, $party)
+	public function select_by_election_id_and_party($election_id, $party)
 	{
 		$this->db->from('parties');
 		$this->db->where(compact('election_id'));
@@ -67,14 +67,14 @@ class Party extends CI_Model {
 		return $query->row_array();
 	}
 
-	function in_use($party_id)
+	public function in_use($party_id)
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('party_id'));
 		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
 	}
 
-	function in_running_election($id)
+	public function in_running_election($id)
 	{
 		$this->db->from('parties');
 		$this->db->where(compact('id'));

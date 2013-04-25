@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,10 +20,10 @@
 
 class Blocks extends CI_Controller {
 
-	var $admin;
-	var $settings;
+	private $admin;
+	private $settings;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->admin = $this->session->userdata('admin');
@@ -35,7 +35,7 @@ class Blocks extends CI_Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index()
+	public function index()
 	{
 		$election_id = get_cookie('selected_election');
 		$data['election_id'] = $election_id;
@@ -47,17 +47,17 @@ class Blocks extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function add()
+	public function add()
 	{
 		$this->_block('add');
 	}
 
-	function edit($id)
+	public function edit($id)
 	{
 		$this->_block('edit', $id);
 	}
 
-	function delete($id) 
+	public function delete($id) 
 	{
 		if ( ! $id)
 		{
@@ -84,7 +84,7 @@ class Blocks extends CI_Controller {
 		redirect('admin/blocks');
 	}
 
-	function _block($case, $id = null)
+	public function _block($case, $id = null)
 	{
 		$selected = array();
 		if ($case == 'add')
@@ -174,7 +174,7 @@ class Blocks extends CI_Controller {
 	}
 
 	// a block cannot be added to a running election
-	function _rule_running_election()
+	public function _rule_running_election()
 	{
 		$elections_positions = $this->input->post('elections_positions');
 		$election_ids = array();
@@ -192,7 +192,7 @@ class Blocks extends CI_Controller {
 	}
 
 	// blocks must have different names
-	function _rule_block_exists()
+	public function _rule_block_exists()
 	{
 		$block = trim($this->input->post('block', TRUE));
 		$test = $this->Block->select_by_block($block);
@@ -221,7 +221,7 @@ class Blocks extends CI_Controller {
 	}
 
 	// a block cannot change election when it already has voters under it
-	function _rule_dependencies()
+	public function _rule_dependencies()
 	{
 		if ($block = $this->session->userdata('block')) // check when in edit mode
 		{

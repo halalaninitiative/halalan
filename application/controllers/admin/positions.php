@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,10 +20,10 @@
 
 class Positions extends CI_Controller {
 
-	var $admin;
-	var $settings;
+	private $admin;
+	private $settings;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->admin = $this->session->userdata('admin');
@@ -35,7 +35,7 @@ class Positions extends CI_Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index()
+	public function index()
 	{
 		$election_id = get_cookie('selected_election');
 		$data['election_id'] = $election_id;
@@ -47,17 +47,17 @@ class Positions extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function add()
+	public function add()
 	{
 		$this->_position('add');
 	}
 
-	function edit($id)
+	public function edit($id)
 	{
 		$this->_position('edit', $id);
 	}
 
-	function delete($id) 
+	public function delete($id) 
 	{
 		if ( ! $id)
 		{
@@ -84,7 +84,7 @@ class Positions extends CI_Controller {
 		redirect('admin/positions');
 	}
 
-	function _position($case, $id = null)
+	public function _position($case, $id = null)
 	{
 		if ($case == 'add')
 		{
@@ -149,7 +149,7 @@ class Positions extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function _rule_position_exists()
+	public function _rule_position_exists()
 	{
 		$election_id = $this->input->post('election_id');
 		$position = trim($this->input->post('position', TRUE));
@@ -178,7 +178,7 @@ class Positions extends CI_Controller {
 	}
 
 	// placed in position so it comes up on top
-	function _rule_dependencies()
+	public function _rule_dependencies()
 	{
 		if ($position = $this->session->userdata('position')) // edit
 		{
@@ -199,7 +199,7 @@ class Positions extends CI_Controller {
 		return TRUE;
 	}
 
-	function _rule_running_election()
+	public function _rule_running_election()
 	{
 		if ($this->Election->is_running($this->input->post('election_id')))
 		{

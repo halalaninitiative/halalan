@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,17 +20,17 @@
 
 class Vote extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function insert($vote)
+	public function insert($vote)
 	{
 		return $this->db->insert('votes', $vote);
 	}
 
-	function breakdown($election_id, $candidate_id)
+	public function breakdown($election_id, $candidate_id)
 	{
 		$this->db->select('block, COUNT(distinct votes.voter_id) AS count');
 		$this->db->from('blocks');
@@ -43,7 +43,7 @@ class Vote extends CI_Model {
 		return $query->result_array();
 	}
 
-	function count_all_by_election_id_and_position_id($election_id, $position_id)
+	public function count_all_by_election_id_and_position_id($election_id, $position_id)
 	{
 		$this->db->select('count(votes.candidate_id) AS votes, candidates.id AS candidate_id');
 		$this->db->from('votes');
@@ -55,7 +55,7 @@ class Vote extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_all_by_voter_id($voter_id)
+	public function select_all_by_voter_id($voter_id)
 	{
 		$this->db->from('votes');
 		$this->db->join('candidates', 'candidates.id = votes.candidate_id');

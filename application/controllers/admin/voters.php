@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,10 +20,10 @@
 
 class Voters extends CI_Controller {
 
-	var $admin;
-	var $settings;
+	private $admin;
+	private $settings;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->admin = $this->session->userdata('admin');
@@ -35,7 +35,7 @@ class Voters extends CI_Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index()
+	public function index()
 	{
 		$block_id = get_cookie('selected_block');
 		$data['block_id'] = $block_id;
@@ -47,17 +47,17 @@ class Voters extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function add()
+	public function add()
 	{
 		$this->_voter('add');
 	}
 
-	function edit($id)
+	public function edit($id)
 	{
 		$this->_voter('edit', $id);
 	}
 
-	function delete($id) 
+	public function delete($id) 
 	{
 		if ( ! $id)
 		{
@@ -84,7 +84,7 @@ class Voters extends CI_Controller {
 		redirect('admin/voters');
 	}
 
-	function _voter($case, $id = null)
+	public function _voter($case, $id = null)
 	{
 		if ($case == 'add')
 		{
@@ -143,7 +143,7 @@ class Voters extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function import()
+	public function import()
 	{
 		$this->form_validation->set_rules('block_id', e('admin_import_block'), 'required|callback__rule_running_election');
 		$this->form_validation->set_rules('csv', e('admin_import_csv'), 'callback__rule_csv');
@@ -219,7 +219,7 @@ class Voters extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function export()
+	public function export()
 	{
 		$this->form_validation->set_rules('block_id', e('admin_export_block'), 'required');
 		if ($this->form_validation->run())
@@ -267,7 +267,7 @@ class Voters extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function generate()
+	public function generate()
 	{
 		$this->form_validation->set_rules('block_id', e('admin_export_block'), 'required');
 		if ($this->form_validation->run())
@@ -315,7 +315,7 @@ class Voters extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function _rule_voter_exists()
+	public function _rule_voter_exists()
 	{
 		$username = trim($this->input->post('username', TRUE));
 		if ($test = $this->Boter->select_by_username($username))
@@ -343,7 +343,7 @@ class Voters extends CI_Controller {
 	}
 
 	// placed in username so it comes up on top
-	function _rule_dependencies()
+	public function _rule_dependencies()
 	{
 		if ($voter = $this->session->userdata('voter')) // edit
 		{
@@ -364,7 +364,7 @@ class Voters extends CI_Controller {
 		return TRUE;
 	}
 
-	function _rule_running_election()
+	public function _rule_running_election()
 	{
 		$block_id = $this->input->post('block_id');
 		$blocks = $this->Block_Election_Position->select_all_by_block_id($block_id);
@@ -385,7 +385,7 @@ class Voters extends CI_Controller {
 		}
 	}
 
-	function _rule_csv()
+	public function _rule_csv()
 	{
 		$config['upload_path'] = HALALAN_UPLOAD_PATH . 'csvs/';
 		$config['allowed_types'] = 'csv';

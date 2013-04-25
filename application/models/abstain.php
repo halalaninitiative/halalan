@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,17 +20,17 @@
 
 class Abstain extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function insert($abstain)
+	public function insert($abstain)
 	{
 		return $this->db->insert('abstains', $abstain);
 	}
 
-	function breakdown($election_id, $position_id)
+	public function breakdown($election_id, $position_id)
 	{
 		$this->db->select('block, COUNT(distinct abstains.voter_id) AS count');
 		$this->db->from('blocks');
@@ -43,7 +43,7 @@ class Abstain extends CI_Model {
 		return $query->result_array();
 	}
 
-	function count_all_by_election_id_and_position_id($election_id, $position_id)
+	public function count_all_by_election_id_and_position_id($election_id, $position_id)
 	{
 		$this->db->from('abstains');
 		$this->db->where(compact('election_id', 'position_id'));

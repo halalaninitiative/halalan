@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,12 +20,12 @@
 
 class Statistics extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function breakdown_all_voters($election_id)
+	public function breakdown_all_voters($election_id)
 	{
 		$this->db->select('block, COUNT(distinct voters.id) AS count');
 		$this->db->from('blocks');
@@ -38,7 +38,7 @@ class Statistics extends CI_Model {
 		return $query->result_array();
 	}
 
-	function breakdown_all_voted($election_id)
+	public function breakdown_all_voted($election_id)
 	{
 		$this->db->select('block, COUNT(distinct voted.voter_id) AS count');
 		$this->db->from('blocks');
@@ -52,7 +52,7 @@ class Statistics extends CI_Model {
 		return $query->result_array();
 	}
 
-	function breakdown_all_by_duration($election_id, $begin, $end)
+	public function breakdown_all_by_duration($election_id, $begin, $end)
 	{
 		$this->db->select('block, COUNT(distinct voters.id) AS count');
 		$this->db->from('blocks');
@@ -72,7 +72,7 @@ class Statistics extends CI_Model {
 		return $query->result_array();
 	}
 
-	function count_all_voters($election_id)
+	public function count_all_voters($election_id)
 	{
 		$this->db->distinct();
 		$this->db->select('id');
@@ -83,14 +83,14 @@ class Statistics extends CI_Model {
 		return count($query->result_array());
 	}
 
-	function count_all_voted($election_id)
+	public function count_all_voted($election_id)
 	{
 		$this->db->from('voted');
 		$this->db->where('election_id', $election_id);
 		return $this->db->count_all_results();
 	}
 
-	function count_all_by_duration($election_id, $begin, $end)
+	public function count_all_by_duration($election_id, $begin, $end)
 	{
 		$this->db->distinct();
 		$this->db->select('id');

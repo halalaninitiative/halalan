@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,28 +20,28 @@
 
 class Position extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function insert($position)
+	public function insert($position)
 	{
 		return $this->db->insert('positions', $position);
 	}
 
-	function update($position, $id)
+	public function update($position, $id)
 	{
 		return $this->db->update('positions', $position, compact('id'));
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->db->where(compact('id'));
 		return $this->db->delete('positions');
 	}
 
-	function select($id)
+	public function select($id)
 	{
 		$this->db->from('positions');
 		$this->db->where(compact('id'));
@@ -49,7 +49,7 @@ class Position extends CI_Model {
 		return $query->row_array();
 	}
 
-	function select_all_by_ids($ids)
+	public function select_all_by_ids($ids)
 	{
 		$this->db->from('positions');
 		$this->db->where_in('id', $ids);
@@ -58,7 +58,7 @@ class Position extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_all_by_election_id($election_id)
+	public function select_all_by_election_id($election_id)
 	{
 		$this->db->from('positions');
 		$this->db->where('election_id', $election_id);
@@ -67,7 +67,7 @@ class Position extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_by_election_id_and_position($election_id, $position)
+	public function select_by_election_id_and_position($election_id, $position)
 	{
 		$this->db->from('positions');
 		$this->db->where(compact('election_id'));
@@ -76,7 +76,7 @@ class Position extends CI_Model {
 		return $query->row_array();
 	}
 
-	function in_use($position_id)
+	public function in_use($position_id)
 	{
 		$this->db->from('candidates');
 		$this->db->where(compact('position_id'));
@@ -87,7 +87,7 @@ class Position extends CI_Model {
 		return $has_candidates || $has_blocks ? TRUE : FALSE;
 	}
 
-	function in_running_election($id)
+	public function in_running_election($id)
 	{
 		$this->db->from('positions');
 		$this->db->where(compact('id'));

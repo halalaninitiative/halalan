@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,10 +20,10 @@
 
 class Home extends CI_Controller {
 
-	var $admin;
-	var $settings;
+	private $admin;
+	private $settings;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->admin = $this->session->userdata('admin');
@@ -35,7 +35,7 @@ class Home extends CI_Controller {
 		$this->settings = $this->config->item('halalan');
 	}
 	
-	function index()
+	public function index()
 	{
 		$data['settings'] = $this->settings;
 		$admin['username'] = $this->admin['username'];
@@ -44,7 +44,7 @@ class Home extends CI_Controller {
 		$this->load->view('admin', $admin);
 	}
 
-	function do_regenerate()
+	public function do_regenerate()
 	{
 		$error = array();
 		if ( ! $this->input->post('username'))

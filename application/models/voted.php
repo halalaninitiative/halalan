@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,22 +20,22 @@
 
 class Voted extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function insert($voted)
+	public function insert($voted)
 	{
 		return $this->db->insert('voted', $voted);
 	}
 
-	function update($voted, $election_id, $voter_id)
+	public function update($voted, $election_id, $voter_id)
 	{
 		return $this->db->update('voted', $voted, compact('election_id', 'voter_id'));
 	}
 
-	function select($election_id, $voter_id)
+	public function select($election_id, $voter_id)
 	{
 		$this->db->from('voted');
 		$this->db->where(compact('election_id', 'voter_id'));
@@ -43,7 +43,7 @@ class Voted extends CI_Model {
 		return $query->row_array();
 	}
 
-	function select_all_by_voter_id($voter_id)
+	public function select_all_by_voter_id($voter_id)
 	{
 		$this->db->from('voted');
 		$this->db->where(compact('voter_id'));

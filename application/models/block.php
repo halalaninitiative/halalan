@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,12 +20,12 @@
 
 class Block extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function insert($block)
+	public function insert($block)
 	{
 		if (isset($block['extra']))
 		{
@@ -46,7 +46,7 @@ class Block extends CI_Model {
 		return TRUE;
 	}
 
-	function update($block, $id)
+	public function update($block, $id)
 	{
 		if (isset($block['extra']))
 		{
@@ -69,7 +69,7 @@ class Block extends CI_Model {
 		return TRUE;
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->db->where('block_id', $id);
 		$this->db->delete('blocks_elections_positions');
@@ -77,7 +77,7 @@ class Block extends CI_Model {
 		return $this->db->delete('blocks');
 	}
 
-	function select($id)
+	public function select($id)
 	{
 		$this->db->from('blocks');
 		$this->db->where(compact('id'));
@@ -85,7 +85,7 @@ class Block extends CI_Model {
 		return $query->row_array();
 	}
 
-	function select_all()
+	public function select_all()
 	{
 		$this->db->from('blocks');
 		$this->db->order_by('block', 'ASC');
@@ -93,7 +93,7 @@ class Block extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_all_by_election_id($election_id)
+	public function select_all_by_election_id($election_id)
 	{
 		$this->db->distinct();
 		$this->db->select('blocks.*');
@@ -105,7 +105,7 @@ class Block extends CI_Model {
 		return $query->result_array();
 	}
 
-	function select_by_block($block)
+	public function select_by_block($block)
 	{
 		$this->db->from('blocks');
 		$this->db->where('block', $block);
@@ -113,14 +113,14 @@ class Block extends CI_Model {
 		return $query->row_array();
 	}
 
-	function in_use($block_id)
+	public function in_use($block_id)
 	{
 		$this->db->from('voters');
 		$this->db->where('block_id', $block_id);
 		return $this->db->count_all_results() > 0 ? TRUE : FALSE;
 	}
 
-	function in_running_election($block_id)
+	public function in_running_election($block_id)
 	{
 		$this->db->from('blocks_elections_positions');
 		$this->db->where('block_id', $block_id);

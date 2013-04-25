@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
  *
@@ -20,12 +20,12 @@
 
 class Block_Election_Position extends CI_Model {
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function select_all_by_block_id($block_id)
+	public function select_all_by_block_id($block_id)
 	{
 		$this->db->from('blocks_elections_positions');
 		$this->db->where(compact('block_id'));
