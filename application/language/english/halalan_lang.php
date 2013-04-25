@@ -274,6 +274,7 @@ $lang['halalan_admin_edit_party_submit'] = 'Edit Party';
 // views/admin/positions.php
 $lang['halalan_admin_positions_label'] = 'Manage Positions';
 $lang['halalan_admin_positions_position'] = 'Position';
+$lang['halalan_admin_positions_maximum'] = 'Maximum';
 $lang['halalan_admin_positions_description'] = 'Description';
 $lang['halalan_admin_positions_no_positions'] = 'No positions found.';
 $lang['halalan_admin_positions_add'] = 'Add Position';
