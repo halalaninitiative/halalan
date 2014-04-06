@@ -1,31 +1,4 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP 4.3.2 or newer
- *
- * @package		CodeIgniter
- * @author		Rick Ellis
- * @copyright	Copyright (c) 2006, EllisLab, Inc.
- * @license		http://www.codeignitor.com/user_guide/license.html
- * @link		http://www.codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
-
-// ------------------------------------------------------------------------
-
-/**
- * CodeIgniter Halalan Helpers
- *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		UP Linux Users' Group
- * @link		http://uplug.org
- */
-
-// ------------------------------------------------------------------------
 
 /**
  * Return line from language file
@@ -116,6 +89,78 @@ function candidate_name($candidate)
 	}
 	$name .= ' ' . $candidate['last_name'];
 	return $name;
+}
+
+/**
+ * Return formatted validation errors or custom messages
+ *
+ * @access	public
+ * @param	string
+ * @param	array
+ * @return	string
+ */
+function alert($errors, $messages = array())
+{
+	$return = '';
+	if ( ! empty($errors))
+	{
+		$return .= '<div class="alert alert-danger">';
+		$return .= '<strong>Oh snap!</strong> Change a few things up and try submitting again.';
+		//$return .= $errors; // Show form errors individually instead.
+		$return .= '</div>';
+	}
+	else if ( ! empty($messages))
+	{
+		$type = array_shift($messages);
+		$return .= '<div class="alert alert-' . $type . '">';
+		$return .= implode('<br />', $messages);
+		$return .= '</div>';
+	}
+	return $return;
+}
+
+/**
+ * Return combined form elements and HTML
+ *
+ * @access	public
+ * @param	string
+ * @param	string
+ * @param	string
+ * @param	string
+ * @return	string
+ */
+function form_group($field_column, $field, $label = '', $error = '')
+{
+	$return = '';
+	$has_error = '';
+	$column_offset = '';
+
+	if ( ! empty($error))
+	{
+		$has_error = ' has-error';
+	}
+	$return .= '<div class="form-group' . $has_error . '">';
+
+	if ( ! empty($label))
+	{
+		$return .= $label;
+	}
+	else
+	{
+		$column = 12 - $field_column;
+		$column_offset = 'col-sm-offset-' . $column . ' ';
+	}
+	$return .= '<div class="' . $column_offset . 'col-sm-' . $field_column . '">';
+
+	$return .= $field;
+
+	if ( ! empty($error))
+	{
+		$return .= $error;
+	}
+
+	$return .= '</div></div>';
+	return $return;
 }
 
 /* End of file halalan_helper.php */
