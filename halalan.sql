@@ -1,133 +1,6 @@
-CREATE TABLE elections (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  election varchar(63) NOT NULL,
-  parent_id integer UNSIGNED,
-  status boolean NOT NULL,
-  results boolean NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (parent_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE positions (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  election_id integer UNSIGNED NOT NULL,
-  position varchar(63) NOT NULL,
-  description text,
-  maximum smallint NOT NULL,
-  ordinality smallint NOT NULL,
-  abstain boolean NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (election_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  KEY (position)
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE parties (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  election_id integer UNSIGNED NOT NULL,
-  party varchar(63) NOT NULL,
-  alias varchar(15),
-  description text,
-  logo varchar(255),
-  PRIMARY KEY (id),
-  FOREIGN KEY (election_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  KEY (party)
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE candidates (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  first_name varchar(63) NOT NULL,
-  last_name varchar(31) NOT NULL,
-  alias varchar(15),
-  party_id integer UNSIGNED,
-  election_id integer UNSIGNED NOT NULL,
-  position_id integer UNSIGNED NOT NULL,
-  description text,
-  picture varchar(255),
-  PRIMARY KEY (id),
-  FOREIGN KEY (election_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (position_id) REFERENCES positions(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (party_id) REFERENCES parties(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  KEY (election_id, position_id),
-  KEY (first_name, last_name),
-  KEY (first_name, last_name, alias)
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE blocks (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  block varchar(63) NOT NULL,
-  description text,
-  PRIMARY KEY (id),
-  KEY (block)
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE blocks_elections_positions (
-  block_id integer UNSIGNED NOT NULL,
-  election_id integer UNSIGNED NOT NULL,
-  position_id integer UNSIGNED NOT NULL,
-  PRIMARY KEY (block_id,election_id,position_id),
-  FOREIGN KEY (block_id) REFERENCES blocks(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (election_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (position_id) REFERENCES positions(id) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE voters (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  username varchar(63) NOT NULL,
-  password varchar(255) NOT NULL,
-  pin varchar(255),
-  first_name varchar(63) NOT NULL,
-  last_name varchar(31) NOT NULL,
-  block_id integer UNSIGNED NOT NULL,
-  login datetime,
-  logout datetime,
-  ip_address integer,
-  PRIMARY KEY (id),
-  FOREIGN KEY (block_id) REFERENCES blocks(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  UNIQUE KEY (username),
-  KEY (first_name, last_name)
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE votes (
-  candidate_id integer UNSIGNED NOT NULL,
-  voter_id integer UNSIGNED NOT NULL,
-  timestamp datetime NOT NULL,
-  PRIMARY KEY (candidate_id,voter_id),
-  FOREIGN KEY (candidate_id) REFERENCES candidates(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (voter_id) REFERENCES voters(id) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE abstains (
-  election_id integer UNSIGNED NOT NULL,
-  position_id integer UNSIGNED NOT NULL,
-  voter_id integer UNSIGNED NOT NULL,
-  timestamp datetime NOT NULL,
-  PRIMARY KEY (election_id,position_id,voter_id),
-  FOREIGN KEY (election_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (position_id) REFERENCES positions(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (voter_id) REFERENCES voters(id) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE voted (
-  election_id integer UNSIGNED NOT NULL,
-  voter_id integer UNSIGNED NOT NULL,
-  image_trail_hash varchar(255),
-  timestamp datetime NOT NULL,
-  PRIMARY KEY (election_id,voter_id),
-  FOREIGN KEY (election_id) REFERENCES elections(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (voter_id) REFERENCES voters(id) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
-CREATE TABLE admins (
-  id integer UNSIGNED NOT NULL AUTO_INCREMENT,
-  email varchar(63) NOT NULL,
-  username varchar(63) NOT NULL,
-  password varchar(255) NOT NULL,
-  first_name varchar(63) NOT NULL,
-  last_name varchar(31) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY (username)
-) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;
-
+-- -----------------------------------------------------
+-- CodeIgniter tables
+-- -----------------------------------------------------
 CREATE TABLE sessions (
     session_id varchar(40) DEFAULT '0' NOT NULL,
     ip_address varchar(45) DEFAULT '0' NOT NULL,
@@ -146,3 +19,297 @@ CREATE TABLE captchas (
     PRIMARY KEY (captcha_id),
     KEY (word)
 );
+
+-- -----------------------------------------------------
+-- Table `admins`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `admins` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `admin_id` INT UNSIGNED NOT NULL,
+  `username` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `first_name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `type` ENUM('event','election') NOT NULL DEFAULT 'election',
+  `is_super` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX (`username` ASC),
+  INDEX (`admin_id` ASC),
+  CONSTRAINT `fk_admins_admins`
+    FOREIGN KEY (`admin_id`)
+    REFERENCES `admins` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `events`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `admin_id` INT UNSIGNED NOT NULL,
+  `event` VARCHAR(255) NOT NULL,
+  `slug` VARCHAR(255) NOT NULL,
+  `config` TEXT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX (`slug` ASC),
+  INDEX (`admin_id` ASC),
+  CONSTRAINT `fk_events_admins`
+    FOREIGN KEY (`admin_id`)
+    REFERENCES `admins` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `elections`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `elections` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `event_id` INT UNSIGNED NOT NULL,
+  `election` VARCHAR(255) NOT NULL,
+  `admin_id` INT UNSIGNED NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX (`event_id` ASC),
+  INDEX (`admin_id` ASC),
+  CONSTRAINT `fk_elections_events`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `events` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_elections_admins`
+    FOREIGN KEY (`admin_id`)
+    REFERENCES `admins` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `positions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `positions` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `election_id` INT UNSIGNED NOT NULL,
+  `position` VARCHAR(255) NOT NULL,
+  `maximum` INT UNSIGNED NOT NULL,
+  `abstain` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  INDEX (`election_id` ASC),
+  CONSTRAINT `fk_positions_elections`
+    FOREIGN KEY (`election_id`)
+    REFERENCES `elections` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `parties`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `parties` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `event_id` INT UNSIGNED NOT NULL,
+  `party` VARCHAR(255) NOT NULL,
+  `alias` VARCHAR(255) NULL,
+  `description` TEXT NULL,
+  `logo` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`event_id` ASC),
+  CONSTRAINT `fk_events_parties`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `events` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `candidates`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `candidates` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `election_id` INT UNSIGNED NOT NULL,
+  `position_id` INT UNSIGNED NOT NULL,
+  `party_id` INT UNSIGNED NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `first_name` VARCHAR(255) NOT NULL,
+  `alias` VARCHAR(255) NULL,
+  `description` TEXT NULL,
+  `picture` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`election_id` ASC),
+  INDEX (`position_id` ASC),
+  INDEX (`party_id` ASC),
+  CONSTRAINT `fk_candidates_elections`
+    FOREIGN KEY (`election_id`)
+    REFERENCES `elections` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_candidates_positions`
+    FOREIGN KEY (`position_id`)
+    REFERENCES `positions` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_candidates_parties`
+    FOREIGN KEY (`party_id`)
+    REFERENCES `parties` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `blocks`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `blocks` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `election_id` INT UNSIGNED NOT NULL,
+  `block` VARCHAR(255) NOT NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`election_id` ASC),
+  CONSTRAINT `fk_blocks_elections`
+    FOREIGN KEY (`election_id`)
+    REFERENCES `elections` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `voters`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `voters` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `block_id` INT UNSIGNED NOT NULL,
+  `username` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `pin` VARCHAR(255) NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `first_name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX (`username` ASC),
+  INDEX (`block_id` ASC),
+  CONSTRAINT `fk_voters_blocks`
+    FOREIGN KEY (`block_id`)
+    REFERENCES `blocks` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `votes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `votes` (
+  `candidate_id` INT UNSIGNED NOT NULL,
+  `voter_id` INT UNSIGNED NOT NULL,
+  `timestamp` DATETIME NOT NULL,
+  PRIMARY KEY (`candidate_id`, `voter_id`),
+  INDEX (`voter_id` ASC),
+  INDEX (`candidate_id` ASC),
+  CONSTRAINT `fk_votes_candidates`
+    FOREIGN KEY (`candidate_id`)
+    REFERENCES `candidates` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_votes_voters`
+    FOREIGN KEY (`voter_id`)
+    REFERENCES `voters` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `abstains`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `abstains` (
+  `position_id` INT UNSIGNED NOT NULL,
+  `voter_id` INT UNSIGNED NOT NULL,
+  `timestamp` DATETIME NOT NULL,
+  PRIMARY KEY (`position_id`, `voter_id`),
+  INDEX (`voter_id` ASC),
+  INDEX (`position_id` ASC),
+  CONSTRAINT `fk_abstains_positions`
+    FOREIGN KEY (`position_id`)
+    REFERENCES `positions` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_abstains_voters`
+    FOREIGN KEY (`voter_id`)
+    REFERENCES `voters` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `voted`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `voted` (
+  `event_id` INT UNSIGNED NOT NULL,
+  `voter_id` INT UNSIGNED NOT NULL,
+  `image_trail_hash` VARCHAR(255) NULL,
+  `timestamp` DATETIME NOT NULL,
+  PRIMARY KEY (`event_id`, `voter_id`),
+  INDEX (`voter_id` ASC),
+  INDEX (`event_id` ASC),
+  CONSTRAINT `fk_voted_events`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `events` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_voted_voters`
+    FOREIGN KEY (`voter_id`)
+    REFERENCES `voters` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ballots`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ballots` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `block_id` INT UNSIGNED NOT NULL,
+  `ballot` VARCHAR(255) NOT NULL,
+  `format` TEXT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX (`block_id` ASC),
+  CONSTRAINT `fk_ballots_blocks`
+    FOREIGN KEY (`block_id`)
+    REFERENCES `blocks` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
