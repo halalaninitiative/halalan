@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'email', 'form_validation', 'image_lib', 'session', 'upload');
+$autoload['libraries'] = array();
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'email', 'form_validation', 'image_li
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('cookie', 'download', 'form', 'halalan', 'html', 'string', 'url');
+$autoload['helper'] = array();
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('cookie', 'download', 'form', 'halalan', 'html', 'st
 |
 */
 
-$autoload['config'] = array('halalan');
+$autoload['config'] = array();
 
 
 /*
@@ -96,7 +96,7 @@ $autoload['config'] = array('halalan');
 |
 */
 
-$autoload['language'] = array('halalan');
+$autoload['language'] = array();
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array('halalan');
 |
 */
 
-$autoload['model'] = array('Abmin', 'Abstain', 'Block', 'Block_Election_Position', 'Boter', 'Candidate', 'Election', 'Party', 'Position', 'Vote', 'Voted');
+$autoload['model'] = array();
 
 
 /* End of file autoload.php */
