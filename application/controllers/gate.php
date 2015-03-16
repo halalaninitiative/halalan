@@ -1,40 +1,21 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
- *
- * This file is part of Halalan.
- *
- * Halalan is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Halalan is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-class Gate extends CI_Controller {
+class Gate extends MY_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		if ( ! in_array($this->uri->segment(2), array('results', 'statistics', 'ballots', 'logout')))
+		if (in_array($this->uri->segment(2), array('admin', 'voter')))
 		{
-			if ($this->session->userdata('admin'))
+			if ($this->session->userdata('type') == 'admin')
 			{
 				redirect('admin/home');
 			}
-			else if ($this->session->userdata('voter'))
+			else if ($this->session->userdata('type') == 'voter')
 			{
 				redirect('voter/vote');
 			}
 		}
-		
 	}
 
 	public function index()
@@ -90,42 +71,39 @@ class Gate extends CI_Controller {
 			redirect('gate/voter');
 		}
 	}
-	
+
 	public function admin()
 	{
-		$gate['login'] = 'admin';
-		$gate['title'] = e('gate_admin_title');
+		if ( ! empty($_POST))
+		{
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+			if ( ! $username OR ! $password)
+			{
+				$messages = array('danger', 'Login failed.');
+				$this->session->set_flashdata('messages', $messages);
+				redirect('gate/admin');
+			}
+			if ($admin = $this->Abmin->authenticate($username, $password))
+			{
+				$this->session->set_userdata('id', $admin['id']);
+				$this->session->set_userdata('type', 'admin');
+				$this->session->set_userdata('username', $admin['username']);
+				$this->session->set_userdata('first_name', $admin['first_name']);
+				$this->session->set_userdata('last_name', $admin['last_name']);
+				$this->session->set_userdata('email', $admin['email']);
+				redirect('admin/home');
+			}
+			else
+			{
+				$messages = array('danger', 'Login failed.');
+				$this->session->set_flashdata('messages', $messages);
+				redirect('gate/admin');
+			}
+		}
+		$gate['title'] = 'Admin Sign In';
 		$gate['body'] = $this->load->view('gate/admin', '', TRUE);
-		$this->load->view('gate', $gate);
-	}
-
-	public function admin_login()
-	{
-		if ( ! $this->input->post('username') || ! $this->input->post('password'))
-		{
-			$messages = array('negative', e('gate_common_login_failure'));
-			$this->session->set_flashdata('messages', $messages);
-			redirect('gate/admin');
-		}
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		if (strlen($password) != 40)
-		{
-			$password = sha1($password);
-		}
-		if ($admin = $this->Abmin->authenticate($username, $password))
-		{
-			// don't save password to session
-			unset($admin['password']);
-			$this->session->set_userdata('admin', $admin);
-			redirect('admin/home');
-		}
-		else
-		{
-			$messages = array('negative', e('gate_common_login_failure'));
-			$this->session->set_flashdata('messages', $messages);
-			redirect('gate/admin');
-		}
+		$this->load->view('layouts/gate', $gate);
 	}
 
 	public function logout()
@@ -284,4 +262,4 @@ class Gate extends CI_Controller {
 }
 
 /* End of file gate.php */
-/* Location: ./system/application/controllers/gate.php */
+/* Location: ./application/controllers/gate.php */

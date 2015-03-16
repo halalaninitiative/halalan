@@ -1,27 +1,16 @@
-<?php echo display_messages('', $this->session->flashdata('messages')); ?>
-<?php echo form_open('gate/admin_login', 'class="hashPassword"'); ?>
-<div class="content_center">
-	<h2><?php echo 'HALALAN ' . e('gate_admin_login_label'); ?></h2>
-	<table cellpadding="0" cellspacing="0" border="0" class="form_table">
-		<tr>
-			<td align="right"><?php echo form_label(e('gate_admin_username'), 'username'); ?>:</td>
-			<td><?php echo form_input('username', '', 'id="username" maxlength="63" class="text"'); ?></td>
-		</tr>
-		<tr>
-			<td align="right"><?php echo form_label(e('gate_admin_password'), 'password'); ?>:</label></td>
-			<td><?php echo form_password('password', '', 'id="password" class="text"'); ?></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center"><?php echo form_submit('submit', e('gate_admin_login_button')); ?></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				view:
-				<?php echo anchor('gate/results', 'results'); ?> |
-				<?php echo anchor('gate/statistics', 'statistics'); ?> |
-				<?php echo anchor('gate/ballots', 'ballots'); ?>
-			</td>
-		</tr>
-	</table>
-</div>
-</form>
+<?php echo alert('', $this->session->flashdata('messages')); ?>
+<?php echo form_open('', 'class="form-horizontal"'); ?>
+  <?php echo form_group(6,
+    form_input('username', set_value('username'), 'class="form-control" id="username"'),
+    form_label('Username', 'username', array('class'=>'col-sm-3 control-label')),
+    form_error('username', '<span class="help-block">', '</span>')
+  ); ?>
+  <?php echo form_group(6,
+    form_password('password', '', 'class="form-control" id="password"'),
+    form_label('Password', 'password', array('class'=>'col-sm-3 control-label')),
+    form_error('password', '<span class="help-block">', '</span>')
+  ); ?>
+  <?php echo form_group(9,
+    form_button(array('type'=>'submit', 'content'=>'Sign In', 'class'=>'btn btn-default'))
+  ); ?>
+<?php echo form_close(); ?>
