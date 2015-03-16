@@ -57,9 +57,22 @@
         margin: 30px 0;
       }
 
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        text-align: center;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .jumbotron .btn {
+        padding: 14px 24px;
+        font-size: 21px;
+      }
+
       /* Supporting marketing content */
       .marketing {
         margin: 40px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
       }
 
       /* Responsive: Portrait tablets and up */
@@ -75,13 +88,17 @@
         .header {
           margin-bottom: 30px;
         }
+        /* Remove the bottom border on the jumbotron for visual effect */
+        .jumbotron {
+          border-bottom: 0;
+        }
       }
     </style>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="<?php echo base_url('public/js/html5shiv.min.js'); ?>"></script>
+      <script src="<?php echo base_url('public/js/respond.min.js'); ?>"></script>
     <![endif]-->
   </head>
 
@@ -96,33 +113,12 @@
         <div class="col-sm-12">
 <?php if ($installed): ?>
           <?php echo alert('', array('success', '<strong>Well done!</strong> Halalan was successfully installed.')); ?>
-          <?php echo alert('', array('info', '<strong>Heads up!</strong> Copy the following settings to application/config/halalan.php before proceeding.')); ?>
-          <form>
-            <textarea class="form-control" rows="20" readonly="readonly">
-<?php echo '<?php '?> if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-$config['halalan']['password_pin_generation'] = "<?php echo $password_pin_generation; ?>";
-$config['halalan']['password_pin_characters'] = "<?php echo $password_pin_characters; ?>";
-$config['halalan']['password_length'] = <?php echo $password_length; ?>;
-$config['halalan']['pin'] = <?php echo $pin; ?>;
-$config['halalan']['pin_length'] = <?php echo $pin_length; ?>;
-$config['halalan']['captcha'] = <?php echo $captcha; ?>;
-$config['halalan']['captcha_length'] = <?php echo $captcha_length; ?>;
-$config['halalan']['generate_image_trail'] = <?php echo $image_trail; ?>;
-$config['halalan']['image_trail_path'] = "<?php echo $image_trail_path; ?>";
-$config['halalan']['show_candidate_details'] = <?php echo $details; ?>;
-
-$config['encryption_key'] = "<?php echo $encryption_key; ?>";
-
-/* End of file halalan.php */
-/* Location: ./application/config/halalan.php */
-            </textarea>
-          </form>
+          <?php echo alert('', array('info', '<strong>Heads up!</strong> Remove application/controllers/install.php before proceeding.')); ?>
 <?php else: ?>
           <?php echo alert(validation_errors()); ?>
           <?php echo form_open('install', 'class="form-horizontal"'); ?>
             <fieldset>
-              <legend>Administrator Settings</legend>
+              <legend>Administrator Information</legend>
               <?php echo form_group(8,
                 form_input('username', set_value('username'), 'class="form-control" id="username"'),
                 form_label('Username', 'username', array('class'=>'col-sm-4 control-label')),
@@ -139,63 +135,19 @@ $config['encryption_key'] = "<?php echo $encryption_key; ?>";
                 form_error('passconf', '<span class="help-block">', '</span>')
               ); ?>
               <?php echo form_group(8,
-                form_input('first_name', set_value('first_name'), 'class="form-control" id="first_name"'),
-                form_label('First Name', 'first_name', array('class'=>'col-sm-4 control-label')),
-                form_error('first_name', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
                 form_input('last_name', set_value('last_name'), 'class="form-control" id="last_name"'),
                 form_label('Last Name', 'last_name', array('class'=>'col-sm-4 control-label')),
                 form_error('last_name', '<span class="help-block">', '</span>')
               ); ?>
               <?php echo form_group(8,
+                form_input('first_name', set_value('first_name'), 'class="form-control" id="first_name"'),
+                form_label('First Name', 'first_name', array('class'=>'col-sm-4 control-label')),
+                form_error('first_name', '<span class="help-block">', '</span>')
+              ); ?>
+              <?php echo form_group(8,
                 form_input('email', set_value('email'), 'class="form-control" id="email"'),
                 form_label('Email', 'email', array('class'=>'col-sm-4 control-label')),
                 form_error('email', '<span class="help-block">', '</span>')
-              ); ?>
-            </fieldset>
-            <fieldset>
-              <legend>Halalan Settings</legend>
-              <?php echo form_group(8,
-                form_dropdown('password_pin_generation', array('web'=>'Web', 'email'=>'Email'), set_value('password_pin_generation', 'web'), 'id="password_pin_generation"'),
-                form_label('Password/PIN Generation', 'password_pin_generation', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_dropdown('password_pin_characters', array('alnum'=>'Alphanumeric', 'numeric'=>'Numeric', 'nozero'=>'No Zero'), set_value('password_pin_characters', 'alnum'), 'id="password_pin_characters"'),
-                form_label('Password/PIN Characters', 'password_pin_characters', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_dropdown('password_length', array_combine(range(4, 10), range(4, 10)), set_value('password_length', '6'), 'id="password_length"'),
-                form_label('Password Length', 'password_length', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_checkbox('pin', 'yes', set_value('pin', 'yes') == 'yes' ? TRUE : FALSE, 'id="pin"') . ' Use PIN in ballot validation?',
-                form_label('PIN', 'pin', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_dropdown('pin_length', array_combine(range(4, 10), range(4, 10)), set_value('pin_length', '6'), 'id="pin_length"'),
-                form_label('PIN Length', 'pin_length', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_checkbox('captcha', 'yes', set_value('captcha', 'yes') == 'yes' ? TRUE : FALSE, 'id="captcha"') . ' Use CAPTCHA in ballot validation?',
-                form_label('CAPTCHA', 'captcha', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_dropdown('captcha_length', array_combine(range(4, 10), range(4, 10)), set_value('captcha_length', '6'), 'id="captcha_length"'),
-                form_label('CAPTCHA Length', 'captcha_length', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_checkbox('image_trail', 'yes', set_value('image_trail', 'no') == 'yes' ? TRUE : FALSE, 'id="image_trail"') . ' Generate virtual paper trail (image)?',
-                form_label('Virtual Paper Trail', 'image_trail', array('class'=>'col-sm-4 control-label'))
-              ); ?>
-              <?php echo form_group(8,
-                form_input('image_trail_path', '', 'class="form-control" id="image_trail_path" placeholder="/trails/"'),
-                form_label('Virtual Paper Trail Path', 'image_trail_path', array('class'=>'col-sm-4 control-label')),
-                form_error('image_trail_path', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
-                form_checkbox('details', 'yes', set_value('details', 'yes') == 'yes' ? TRUE : FALSE, 'id="details"') . ' Show candidate details in ballot?',
-                form_label('Candidate Details', 'details', array('class'=>'col-sm-4 control-label'))
               ); ?>
             </fieldset>
             <fieldset>
@@ -216,8 +168,7 @@ $config['encryption_key'] = "<?php echo $encryption_key; ?>";
     </div> <!-- /container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="<?php echo base_url('public/js/ie10-viewport-bug-workaround.js'); ?>"></script>
   </body>
 </html>
