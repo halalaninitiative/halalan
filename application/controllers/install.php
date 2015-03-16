@@ -6,6 +6,13 @@ class Install extends CI_Controller {
 	{
 		// TODO: check system requirements like PHP GD, etc.
 		$this->load->database();
+		if (strlen($this->config->item('encryption_key')) != 32)
+		{
+			$error = '<p>It looks like $config[\'encryption_key\'] is not set.';
+			$error .= ' Please set it in application/config/config.php.</p>';
+			$error .= '<p>See user_guide/libraries/encryption.html for more details.</p>';
+			show_error($error);
+		}
 		if ($this->db->table_exists('admins')) // Maybe we should check all the tables?
 		{
 			$error = '<p>It looks like Halalan is already installed.';
