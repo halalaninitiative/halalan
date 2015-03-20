@@ -20,13 +20,13 @@
       .nav-admin {
         margin-bottom: 10px;
       }
-th {
-	background-color: #333;
-	color: #fff;
-}
-td, th {
-	vertical-align: middle;
-}
+      .table > thead > tr > th {
+        background-color: #333;
+        color: #fff;
+      }
+      .table > thead > tr > th, .table > tbody > tr > td {
+        vertical-align: middle;
+      }
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
