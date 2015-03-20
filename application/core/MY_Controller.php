@@ -19,7 +19,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->helper(array('form', 'halalan', 'password', 'url'));
 		//$this->load->language('halalan');
-		$this->load->model('Abmin');
+		$this->load->model(array('Abmin', 'Event'));
 
 		// get the current class
 		$class = get_class($this);
