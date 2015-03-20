@@ -9,7 +9,7 @@ class Gate extends MY_Controller {
 		{
 			if ($this->session->userdata('type') == 'admin')
 			{
-				redirect('admin/home');
+				redirect('admin/dashboard');
 			}
 			else if ($this->session->userdata('type') == 'voter')
 			{
@@ -86,13 +86,9 @@ class Gate extends MY_Controller {
 			}
 			if ($admin = $this->Abmin->authenticate($username, $password))
 			{
-				$this->session->set_userdata('id', $admin['id']);
-				$this->session->set_userdata('type', 'admin');
-				$this->session->set_userdata('username', $admin['username']);
-				$this->session->set_userdata('first_name', $admin['first_name']);
-				$this->session->set_userdata('last_name', $admin['last_name']);
-				$this->session->set_userdata('email', $admin['email']);
-				redirect('admin/home');
+				unset($admin['password']);
+				$this->session->set_userdata('admin', $admin);
+				redirect('admin/dashboard');
 			}
 			else
 			{
