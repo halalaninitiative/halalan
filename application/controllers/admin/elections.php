@@ -63,7 +63,25 @@ class Elections extends MY_Controller {
 		redirect('admin/elections');
 	}
 
-	public function _election($election, $action, $id = NULL)
+	public function manage($id = NULL)
+	{
+		if ( ! $id)
+		{
+			show_404();
+		}
+		$where = array('id' => $id, 'event_id' => $this->session->userdata('manage_event_id'));
+		$election = $this->Election->select_where($where);
+		if ( ! $election)
+		{
+			show_404();
+		}
+		$this->session->set_userdata('manage_election_id', $election['id']);
+		$this->session->set_userdata('manage_election_election', $election['election']);
+		$this->session->set_flashdata('messages', array('success', 'The election has been successfully chosen.'));
+		redirect('admin/elections');
+	}
+
+	private function _election($election, $action, $id = NULL)
 	{
 		$event_id = $this->session->userdata('manage_event_id');
 		$this->form_validation->set_rules('election', 'Election', 'required');

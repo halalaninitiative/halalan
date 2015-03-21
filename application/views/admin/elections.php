@@ -20,6 +20,7 @@
       <td><?php echo $election['election']; ?></td>
       <td><?php echo $election['admin']; ?></td>
       <td>
+        <?php echo anchor('admin/elections/manage/' . $election['id'], '<span class="glyphicon glyphicon-wrench"></span> Manage', 'class="btn btn-default"'); ?>
         <?php echo anchor('admin/elections/edit/' . $election['id'], '<span class="glyphicon glyphicon-pencil"></span> Edit', 'class="btn btn-default"'); ?>
         <?php echo anchor('admin/elections/delete/' . $election['id'], '<span class="glyphicon glyphicon-trash"></span> Delete', 'class="btn btn-danger"'); ?>
       </td>

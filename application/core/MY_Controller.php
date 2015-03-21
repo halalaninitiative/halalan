@@ -51,6 +51,16 @@ class MY_Controller extends CI_Controller {
 				redirect('admin/events');
 			}
 		}
+
+		// check if an election is chosen
+		if (in_array($class, array('Positions')))
+		{
+			if ( ! $this->session->userdata('manage_election_id'))
+			{
+				$this->session->set_flashdata('messages', array('danger', 'Choose an election to manage first.'));
+				redirect('admin/elections');
+			}
+		}
 	}
 
 }
