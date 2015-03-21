@@ -55,11 +55,12 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage <span class="caret"></span></a>
               <ul class="dropdown-menu">
+                <li><?php echo anchor('admin/admins', 'Admins'); ?></li>
                 <li><?php echo anchor('admin/events', 'Events'); ?></li>
                 <li class="divider"></li>
                 <li><?php echo anchor('admin/elections', 'Elections'); ?></li>
                 <li class="divider"></li>
-                <li><?php echo anchor('admin/admins', 'Admins'); ?></li>
+                <li><?php echo anchor('admin/positions', 'Positions'); ?></li>
               </ul>
             </li>
           </ul>

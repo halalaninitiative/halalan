@@ -18,7 +18,7 @@ class MY_Controller extends CI_Controller {
 		// autoload
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->helper(array('form', 'halalan', 'password', 'url'));
-		$this->load->model(array('Abmin', 'Election', 'Event'));
+		$this->load->model(array('Abmin', 'Election', 'Event', 'Position'));
 
 		// get the current class
 		$class = get_class($this);
