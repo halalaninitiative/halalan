@@ -1,4 +1,4 @@
-<h1>Manage elections</h1>
+<h1>Manage elections <small>Event: <?php echo $this->session->userdata('manage_event_event'); ?></small></h1>
 <ul class="nav nav-pills nav-admin">
   <li><?php echo anchor('admin/elections', '<span class="glyphicon glyphicon-list"></span> List all'); ?></li>
   <li<?php echo $action == 'add' ? ' class="active"' : ''; ?>><?php echo anchor('admin/elections/add', '<span class="glyphicon glyphicon-plus"></span> Add new'); ?></li>
