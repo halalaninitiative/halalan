@@ -1,136 +1,23 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
- *
- * This file is part of Halalan.
- *
- * Halalan is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Halalan is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-class Election extends CI_Model {
+class Election extends MY_Model {
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->table = 'elections';
 	}
 
-	public function insert($election)
+	public function get_admin_ids($event_id)
 	{
-		return $this->db->insert('elections', $election);
-	}
-
-	public function update($election, $id)
-	{
-		return $this->db->update('elections', $election, compact('id'));
-	}
-
-	public function delete($id)
-	{
-		$this->db->where(compact('id'));
-		return $this->db->delete('elections');
-	}
-
-	public function select($id)
-	{
-		$this->db->from('elections');
-		$this->db->where(compact('id'));
-		$query = $this->db->get();
-		return $query->row_array();
-	}
-
-	public function select_all()
-	{
-		$this->db->from('elections');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	public function select_all_by_ids($ids)
-	{
-		$this->db->from('elections');
-		$this->db->where_in('id', $ids);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	public function select_all_by_level()
-	{
-		$this->db->from('elections');
-		$this->db->where('parent_id', '0');
-		$this->db->order_by('id', 'ASC');
-		$query = $this->db->get();
-		$parents = $query->result_array();
-		$return = array();
-		foreach ($parents as $parent)
+		$where = array('event_id' => $event_id);
+		$elections = $this->select_all_where($where);
+		$admin_ids = array();
+		foreach ($elections as $election)
 		{
-			$return[] = $parent;
-			$this->db->from('elections');
-			$this->db->where('parent_id', $parent['id']);
-			$this->db->order_by('id', 'ASC');
-			$query = $this->db->get();
-			$return = array_merge($return, $query->result_array());
+			$admin_ids[] = $election['admin_id'];
 		}
-		return $return;
-	}
-
-	public function select_all_children_by_parent_id($id)
-	{
-		$this->db->from('elections');
-		$this->db->where('parent_id', $id);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	public function select_all_parents()
-	{
-		$this->db->from('elections');
-		$this->db->where('parent_id', '0');
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	// elections with results should not be running
-	public function select_all_with_results()
-	{
-		$this->db->from('elections');
-		$this->db->where('results', TRUE);
-		$this->db->where('status', FALSE); // not running
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	public function in_use($election_id)
-	{
-		$this->db->from('positions');
-		$this->db->where(compact('election_id'));
-		$has_positions = $this->db->count_all_results() > 0 ? TRUE : FALSE;
-		$this->db->from('parties');
-		$this->db->where(compact('election_id'));
-		$has_parties = $this->db->count_all_results() > 0 ? TRUE : FALSE;
-		return $has_positions OR $has_parties ? TRUE : FALSE;
-	}
-
-	public function is_running($ids)
-	{
-		if ( ! is_array($ids))
-		{
-			$ids = array($ids);
-		}
-		$this->db->from('elections');
-		$this->db->where('status', TRUE);
-		$this->db->where_in('id', $ids);
-		return ($this->db->count_all_results() > 0) ? TRUE : FALSE;
+		return array_unique($admin_ids);
 	}
 
 }

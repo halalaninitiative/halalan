@@ -18,8 +18,7 @@ class MY_Controller extends CI_Controller {
 		// autoload
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->helper(array('form', 'halalan', 'password', 'url'));
-		//$this->load->language('halalan');
-		$this->load->model(array('Abmin', 'Event'));
+		$this->load->model(array('Abmin', 'Election', 'Event'));
 
 		// get the current class
 		$class = get_class($this);
@@ -40,6 +39,16 @@ class MY_Controller extends CI_Controller {
 			if ( ! in_array($this->admin['type'], array('super', 'event')))
 			{
 				show_error('Forbidden', 403);
+			}
+		}
+
+		// check if an event is chosen
+		if (in_array($class, array('Elections')))
+		{
+			if ( ! $this->session->userdata('manage_event_id'))
+			{
+				$this->session->set_flashdata('messages', array('danger', 'Choose an event to manage first.'));
+				redirect('admin/events');
 			}
 		}
 	}

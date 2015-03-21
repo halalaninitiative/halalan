@@ -59,12 +59,15 @@ function display_messages($validation, $custom)
  * @param	boolean
  * @return	array
  */
-function for_dropdown($array, $key, $value, $blank = TRUE)
+function for_dropdown($array, $key, $value, $blank = TRUE, $filter)
 {
 	$tmp = array();
 	foreach ($array as $a)
 	{
-		$tmp[$a[$key]] = $a[$value];
+		if ( ! in_array($a[$key], $filter))
+		{
+			$tmp[$a[$key]] = $a[$value];
+		}
 	}
 	if ($blank)
 	{

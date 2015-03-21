@@ -1,54 +1,28 @@
-<?php echo display_messages(validation_errors('<li>', '</li>'), $this->session->flashdata('messages')); ?>
-<?php if ($action == 'add'): ?>
-	<?php echo form_open('admin/elections/add'); ?>
-<?php elseif ($action == 'edit'): ?>
-	<?php echo form_open('admin/elections/edit/' . $election['id']); ?>
-<?php endif; ?>
-<h2><?php echo e('admin_' . $action . '_election_label'); ?></h2>
-<table cellpadding="0" cellspacing="0" border="0" class="form_table" width="100%">
-	<tr>
-		<td class="w20" align="right">
-			<?php echo form_label(e('admin_election_election') . ':', 'election'); ?>
-		</td>
-		<td>
-			<?php echo form_input('election', set_value('election', $election['election']), 'id="election" maxlength="63" class="text"'); ?>
-		</td>
-	</tr>
-	<tr>
-		<td class="w20" align="right">
-			<?php echo form_label(e('admin_election_parent') . ':', 'parent_id'); ?>
-		</td>
-		<td>
-			<!-- form_dropdown and set_select don't work together :( -->
-			<select name="parent_id" id="parent_id">
-				<option value="0">No Parent</option>
-				<?php foreach ($parents as $parent): ?>
-				<?php
-					if ($parent['id'] != $election['id'])
-					{
-						echo '<option value="' . $parent['id'] . '"';
-						echo set_select('parent_id', $parent['id'], $election['parent_id'] == $parent['id'] ? TRUE : FALSE);
-						echo '>' . $parent['election'] . '</option>';
-					}
-				?>
-				<?php endforeach; ?>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class="w20" align="right">
-			<?php echo e('admin_election_notes'); ?>:
-		</td>
-		<td>
-			Starting/stopping a parent election will also start/stop all its children election.<br />
-			On the other hand, starting/stopping a child election will only start/stop itself.<br />
-			As of now, only two-level (parent-child) elections are possible.
-		</td>
-	</tr>
-</table>
-<div class="paging">
-	<?php echo anchor('admin/elections', 'GO BACK'); ?>
-	|
-	<?php echo form_submit('submit', e('admin_' . $action . '_election_submit')) ?>
-</div>
+<h1>Manage elections</h1>
+<ul class="nav nav-pills nav-admin">
+  <li><?php echo anchor('admin/elections', '<span class="glyphicon glyphicon-list"></span> List all'); ?></li>
+  <li<?php echo $action == 'add' ? ' class="active"' : ''; ?>><?php echo anchor('admin/elections/add', '<span class="glyphicon glyphicon-plus"></span> Add new'); ?></li>
+  <?php if ($action == 'edit'): ?>
+  <li class="active"><?php echo anchor('admin/elections/edit/' . $election['id'], '<span class="glyphicon glyphicon-pencil"></span> Edit election'); ?></li>
+  <?php endif; ?>
+</ul>
+<?php echo alert(validation_errors('&nbsp;', '<br />'), $this->session->flashdata('messages')); ?>
+<?php echo form_open('', 'class="form-horizontal"'); ?>
+  <?php echo form_group(4,
+    form_input('election', set_value('election', $election['election']), 'class="form-control" id="election"'),
+    form_label('Election', 'election', array('class' => 'col-sm-2 control-label')),
+    form_error('election', '<span class="help-block">', '</span>')
+  ); ?>
+  <?php
+    $admins = for_dropdown($admins, 'id', 'username', TRUE, $admin_ids);
+    if ($action == 'edit' && $admin)
+      $admins = $admins + array($admin['id'] => $admin['username']);
+  ?>
+  <?php echo form_group(4,
+    form_dropdown('admin_id', $admins, set_value('admin_id', $election['admin_id']), 'id="admin_id" class="form-control"'),
+    form_label('Admin', 'admin_id', array('class' => 'col-sm-2 control-label'))
+  ); ?>
+  <?php echo form_group(10,
+    form_button(array('type'=>'submit', 'content' => ucfirst($action) . ' election', 'class'=>'btn btn-default'))
+  ); ?>
 <?php echo form_close(); ?>

@@ -1,168 +1,115 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
- *
- * This file is part of Halalan.
- *
- * Halalan is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Halalan is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-class Elections extends CI_Controller {
+class Elections extends MY_Controller {
 
-	private $admin;
-	private $settings;
-
-	public function __construct()
-	{
-		parent::__construct();
-		$this->admin = $this->session->userdata('admin');
-		if ( ! $this->admin)
-		{
-			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
-			redirect('gate/admin');
-		}
-		$this->settings = $this->config->item('halalan');
-	}
-	
 	public function index()
 	{
-		$data['elections'] = $this->Election->select_all_by_level();
-		$admin['username'] = $this->admin['username'];
-		$admin['title'] = e('admin_elections_title');
+		$event_id = $this->session->userdata('manage_event_id');
+		$where = array('event_id' => $event_id);
+		$elections = $this->Election->select_all_where($where);
+		foreach ($elections as $key => $election)
+		{
+			$abmin = 'None';
+			$admin = $this->Abmin->select_where(array('id' => $election['admin_id']));
+			if ($admin)
+			{
+				$abmin = $admin['username'];
+			}
+			$elections[$key]['admin'] = $abmin;
+		}
+		$data['elections'] = $elections;
+		$admin['title'] = 'Manage Elections';
 		$admin['body'] = $this->load->view('admin/elections', $data, TRUE);
-		$this->load->view('admin', $admin);
+		$this->load->view('layouts/admin', $admin);
 	}
 
 	public function add()
 	{
-		$this->_election('add');
+		$election = array('election' => '', 'admin_id' => NULL);
+		$this->_election($election, 'add');
 	}
 
-	public function edit($id)
-	{
-		$this->_election('edit', $id);
-	}
-
-	public function delete($id) 
+	public function edit($id = NULL)
 	{
 		if ( ! $id)
 		{
-			redirect('admin/elections');
+			show_404();
 		}
-		$election = $this->Election->select($id);
+		$event_id = $this->session->userdata('manage_event_id');
+		$where = array('id' => $id, 'event_id' => $event_id);
+		$election = $this->Election->select_where($where);
 		if ( ! $election)
 		{
-			redirect('admin/elections');
+			show_404();
 		}
-		if ($election['status'])
+		$this->_election($election, 'edit', $id);
+	}
+
+	public function delete($id = NULL)
+	{
+		if ( ! $id)
 		{
-			$this->session->set_flashdata('messages', array('negative', e('admin_delete_election_running')));
+			show_404();
 		}
-		else if ($this->Election->in_use($id))
+		$event_id = $this->session->userdata('manage_event_id');
+		$where = array('id' => $id, 'event_id' => $event_id);
+		$election = $this->Election->select_where($where);
+		if ( ! $election)
 		{
-			$this->session->set_flashdata('messages', array('negative', e('admin_delete_election_in_use')));
+			show_404();
 		}
-		else
-		{
-			$this->Election->delete($id);
-			$this->session->set_flashdata('messages', array('positive', e('admin_delete_election_success')));
-		}
+		$this->Election->delete($id);
+		$this->session->set_flashdata('messages', array('success', 'The election has been successfully deleted.'));
 		redirect('admin/elections');
 	}
 
-	public function options($case, $id)
+	public function _election($election, $action, $id = NULL)
 	{
-		if ($case == 'status' || $case == 'results')
-		{
-			$election = $this->Election->select($id);
-			if ($election)
-			{
-				$data = array();
-				if ($case == 'status')
-				{
-					$data['status'] = ! $election['status'];
-				}
-				else
-				{
-					$data['results'] = ! $election['results'];
-				}
-				if ($election['parent_id'] == 0)
-				{
-					$children = $this->Election->select_all_children_by_parent_id($id);
-					foreach ($children as $child)
-					{
-						$this->Election->update($data, $child['id']);
-					}
-				}
-				$this->Election->update($data, $id);
-				$this->session->set_flashdata('messages', array('positive', e('admin_options_election_success')));
-			}
-		}
-		redirect('admin/elections');
-	}
-
-	public function _election($case, $id = null)
-	{
-		if ($case == 'add')
-		{
-			$data['election'] = array('election' => '', 'parent_id' => '');
-		}
-		else if ($case == 'edit')
-		{
-			if ( ! $id)
-			{
-				redirect('admin/elections');
-			}
-			$data['election'] = $this->Election->select($id);
-			if ( ! $data['election'])
-			{
-				redirect('admin/elections');
-			}
-			if ($data['election']['status'])
-			{
-				$this->session->set_flashdata('messages', array('negative', e('admin_edit_election_running')));
-				redirect('admin/elections');
-			}
-		}
-		$this->form_validation->set_rules('election', e('admin_election_election'), 'required');
-		$this->form_validation->set_rules('parent_id', e('admin_election_parent'));
+		$event_id = $this->session->userdata('manage_event_id');
+		$this->form_validation->set_rules('election', 'Election', 'required');
+		// TODO: check that admin_id is created by the admin user
+		// TODO: also check that the admin_id is not yet assigned to an election
+		$this->form_validation->set_rules('admin_id', 'Admin');
 		if ($this->form_validation->run())
 		{
+			$election['event_id'] = $event_id;
 			$election['election'] = $this->input->post('election', TRUE);
-			$election['parent_id'] = $this->input->post('parent_id', TRUE);
-			if ($case == 'add')
+			if ($this->input->post('admin_id'))
+			{
+				$election['admin_id'] = $this->input->post('admin_id');
+			}
+			else
+			{
+				$election['admin_id'] = NULL;
+			}
+			if ($action == 'add')
 			{
 				$this->Election->insert($election);
-				$this->session->set_flashdata('messages', array('positive', e('admin_add_election_success')));
+				$this->session->set_flashdata('messages', array('success', 'The election has been successfully added.'));
 				redirect('admin/elections/add');
 			}
-			else if ($case == 'edit')
+			else if ($action == 'edit')
 			{
 				$this->Election->update($election, $id);
-				$this->session->set_flashdata('messages', array('positive', e('admin_edit_election_success')));
+				$this->session->set_flashdata('messages', array('success', 'The election has been successfully edited.'));
 				redirect('admin/elections/edit/' . $id);
 			}
 		}
-		$data['parents'] = $this->Election->select_all_parents();
-		$data['action'] = $case;
-		$admin['title'] = e('admin_' . $case . '_election_title');
+		if ($action == 'edit')
+		{
+			$data['admin'] = $this->Abmin->select_where(array('id' => $election['admin_id']));
+		}
+		$where = array('admin_id' => $this->admin['id'], 'type' => 'election');
+		$data['admins'] = $this->Abmin->select_all_where($where);
+		$data['admin_ids'] = $this->Election->get_admin_ids($event_id);
+		$data['election'] = $election;
+		$data['action'] = $action;
+		$admin['title'] = ucfirst($action) . ' Election';
 		$admin['body'] = $this->load->view('admin/election', $data, TRUE);
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
+		$this->load->view('layouts/admin', $admin);
 	}
 
 }
 
 /* End of file elections.php */
-/* Location: ./system/application/controllers/admin/elections.php */
+/* Location: ./application/controllers/admin/elections.php */
