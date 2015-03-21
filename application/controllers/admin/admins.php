@@ -49,7 +49,7 @@ class Admins extends MY_Controller {
 		redirect('admin/admins');
 	}
 
-	public function _admin($abmin, $action, $id = NULL)
+	private function _admin($abmin, $action, $id = NULL)
 	{
 		$this->form_validation->set_rules('username', 'Username', 'required|is_unique_x[' . $action . '.admins.username.' . $id . ']');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
