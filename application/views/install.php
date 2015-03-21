@@ -117,45 +117,39 @@
 <?php else: ?>
           <?php echo alert(validation_errors()); ?>
           <?php echo form_open('install', 'class="form-horizontal"'); ?>
-            <fieldset>
-              <legend>Administrator Information</legend>
-              <?php echo form_group(8,
-                form_input('username', set_value('username'), 'class="form-control" id="username"'),
-                form_label('Username', 'username', array('class'=>'col-sm-4 control-label')),
-                form_error('username', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
-                form_password('password', '', 'class="form-control" id="password"'),
-                form_label('Password', 'password', array('class'=>'col-sm-4 control-label')),
-                form_error('password', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
-                form_password('passconf', '', 'class="form-control" id="passconf"'),
-                form_label('Confirm Password', 'passconf', array('class'=>'col-sm-4 control-label')),
-                form_error('passconf', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
-                form_input('last_name', set_value('last_name'), 'class="form-control" id="last_name"'),
-                form_label('Last Name', 'last_name', array('class'=>'col-sm-4 control-label')),
-                form_error('last_name', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
-                form_input('first_name', set_value('first_name'), 'class="form-control" id="first_name"'),
-                form_label('First Name', 'first_name', array('class'=>'col-sm-4 control-label')),
-                form_error('first_name', '<span class="help-block">', '</span>')
-              ); ?>
-              <?php echo form_group(8,
-                form_input('email', set_value('email'), 'class="form-control" id="email"'),
-                form_label('Email', 'email', array('class'=>'col-sm-4 control-label')),
-                form_error('email', '<span class="help-block">', '</span>')
-              ); ?>
-            </fieldset>
-            <fieldset>
-              <legend></legend>
-              <?php echo form_group(8,
-                form_button(array('type'=>'submit', 'content'=>'Install', 'class'=>'btn btn-default'))
-              ); ?>
-            </fieldset>
+            <?php echo form_group(6,
+              form_input('username', set_value('username'), 'class="form-control" id="username"'),
+              form_label('Username', 'username', array('class'=>'col-sm-3 control-label')),
+              form_error('username', '<span class="help-block">', '</span>')
+            ); ?>
+            <?php echo form_group(6,
+              form_password('password', '', 'class="form-control" id="password"'),
+              form_label('Password', 'password', array('class'=>'col-sm-3 control-label')),
+              form_error('password', '<span class="help-block">', '</span>')
+            ); ?>
+            <?php echo form_group(6,
+              form_password('passconf', '', 'class="form-control" id="passconf"'),
+              form_label('Confirm Password', 'passconf', array('class'=>'col-sm-3 control-label')),
+              form_error('passconf', '<span class="help-block">', '</span>')
+            ); ?>
+            <?php echo form_group(6,
+              form_input('last_name', set_value('last_name'), 'class="form-control" id="last_name"'),
+              form_label('Last Name', 'last_name', array('class'=>'col-sm-3 control-label')),
+              form_error('last_name', '<span class="help-block">', '</span>')
+            ); ?>
+            <?php echo form_group(6,
+              form_input('first_name', set_value('first_name'), 'class="form-control" id="first_name"'),
+              form_label('First Name', 'first_name', array('class'=>'col-sm-3 control-label')),
+              form_error('first_name', '<span class="help-block">', '</span>')
+            ); ?>
+            <?php echo form_group(6,
+              form_input('email', set_value('email'), 'class="form-control" id="email"'),
+              form_label('Email', 'email', array('class'=>'col-sm-3 control-label')),
+              form_error('email', '<span class="help-block">', '</span>')
+            ); ?>
+            <?php echo form_group(9,
+              form_button(array('type'=>'submit', 'content'=>'Install', 'class'=>'btn btn-default'))
+            ); ?>
           <?php echo form_close(); ?>
 <?php endif; ?>
         </div>

@@ -49,8 +49,7 @@ class Install extends CI_Controller {
 			$admin['last_name'] = $this->input->post('last_name', TRUE);
 			$admin['email'] = $this->input->post('email', TRUE);
 			$admin['admin_id'] = 1;
-			$admin['type'] = 'event';
-			$admin['is_super'] = 1;
+			$admin['type'] = 'super';
 			$this->db->insert('admins', $admin);
 
 			$installed = TRUE;
