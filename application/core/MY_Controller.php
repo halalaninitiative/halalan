@@ -33,6 +33,15 @@ class MY_Controller extends CI_Controller {
 				show_error('Forbidden', 403);
 			}
 		}
+
+		// check Admin access
+		if ($class == 'Admins')
+		{
+			if ( ! in_array($this->admin['type'], array('super', 'event')))
+			{
+				show_error('Forbidden', 403);
+			}
+		}
 	}
 
 }
