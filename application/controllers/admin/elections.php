@@ -2,10 +2,17 @@
 
 class Elections extends MY_Controller {
 
+	private $event_id;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->event_id = $this->session->userdata('manage_event_id');
+	}
+
 	public function index()
 	{
-		$event_id = $this->session->userdata('manage_event_id');
-		$where = array('event_id' => $event_id);
+		$where = array('event_id' => $this->event_id);
 		$elections = $this->Election->select_all_where($where);
 		foreach ($elections as $key => $election)
 		{
@@ -35,8 +42,7 @@ class Elections extends MY_Controller {
 		{
 			show_404();
 		}
-		$event_id = $this->session->userdata('manage_event_id');
-		$where = array('id' => $id, 'event_id' => $event_id);
+		$where = array('id' => $id, 'event_id' => $this->event_id);
 		$election = $this->Election->select_where($where);
 		if ( ! $election)
 		{
@@ -51,8 +57,7 @@ class Elections extends MY_Controller {
 		{
 			show_404();
 		}
-		$event_id = $this->session->userdata('manage_event_id');
-		$where = array('id' => $id, 'event_id' => $event_id);
+		$where = array('id' => $id, 'event_id' => $this->event_id);
 		$election = $this->Election->select_where($where);
 		if ( ! $election)
 		{
@@ -69,7 +74,7 @@ class Elections extends MY_Controller {
 		{
 			show_404();
 		}
-		$where = array('id' => $id, 'event_id' => $this->session->userdata('manage_event_id'));
+		$where = array('id' => $id, 'event_id' => $this->event_id);
 		$election = $this->Election->select_where($where);
 		if ( ! $election)
 		{
@@ -83,14 +88,13 @@ class Elections extends MY_Controller {
 
 	private function _election($election, $action, $id = NULL)
 	{
-		$event_id = $this->session->userdata('manage_event_id');
 		$this->form_validation->set_rules('election', 'Election', 'required');
 		// TODO: check that admin_id is created by the admin user
 		// TODO: also check that the admin_id is not yet assigned to an election
 		$this->form_validation->set_rules('admin_id', 'Admin');
 		if ($this->form_validation->run())
 		{
-			$election['event_id'] = $event_id;
+			$election['event_id'] = $this->event_id;
 			$election['election'] = $this->input->post('election', TRUE);
 			if ($this->input->post('admin_id'))
 			{
@@ -119,7 +123,7 @@ class Elections extends MY_Controller {
 		}
 		$where = array('admin_id' => $this->admin['id'], 'type' => 'election');
 		$data['admins'] = $this->Abmin->select_all_where($where);
-		$data['admin_ids'] = $this->Election->get_admin_ids($event_id);
+		$data['admin_ids'] = $this->Election->get_admin_ids($this->event_id);
 		$data['election'] = $election;
 		$data['action'] = $action;
 		$admin['title'] = ucfirst($action) . ' Election';
