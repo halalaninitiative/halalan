@@ -14,7 +14,7 @@ class Positions extends MY_Controller {
 	{
 		$where = array('election_id' => $this->election_id);
 		$data['positions'] = $this->Position->select_all_where($where);
-		$admin['title'] = 'Manage Parties';
+		$admin['title'] = 'Manage Positions';
 		$admin['body'] = $this->load->view('admin/positions', $data, TRUE);
 		$this->load->view('layouts/admin', $admin);
 	}
