@@ -1,45 +1,29 @@
-<?php echo display_messages('', $this->session->flashdata('messages')); ?>
-<div class="content_left">
-	<h2><?php echo e('admin_blocks_label'); ?></h2>
-</div>
-<div class="content_right">
-	<p class="align_right">
-		<?php echo anchor('admin/blocks/add', e('admin_blocks_add')); ?>
-		| View:
-		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-	</p>
-</div>
-<div class="clear"></div>
-<table cellpadding="0" cellspacing="0" class="table">
-	<tr>
-		<th scope="col" class="w5"><?php echo e('common_id'); ?></th>
-		<th scope="col"><?php echo e('admin_blocks_block'); ?></th>
-		<th scope="col" class="w45"><?php echo e('admin_blocks_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
-	</tr>
-	<?php if (empty($blocks)): ?>
-	<tr>
-		<td colspan="4" align="center"><em><?php echo e('admin_blocks_no_blocks'); ?></em></td>
-	</tr>
-	<?php else: ?>
-	<?php $i = 0; ?>
-	<?php foreach ($blocks as $block): ?>
-	<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td align="center">
-			<?php echo $block['id']; ?>
-		</td>
-		<td>
-			<?php echo anchor('admin/blocks/edit/' . $block['id'], $block['block']); ?>
-		</td>
-		<td>
-			<?php echo nl2br($block['description']); ?>
-		</td>
-		<td align="center">
-			<?php echo anchor('admin/blocks/edit/' . $block['id'], img(array('src'=>'public/images/edit.png', 'alt'=>e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/blocks/delete/' . $block['id'], img(array('src'=>'public/images/delete.png', 'alt'=>e('common_delete'))), array('class'=>'confirmDelete', 'title'=>e('common_delete'))); ?>
-		</td>
-	</tr>
-	<?php $i = $i + 1; ?>
-	<?php endforeach; ?>
-	<?php endif; ?>
+<h1>Manage blocks <small>Election: <?php echo $this->session->userdata('manage_election_election'); ?></small></h1>
+<ul class="nav nav-pills nav-admin">
+  <li class="active"><?php echo anchor('admin/blocks', '<span class="glyphicon glyphicon-list"></span> List all'); ?></li>
+  <li><?php echo anchor('admin/blocks/add', '<span class="glyphicon glyphicon-plus"></span> Add new'); ?></li>
+</ul>
+<?php echo alert(validation_errors('&nbsp;', '<br />'), $this->session->flashdata('messages')); ?>
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th>Block</th>
+      <th>Descriptionn</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($blocks as $i => $block): ?>
+    <tr>
+      <td class="text-center"><?php echo $i + 1; ?></td>
+      <td><?php echo $block['block']; ?></td>
+      <td><?php echo $block['description']; ?></td>
+      <td>
+        <?php echo anchor('admin/blocks/edit/' . $block['id'], '<span class="glyphicon glyphicon-pencil"></span> Edit', 'class="btn btn-default"'); ?>
+        <?php echo anchor('admin/blocks/delete/' . $block['id'], '<span class="glyphicon glyphicon-trash"></span> Delete', 'class="btn btn-danger"'); ?>
+      </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
 </table>

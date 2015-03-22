@@ -63,6 +63,7 @@
                 <li class="divider"></li>
                 <li><?php echo anchor('admin/positions', 'Positions'); ?></li>
 		<li><?php echo anchor('admin/candidates', 'Candidates'); ?></li>
+                <li><?php echo anchor('admin/blocks', 'Blocks'); ?></li>
               </ul>
             </li>
           </ul>

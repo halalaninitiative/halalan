@@ -1,256 +1,92 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
- *
- * This file is part of Halalan.
- *
- * Halalan is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Halalan is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-class Blocks extends CI_Controller {
+class Blocks extends MY_Controller {
 
-	private $admin;
-	private $settings;
+	private $election_id;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->admin = $this->session->userdata('admin');
-		if ( ! $this->admin)
-		{
-			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
-			redirect('gate/admin');
-		}
-		$this->settings = $this->config->item('halalan');
+		$this->election_id = $this->session->userdata('manage_election_id');
 	}
-	
+
 	public function index()
 	{
-		$election_id = get_cookie('selected_election');
-		$data['election_id'] = $election_id;
-		$data['elections'] = $this->Election->select_all();
-		$data['blocks'] = $this->Block->select_all_by_election_id($election_id);
-		$admin['username'] = $this->admin['username'];
-		$admin['title'] = e('admin_blocks_title');
+		$where = array('election_id' => $this->election_id);
+		$data['blocks'] = $this->Block->select_all_where($where);
+		$admin['title'] = 'Manage Blocks';
 		$admin['body'] = $this->load->view('admin/blocks', $data, TRUE);
-		$this->load->view('admin', $admin);
+		$this->load->view('layouts/admin', $admin);
 	}
 
 	public function add()
 	{
-		$this->_block('add');
+		$block = array('block' => '', 'description' => '');
+		$this->_block($block, 'add');
 	}
 
-	public function edit($id)
-	{
-		$this->_block('edit', $id);
-	}
-
-	public function delete($id) 
+	public function edit($id = NULL)
 	{
 		if ( ! $id)
 		{
-			redirect('admin/blocks');
+			show_404();
 		}
-		$block = $this->Block->select($id);
+		$where = array('id' => $id, 'election_id' => $this->election_id);
+		$block = $this->Block->select_where($where);
 		if ( ! $block)
 		{
-			redirect('admin/blocks');
+			show_404();
 		}
-		if ($this->Block->in_running_election($id))
+		$this->_block($block, 'edit', $id);
+	}
+
+	public function delete($id = NULL)
+	{
+		if ( ! $id)
 		{
-			$this->session->set_flashdata('messages', array('negative', e('admin_block_in_running_election')));
+			show_404();
 		}
-		else if ($this->Block->in_use($id))
+		$where = array('id' => $id, 'election_id' => $this->election_id);
+		$block = $this->Block->select_where($where);
+		if ( ! $block)
 		{
-			$this->session->set_flashdata('messages', array('negative', e('admin_delete_block_in_use')));
+			show_404();
 		}
-		else
-		{
-			$this->Block->delete($id);
-			$this->session->set_flashdata('messages', array('positive', e('admin_delete_block_success')));
-		}
+		$this->Block->delete($id);
+		$this->session->set_flashdata('messages', array('success', 'The block has been successfully deleted.'));
 		redirect('admin/blocks');
 	}
 
-	public function _block($case, $id = null)
+	private function _block($block, $action, $id = NULL)
 	{
-		$selected = array();
-		if ($case == 'add')
-		{
-			$data['block'] = array('block' => '');
-			$this->session->unset_userdata('block'); // so callback rules know that the action is add
-		}
-		else if ($case == 'edit')
-		{
-			if ( ! $id)
-			{
-				redirect('admin/blocks');
-			}
-			$data['block'] = $this->Block->select($id);
-			if ( ! $data['block'])
-			{
-				redirect('admin/blocks');
-			}
-			if ($this->Block->in_running_election($id))
-			{
-				$this->session->set_flashdata('messages', array('negative', e('admin_block_in_running_election')));
-				redirect('admin/blocks');
-			}
-			if (empty($_POST))
-			{
-				$tmp = $this->Block_Election_Position->select_all_by_block_id($id);
-				foreach ($tmp as $t)
-				{
-					$selected[] = $t['election_id'] . '|' . $t['position_id'];
-				}
-			}
-			$this->session->set_userdata('block', $data['block']); // so callback rules know that the action is edit
-		}
-		$this->form_validation->set_rules('block', e('admin_block_block'), 'required|callback__rule_block_exists|callback__rule_dependencies');
-		$this->form_validation->set_rules('elections_positions[]', e('admin_block_elections_positions'), 'required|callback__rule_running_election');
+		$this->form_validation->set_rules('block', 'block', 'required');
+		$this->form_validation->set_rules('description', 'Description');
 		if ($this->form_validation->run())
 		{
+			$block['election_id'] = $this->election_id;
 			$block['block'] = $this->input->post('block', TRUE);
-			$elections_positions = $this->input->post('elections_positions', TRUE);
-			$extra = array();
-			foreach ($elections_positions as $election_position)
-			{
-				list($election_id, $position_id) = explode('|', $election_position);
-				$extra[] = array('election_id' => $election_id, 'position_id' => $position_id);
-			}
-			$block['extra'] = $extra;
-			if ($case == 'add')
+			$block['description'] = $this->input->post('description');
+			if ($action == 'add')
 			{
 				$this->Block->insert($block);
-				$this->session->set_flashdata('messages', array('positive', e('admin_add_block_success')));
+				$this->session->set_flashdata('messages', array('success', 'The block has been successfully added.'));
 				redirect('admin/blocks/add');
 			}
-			else if ($case == 'edit')
+			else if ($action == 'edit')
 			{
 				$this->Block->update($block, $id);
-				$this->session->set_flashdata('messages', array('positive', e('admin_edit_block_success')));
+				$this->session->set_flashdata('messages', array('success', 'The block has been successfully edited.'));
 				redirect('admin/blocks/edit/' . $id);
 			}
 		}
-		if ($this->input->post('elections_positions'))
-		{
-			$selected = $this->input->post('elections_positions');
-		}
-		$elections = $this->Election->select_all();
-		$elections_positions = array();
-		foreach ($elections as $election)
-		{
-			$tmp = array();
-			$positions = $this->Position->select_all_by_election_id($election['id']);
-			foreach ($positions as $position)
-			{
-				$tmp[$election['id'] . '|' . $position['id']] = $position['position'];
-			}
-			// exclude elections with no positions since it is not supported by form_dropdown / form_multiselect
-			if ( ! empty($tmp))
-			{
-				$elections_positions[$election['election']] = $tmp;
-			}
-		}
-		$data['elections_positions'] = $elections_positions;
-		$data['selected'] = $selected;
-		$data['action'] = $case;
-		$admin['title'] = e('admin_' . $case . '_block_title');
+		$data['block'] = $block;
+		$data['action'] = $action;
+		$admin['title'] = ucfirst($action) . ' block';
 		$admin['body'] = $this->load->view('admin/block', $data, TRUE);
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	// a block cannot be added to a running election
-	public function _rule_running_election()
-	{
-		$elections_positions = $this->input->post('elections_positions');
-		$election_ids = array();
-		foreach ($elections_positions as $election_position)
-		{
-			list($election_id, $position_id) = explode('|', $election_position);
-			$election_ids[] = $election_id;
-		}
-		if ($this->Election->is_running($election_ids))
-		{
-			$this->form_validation->set_message('_rule_running_election', e('admin_block_running_election'));
-			return FALSE;
-		}
-		return TRUE;
-	}
-
-	// blocks must have different names
-	public function _rule_block_exists()
-	{
-		$block = trim($this->input->post('block', TRUE));
-		$test = $this->Block->select_by_block($block);
-		if ( ! empty($test))
-		{
-			$error = FALSE;
-			if ($block = $this->session->userdata('block')) // check when in edit mode
-			{
-				if ($test['id'] != $block['id'])
-				{
-					$error = TRUE;
-				}
-			}
-			else
-			{
-				$error = TRUE;
-			}
-			if ($error)
-			{
-				$message = e('admin_block_exists') . ' (' . $test['block'] . ')';
-				$this->form_validation->set_message('_rule_block_exists', $message);
-				return FALSE;
-			}
-		}
-		return TRUE;
-	}
-
-	// a block cannot change election when it already has voters under it
-	public function _rule_dependencies()
-	{
-		if ($block = $this->session->userdata('block')) // check when in edit mode
-		{
-			// don't check if no elections or positions are selected since we already have a rule for them
-			if ( ! $this->input->post('elections_positions'))
-			{
-				return TRUE;
-			}
-			// don't check if elections and positions do not change
-			$tmp = $this->Block_Election_Position->select_all_by_block_id($block['id']);
-			foreach ($tmp as $t)
-			{
-				$selected[] = $t['election_id'] . '|' . $t['position_id'];
-			}
-			$array_diff = array_diff($selected, $this->input->post('elections_positions'));
-			if (empty($array_diff))
-			{
-				return TRUE;
-			}
-			if ($this->Block->in_use($block['id']))
-			{
-				$this->form_validation->set_message('_rule_dependencies', e('admin_block_dependencies'));
-				return FALSE;
-			}
-		}
-		return TRUE;
+		$this->load->view('layouts/admin', $admin);
 	}
 
 }
 
 /* End of file blocks.php */
-/* Location: ./system/application/controllers/admin/blocks.php */
+/* Location: ./application/controllers/admin/blocks.php */
