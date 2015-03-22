@@ -1,86 +1,36 @@
-<?php echo display_messages('', $this->session->flashdata('messages')); ?>
-<?php if (empty($positions)): ?>
-<div class="content_left">
-	<h2><?php echo e('admin_candidates_label'); ?></h2>
-</div>
-<div class="content_right">
-	<p class="align_right">
-		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
-		| View:
-		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-		<?php echo form_dropdown('position_id', for_dropdown($pos, 'id', 'position'), $position_id, 'class="changePositions" style="width: 110px;"'); ?>
-	</p>
-</div>
-<div class="clear"></div>
-<table cellpadding="0" cellspacing="0" class="table">
-	<tr>
-		<th scope="col" class="w5">#</th>
-		<th scope="col"><?php echo e('admin_candidates_candidate'); ?></th>
-		<th scope="col" class="w45"><?php echo e('admin_candidates_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
-	</tr>
-	<tr>
-		<td colspan="4" align="center"><em><?php echo e('admin_candidates_no_candidates'); ?></em></td>
-	</tr>
+<h1>Manage candidates <small>Election: <?php echo $this->session->userdata('manage_election_election'); ?></small></h1>
+<ul class="nav nav-pills nav-admin">
+  <li class="active"><?php echo anchor('admin/candidates', '<span class="glyphicon glyphicon-list"></span> List all'); ?></li>
+  <li><?php echo anchor('admin/candidates/add', '<span class="glyphicon glyphicon-plus"></span> Add new'); ?></li>
+</ul>
+<?php echo alert(validation_errors('&nbsp;', '<br />'), $this->session->flashdata('messages')); ?>
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th>Position</th>
+      <th>Last Name</th>
+      <th>First Name</th>
+      <th>Alias</th>
+      <th>Party</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($candidates as $i => $candidate): ?>
+    <tr>
+      <td class="text-center"><?php echo $i + 1; ?></td>
+      <td><?php echo $candidate['position']; ?></td>
+      <td><?php echo $candidate['last_name']; ?></td>
+      <td><?php echo $candidate['first_name']; ?></td>
+      <td><?php echo $candidate['alias']; ?></td>
+      <td><?php echo $candidate['party']; ?></td>
+      <td>
+        <?php echo anchor('admin/candidates/manage/' . $candidate['id'], '<span class="glyphicon glyphicon-wrench"></span> Manage', 'class="btn btn-default"'); ?>
+        <?php echo anchor('admin/candidates/edit/' . $candidate['id'], '<span class="glyphicon glyphicon-pencil"></span> Edit', 'class="btn btn-default"'); ?>
+        <?php echo anchor('admin/candidates/delete/' . $candidate['id'], '<span class="glyphicon glyphicon-trash"></span> Delete', 'class="btn btn-danger"'); ?>
+      </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
 </table>
-<?php else: ?>
-<div class="content_left">
-	<p>
-		<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
-	</p>
-</div>
-<div class="content_right">
-	<p class="align_right">
-		<?php echo anchor('admin/candidates/add', e('admin_candidates_add')); ?>
-		| View:
-		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-		<?php echo form_dropdown('position_id', for_dropdown($pos, 'id', 'position'), $position_id, 'class="changePositions" style="width: 110px;"'); ?>
-	</p>
-</div>
-<div class="clear"></div>
-<?php foreach ($positions as $position): ?>
-<div class="content_left">
-	<h2><?php echo img(array('src' => 'public/images/minus.png', 'class' => 'togglePosition pointer', 'alt' => 'Collapse', 'title' => 'Collapse')); ?> <?php echo $position['position']; ?> Candidates <span>(<?php echo count($position['candidates']); ?>)</span></h2>
-</div>
-<div class="clear"></div>
-<table cellpadding="0" cellspacing="0" class="table">
-	<tr>
-		<th scope="col" class="w5">#</th>
-		<th scope="col"><?php echo e('admin_candidates_candidate'); ?></th>
-		<th scope="col" class="w45"><?php echo e('admin_candidates_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
-	</tr>
-	<?php if (empty($position['candidates'])): ?>
-	<tr>
-		<td colspan="4" align="center"><em><?php echo e('admin_candidates_no_candidates'); ?></em></td>
-	</tr>
-	<?php else: ?>
-	<?php $i = 0; ?>
-	<?php foreach ($position['candidates'] as $candidate): ?>
-	<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td align="center">
-			<?php echo ($i+1); ?>
-		</td>
-		<td>
-			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], candidate_name($candidate)); ?>
-		</td>
-		<td>
-			<?php echo nl2br($candidate['description']); ?>
-		</td>
-		<td align="center">
-			<?php echo anchor('admin/candidates/edit/' . $candidate['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/candidates/delete/' . $candidate['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
-		</td>
-	</tr>
-	<?php $i = $i + 1; ?>
-	<?php endforeach; ?>
-	<?php endif; ?>
-</table>
-<?php endforeach; ?>
-<div class="content_left">
-	<p>
-		<a href="#" class="manipulateAllPositions">expand all</a> | <a href="#" class="manipulateAllPositions">collapse all</a>
-	</p>
-</div>
-<div class="clear"></div>
-<?php endif; ?>

@@ -62,6 +62,7 @@
                 <li><?php echo anchor('admin/parties', 'Parties'); ?></li>
                 <li class="divider"></li>
                 <li><?php echo anchor('admin/positions', 'Positions'); ?></li>
+		<li><?php echo anchor('admin/candidates', 'Candidates'); ?></li>
               </ul>
             </li>
           </ul>

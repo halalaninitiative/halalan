@@ -18,7 +18,7 @@ class MY_Controller extends CI_Controller {
 		// autoload
 		$this->load->library(array('form_validation', 'session'));
 		$this->load->helper(array('form', 'halalan', 'password', 'url'));
-		$this->load->model(array('Abmin', 'Election', 'Event', 'Party', 'Position'));
+		$this->load->model(array('Abmin', 'Candidate', 'Election', 'Event', 'Party', 'Position'));
 
 		// get the current class
 		$class = get_class($this);
@@ -53,7 +53,7 @@ class MY_Controller extends CI_Controller {
 		}
 
 		// check if an election is chosen
-		if (in_array($class, array('Positions')))
+		if (in_array($class, array('Candidates', 'Positions')))
 		{
 			if ( ! $this->session->userdata('manage_election_id'))
 			{
