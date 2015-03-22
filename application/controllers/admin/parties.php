@@ -1,298 +1,96 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Copyright (C) 2006-2012 University of the Philippines Linux Users' Group
- *
- * This file is part of Halalan.
- *
- * Halalan is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Halalan is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Halalan.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-class Parties extends CI_Controller {
+class Parties extends MY_Controller {
 
-	private $admin;
-	private $settings;
+	private $event_id;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->admin = $this->session->userdata('admin');
-		if ( ! $this->admin)
-		{
-			$this->session->set_flashdata('messages', array('negative', e('common_unauthorized')));
-			redirect('gate/admin');
-		}
-		$this->settings = $this->config->item('halalan');
+		$this->event_id = $this->session->userdata('manage_event_id');
 	}
-	
+
 	public function index()
 	{
-		$election_id = get_cookie('selected_election');
-		$data['election_id'] = $election_id;
-		$data['elections'] = $this->Election->select_all();
-		$data['parties'] = $this->Party->select_all_by_election_id($election_id);
-		$admin['username'] = $this->admin['username'];
-		$admin['title'] = e('admin_parties_title');
+		$where = array('event_id' => $this->event_id);
+		$data['parties'] = $this->Party->select_all_where($where);
+		$admin['title'] = 'Manage Parties';
 		$admin['body'] = $this->load->view('admin/parties', $data, TRUE);
-		$this->load->view('admin', $admin);
+		$this->load->view('layouts/admin', $admin);
 	}
 
 	public function add()
 	{
-		$this->_party('add');
+		$party = array('party' => '', 'alias' => '', 'description' => '');
+		$this->_party($party, 'add');
 	}
 
-	public function edit($id)
-	{
-		$this->_party('edit', $id);
-	}
-
-	public function delete($id) 
+	public function edit($id = NULL)
 	{
 		if ( ! $id)
 		{
-			redirect('admin/parties');
+			show_404();
 		}
-		$party = $this->Party->select($id);
+		$where = array('id' => $id, 'event_id' => $this->event_id);
+		$party = $this->Party->select_where($where);
 		if ( ! $party)
 		{
-			redirect('admin/parties');
+			show_404();
 		}
-		if ($this->Party->in_running_election($id))
+		$this->_party($party, 'edit', $id);
+	}
+
+	public function delete($id = NULL)
+	{
+		if ( ! $id)
 		{
-			$this->session->set_flashdata('messages', array('negative', e('admin_party_in_running_election')));
+			show_404();
 		}
-		else if ($this->Party->in_use($id))
+		$where = array('id' => $id, 'event_id' => $this->event_id);
+		$party = $this->Party->select_where($where);
+		if ( ! $party)
 		{
-			$this->session->set_flashdata('messages', array('negative', e('admin_delete_party_in_use')));
+			show_404();
 		}
-		else
-		{
-			$this->Party->delete($id);
-			$this->session->set_flashdata('messages', array('positive', e('admin_delete_party_success')));
-		}
+		$this->Party->delete($id);
+		$this->session->set_flashdata('messages', array('success', 'The party has been successfully deleted.'));
 		redirect('admin/parties');
 	}
 
-	public function _party($case, $id = null)
+	private function _party($party, $action, $id = NULL)
 	{
-		if ($case == 'add')
-		{
-			$data['party'] = array('election_id' => get_cookie('selected_election'), 'party' => '', 'alias' => '', 'description' => '');
-			$this->session->unset_userdata('party'); // so callback rules know that the action is add
-		}
-		else if ($case == 'edit')
-		{
-			if ( ! $id)
-			{
-				redirect('admin/parties');
-			}
-			$data['party'] = $this->Party->select($id);
-			if ( ! $data['party'])
-			{
-				redirect('admin/parties');
-			}
-			if ($this->Party->in_running_election($id))
-			{
-				$this->session->set_flashdata('messages', array('negative', e('admin_party_in_running_election')));
-				redirect('admin/parties');			
-			}
-			$this->session->set_userdata('party', $data['party']); // used in callback rules
-		}
-		if ($this->input->post('election_id'))
-		{
-			// set cookie again since the election might have changed
-			set_cookie('selected_election', $this->input->post('election_id'), 0);
-		}
-		$this->form_validation->set_rules('election_id', e('admin_party_election'), 'required|callback__rule_running_election');
-		$this->form_validation->set_rules('party', e('admin_party_party'), 'required|callback__rule_party_exists|callback__rule_dependencies');
-		$this->form_validation->set_rules('alias', e('admin_party_alias'));
-		$this->form_validation->set_rules('description', e('admin_party_description'));
-		$this->form_validation->set_rules('logo', e('admin_party_logo'), 'callback__rule_logo');
+		$this->form_validation->set_rules('party', 'Party', 'required');
+		$this->form_validation->set_rules('alias', 'Alias');
+		$this->form_validation->set_rules('description', 'Description');
+		$this->form_validation->set_rules('logo', 'Logo');
 		if ($this->form_validation->run())
 		{
-			$party['election_id'] = $this->input->post('election_id', TRUE);
+			$party['event_id'] = $this->event_id;
 			$party['party'] = $this->input->post('party', TRUE);
 			$party['alias'] = $this->input->post('alias', TRUE);
 			$party['description'] = $this->input->post('description', TRUE);
-			if ($logo = $this->session->userdata('party_logo'))
-			{
-				$party['logo'] = $logo;
-				$this->session->unset_userdata('party_logo');
-			}
-			if ($case == 'add')
+			$party['logo'] = ''; // TODO: Add upload
+			if ($action == 'add')
 			{
 				$this->Party->insert($party);
-				$this->session->set_flashdata('messages', array('positive', e('admin_add_party_success')));
+				$this->session->set_flashdata('messages', array('success', 'The party has been successfully added.'));
 				redirect('admin/parties/add');
 			}
-			else if ($case == 'edit')
+			else if ($action == 'edit')
 			{
 				$this->Party->update($party, $id);
-				$this->session->set_flashdata('messages', array('positive', e('admin_edit_party_success')));
+				$this->session->set_flashdata('messages', array('success', 'The party has been successfully edited.'));
 				redirect('admin/parties/edit/' . $id);
 			}
 		}
-		$data['elections'] = $this->Election->select_all();
-		$data['action'] = $case;
-		$admin['title'] = e('admin_' . $case . '_party_title');
+		$data['party'] = $party;
+		$data['action'] = $action;
+		$admin['title'] = ucfirst($action) . ' Party';
 		$admin['body'] = $this->load->view('admin/party', $data, TRUE);
-		$admin['username'] = $this->admin['username'];
-		$this->load->view('admin', $admin);
-	}
-
-	public function _rule_party_exists()
-	{
-		$election_id = $this->input->post('election_id');
-		$party = trim($this->input->post('party', TRUE));
-		if ($test = $this->Party->select_by_election_id_and_party($election_id, $party))
-		{
-			$error = FALSE;
-			if ($party = $this->session->userdata('party')) // edit
-			{
-				if ($test['id'] != $party['id'])
-				{
-					$error = TRUE;
-				}
-			}
-			else
-			{
-				$error = TRUE;
-			}
-			if ($error)
-			{
-				$message = e('admin_party_exists') . ' (' . $test['party'] . ')';
-				$this->form_validation->set_message('_rule_party_exists', $message);
-				return FALSE;
-			}
-		}
-		else
-		{
-			return TRUE;
-		}
-	}
-
-	// placed in position so it comes up on top
-	public function _rule_dependencies()
-	{
-		if ($party = $this->session->userdata('party')) // edit
-		{
-			// don't check if chosen is empty
-			if ($this->input->post('chosen') == FALSE)
-			{
-				return TRUE;
-			}
-			if ($this->Party->in_use($party['id']))
-			{
-				if ($party['election_id'] != $this->input->post('election_id'))
-				{
-					$this->form_validation->set_message('_rule_dependencies', e('admin_party_dependencies'));
-					return FALSE;
-				}
-			}
-		}
-		return TRUE;
-	}
-
-	public function _rule_running_election()
-	{
-		if ($this->Election->is_running($this->input->post('election_id')))
-		{
-			$this->form_validation->set_message('_rule_running_election', e('admin_party_running_election'));
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
-	}
-
-	public function _rule_logo()
-	{
-		if ($_FILES['logo']['error'] != UPLOAD_ERR_NO_FILE)
-		{
-			$config['upload_path'] = HALALAN_UPLOAD_PATH . 'logos/';
-			$config['allowed_types'] = HALALAN_ALLOWED_TYPES;
-			$this->upload->initialize($config);
-			if ($party = $this->session->userdata('party')) // edit
-			{
-				// delete old logo first
-				unlink($config['upload_path'] . $party['logo']);
-			}
-			if ( ! $this->upload->do_upload('logo'))
-			{
-				$message = $this->upload->display_errors('', '');
-				$this->form_validation->set_message('_rule_logo', $message);
-				return FALSE;
-			}
-			else
-			{
-				$upload_data = $this->upload->data();
-				$return = $this->_resize($upload_data, 250);
-				if (is_array($return))
-				{
-					$this->form_validation->set_message('_rule_logo', $return[0]);
-					return FALSE;
-				}
-				else
-				{
-					// flashdata doesn't work I don't know why
-					$this->session->set_userdata('party_logo', $return);
-					return TRUE;
-				}
-			}
-		}
-		else
-		{
-			return TRUE;
-		}
-	}
-
-	public function _resize($upload_data, $n)
-	{
-		$width = $upload_data['image_width'];
-		$height = $upload_data['image_height'];
-		if ($width > $n || $height > $n)
-		{
-			$config['source_image'] = $upload_data['full_path'];
-			$config['quality'] = '100%';
-			$config['width'] = $n;
-			$config['height'] = (($n * $height) / $width);
-			$this->image_lib->initialize($config);
-			if ( ! $this->image_lib->resize())
-			{
-				$error[] = $this->image_lib->display_errors('', '');
-			}
-			else
-			{
-				$name = $upload_data['file_name'];
-			}
-		}
-		else
-		{
-			$name = $upload_data['file_name'];
-		}
-		if (empty($error))
-		{
-			return $name;
-		}
-		else
-		{
-			return $error;
-		}
+		$this->load->view('layouts/admin', $admin);
 	}
 
 }
 
 /* End of file parties.php */
-/* Location: ./system/application/controllers/admin/parties.php */
+/* Location: ./application/controllers/admin/parties.php */

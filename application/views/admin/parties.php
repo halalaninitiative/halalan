@@ -1,49 +1,31 @@
-<?php echo display_messages('', $this->session->flashdata('messages')); ?>
-<div class="content_left">
-	<h2><?php echo e('admin_parties_label'); ?></h2>
-</div>
-<div class="content_right">
-	<p class="align_right">
-		<?php echo anchor('admin/parties/add', e('admin_parties_add')); ?>
-		| View:
-		<?php echo form_dropdown('election_id', for_dropdown($elections, 'id', 'election'), $election_id, 'class="changeElections" style="width: 130px;"'); ?>
-	</p>
-</div>
-<div class="clear"></div>
-<table cellpadding="0" cellspacing="0" class="table">
-	<tr>
-		<th scope="col" class="w5"><?php echo e('common_id'); ?></th>
-		<th scope="col"><?php echo e('admin_parties_party'); ?></th>
-		<th scope="col" class="w15"><?php echo e('admin_parties_alias'); ?></th>
-		<th scope="col" class="w45"><?php echo e('admin_parties_description'); ?></th>
-		<th scope="col" class="w10"><?php echo e('common_actions'); ?></th>
-	</tr>
-	<?php if (empty($parties)): ?>
-	<tr>
-		<td colspan="5" align="center"><em><?php echo e('admin_parties_no_parties'); ?></em></td>
-	</tr>
-	<?php else: ?>
-	<?php $i = 0; ?>
-	<?php foreach ($parties as $party): ?>
-	<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even'  ?>">
-		<td align="center">
-			<?php echo $party['id']; ?>
-		</td>
-		<td>
-			<?php echo anchor('admin/parties/edit/' . $party['id'], $party['party']); ?>
-		</td>
-		<td>
-			<?php echo $party['alias']; ?>
-		</td>
-		<td>
-			<?php echo nl2br($party['description']); ?>
-		</td>
-		<td align="center">
-			<?php echo anchor('admin/parties/edit/' . $party['id'], img(array('src' => 'public/images/edit.png', 'alt' => e('common_edit'))), 'title="' . e('common_edit') . '"'); ?> |
-			<?php echo anchor('admin/parties/delete/' . $party['id'], img(array('src' => 'public/images/delete.png', 'alt' => e('common_delete'))), 'class="confirmDelete" title="' . e('common_delete') . '"'); ?>
-		</td>
-	</tr>
-	<?php $i = $i + 1; ?>
-	<?php endforeach; ?>
-	<?php endif; ?>
+<h1>Manage parties <small>Event: <?php echo $this->session->userdata('manage_event_event'); ?></small></h1>
+<ul class="nav nav-pills nav-admin">
+  <li class="active"><?php echo anchor('admin/parties', '<span class="glyphicon glyphicon-list"></span> List all'); ?></li>
+  <li><?php echo anchor('admin/parties/add', '<span class="glyphicon glyphicon-plus"></span> Add new'); ?></li>
+</ul>
+<?php echo alert(validation_errors('&nbsp;', '<br />'), $this->session->flashdata('messages')); ?>
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th>Party</th>
+      <th>Alias</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($parties as $i => $party): ?>
+    <tr>
+      <td class="text-center"><?php echo $i + 1; ?></td>
+      <td><?php echo $party['party']; ?></td>
+      <td><?php echo $party['alias']; ?></td>
+      <td><?php echo $party['description']; ?></td>
+      <td>
+        <?php echo anchor('admin/parties/edit/' . $party['id'], '<span class="glyphicon glyphicon-pencil"></span> Edit', 'class="btn btn-default"'); ?>
+        <?php echo anchor('admin/parties/delete/' . $party['id'], '<span class="glyphicon glyphicon-trash"></span> Delete', 'class="btn btn-danger"'); ?>
+      </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
 </table>
