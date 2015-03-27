@@ -9,7 +9,7 @@
     <tr>
       <th class="text-center">#</th>
       <th>Block</th>
-      <th>Descriptionn</th>
+      <th>Description</th>
       <th>Actions</th>
     </tr>
   </thead>
