@@ -5,7 +5,7 @@ Halalan, the Filipino word for *election*, is an open-source voting system desig
 
 ### System Requirements
 
-Halalan requires that the production server used has PHP 5.4+ installed and MySQL.
+Halalan requires that the production server used has PHP 5.4+ and MySQL installed.
 
 ### Contributing
 In the case that you want to contribute to the project, please fork the project first and work from there. To submit your changes to the core development team for reviewing, please create a pull request. If your changes are accepted, your code will be merged to the main code.
